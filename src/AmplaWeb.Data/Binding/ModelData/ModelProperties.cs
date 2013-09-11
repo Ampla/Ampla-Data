@@ -18,10 +18,13 @@ namespace AmplaWeb.Data.Binding.ModelData
 
         public ModelProperties()
         {
+            AmplaModules? temp;
             bool ok = AmplaLocationAttribute.TryGetLocation<TModel>(out location);
-            ok &= AmplaModuleAttribute.TryGetModule<TModel>(out module);
+            ok &= AmplaModuleAttribute.TryGetModule<TModel>(out temp);
 
             if (!ok) throw new ArgumentException("Unable to read the AmplaLocationAttribute or AmplaModuleAttribute on type: " + typeof(TModel).FullName);
+
+            module = temp ?? AmplaModules.Downtime;
 
             List<string> properties = new List<string>();
             foreach (PropertyInfo property in typeof(TModel).GetProperties())

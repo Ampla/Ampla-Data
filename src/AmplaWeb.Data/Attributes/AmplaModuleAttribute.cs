@@ -10,6 +10,28 @@ namespace AmplaWeb.Data.Attributes
     [AttributeUsage(AttributeTargets.Class)]
     public class AmplaModuleAttribute : Attribute
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AmplaModuleAttribute"/> class.
+        /// </summary>
+        public AmplaModuleAttribute()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AmplaModuleAttribute"/> class.
+        /// </summary>
+        /// <param name="module">The module.</param>
+        public AmplaModuleAttribute(string module)
+        {
+            Module = module;
+        }
+
+        /// <summary>
+        /// Gets or sets the module.
+        /// </summary>
+        /// <value>
+        /// The module.
+        /// </value>
         public string Module { get; set; }
 
         /// <summary>
@@ -18,15 +40,19 @@ namespace AmplaWeb.Data.Attributes
         /// <typeparam name="TModel">The type of the model.</typeparam>
         /// <param name="amplaModule">The ampla module.</param>
         /// <returns></returns>
-        public static bool TryGetModule<TModel>(out AmplaModules amplaModule)
+        public static bool TryGetModule<TModel>(out AmplaModules? amplaModule)
         {
             AmplaModuleAttribute attribute;
             if (typeof(TModel).TryGetAttribute(out attribute))
             {
-                Enum.TryParse(attribute.Module, out amplaModule);
-                return true;
+                AmplaModules module;
+                if (Enum.TryParse(attribute.Module, out module))
+                {
+                    amplaModule = module;
+                    return true;
+                }
             }
-            amplaModule = AmplaModules.Downtime;
+            amplaModule = null;
             return false;
         }
     }

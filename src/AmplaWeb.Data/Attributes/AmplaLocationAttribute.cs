@@ -9,6 +9,28 @@ namespace AmplaWeb.Data.Attributes
     [AttributeUsage(AttributeTargets.Class)]
     public class AmplaLocationAttribute : Attribute
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AmplaLocationAttribute"/> class.
+        /// </summary>
+        public AmplaLocationAttribute()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AmplaLocationAttribute"/> class.
+        /// </summary>
+        /// <param name="location">The location.</param>
+        public AmplaLocationAttribute(string location)
+        {
+            Location = location;
+        }
+
+        /// <summary>
+        /// Gets or sets the location.
+        /// </summary>
+        /// <value>
+        /// The location.
+        /// </value>
         public string Location { get; set; }
 
         /// <summary>
