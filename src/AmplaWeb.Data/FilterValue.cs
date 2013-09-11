@@ -1,4 +1,4 @@
-﻿namespace AmplaWeb.Data.AmplaRespository
+﻿namespace AmplaWeb.Data
 {
     public class FilterValue
     {
