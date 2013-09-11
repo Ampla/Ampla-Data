@@ -8,7 +8,7 @@ using AmplaWeb.Data.Binding.MetaData;
 
 namespace AmplaWeb.Data.Binding.ModelData
 {
-    public class ModelProperties<TModel> where TModel : new()
+    public class ModelProperties<TModel> : IModelProperties<TModel> where TModel : new()
     {
         private readonly Dictionary<string, PropertyInfo> propertyInfoDictionary = new Dictionary<string, PropertyInfo>();
         private readonly Dictionary<string, TypeConverter> typeConverterDictionary = new Dictionary<string, TypeConverter>();
@@ -16,6 +16,9 @@ namespace AmplaWeb.Data.Binding.ModelData
         private readonly string location;
         private readonly AmplaModules module;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ModelProperties{TModel}"/> class.
+        /// </summary>
         public ModelProperties()
         {
             AmplaModules? temp;
@@ -43,21 +46,34 @@ namespace AmplaWeb.Data.Binding.ModelData
                     }
                 }
                 typeConverterDictionary[propertyName] = typeConverter;
-
             }
             propertyNames = properties.ToArray();
         }
 
+
+        /// <summary>
+        ///     The Ampla Location that the model represents
+        /// </summary>
         public string Location
         {
             get { return location; }
         }
 
+        /// <summary>
+        ///     The Ampla module 
+        /// </summary>
         public AmplaModules Module
         {
             get { return module; }
         }
 
+        /// <summary>
+        /// Tries to set a string value of the property for the model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         public bool TrySetValueFromString(TModel model, string propertyName, string value)
         {
             PropertyInfo property;
@@ -66,53 +82,35 @@ namespace AmplaWeb.Data.Binding.ModelData
             {
                 if (property.CanWrite)
                 {
-                    object propertyValue = ConvertFromString(propertyName, value);
-                    property.SetValue(model, propertyValue, null);
-                    return true;
+                    object propertyValue;
+                    if (TryConvertFromString(property.PropertyType, propertyName, value, out propertyValue))
+                    {
+                        property.SetValue(model, propertyValue, null);
+                        return true;
+                    }
                 }
             }
             return false;
         }
 
-        private object ConvertFromString(string propertyName, string value)
-        {
-            TypeConverter converter;
 
-            return typeConverterDictionary.TryGetValue(propertyName, out converter) 
-                ? converter.ConvertFromInvariantString(value) 
-                : value;
-        }
-
-        private string ConvertToString(string propertyName, object value)
-        {
-            TypeConverter converter;
-
-            return typeConverterDictionary.TryGetValue(propertyName, out converter)
-                ? converter.ConvertToInvariantString(value)
-                : null;
-        }
-
-        public IEnumerable<string> GetProperties()
+        /// <summary>
+        /// Gets a list of the property names of the model
+        /// </summary>
+        /// <returns></returns>
+        public IList<string> GetProperties()
         {
             return propertyNames;
         }
 
-        public bool IsDefaultValue(TModel model, string propertyName)
-        {
-            PropertyInfo property;
-            if (propertyInfoDictionary.TryGetValue(propertyName, out property))
-            {
-                TModel defaultModel = new TModel();
-                
-                object defaultProperty = property.GetValue(defaultModel, null);
-                object currentValue = property.GetValue(model, null);
-
-                return Equals(currentValue, defaultProperty);
-            }
-            return false;
-        }
-
-        public bool TryGetPropertyValue(object model, string propertyName, out string value)
+        /// <summary>
+        /// Try to get the value of the property from the model as a string
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
+        public bool TryGetPropertyValue(TModel model, string propertyName, out string value)
         {
             PropertyInfo property;
 
@@ -120,10 +118,46 @@ namespace AmplaWeb.Data.Binding.ModelData
             {
                 if (property.CanRead)
                 {
-                    object propertyValue = property.GetValue(model, null);
-                    value = ConvertToString(propertyName, propertyValue);
-                    return true;
+                    var propertyValue = property.GetValue(model, null);
+                    if (TryConvertToString(property.PropertyType, propertyName, propertyValue, out value))
+                    {
+                        return true;
+                    }
                 }
+            }
+            value = null;
+            return false;
+        }
+
+        private bool TryConvertFromString(Type type, string propertyName, string stringValue, out object value)
+        {
+            TypeConverter converter;
+            if (typeConverterDictionary.TryGetValue(propertyName, out converter))
+            {
+                if (stringValue == null)
+                {
+                    value = null;
+                    return !type.IsValueType;
+                }
+                value = converter.ConvertFromInvariantString(stringValue);
+                return true;
+            }
+            value = null;
+            return false;
+        }
+
+        private bool TryConvertToString(Type type, string propertyName, object propertyValue, out string value)
+        {
+            TypeConverter converter;
+            if (typeConverterDictionary.TryGetValue(propertyName, out converter))
+            {
+                if (propertyValue == null)
+                {
+                    value = null;
+                    return !type.IsValueType;
+                }
+                value = converter.ConvertToInvariantString(propertyValue);
+                return true;
             }
             value = null;
             return false;
