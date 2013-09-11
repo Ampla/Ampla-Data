@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using AmplaWeb.Data;
-using AmplaWeb.Data.AmplaRespository;
+
 using AmplaWeb.Data.Controllers;
 using AmplaWeb.Sample.Models;
 

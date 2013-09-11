@@ -3,7 +3,7 @@ using AmplaWeb.Data.BootstrapSupport;
 
 namespace AmplaWeb.Data.Controllers
 {
-    public class BootstrapBaseController: Controller
+    public class BootstrapBaseController : Controller
     {
         public void Attention(string message)
         {

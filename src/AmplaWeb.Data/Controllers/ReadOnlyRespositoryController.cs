@@ -1,8 +1,6 @@
 ﻿using System.Web.Mvc;
-using AmplaWeb.Data;
-using AmplaWeb.Data.Controllers;
 
-namespace AmplaWeb.Sample.Controllers
+namespace AmplaWeb.Data.Controllers
 {
     public abstract class ReadOnlyRepositoryController<TModel> : BootstrapBaseController where TModel : class, new()
     {
