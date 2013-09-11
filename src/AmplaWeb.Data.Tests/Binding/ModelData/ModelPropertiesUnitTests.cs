@@ -19,6 +19,26 @@ namespace AmplaWeb.Data.Binding.ModelData
             public double Value { get; set; }
         }
 
+        public class ModelWithReadOnly : SimpleModel
+        {
+            public string ReadOnlyName
+            {
+                get { return Name; }
+            }
+        }
+
+        public class ModelWithWriteOnly : SimpleModel
+        {
+            public string WriteOnlyName
+            {
+                set { Name = value; }
+            }
+        }
+
+        public class InheritedModel : SimpleModel
+        {
+        }
+        
         public class EmptyModel
         {
         }
@@ -34,6 +54,19 @@ namespace AmplaWeb.Data.Binding.ModelData
             Assert.That(properties, Contains.Item("Id").And.Contains("Name").And.Contains("Value"));
             Assert.That(properties.Count, Is.EqualTo(3));
         }
+
+        [Test]
+        public void TestInheritedModel()
+        {
+            ModelProperties<InheritedModel> modelProperties = new ModelProperties<InheritedModel>();
+            Assert.That(modelProperties.Location, Is.EqualTo("Enterprise.Site.Area.Simple"));
+            Assert.That(modelProperties.Module, Is.EqualTo(AmplaModules.Production));
+
+            IList<string> properties = modelProperties.GetProperties();
+            Assert.That(properties, Contains.Item("Id").And.Contains("Name").And.Contains("Value"));
+            Assert.That(properties.Count, Is.EqualTo(3));
+        }
+
 
         [Test]
         public void ConstructorThrowsWhenNoAttributes()

@@ -12,6 +12,15 @@ namespace AmplaWeb.Data.Attributes
         {
         }
 
+        public class InheritedModelWithModule : ModelWithModule
+        {
+        }
+
+        [AmplaModule(Module = "Quality")]
+        public class OverriddenModelWithModule : ModelWithModule
+        {
+        }
+        
         [AmplaModule]
         public class ModelWithNoModule
         {
@@ -43,6 +52,26 @@ namespace AmplaWeb.Data.Attributes
             bool result = AmplaModuleAttribute.TryGetModule<ModelWithModule>(out module);
 
             Assert.That(module, Is.EqualTo(AmplaModules.Production));
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void TryGetInheritedWithModule()
+        {
+            AmplaModules? module;
+            bool result = AmplaModuleAttribute.TryGetModule<InheritedModelWithModule>(out module);
+
+            Assert.That(module, Is.EqualTo(AmplaModules.Production));
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void TryGetOverriddenModelWithModule()
+        {
+            AmplaModules? module;
+            bool result = AmplaModuleAttribute.TryGetModule<OverriddenModelWithModule>(out module);
+
+            Assert.That(module, Is.EqualTo(AmplaModules.Quality));
             Assert.That(result, Is.True);
         }
 

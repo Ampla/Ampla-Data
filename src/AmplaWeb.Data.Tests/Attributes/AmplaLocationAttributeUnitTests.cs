@@ -11,6 +11,15 @@ namespace AmplaWeb.Data.Attributes
         {
         }
 
+        public class InheritedModelWithLocation : ModelWithLocation
+        {
+        }
+
+        [AmplaLocation(Location = "Enterprise.Site.Area.Overridden")]
+        public class ModelWithOverriddenLocation : ModelWithLocation
+        {
+        }
+
         [AmplaLocation]
         public class ModelWithNoLocation
         {
@@ -37,6 +46,26 @@ namespace AmplaWeb.Data.Attributes
             bool result = AmplaLocationAttribute.TryGetLocation<ModelWithLocation>(out location);
         
             Assert.That(location, Is.EqualTo("Enterprise.Site.Area.Point"));
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void TryGetInheritedWithLocation()
+        {
+            string location;
+            bool result = AmplaLocationAttribute.TryGetLocation<InheritedModelWithLocation>(out location);
+
+            Assert.That(location, Is.EqualTo("Enterprise.Site.Area.Point"));
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void TryGetModelWithOverriddenLocation()
+        {
+            string location;
+            bool result = AmplaLocationAttribute.TryGetLocation<ModelWithOverriddenLocation>(out location);
+
+            Assert.That(location, Is.EqualTo("Enterprise.Site.Area.Overridden"));
             Assert.That(result, Is.True);
         }
 
