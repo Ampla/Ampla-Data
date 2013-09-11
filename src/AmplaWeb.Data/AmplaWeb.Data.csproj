@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AmplaWeb.Data</RootNamespace>
+    <AssemblyName>AmplaWeb.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
+    <Compile Include="AmplaRespository\AmplaRepository.cs" />
+    <Compile Include="AmplaRespository\AmplaRepositorySet.cs" />
+    <Compile Include="AmplaRespository\FilterValue.cs" />
+    <Compile Include="Binding\AmplaUnconfirmDataBinding.cs" />
+    <Compile Include="Binding\AmplaConfirmDataBinding.cs" />
+    <Compile Include="Binding\Mapping\ConstantFieldMapping.cs" />
+    <Compile Include="Binding\Mapping\DefaultValueFieldMapping.cs" />
+    <Compile Include="Binding\Mapping\FieldMapping.cs" />
+    <Compile Include="Binding\Mapping\IdFieldMapping.cs" />
+    <Compile Include="Binding\Mapping\LocationFieldMapping.cs" />
+    <Compile Include="Binding\Mapping\ModelFieldMapping.cs" />
+    <Compile Include="Binding\Mapping\ReadOnlyFieldMapping.cs" />
+    <Compile Include="Binding\MetaData\DataTypeHelper.cs" />
+    <Compile Include="Binding\MetaData\DateTimeExtensions.cs" />
+    <Compile Include="Binding\ViewData\ViewCollection.cs" />
+    <Compile Include="Binding\ViewData\ViewPeriodsCollection.cs" />
+    <Compile Include="Binding\ViewData\ViewField.cs" />
+    <Compile Include="Binding\ViewData\ViewFilter.cs" />
+    <Compile Include="Binding\ViewData\ViewPeriod.cs" />
+    <Compile Include="BootstrapSupport\Alerts.cs" />
+    <Compile Include="Controllers\BootstrapBaseController.cs" />
+    <Compile Include="Controllers\ReadOnlyRespositoryController.cs" />
+    <Compile Include="Controllers\RespositoryController.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IRepositorySet.cs" />
+    <Compile Include="Attributes\AmplaLocationAttribute.cs" />
+    <Compile Include="AmplaRespository\AmplaReadOnlyRepository.cs" />
+    <Compile Include="IReadOnlyRepository.cs" />
+    <Compile Include="Attributes\AmplaModuleAttribute.cs" />
+    <Compile Include="Binding\AmplaBinding.cs" />
+    <Compile Include="Binding\AmplaDeleteDataBinding.cs" />
+    <Compile Include="Binding\AmplaGetDataBinding.cs" />
+    <Compile Include="Binding\AmplaAddDataBinding.cs" />
+    <Compile Include="Binding\AmplaUpdateDataBinding.cs" />
+    <Compile Include="Binding\ViewData\AmplaViewProperties.cs" />
+    <Compile Include="Binding\ModelData\ModelProperties.cs" />
+    <Compile Include="Binding\ModelData\Property.cs" />
+    <Compile Include="Binding\ViewData\ViewPermissions.cs" />
+    <Compile Include="Binding\MetaData\ReflectionHelper.cs" />
+    <Compile Include="Binding\ModelData\ModelIdentifier.cs" />
+    <Compile Include="AmplaData2008\IDataWebServiceClient.cs" />
+    <Compile Include="Binding\ViewData\ViewFieldsCollection.cs" />
+    <Compile Include="Binding\ViewData\ViewFiltersCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\AmplaData2008\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\AmplaData2008\DataWebService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AmplaData2008\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AmplaData2008\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

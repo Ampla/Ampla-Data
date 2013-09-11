@@ -1,0 +1,1931 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.citect.com/Ampla/Data/2008/06" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="DataWebService" targetNamespace="http://www.citect.com/Ampla/Data/2008/06" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IDataWebService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://www.citect.com/Ampla/Data/2008/06">
+      <xsd:element name="GetDataRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetDataRequest" type="tns:GetDataRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetDataRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="View" type="tns:GetDataView" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Filter" type="tns:DataFilter" />
+          <xsd:element minOccurs="0" maxOccurs="1" default="true" name="Metadata" type="xsd:boolean" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="OutputOptions" type="tns:GetDataOutputOptions" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Localization" type="tns:Localization" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Credentials">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Username" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Password" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Session" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetDataView">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Context" type="tns:NavigationContext" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Mode" type="tns:NavigationMode" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Fields" type="tns:ArrayOfString" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ModelFields" type="tns:ArrayOfString" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="NavigationContext">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Plant" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="NavigationMode">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Location" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="AmplaModules">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Downtime" />
+          <xsd:enumeration value="Production" />
+          <xsd:enumeration value="Metrics" />
+          <xsd:enumeration value="Quality" />
+          <xsd:enumeration value="Cost" />
+          <xsd:enumeration value="Knowledge" />
+          <xsd:enumeration value="Maintenance" />
+          <xsd:enumeration value="Planning" />
+          <xsd:enumeration value="Inventory" />
+          <xsd:enumeration value="Energy" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ArrayOfString">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="FieldName" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DataFilter">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SamplePeriod" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" default="False" name="Deleted" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Criteria" type="tns:ArrayOfFilterEntry" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfFilterEntry">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="FilterEntries" type="tns:FilterEntry" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="FilterEntry">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetDataOutputOptions">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="ResolveIdentifiers" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Localization">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" default="en-US" name="Language" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetDataResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetDataResponse" type="tns:GetDataResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetDataResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Context" type="tns:GetDataResponseContext" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="RowSets" type="tns:ArrayOfRowSet" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetDataResponseContext">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Context" type="tns:NavigationContext" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Mode" type="tns:NavigationMode" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ViewName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Fields" type="tns:ArrayOfString" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ModelFields" type="tns:ArrayOfString" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Filter" type="tns:GetDataResponseFilter" />
+          <xsd:element minOccurs="0" maxOccurs="1" default="true" name="Metadata" type="xsd:boolean" />
+          <xsd:element minOccurs="0" maxOccurs="1" default="false" name="ResolveIdentifiers" type="xsd:boolean" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Localization" type="tns:Localization" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetDataResponseFilter">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SamplePeriod" type="tns:SamplePeriodFilter" />
+          <xsd:element minOccurs="0" maxOccurs="1" default="False" name="Deleted" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Criteria" type="tns:ArrayOfFilterEntry" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SamplePeriodFilter">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Start" type="xsd:dateTime" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="End" type="xsd:dateTime" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfRowSet">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="RowSet" nillable="true" type="tns:RowSet" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RowSet">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Columns" type="tns:ArrayOfFieldDefinition" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Rows" type="tns:ArrayOfRow" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="BusinessRules" type="tns:ArrayOfBusinessRule" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="BusinessRuleResults" type="tns:ArrayOfBusinessRuleResult" />
+        </xsd:sequence>
+        <xsd:attribute default="false" name="resultsTruncated" type="xsd:boolean" />
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfFieldDefinition">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Column" type="tns:FieldDefinition" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="FieldDefinition">
+        <xsd:attribute name="name" type="xsd:string" />
+        <xsd:attribute name="type" type="xsd:string" />
+        <xsd:attribute name="displayName" type="xsd:string" />
+        <xsd:attribute name="localizedDisplayName" type="xsd:string" />
+        <xsd:attribute name="category" type="xsd:string" />
+        <xsd:attribute name="subCategory" type="xsd:string" />
+        <xsd:attribute name="clrFormat" type="xsd:string" />
+        <xsd:attribute name="units" type="xsd:string" />
+        <xsd:attribute name="displayOrder" type="xsd:long" />
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfRow">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Row" type="tns:Row" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Row">
+        <xsd:sequence>
+          <xsd:any minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="TextColor" type="xsd:string" />
+        <xsd:attribute name="BackgroundColor" type="xsd:string" />
+        <xsd:attribute name="id" type="xsd:string" />
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfBusinessRule">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BusinessRule" type="tns:BusinessRule" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BusinessRule">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="FullName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Explanation" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="DisplayOrder" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="BackgroundColor" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="TextColor" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="LookupKey" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfBusinessRuleResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BusinessRuleResult" type="tns:BusinessRuleResult" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="BusinessRuleResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Id" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="LookupKeys" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SystemErrors">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfSystemError" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="SystemErrors" nillable="true" type="tns:SystemErrors" />
+      <xsd:complexType name="ArrayOfSystemError">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="SystemError" nillable="true" type="tns:SystemError" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfSystemError" nillable="true" type="tns:ArrayOfSystemError" />
+      <xsd:complexType name="SystemError">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Code" type="tns:SystemErrorCode" />
+          <xsd:element minOccurs="0" name="Message" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="StackTrace" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="SystemError" nillable="true" type="tns:SystemError" />
+      <xsd:simpleType name="SystemErrorCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Database" />
+          <xsd:enumeration value="Network" />
+          <xsd:enumeration value="Unknown" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="SystemErrorCode" nillable="true" type="tns:SystemErrorCode" />
+      <xsd:complexType name="BusinessErrors">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfBusinessError" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="BusinessErrors" nillable="true" type="tns:BusinessErrors" />
+      <xsd:complexType name="ArrayOfBusinessError">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="BusinessError" nillable="true" type="tns:BusinessError" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ArrayOfBusinessError" nillable="true" type="tns:ArrayOfBusinessError" />
+      <xsd:complexType name="BusinessError">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="RecordIndex" type="xsd:long" />
+          <xsd:element minOccurs="0" name="Code" type="tns:BusinessErrorCode" />
+          <xsd:element minOccurs="0" name="Message" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" name="StackTrace" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="BusinessError" nillable="true" type="tns:BusinessError" />
+      <xsd:simpleType name="BusinessErrorCode">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="InvalidRequest" />
+          <xsd:enumeration value="ConfigurationMismatch" />
+          <xsd:enumeration value="AccessDenied" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="BusinessErrorCode" nillable="true" type="tns:BusinessErrorCode" />
+      <xsd:element name="SubmitDataRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="SubmitDataRequest" type="tns:SubmitDataRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="SubmitDataRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SubmitDataRecords" type="tns:ArrayOfSubmitDataRecord" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfSubmitDataRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Records" type="tns:SubmitDataRecord" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SubmitDataRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="MergeCriteria" type="tns:MergeCriteria" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Fields" type="tns:ArrayOfField" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MergeCriteria">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="SetId" type="xsd:long" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="KeyFieldNames" type="tns:ArrayOfString" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfField">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Field" type="tns:Field" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Field">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Value" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="SubmitDataResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="SubmitDataResponse" type="tns:SubmitDataResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="SubmitDataResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="DataSubmissionResults" type="tns:ArrayOfDataSubmissionResult" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfDataSubmissionResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="DataSubmissionResult" type="tns:DataSubmissionResult" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DataSubmissionResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="SetId" type="xsd:long" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="RecordAction" type="tns:RecordAction" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="RecordAction">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Insert" />
+          <xsd:enumeration value="Update" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="GetNavigationHierarchyRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetNavigationHierarchyRequest" type="tns:GetNavigationHierarchyRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetNavigationHierarchyRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Context" type="tns:NavigationContext" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Mode" type="tns:NavigationMode" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Localization" type="tns:Localization" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetNavigationHierarchyResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetNavigationHierarchyResponse" type="tns:GetNavigationHierarchyResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetNavigationHierarchyResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Context" type="tns:GetNavigationHierarchyResponseContext" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Hierarchy" type="tns:Hierarchy" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetNavigationHierarchyResponseContext">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Context" type="tns:NavigationContext" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Mode" type="tns:NavigationMode" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Localization" type="tns:Localization" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Hierarchy">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="ViewPoints" type="tns:ArrayOfViewPoint" />
+        </xsd:sequence>
+        <xsd:attribute name="module" type="tns:AmplaModules" />
+        <xsd:attribute name="mode" type="tns:NavigationMode" />
+        <xsd:attribute name="context" type="tns:NavigationContext" />
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfViewPoint">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="ViewPoint" type="tns:ViewPoint" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ViewPoint">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="DisplayName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="LocalizedDisplayName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ViewPoints" type="tns:ArrayOfViewPoint" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ReportingPoints" type="tns:ArrayOfGetNavigationReportingPoint" />
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" />
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfGetNavigationReportingPoint">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="ReportingPoint" type="tns:GetNavigationReportingPoint" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetNavigationReportingPoint">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="DisplayName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="LocalizedDisplayName" type="xsd:string" />
+        </xsd:sequence>
+        <xsd:attribute name="id" type="xsd:string" />
+      </xsd:complexType>
+      <xsd:element name="GetViewsRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetViewsRequest" type="tns:GetViewsRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetViewsRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Context" type="tns:NavigationContext" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Mode" type="tns:NavigationMode" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ViewPoint" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Localization" nillable="true" type="tns:Localization" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetViewsResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetViewsResponse" type="tns:GetViewsResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetViewsResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Context" type="tns:GetViewsResponseContext" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Views" type="tns:ArrayOfGetView" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetViewsResponseContext">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Context" type="tns:NavigationContext" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Mode" type="tns:NavigationMode" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="ViewPoint" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Localization" type="tns:Localization" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfGetView">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="View" type="tns:GetView" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetView">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="DisplayName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="LocalizedDisplayName" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="AllowedOperations" type="tns:ArrayOfGetViewsAllowedOperation" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Fields" type="tns:ArrayOfGetViewsField" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Filters" type="tns:ArrayOfGetViewsFilter" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Periods" type="tns:ArrayOfGetViewsPeriod" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" />
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfGetViewsAllowedOperation">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AllowedOperation" type="tns:GetViewsAllowedOperation" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetViewsAllowedOperation">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Operation" type="tns:ViewAllowedOperations" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Allowed" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="ViewAllowedOperations">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="AddRecord" />
+          <xsd:enumeration value="ModifyRecord" />
+          <xsd:enumeration value="DeleteRecord" />
+          <xsd:enumeration value="ViewRecord" />
+          <xsd:enumeration value="ConfirmRecord" />
+          <xsd:enumeration value="UnconfirmRecord" />
+          <xsd:enumeration value="SplitRecord" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="ArrayOfGetViewsField">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Field" type="tns:GetViewsField" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetViewsField">
+        <xsd:attribute name="name" type="xsd:string" />
+        <xsd:attribute name="type" type="xsd:string" />
+        <xsd:attribute name="displayName" type="xsd:string" />
+        <xsd:attribute name="localizedDisplayName" type="xsd:string" />
+        <xsd:attribute default="false" name="readOnly" type="xsd:boolean" />
+        <xsd:attribute default="false" name="required" type="xsd:boolean" />
+        <xsd:attribute default="false" name="hasAllowedValues" type="xsd:boolean" />
+        <xsd:attribute default="false" name="hasRelationshipMatrixValues" type="xsd:boolean" />
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfGetViewsFilter">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Filter" type="tns:GetViewsFilter" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetViewsFilter">
+        <xsd:attribute name="name" type="xsd:string" />
+        <xsd:attribute name="type" type="xsd:string" />
+        <xsd:attribute name="displayName" type="xsd:string" />
+        <xsd:attribute name="localizedDisplayName" type="xsd:string" />
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfGetViewsPeriod">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Period" type="tns:GetViewsPeriod" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetViewsPeriod">
+        <xsd:attribute name="name" type="xsd:string" />
+        <xsd:attribute name="displayName" type="xsd:string" />
+        <xsd:attribute name="localizedDisplayName" type="xsd:string" />
+      </xsd:complexType>
+      <xsd:element name="GetAuditDataRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetAuditDataRequest" type="tns:GetAuditDataRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetAuditDataRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Filter" type="tns:GetAuditDataFilter" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Localization" type="tns:Localization" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetAuditDataFilter">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SetId" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="EditedBy" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="EditedSamplePeriod" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="RecordType" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetAuditDataResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetAuditDataResponse" type="tns:GetAuditDataResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetAuditDataResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Context" type="tns:GetAuditDataResponseContext" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="RowSets" type="tns:ArrayOfGetAuditDataRowSet" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetAuditDataResponseContext">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Filter" type="tns:GetAuditDataResponseFilter" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Localization" type="tns:Localization" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetAuditDataResponseFilter">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="SetId" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="EditedBy" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="EditedSamplePeriod" type="tns:SamplePeriodFilter" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="RecordType" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfGetAuditDataRowSet">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="RowSet" nillable="true" type="tns:GetAuditDataRowSet" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetAuditDataRowSet">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Rows" type="tns:ArrayOfGetAuditDataRow" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfGetAuditDataRow">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Row" type="tns:GetAuditDataRow" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetAuditDataRow">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="SetId" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="EditedBy" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="EditedDateTime" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Field" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="OriginalValue" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="EditedValue" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="RecordType" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="UpdateRecordStatusRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="UpdateRecordStatusRequest" type="tns:UpdateRecordStatusRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="UpdateRecordStatusRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="UpdateRecords" type="tns:ArrayOfUpdateRecordStatus" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfUpdateRecordStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="UpdateRecordStatus" nillable="true" type="tns:UpdateRecordStatus" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateRecordStatus">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="MergeCriteria" type="tns:UpdateRecordStatusMergeCriteria" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="RecordAction" type="tns:UpdateRecordStatusAction" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateRecordStatusMergeCriteria">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="SetId" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="UpdateRecordStatusAction">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Confirm" />
+          <xsd:enumeration value="Unconfirm" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="UpdateRecordStatusResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="UpdateRecordStatusResponse" type="tns:UpdateRecordStatusResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="UpdateRecordStatusResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="UpdateRecordStatusResults" type="tns:ArrayOfUpdateRecordStatusResult" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfUpdateRecordStatusResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="UpdateRecordStatusResult" type="tns:UpdateRecordStatusResult" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UpdateRecordStatusResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="SetId" type="xsd:long" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="RecordAction" type="tns:UpdateRecordStatusAction" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="DeleteRecordsRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="DeleteRecordsRequest" type="tns:DeleteRecordsRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="DeleteRecordsRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="DeleteRecords" type="tns:ArrayOfDeleteRecord" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfDeleteRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="DeleteRecord" nillable="true" type="tns:DeleteRecord" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DeleteRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="MergeCriteria" type="tns:DeleteRecordsMergeCriteria" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DeleteRecordsMergeCriteria">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="SetId" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="DeleteRecordsResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="DeleteRecordsResponse" type="tns:DeleteRecordsResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="DeleteRecordsResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="DeleteRecordsResults" type="tns:ArrayOfDeleteRecordsResult" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfDeleteRecordsResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="DeleteRecordsResult" type="tns:DeleteRecordsResult" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DeleteRecordsResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="SetId" type="xsd:long" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="RecordAction" type="tns:DeleteRecordsAction" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="DeleteRecordsAction">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Delete" />
+          <xsd:enumeration value="Undelete" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="GetAllowedValuesRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetAllowedValuesRequest" type="tns:GetAllowedValuesRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetAllowedValuesRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Fields" type="tns:ArrayOfString1" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfString1">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Field" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetAllowedValuesResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetAllowedValuesResponse" type="tns:GetAllowedValuesResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetAllowedValuesResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Context" type="tns:GetAllowedValuesResponseContext" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="AllowedValueFields" type="tns:ArrayOfAllowedValueField" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetAllowedValuesResponseContext">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Fields" type="tns:ArrayOfString1" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfAllowedValueField">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AllowedValueField" type="tns:AllowedValueField" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AllowedValueField">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Field" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="AllowedValues" type="tns:ArrayOfString2" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfString2">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="AllowedValue" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetRelationshipMatrixValuesRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetRelationshipMatrixValuesRequest" type="tns:GetRelationshipMatrixValuesRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetRelationshipMatrixValuesRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="DependentFieldValues" type="tns:ArrayOfDependentFieldValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfDependentFieldValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="DependentFieldValue" type="tns:DependentFieldValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DependentFieldValue">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:string">
+            <xsd:attribute name="name" type="xsd:string" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:element name="GetRelationshipMatrixValuesResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetRelationshipMatrixValuesResponse" type="tns:GetRelationshipMatrixValuesResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetRelationshipMatrixValuesResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Context" type="tns:GetRelationshipMatrixValuesResponseContext" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="RelationshipMatrixValues" type="tns:ArrayOfRelationshipMatrixValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetRelationshipMatrixValuesResponseContext">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="DependentFieldValues" type="tns:ArrayOfDependentFieldValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfRelationshipMatrixValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="RelationshipMatrixValue" type="tns:RelationshipMatrixValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RelationshipMatrixValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="MatrixValues" type="tns:ArrayOfMatrixValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfMatrixValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="MatrixValue" type="tns:MatrixValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MatrixValue">
+        <xsd:simpleContent>
+          <xsd:extension base="xsd:string">
+            <xsd:attribute name="id" type="xsd:string" />
+            <xsd:attribute name="name" type="xsd:string" />
+          </xsd:extension>
+        </xsd:simpleContent>
+      </xsd:complexType>
+      <xsd:element name="GetRelationshipMatrixRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetRelationshipMatrixRequest" type="tns:GetRelationshipMatrixRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetRelationshipMatrixRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetRelationshipMatrixResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetRelationshipMatrixResponse" type="tns:GetRelationshipMatrixResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetRelationshipMatrixResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Context" type="tns:GetRelationshipMatrixResponseContext" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="RelationshipMatrices" type="tns:ArrayOfRelationshipMatrix" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="GetRelationshipMatrixResponseContext">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfRelationshipMatrix">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="RelationshipMatrices" type="tns:RelationshipMatrix" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RelationshipMatrix">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="MatrixFields" type="tns:ArrayOfMatrixField" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfMatrixField">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="MatrixField" type="tns:MatrixField" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MatrixField">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="SplitRecordsRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="SplitRecordsRequest" type="tns:SplitRecordsRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="SplitRecordsRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="OriginalRecord" type="tns:OriginalRecord" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="SplitRecords" type="tns:SplitRecord" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="OriginalRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Module" type="tns:AmplaModules" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Location" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="SetId" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SplitRecord">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="SplitDateTimeUtc" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="FieldUpdates" type="tns:SplitField" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SplitField">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="SplitRecordsResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="SplitRecordsResponse" type="tns:SplitRecordsResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="SplitRecordsResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Context" type="tns:SplitRecordsResponseContext" />
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="SplitRecordResults" type="tns:SplitRecordResult" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SplitRecordsResponseContext">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="OriginalRecord" type="tns:OriginalRecord" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SplitRecordResult">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="SetId" type="xsd:long" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="StartDateTimeUtc" type="xsd:dateTime" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="EndDateTimeUtc" type="xsd:dateTime" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="SubmitCalendarValuesRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="SubmitCalendarValuesRequest" type="tns:SubmitCalendarValuesRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="SubmitCalendarValuesRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Values" type="tns:ArrayOfSubmitCalendarValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfSubmitCalendarValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Value" type="tns:SubmitCalendarValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SubmitCalendarValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Value" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="StartDateTime" type="xsd:dateTime" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Rate" nillable="true" type="tns:CalendarRate" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CalendarRate">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Count" type="xsd:int" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Unit" type="tns:CalendarRateUnit" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="CalendarRateUnit">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Weeks" />
+          <xsd:enumeration value="Days" />
+          <xsd:enumeration value="Hours" />
+          <xsd:enumeration value="Minutes" />
+          <xsd:enumeration value="Seconds" />
+          <xsd:enumeration value="Milliseconds" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="SubmitCalendarValuesResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="SubmitCalendarValuesResponse" type="tns:SubmitCalendarValuesResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="SubmitCalendarValuesResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Count" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCalendarValuesRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetCalendarValuesRequest" type="tns:GetCalendarValuesRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetCalendarValuesRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Filter" type="tns:CalendarFilter" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CalendarFilter">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="Name" nillable="true" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="StartDateTime" nillable="true" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="EndDateTime" nillable="true" type="xsd:dateTime" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCalendarValuesResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetCalendarValuesResponse" type="tns:GetCalendarValuesResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetCalendarValuesResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Values" type="tns:ArrayOfCalendarValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfCalendarValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Value" type="tns:CalendarValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CalendarValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Value" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="StartDateTime" type="xsd:dateTime" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="Rate" nillable="true" type="tns:CalendarRate" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="DeleteCalendarValueRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="DeleteCalendarValueRequest" type="tns:DeleteCalendarValueRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="DeleteCalendarValueRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Value" type="tns:DeleteCalendarValue" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DeleteCalendarValue">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Name" type="xsd:string" />
+          <xsd:element minOccurs="1" maxOccurs="1" name="StartDateTime" type="xsd:dateTime" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="DeleteCalendarValueResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="DeleteCalendarValueResponse" type="tns:DeleteCalendarValueResponse" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="DeleteCalendarValueResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="1" maxOccurs="1" name="DeleteCalendarValueResult" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCalendarNamesRequestMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetCalendarNamesRequest" type="tns:GetCalendarNamesRequest" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="GetCalendarNamesRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Credentials" type="tns:Credentials" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="GetCalendarNamesResponseMessage">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="1" name="GetCalendarNamesResponse" type="tns:ArrayOfString3" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ArrayOfString3">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="CalendarNames" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetDataRequestMessage">
+    <wsdl:part name="parameters" element="tns:GetDataRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetDataResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetDataResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetData_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetData_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="SubmitDataRequestMessage">
+    <wsdl:part name="parameters" element="tns:SubmitDataRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="SubmitDataResponseMessage">
+    <wsdl:part name="parameters" element="tns:SubmitDataResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_SubmitData_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_SubmitData_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="GetNavigationHierarchyRequestMessage">
+    <wsdl:part name="parameters" element="tns:GetNavigationHierarchyRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetNavigationHierarchyResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetNavigationHierarchyResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetNavigationHierarchy_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetNavigationHierarchy_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="GetViewsRequestMessage">
+    <wsdl:part name="parameters" element="tns:GetViewsRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetViewsResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetViewsResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetViews_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetViews_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="GetAuditDataRequestMessage">
+    <wsdl:part name="parameters" element="tns:GetAuditDataRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetAuditDataResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetAuditDataResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetAuditData_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetAuditData_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecordStatusRequestMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRecordStatusRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecordStatusResponseMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRecordStatusResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_UpdateRecordStatus_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_UpdateRecordStatus_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="DeleteRecordsRequestMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRecordsRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="DeleteRecordsResponseMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRecordsResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_DeleteRecords_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_DeleteRecords_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="GetAllowedValuesRequestMessage">
+    <wsdl:part name="parameters" element="tns:GetAllowedValuesRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetAllowedValuesResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetAllowedValuesResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetAllowedValues_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetAllowedValues_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="GetRelationshipMatrixValuesRequestMessage">
+    <wsdl:part name="parameters" element="tns:GetRelationshipMatrixValuesRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetRelationshipMatrixValuesResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetRelationshipMatrixValuesResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetRelationshipMatrixValues_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetRelationshipMatrixValues_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="GetRelationshipMatrixRequestMessage">
+    <wsdl:part name="parameters" element="tns:GetRelationshipMatrixRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetRelationshipMatrixResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetRelationshipMatrixResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetRelationshipMatrix_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetRelationshipMatrix_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="SplitRecordsRequestMessage">
+    <wsdl:part name="parameters" element="tns:SplitRecordsRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="SplitRecordsResponseMessage">
+    <wsdl:part name="parameters" element="tns:SplitRecordsResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_SplitRecords_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_SplitRecords_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="SubmitCalendarValuesRequestMessage">
+    <wsdl:part name="parameters" element="tns:SubmitCalendarValuesRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="SubmitCalendarValuesResponseMessage">
+    <wsdl:part name="parameters" element="tns:SubmitCalendarValuesResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_SubmitCalendarValues_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_SubmitCalendarValues_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="GetCalendarValuesRequestMessage">
+    <wsdl:part name="parameters" element="tns:GetCalendarValuesRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetCalendarValuesResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetCalendarValuesResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetCalendarValues_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetCalendarValues_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCalendarValueRequestMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCalendarValueRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCalendarValueResponseMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCalendarValueResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_DeleteCalendarValue_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_DeleteCalendarValue_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:message name="GetCalendarNamesRequestMessage">
+    <wsdl:part name="parameters" element="tns:GetCalendarNamesRequestMessage" />
+  </wsdl:message>
+  <wsdl:message name="GetCalendarNamesResponseMessage">
+    <wsdl:part name="parameters" element="tns:GetCalendarNamesResponseMessage" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetCalendarNames_SystemErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:SystemErrors" />
+  </wsdl:message>
+  <wsdl:message name="IDataWebService_GetCalendarNames_BusinessErrors_FaultMessage">
+    <wsdl:part name="detail" element="tns:BusinessErrors" />
+  </wsdl:message>
+  <wsdl:portType name="IDataWebService">
+    <wsdl:operation name="GetData">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataIn" name="GetDataRequestMessage" message="tns:GetDataRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataOut" name="GetDataResponseMessage" message="tns:GetDataResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_GetData_SystemErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_GetData_BusinessErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitData">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataIn" name="SubmitDataRequestMessage" message="tns:SubmitDataRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataOut" name="SubmitDataResponseMessage" message="tns:SubmitDataResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_SubmitData_BusinessErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_SubmitData_SystemErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNavigationHierarchy">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHierarchyIn" name="GetNavigationHierarchyRequestMessage" message="tns:GetNavigationHierarchyRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHierarchyOut" name="GetNavigationHierarchyResponseMessage" message="tns:GetNavigationHierarchyResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHierarchyBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_GetNavigationHierarchy_BusinessErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHierarchySystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_GetNavigationHierarchy_SystemErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetViews">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsIn" name="GetViewsRequestMessage" message="tns:GetViewsRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsOut" name="GetViewsResponseMessage" message="tns:GetViewsResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_GetViews_BusinessErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_GetViews_SystemErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuditData">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataIn" name="GetAuditDataRequestMessage" message="tns:GetAuditDataRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataOut" name="GetAuditDataResponseMessage" message="tns:GetAuditDataResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_GetAuditData_BusinessErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_GetAuditData_SystemErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecordStatus">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatusIn" name="UpdateRecordStatusRequestMessage" message="tns:UpdateRecordStatusRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatusOut" name="UpdateRecordStatusResponseMessage" message="tns:UpdateRecordStatusResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatusBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_UpdateRecordStatus_BusinessErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatusSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_UpdateRecordStatus_SystemErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRecords">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsIn" name="DeleteRecordsRequestMessage" message="tns:DeleteRecordsRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsOut" name="DeleteRecordsResponseMessage" message="tns:DeleteRecordsResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_DeleteRecords_BusinessErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_DeleteRecords_SystemErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllowedValues">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesIn" name="GetAllowedValuesRequestMessage" message="tns:GetAllowedValuesRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesOut" name="GetAllowedValuesResponseMessage" message="tns:GetAllowedValuesResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_GetAllowedValues_BusinessErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_GetAllowedValues_SystemErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationshipMatrixValues">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixValuesIn" name="GetRelationshipMatrixValuesRequestMessage" message="tns:GetRelationshipMatrixValuesRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixValuesOut" name="GetRelationshipMatrixValuesResponseMessage" message="tns:GetRelationshipMatrixValuesResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixValuesBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_GetRelationshipMatrixValues_BusinessErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixValuesSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_GetRelationshipMatrixValues_SystemErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationshipMatrix">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixIn" name="GetRelationshipMatrixRequestMessage" message="tns:GetRelationshipMatrixRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixOut" name="GetRelationshipMatrixResponseMessage" message="tns:GetRelationshipMatrixResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_GetRelationshipMatrix_SystemErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_GetRelationshipMatrix_BusinessErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SplitRecords">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsIn" name="SplitRecordsRequestMessage" message="tns:SplitRecordsRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsOut" name="SplitRecordsResponseMessage" message="tns:SplitRecordsResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_SplitRecords_BusinessErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_SplitRecords_SystemErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitCalendarValues">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarValuesIn" name="SubmitCalendarValuesRequestMessage" message="tns:SubmitCalendarValuesRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarValuesOut" name="SubmitCalendarValuesResponseMessage" message="tns:SubmitCalendarValuesResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarValuesSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_SubmitCalendarValues_SystemErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarValuesBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_SubmitCalendarValues_BusinessErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCalendarValues">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValuesIn" name="GetCalendarValuesRequestMessage" message="tns:GetCalendarValuesRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValuesOut" name="GetCalendarValuesResponseMessage" message="tns:GetCalendarValuesResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValuesBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_GetCalendarValues_BusinessErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValuesSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_GetCalendarValues_SystemErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCalendarValue">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarValueIn" name="DeleteCalendarValueRequestMessage" message="tns:DeleteCalendarValueRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarValueOut" name="DeleteCalendarValueResponseMessage" message="tns:DeleteCalendarValueResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarValueSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_DeleteCalendarValue_SystemErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarValueBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_DeleteCalendarValue_BusinessErrors_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCalendarNames">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesIn" name="GetCalendarNamesRequestMessage" message="tns:GetCalendarNamesRequestMessage" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesOut" name="GetCalendarNamesResponseMessage" message="tns:GetCalendarNamesResponseMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesSystemErrorsFault" name="SystemErrors" message="tns:IDataWebService_GetCalendarNames_SystemErrors_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesBusinessErrorsFault" name="BusinessErrors" message="tns:IDataWebService_GetCalendarNames_BusinessErrors_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IDataWebService" type="tns:IDataWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataIn" style="document" />
+      <wsdl:input name="GetDataRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetDataResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitData">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataIn" style="document" />
+      <wsdl:input name="SubmitDataRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SubmitDataResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetNavigationHierarchy">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHierarchyIn" style="document" />
+      <wsdl:input name="GetNavigationHierarchyRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetNavigationHierarchyResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetViews">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsIn" style="document" />
+      <wsdl:input name="GetViewsRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetViewsResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuditData">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataIn" style="document" />
+      <wsdl:input name="GetAuditDataRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAuditDataResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecordStatus">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatusIn" style="document" />
+      <wsdl:input name="UpdateRecordStatusRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="UpdateRecordStatusResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRecords">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsIn" style="document" />
+      <wsdl:input name="DeleteRecordsRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="DeleteRecordsResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllowedValues">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesIn" style="document" />
+      <wsdl:input name="GetAllowedValuesRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAllowedValuesResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationshipMatrixValues">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixValuesIn" style="document" />
+      <wsdl:input name="GetRelationshipMatrixValuesRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetRelationshipMatrixValuesResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationshipMatrix">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixIn" style="document" />
+      <wsdl:input name="GetRelationshipMatrixRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetRelationshipMatrixResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SplitRecords">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsIn" style="document" />
+      <wsdl:input name="SplitRecordsRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SplitRecordsResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitCalendarValues">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarValuesIn" style="document" />
+      <wsdl:input name="SubmitCalendarValuesRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SubmitCalendarValuesResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCalendarValues">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValuesIn" style="document" />
+      <wsdl:input name="GetCalendarValuesRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCalendarValuesResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCalendarValue">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarValueIn" style="document" />
+      <wsdl:input name="DeleteCalendarValueRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="DeleteCalendarValueResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCalendarNames">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesIn" style="document" />
+      <wsdl:input name="GetCalendarNamesRequestMessage">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCalendarNamesResponseMessage">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemErrors">
+        <soap:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessErrors">
+        <soap:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IDataWebService" type="tns:IDataWebService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IDataWebService_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetData">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataIn" style="document" />
+      <wsdl:input name="GetDataRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetDataResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitData">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataIn" style="document" />
+      <wsdl:input name="SubmitDataRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SubmitDataResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetNavigationHierarchy">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHierarchyIn" style="document" />
+      <wsdl:input name="GetNavigationHierarchyRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetNavigationHierarchyResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetViews">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsIn" style="document" />
+      <wsdl:input name="GetViewsRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetViewsResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuditData">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataIn" style="document" />
+      <wsdl:input name="GetAuditDataRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAuditDataResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecordStatus">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatusIn" style="document" />
+      <wsdl:input name="UpdateRecordStatusRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="UpdateRecordStatusResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRecords">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsIn" style="document" />
+      <wsdl:input name="DeleteRecordsRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="DeleteRecordsResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllowedValues">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesIn" style="document" />
+      <wsdl:input name="GetAllowedValuesRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetAllowedValuesResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationshipMatrixValues">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixValuesIn" style="document" />
+      <wsdl:input name="GetRelationshipMatrixValuesRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetRelationshipMatrixValuesResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetRelationshipMatrix">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMatrixIn" style="document" />
+      <wsdl:input name="GetRelationshipMatrixRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetRelationshipMatrixResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SplitRecords">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsIn" style="document" />
+      <wsdl:input name="SplitRecordsRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SplitRecordsResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitCalendarValues">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarValuesIn" style="document" />
+      <wsdl:input name="SubmitCalendarValuesRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SubmitCalendarValuesResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCalendarValues">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValuesIn" style="document" />
+      <wsdl:input name="GetCalendarValuesRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCalendarValuesResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCalendarValue">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarValueIn" style="document" />
+      <wsdl:input name="DeleteCalendarValueRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="DeleteCalendarValueResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetCalendarNames">
+      <soap12:operation soapAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesIn" style="document" />
+      <wsdl:input name="GetCalendarNamesRequestMessage">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetCalendarNamesResponseMessage">
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="SystemErrors">
+        <soap12:fault use="literal" name="SystemErrors" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="BusinessErrors">
+        <soap12:fault use="literal" name="BusinessErrors" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DataWebService">
+    <wsdl:port name="BasicHttpBinding_IDataWebService" binding="tns:BasicHttpBinding_IDataWebService">
+      <soap:address location="http://L-19S2CW1:8889/Ampla/Data/2008/06/Soap11" />
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IDataWebService" binding="tns:NetTcpBinding_IDataWebService">
+      <soap12:address location="net.tcp://localhost/Ampla/Data/2008/06/Tcp" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost/Ampla/Data/2008/06/Tcp</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>L-19S2CW1\Joseph.Plant</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
