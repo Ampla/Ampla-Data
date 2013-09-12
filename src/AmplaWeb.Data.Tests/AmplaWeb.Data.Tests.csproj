@@ -56,6 +56,7 @@
     <Compile Include="Attributes\AmplaLocationAttributeUnitTests.cs" />
     <Compile Include="Attributes\AmplaModuleAttributeUnitTests.cs" />
     <Compile Include="Attributes\AmplaFieldAttributeUnitTests.cs" />
+    <Compile Include="Binding\Mapping\IdFieldMappingUnitTests.cs" />
     <Compile Include="Binding\ModelData\ModelPropertiesUnitTests.cs" />
     <Compile Include="Binding\ModelData\ModelPropertyNonDefaultUnitTests.cs" />
     <Compile Include="TestFixture.cs" />

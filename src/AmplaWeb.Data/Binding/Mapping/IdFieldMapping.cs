@@ -12,8 +12,7 @@ namespace AmplaWeb.Data.Binding.Mapping
         /// </summary>
         /// <param name="name">The name.</param>
         public IdFieldMapping(string name) : base(name)
-        {
-           
+        {  
         }
 
         /// <summary>
