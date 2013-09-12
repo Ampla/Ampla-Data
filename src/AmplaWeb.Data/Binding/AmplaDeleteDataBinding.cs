@@ -4,7 +4,7 @@ using AmplaWeb.Data.Binding.ModelData;
 
 namespace AmplaWeb.Data.Binding
 {
-    public class AmplaDeleteDataBinding<TModel> : AmplaBinding where TModel : new()
+    public class AmplaDeleteDataBinding<TModel> : IAmplaBinding where TModel : new()
     {
         private readonly List<TModel> models;
         private readonly List<DeleteRecord> records;
@@ -15,10 +15,9 @@ namespace AmplaWeb.Data.Binding
             this.models = models;
             this.records = records;
             this.modelProperties = modelProperties;
-
         }
 
-        public override bool Bind()
+        public bool Bind()
         {
             if (models.Count == 0) return false;
 

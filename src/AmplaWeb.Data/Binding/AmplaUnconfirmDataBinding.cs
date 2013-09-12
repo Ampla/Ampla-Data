@@ -4,7 +4,7 @@ using AmplaWeb.Data.Binding.ViewData;
 
 namespace AmplaWeb.Data.Binding
 {
-    public class AmplaUnconfirmDataBinding<TModel> : AmplaBinding where TModel : new()
+    public class AmplaUnconfirmDataBinding<TModel> : IAmplaBinding where TModel : new()
     {
         private List<TModel> models;
         private List<UpdateRecordStatus> records;
@@ -18,7 +18,7 @@ namespace AmplaWeb.Data.Binding
             this.viewProperties = viewProperties;
         }
 
-        public override bool Bind()
+        public bool Bind()
         {
             throw new System.NotImplementedException();
         }

@@ -79,7 +79,7 @@
     <Compile Include="AmplaRespository\AmplaReadOnlyRepository.cs" />
     <Compile Include="IReadOnlyRepository.cs" />
     <Compile Include="Attributes\AmplaModuleAttribute.cs" />
-    <Compile Include="Binding\AmplaBinding.cs" />
+    <Compile Include="Binding\IAmplaBinding.cs" />
     <Compile Include="Binding\AmplaDeleteDataBinding.cs" />
     <Compile Include="Binding\AmplaGetDataBinding.cs" />
     <Compile Include="Binding\AmplaAddDataBinding.cs" />

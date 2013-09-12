@@ -5,7 +5,7 @@ using AmplaWeb.Data.Binding.ModelData;
 
 namespace AmplaWeb.Data.Binding
 {
-    public class AmplaGetDataBinding<TModel> : AmplaBinding where TModel : new()
+    public class AmplaGetDataBinding<TModel> : IAmplaBinding where TModel : new()
     {
         private readonly GetDataResponse response;
         private readonly List<TModel> records;
@@ -16,7 +16,7 @@ namespace AmplaWeb.Data.Binding
             this.records = records;
         }
 
-        public override bool Bind()
+        public bool Bind()
         {
             if (response.RowSets.Length == 0) return false;
 

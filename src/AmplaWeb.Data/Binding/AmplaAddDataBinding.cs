@@ -6,7 +6,7 @@ using AmplaWeb.Data.Binding.ViewData;
 
 namespace AmplaWeb.Data.Binding
 {
-    public class AmplaAddDataBinding<TModel> : AmplaBinding where TModel : new()
+    public class AmplaAddDataBinding<TModel> : IAmplaBinding where TModel : new()
     {
         private readonly List<TModel> models;
         private readonly List<SubmitDataRecord> records;
@@ -21,7 +21,7 @@ namespace AmplaWeb.Data.Binding
             this.modelProperties = modelProperties;
         }
 
-        public override bool Bind()
+        public bool Bind()
         {
             if (models.Count == 0) return false;
 
