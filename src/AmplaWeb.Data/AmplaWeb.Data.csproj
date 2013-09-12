@@ -47,6 +47,7 @@
     <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
     <Compile Include="AmplaRespository\AmplaRepository.cs" />
     <Compile Include="AmplaRespository\AmplaRepositorySet.cs" />
+    <Compile Include="Attributes\AmplaFieldAttribute.cs" />
     <Compile Include="Binding\ModelData\IModelProperties.cs" />
     <Compile Include="FilterValue.cs" />
     <Compile Include="Binding\AmplaUnconfirmDataBinding.cs" />

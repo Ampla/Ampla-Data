@@ -42,20 +42,15 @@ namespace AmplaWeb.Data.Attributes
         /// <returns></returns>
         public static bool TryGetModule<TModel>(out AmplaModules? amplaModule)
         {
-            Type type = typeof (TModel);
-            while (type != null && type != typeof (object))
+            AmplaModuleAttribute attribute;
+            if (typeof(TModel).TryGetAttribute(out attribute))
             {
-                AmplaModuleAttribute attribute;
-                if (type.TryGetAttribute(out attribute))
+                AmplaModules module;
+                if (Enum.TryParse(attribute.Module, out module))
                 {
-                    AmplaModules module;
-                    if (Enum.TryParse(attribute.Module, out module))
-                    {
-                        amplaModule = module;
-                        return true;
-                    }
+                    amplaModule = module;
+                    return true;
                 }
-                type = type.BaseType;
             }
             amplaModule = null;
             return false;

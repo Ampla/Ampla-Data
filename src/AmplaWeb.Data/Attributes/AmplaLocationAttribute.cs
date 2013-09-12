@@ -42,16 +42,10 @@ namespace AmplaWeb.Data.Attributes
         public static bool TryGetLocation<TModel>(out string location)
         {
             location = null;
-            Type type = typeof (TModel);
-            while (type != null && type != typeof(object))
+            AmplaLocationAttribute attribute;
+            if (typeof (TModel).TryGetAttribute(out attribute))
             {
-                AmplaLocationAttribute attribute;
-                if (type.TryGetAttribute(out attribute))
-                {
-                    location = attribute.Location;
-                    break;
-                }
-                type = type.BaseType;
+                location = attribute.Location;
             }
 
             return !string.IsNullOrEmpty(location);

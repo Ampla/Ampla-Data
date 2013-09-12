@@ -119,9 +119,9 @@ namespace AmplaWeb.Data.Binding.ModelData
 
             ModelProperties<SimpleModel> modelProperties = new ModelProperties<SimpleModel>();
 
-            AssertNotPropertyGetValue(modelProperties, model, "InvalidId");
-            AssertNotPropertyGetValue(modelProperties, model, "InvalidName");
-            AssertNotPropertyGetValue(modelProperties, model, "InvalidValue");
+            AssertPropertyNotGetValue(modelProperties, model, "InvalidId");
+            AssertPropertyNotGetValue(modelProperties, model, "InvalidName");
+            AssertPropertyNotGetValue(modelProperties, model, "InvalidValue");
         }
 
         [Test]
@@ -247,6 +247,43 @@ namespace AmplaWeb.Data.Binding.ModelData
             Assert.That(newModel.Value, Is.EqualTo(0));
         }
 
+        [Test]
+        public void TestWriteOnlyProperties()
+        {
+            ModelWithWriteOnly model = new ModelWithWriteOnly();
+
+            ModelProperties<ModelWithWriteOnly> modelProperties = new ModelProperties<ModelWithWriteOnly>();
+
+            Assert.That(modelProperties.GetProperties().Count, Is.EqualTo(4));
+
+            AssertPropertySetValue(modelProperties, model, "Id", "100");
+            AssertPropertySetValue(modelProperties, model, "Name", "old name");
+            AssertPropertySetValue(modelProperties, model, "Value", "123.4");
+
+            Assert.That(model.Id, Is.EqualTo(100));
+            Assert.That(model.Name, Is.EqualTo("old name"));
+            Assert.That(model.Value, Is.EqualTo(123.4));
+
+            AssertPropertySetValue(modelProperties, model, "WriteOnlyName", "new name");
+            Assert.That(model.Name, Is.EqualTo("new name"));
+
+            AssertPropertyNotGetValue(modelProperties, model, "WriteOnlyName");
+        }
+
+        [Test]
+        public void TestReadOnlyProperties()
+        {
+            ModelWithReadOnly model = new ModelWithReadOnly();
+
+            ModelProperties<ModelWithReadOnly> modelProperties = new ModelProperties<ModelWithReadOnly>();
+
+            Assert.That(modelProperties.GetProperties().Count, Is.EqualTo(4));
+
+            model.Name = "name1";
+            AssertPropertyGetValue(modelProperties, model, "ReadOnlyName", "name1");
+            AssertPropertyNotSetValue(modelProperties, model, "ReadOnlyName", "invalid name");
+        }
+
         private void AssertPropertyGetValue<TModel>(ModelProperties<TModel> modelProperties, TModel model, string property, string expected) where TModel : new()
         {
             string value;
@@ -268,7 +305,7 @@ namespace AmplaWeb.Data.Binding.ModelData
             Assert.That(result, Is.False, "Unexpected Result for {0}", property);
         }
 
-        private void AssertNotPropertyGetValue<TModel>(ModelProperties<TModel> modelProperties, TModel model, string property) where TModel : new()
+        private void AssertPropertyNotGetValue<TModel>(ModelProperties<TModel> modelProperties, TModel model, string property) where TModel : new()
         {
             string value;
             bool result = modelProperties.TryGetPropertyValue(model, property, out value);

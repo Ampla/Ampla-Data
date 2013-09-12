@@ -22,13 +22,13 @@ namespace AmplaWeb.Data.Binding.MetaData
 
         public static bool TryGetAttribute<T>(this PropertyInfo propertyInfo, out T attribute) where T : Attribute
         {
-            attribute = propertyInfo.GetCustomAttributes(typeof (T), false).FirstOrDefault() as T;
+            attribute = propertyInfo.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T;
             return attribute != null;
         }
 
         public static bool TryGetAttribute<T>(this Type classType, out T attribute) where T : Attribute
         {
-            attribute = classType.GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
+            attribute = classType.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T;
             return attribute != null;
         }
 
