@@ -8,6 +8,10 @@ using AmplaWeb.Data.Binding.MetaData;
 
 namespace AmplaWeb.Data.Binding.ModelData
 {
+    /// <summary>
+    /// Model Properties provides access to the TModel object and the properties. 
+    /// </summary>
+    /// <typeparam name="TModel">The type of the model.</typeparam>
     public class ModelProperties<TModel> : IModelProperties<TModel> where TModel : new()
     {
         private readonly Dictionary<string, PropertyInfo> propertyInfoDictionary = new Dictionary<string, PropertyInfo>();
@@ -32,7 +36,9 @@ namespace AmplaWeb.Data.Binding.ModelData
             List<string> properties = new List<string>();
             foreach (PropertyInfo property in typeof(TModel).GetProperties())
             {
-                string propertyName = property.Name;
+                string propertyName;
+                AmplaFieldAttribute.TryGetField(property, out propertyName);
+                
                 properties.Add(propertyName);
                 propertyInfoDictionary[propertyName] = property;
                 TypeConverterAttribute typeConverterAttribute;
@@ -49,7 +55,6 @@ namespace AmplaWeb.Data.Binding.ModelData
             }
             propertyNames = properties.ToArray();
         }
-
 
         /// <summary>
         ///     The Ampla Location that the model represents
@@ -92,7 +97,6 @@ namespace AmplaWeb.Data.Binding.ModelData
             }
             return false;
         }
-
 
         /// <summary>
         /// Gets a list of the property names of the model
