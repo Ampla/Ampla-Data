@@ -2,17 +2,33 @@
 
 namespace AmplaWeb.Data.Binding.Mapping
 {
+    /// <summary>
+    /// Readonly field mapping 
+    /// </summary>
     public class ReadOnlyFieldMapping : FieldMapping
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadOnlyFieldMapping"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
         public ReadOnlyFieldMapping(string name) : base(name)
         {
             CanRead = true;
             CanWrite = false;
         }
 
+        /// <summary>
+        ///     Don't resolve the value from the model
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="modelProperties"></param>
+        /// <param name="model"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public override bool TryResolveValue<TModel>(ModelProperties<TModel> modelProperties, TModel model, out string value)
         {
-            throw new System.NotImplementedException();
+            value = null;
+            return false;
         }
     }
 }
