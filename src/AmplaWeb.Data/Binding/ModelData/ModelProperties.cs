@@ -166,5 +166,24 @@ namespace AmplaWeb.Data.Binding.ModelData
             value = null;
             return false;
         }
+
+        /// <summary>
+        /// Determines whether the model's property is currently a default value
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="property">Name of the property.</param>
+        /// <returns></returns>
+        public bool IsDefaultValue(TModel model, string property)
+        {
+            TModel defaultModel = new TModel();
+            string defaultValue;
+
+            string modelValue;
+
+            bool defaultResolved = TryGetPropertyValue(defaultModel, property, out defaultValue);
+            bool modelResolved = TryGetPropertyValue(model, property, out modelValue);
+
+            return defaultResolved && modelResolved && (defaultValue == modelValue);
+        }
     }
 }

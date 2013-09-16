@@ -14,10 +14,17 @@ namespace AmplaWeb.Data.Binding.Mapping
 
         public override bool TryResolveValue<TModel>(ModelProperties<TModel> modelProperties, TModel model, out string value)
         {
-            if (!base.TryResolveValue(modelProperties, model, out value))
+            string baseValue;
+            if (base.TryResolveValue(modelProperties, model, out baseValue))
             {
-                value = defaultValue();
+                if (!modelProperties.IsDefaultValue(model, Name))
+                {
+                    value = baseValue;
+                    return true;
+                }
             }
+
+            value = defaultValue();
             return true;
         }
     }

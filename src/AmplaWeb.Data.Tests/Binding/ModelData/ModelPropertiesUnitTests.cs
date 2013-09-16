@@ -284,6 +284,20 @@ namespace AmplaWeb.Data.Binding.ModelData
             AssertPropertyNotSetValue(modelProperties, model, "ReadOnlyName", "invalid name");
         }
 
+        [Test]
+        public void IsDefaultValue()
+        {
+            SimpleModel model = new SimpleModel();
+            ModelProperties<SimpleModel> modelProperties = new ModelProperties<SimpleModel>();
+
+            Assert.That(modelProperties.IsDefaultValue(model, "Id"), Is.True, "Id");
+            Assert.That(modelProperties.IsDefaultValue(model, "Value"), Is.True, "Value");
+            model.Id = 100;
+            Assert.That(modelProperties.IsDefaultValue(model, "Id"), Is.False, "Id");
+            model.Value = 12.34;
+            Assert.That(modelProperties.IsDefaultValue(model, "Value"), Is.False, "Value");
+        }
+
         private void AssertPropertyGetValue<TModel>(ModelProperties<TModel> modelProperties, TModel model, string property, string expected) where TModel : new()
         {
             string value;
