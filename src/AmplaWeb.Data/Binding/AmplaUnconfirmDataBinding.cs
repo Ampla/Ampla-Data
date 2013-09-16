@@ -8,9 +8,9 @@ namespace AmplaWeb.Data.Binding
     {
         private List<TModel> models;
         private List<UpdateRecordStatus> records;
-        private AmplaViewProperties<TModel> viewProperties;
+        private IAmplaViewProperties<TModel> viewProperties;
 
-        public AmplaUnconfirmDataBinding(List<TModel> models, List<UpdateRecordStatus> records, AmplaViewProperties<TModel> viewProperties)
+        public AmplaUnconfirmDataBinding(List<TModel> models, List<UpdateRecordStatus> records, IAmplaViewProperties<TModel> viewProperties)
         {
             
             this.models = models;

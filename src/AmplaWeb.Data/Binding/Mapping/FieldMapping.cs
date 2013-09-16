@@ -54,6 +54,6 @@ namespace AmplaWeb.Data.Binding.Mapping
         /// <param name="model">The model.</param>
         /// <param name="value">The value.</param>
         /// <returns></returns>
-        public abstract bool TryResolveValue<TModel>(ModelProperties<TModel> modelProperties, TModel model, out string value) where TModel : new();
+        public abstract bool TryResolveValue<TModel>(IModelProperties<TModel> modelProperties, TModel model, out string value) where TModel : new();
     }
 }

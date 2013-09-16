@@ -7,9 +7,9 @@ using AmplaWeb.Data.Binding.ModelData;
 
 namespace AmplaWeb.Data.Binding.ViewData
 {
-    public class AmplaViewProperties<TModel> where TModel : new()
+    public class AmplaViewProperties<TModel> : IAmplaViewProperties<TModel> where TModel : new()
     {
-        private readonly ModelProperties<TModel> modelProperties;
+        private readonly IModelProperties<TModel> modelProperties;
 
         private readonly ViewPermissions permissions = new ViewPermissions();
         private readonly ViewFieldsCollection viewFieldsCollection = new ViewFieldsCollection();
@@ -17,7 +17,7 @@ namespace AmplaWeb.Data.Binding.ViewData
         private readonly ViewPeriodsCollection viewPeriodsCollection = new ViewPeriodsCollection();
         private List<FieldMapping> fieldResolvers = new List<FieldMapping>(); 
 
-        public AmplaViewProperties( ModelProperties<TModel> modelProperties )
+        public AmplaViewProperties( IModelProperties<TModel> modelProperties )
         {
             this.modelProperties = modelProperties;
         }

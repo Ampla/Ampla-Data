@@ -13,8 +13,8 @@ namespace AmplaWeb.Data.AmplaRespository
         private IDataWebServiceClient webServiceClient;
         private readonly string userName;
         private readonly string password;
-        private AmplaViewProperties<TModel> amplaViewProperties;
-        private readonly ModelProperties<TModel> modelProperties; 
+        private IAmplaViewProperties<TModel> amplaViewProperties;
+        private readonly IModelProperties<TModel> modelProperties; 
 
         public AmplaReadOnlyRepository(IDataWebServiceClient webServiceClient, string userName, string password)
         {
@@ -29,12 +29,12 @@ namespace AmplaWeb.Data.AmplaRespository
             webServiceClient = null;
         }
 
-        protected ModelProperties<TModel> ModelProperties
+        protected IModelProperties<TModel> ModelProperties
         {
             get { return modelProperties; }
         }
 
-        protected AmplaViewProperties<TModel> ViewProperties
+        protected IAmplaViewProperties<TModel> ViewProperties
         {
             get
             {
@@ -68,7 +68,7 @@ namespace AmplaWeb.Data.AmplaRespository
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<TModel> records = new List<TModel>();
-            if (new AmplaGetDataBinding<TModel>(response, records).Bind())
+            if (new AmplaGetDataBinding<TModel>(response, records, ModelProperties).Bind())
             {
                 return records;
             }
@@ -123,7 +123,7 @@ namespace AmplaWeb.Data.AmplaRespository
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<TModel> records = new List<TModel>();
-            if (new AmplaGetDataBinding<TModel>(response, records).Bind())
+            if (new AmplaGetDataBinding<TModel>(response, records, ModelProperties).Bind())
             {
                 return records.Count == 1 ? records[0] : null;    
             }
@@ -137,7 +137,7 @@ namespace AmplaWeb.Data.AmplaRespository
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<TModel> records = new List<TModel>();
-            if (new AmplaGetDataBinding<TModel>(response, records).Bind())
+            if (new AmplaGetDataBinding<TModel>(response, records, ModelProperties).Bind())
             {
                 return records;
             }

@@ -49,6 +49,7 @@
     <Compile Include="AmplaRespository\AmplaRepositorySet.cs" />
     <Compile Include="Attributes\AmplaFieldAttribute.cs" />
     <Compile Include="Binding\ModelData\IModelProperties.cs" />
+    <Compile Include="Binding\ViewData\IAmplaViewProperties.cs" />
     <Compile Include="FilterValue.cs" />
     <Compile Include="Binding\AmplaUnconfirmDataBinding.cs" />
     <Compile Include="Binding\AmplaConfirmDataBinding.cs" />

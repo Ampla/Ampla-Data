@@ -25,7 +25,7 @@ namespace AmplaWeb.Data.Binding.Mapping
         /// <param name="model"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public override bool TryResolveValue<TModel>(ModelProperties<TModel> modelProperties, TModel model, out string value)
+        public override bool TryResolveValue<TModel>(IModelProperties<TModel> modelProperties, TModel model, out string value)
         {
             return modelProperties.TryGetPropertyValue(model, Name, out value);
         }

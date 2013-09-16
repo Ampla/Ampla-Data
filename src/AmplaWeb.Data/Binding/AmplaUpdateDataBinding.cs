@@ -11,9 +11,9 @@ namespace AmplaWeb.Data.Binding
     {
         private readonly List<TModel> models;
         private readonly List<SubmitDataRecord> records;
-        private readonly AmplaViewProperties<TModel> amplaViewProperties;
+        private readonly IAmplaViewProperties<TModel> amplaViewProperties;
 
-        public AmplaUpdateDataBinding(List<TModel> models, List<SubmitDataRecord> records, AmplaViewProperties<TModel> amplaViewProperties)
+        public AmplaUpdateDataBinding(List<TModel> models, List<SubmitDataRecord> records, IAmplaViewProperties<TModel> amplaViewProperties)
         {
             this.models = models;
             this.records = records;

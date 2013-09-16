@@ -8,9 +8,9 @@ namespace AmplaWeb.Data.Binding
     {
         private readonly List<TModel> models;
         private readonly List<DeleteRecord> records;
-        private readonly ModelProperties<TModel> modelProperties;
+        private readonly IModelProperties<TModel> modelProperties;
 
-        public AmplaDeleteDataBinding(List<TModel> models, List<DeleteRecord> records, ModelProperties<TModel> modelProperties )
+        public AmplaDeleteDataBinding(List<TModel> models, List<DeleteRecord> records, IModelProperties<TModel> modelProperties )
         {
             this.models = models;
             this.records = records;

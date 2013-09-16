@@ -7,11 +7,13 @@ namespace AmplaWeb.Data.Binding
 {
     public class AmplaGetDataBinding<TModel> : IAmplaBinding where TModel : new()
     {
+        private IModelProperties<TModel> modelProperties;
         private readonly GetDataResponse response;
         private readonly List<TModel> records;
 
-        public AmplaGetDataBinding(GetDataResponse response, List<TModel> records)
+        public AmplaGetDataBinding(GetDataResponse response, List<TModel> records, IModelProperties<TModel> modelProperties)
         {
+            this.modelProperties = modelProperties;
             this.response = response;
             this.records = records;
         }
@@ -19,8 +21,6 @@ namespace AmplaWeb.Data.Binding
         public bool Bind()
         {
             if (response.RowSets.Length == 0) return false;
-
-            ModelProperties<TModel> modelProperties = new ModelProperties<TModel>();
 
             RowSet rowSet = response.RowSets[0];
             

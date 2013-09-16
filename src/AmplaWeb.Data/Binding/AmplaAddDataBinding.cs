@@ -10,10 +10,10 @@ namespace AmplaWeb.Data.Binding
     {
         private readonly List<TModel> models;
         private readonly List<SubmitDataRecord> records;
-        private readonly AmplaViewProperties<TModel> amplaViewProperties;
-        private readonly ModelProperties<TModel> modelProperties;
+        private readonly IAmplaViewProperties<TModel> amplaViewProperties;
+        private readonly IModelProperties<TModel> modelProperties;
 
-        public AmplaAddDataBinding(List<TModel> models, List<SubmitDataRecord> records, AmplaViewProperties<TModel> amplaViewProperties, ModelProperties<TModel> modelProperties )
+        public AmplaAddDataBinding(List<TModel> models, List<SubmitDataRecord> records, IAmplaViewProperties<TModel> amplaViewProperties, IModelProperties<TModel> modelProperties )
         {
             this.models = models;
             this.records = records;
