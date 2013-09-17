@@ -42,6 +42,8 @@
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -53,6 +55,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmplaData2008\SimpleDataWebServiceClient.cs" />
+    <Compile Include="AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
     <Compile Include="Attributes\AmplaLocationAttributeUnitTests.cs" />
     <Compile Include="Attributes\AmplaModuleAttributeUnitTests.cs" />
     <Compile Include="Attributes\AmplaFieldAttributeUnitTests.cs" />
@@ -62,6 +66,12 @@
     <Compile Include="Binding\Mapping\ReadOnlyFieldMappingUnitTests.cs" />
     <Compile Include="Binding\ModelData\ModelPropertiesUnitTests.cs" />
     <Compile Include="Binding\ModelData\ModelPropertyNonDefaultUnitTests.cs" />
+    <Compile Include="Records\DateTimeExtensions.cs" />
+    <Compile Include="Records\FieldValue.cs" />
+    <Compile Include="Records\InMemoryRecord.cs" />
+    <Compile Include="Records\PersistenceHelper.cs" />
+    <Compile Include="Records\ProductionRecords.cs" />
+    <Compile Include="Records\ProductionRecordsUnitTests.cs" />
     <Compile Include="TestFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
