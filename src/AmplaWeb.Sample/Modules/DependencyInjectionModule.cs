@@ -1,5 +1,5 @@
 ﻿using AmplaWeb.Data;
-using AmplaWeb.Data.AmplaRespository;
+using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.InMemory;
 using AmplaWeb.Sample.Controllers;
 using AmplaWeb.Sample.Models;

@@ -6,7 +6,7 @@ using AmplaWeb.Data.Binding;
 using AmplaWeb.Data.Binding.ModelData;
 using AmplaWeb.Data.Binding.ViewData;
 
-namespace AmplaWeb.Data.AmplaRespository
+namespace AmplaWeb.Data.AmplaRepository
 {
     public class AmplaReadOnlyRepository<TModel> : IReadOnlyRepository<TModel> where TModel : class, new()
     {

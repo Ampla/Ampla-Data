@@ -45,8 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
-    <Compile Include="AmplaRespository\AmplaRepository.cs" />
-    <Compile Include="AmplaRespository\AmplaRepositorySet.cs" />
+    <Compile Include="AmplaRepository\AmplaRepository.cs" />
+    <Compile Include="AmplaRepository\AmplaRepositorySet.cs" />
     <Compile Include="Attributes\AmplaFieldAttribute.cs" />
     <Compile Include="Binding\ModelData\IModelProperties.cs" />
     <Compile Include="Binding\ViewData\IAmplaViewProperties.cs" />
@@ -77,7 +77,7 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="IRepositorySet.cs" />
     <Compile Include="Attributes\AmplaLocationAttribute.cs" />
-    <Compile Include="AmplaRespository\AmplaReadOnlyRepository.cs" />
+    <Compile Include="AmplaRepository\AmplaReadOnlyRepository.cs" />
     <Compile Include="IReadOnlyRepository.cs" />
     <Compile Include="Attributes\AmplaModuleAttribute.cs" />
     <Compile Include="Binding\IAmplaBinding.cs" />

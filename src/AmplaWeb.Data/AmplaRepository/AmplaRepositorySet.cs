@@ -1,6 +1,6 @@
-﻿using DataWebServiceClient = AmplaWeb.Data.AmplaData2008.DataWebServiceClient;
+﻿using AmplaWeb.Data.AmplaData2008;
 
-namespace AmplaWeb.Data.AmplaRespository
+namespace AmplaWeb.Data.AmplaRepository
 {
     public class AmplaRepositorySet : IRepositorySet
     {

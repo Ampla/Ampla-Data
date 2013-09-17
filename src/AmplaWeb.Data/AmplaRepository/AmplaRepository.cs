@@ -2,7 +2,7 @@
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Binding;
 
-namespace AmplaWeb.Data.AmplaRespository
+namespace AmplaWeb.Data.AmplaRepository
 {
     public class AmplaRepository<TModel> : AmplaReadOnlyRepository<TModel>, IRepository<TModel> where TModel : class, new()
     {
