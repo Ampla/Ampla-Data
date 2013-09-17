@@ -32,11 +32,6 @@ namespace AmplaWeb.Data.Records
 
         public IList<FieldValue> Fields { get; private set; }
 
-        public InMemoryRecord MarkAsNew()
-        {
-            RecordId = 0;
-            return this;
-        }
 
         public InMemoryRecord Clone()
         {
@@ -58,11 +53,6 @@ namespace AmplaWeb.Data.Records
         {
             FieldValue field = Find(fieldName);
             return field == null ? defaultValue : field.GetValue<T>();
-        }
-
-        public InMemoryRecord[] SplitRecord(DateTime splitDateTimeUtc)
-        {
-            throw new NotImplementedException();
         }
 
         public SubmitDataRecord ConvertToSubmitDataRecord()

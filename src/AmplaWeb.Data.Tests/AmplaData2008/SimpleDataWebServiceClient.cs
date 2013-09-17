@@ -17,6 +17,9 @@ namespace AmplaWeb.Data.AmplaData2008
         private readonly Dictionary<int, InMemoryRecord> database = new Dictionary<int, InMemoryRecord>();
         private readonly string reportingPoint;
 
+        private string userName = "User";
+        private string password = "password";
+
         private int setId = 1000;
         
         /// <summary>
@@ -266,7 +269,14 @@ namespace AmplaWeb.Data.AmplaData2008
             CheckModule(request.Module);
             GetViewsResponse response = new GetViewsResponse
             {
-                Views = new[] { new GetView { Fields = new GetViewsField[0] } }
+                Views = new[] { new GetView
+                    {
+                        Fields = new GetViewsField[0], 
+                        AllowedOperations = new GetViewsAllowedOperation[0], 
+                        Filters = new GetViewsFilter[0], 
+                        Periods = new GetViewsPeriod[0]
+                    } 
+                }
             };
             return response;
         }
@@ -391,6 +401,11 @@ namespace AmplaWeb.Data.AmplaData2008
             {
                 return new List<InMemoryRecord>(database.Values);
             }
+        }
+
+        public Credentials CreateCredentials()
+        {
+            return new Credentials { Username = userName, Password = password };
         }
     }
 }

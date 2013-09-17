@@ -38,46 +38,49 @@ namespace AmplaWeb.Data.Binding.ViewData
         /// <param name="allowedOperations"></param>
         public void Initialise(GetViewsAllowedOperation[] allowedOperations)
         {
-            foreach (GetViewsAllowedOperation operation in allowedOperations)
+            if (allowedOperations != null)
             {
-                switch (operation.Operation)
+                foreach (GetViewsAllowedOperation operation in allowedOperations)
                 {
-                    case ViewAllowedOperations.AddRecord:
-                        {
-                            CanAdd = operation.Allowed;
-                            break;
-                        }
-                    case ViewAllowedOperations.ConfirmRecord:
-                        {
-                            CanConfirm = operation.Allowed;
-                            break;
-                        }
-                    case ViewAllowedOperations.DeleteRecord:
-                        {
-                            CanDelete = operation.Allowed;
-                            break;
-                        }
-                    case ViewAllowedOperations.ModifyRecord:
-                        {
-                            CanModify = operation.Allowed;
-                            break;
-                        }
+                    switch (operation.Operation)
+                    {
+                        case ViewAllowedOperations.AddRecord:
+                            {
+                                CanAdd = operation.Allowed;
+                                break;
+                            }
+                        case ViewAllowedOperations.ConfirmRecord:
+                            {
+                                CanConfirm = operation.Allowed;
+                                break;
+                            }
+                        case ViewAllowedOperations.DeleteRecord:
+                            {
+                                CanDelete = operation.Allowed;
+                                break;
+                            }
+                        case ViewAllowedOperations.ModifyRecord:
+                            {
+                                CanModify = operation.Allowed;
+                                break;
+                            }
 
-                    case ViewAllowedOperations.SplitRecord:
-                        {
-                            CanSplit = operation.Allowed;
-                            break;
-                        }
-                    case ViewAllowedOperations.UnconfirmRecord:
-                        {
-                            CanUnconfirm = operation.Allowed;
-                            break;
-                        }
-                    case ViewAllowedOperations.ViewRecord:
-                        {
-                            CanView = operation.Allowed;
-                            break;
-                        }
+                        case ViewAllowedOperations.SplitRecord:
+                            {
+                                CanSplit = operation.Allowed;
+                                break;
+                            }
+                        case ViewAllowedOperations.UnconfirmRecord:
+                            {
+                                CanUnconfirm = operation.Allowed;
+                                break;
+                            }
+                        case ViewAllowedOperations.ViewRecord:
+                            {
+                                CanView = operation.Allowed;
+                                break;
+                            }
+                    }
                 }
             }
         }
