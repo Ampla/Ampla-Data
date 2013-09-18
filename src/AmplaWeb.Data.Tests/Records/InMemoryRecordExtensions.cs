@@ -33,5 +33,16 @@ namespace AmplaWeb.Data.Records
             return recordId;
         }
 
+        public static bool IsDeleted(this InMemoryRecord record)
+        {
+            return record.GetFieldValue("Deleted", false);
+        }
+
+
+        public static bool IsConfirmed(this InMemoryRecord record)
+        {
+            return record.GetFieldValue("Confirmed", false);
+        }
+
     }
 }

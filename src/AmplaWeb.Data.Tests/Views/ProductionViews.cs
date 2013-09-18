@@ -1,4 +1,7 @@
-﻿using AmplaWeb.Data.AmplaData2008;
+﻿using System;
+using System.Collections.Generic;
+using AmplaWeb.Data.AmplaData2008;
+using AmplaWeb.Data.Binding.MetaData;
 
 namespace AmplaWeb.Data.Views
 {
@@ -17,66 +20,68 @@ namespace AmplaWeb.Data.Views
 
         public static GetView AreaValueModelView()
         {
-            GetView view = new GetView();
-
-            view.name = "Production.StandardView";
-            view.DisplayName = "Standard View";
-            view.Fields = new []
+            GetView view = new GetView
                 {
-                    LocationField(),
-                    DateTimeField("Sample Period", "SampleDateTime"),
-                    StringField("Area"),
-                    DoubleField("Value")
+                    name = "Production.StandardView",
+                    DisplayName = "Production",
+                    Fields = StandardFieldsPlus(new[]
+                        {
+                            Field<string>("Area"),
+                            Field<double>("Value")
+                        })
                 };
 
             return view;
         }
 
-        private static GetViewsField DateTimeField(string displayName, string name)
+        private static GetViewsField[] StandardFieldsPlus(params GetViewsField[] extraFields)
+        {
+            List<GetViewsField> fields = new List<GetViewsField>
+                {
+                    Field<int>("Id", "Id", true, true),
+                    Field<bool>("IsManual"),
+                    Field<bool>("HasAudit"),
+                    Field<string>("CreatedBy"),
+                    Field<DateTime>("CreatedDateTime"),
+                    Field<string>("ConfirmedBy"),
+                    Field<DateTime>("ConfirmedDateTime"),
+                    Field<bool>("IsDeleted", "Deleted"),
+                    Field<bool>("IsConfirmed", "Confirmed", true),
+                    Field<DateTime>("LastModified"),
+                    Field<DateTime>("SampleDateTime", "Sample Period"),
+                    Field<int>("Duration"),
+                    Field<string>("ObjectId", "Location"),
+                    Field<bool>("EquipmentId", "Equipment Id", true)
+                };
+            fields.AddRange(extraFields);
+            return fields.ToArray();
+        }
+
+        private static GetViewsField Field<T>(string name)
+        {
+            return Field<T>(name, name, false, false);
+        }
+
+        private static GetViewsField Field<T>(string name, string displayName)
+        {
+            return Field<T>(name, displayName, false, false);
+        }
+
+        private static GetViewsField Field<T>(string name, string displayName, bool isReadOnly)
+        {
+            return Field<T>(name, displayName, isReadOnly, false);
+        }
+
+        private static GetViewsField Field<T>(string name, string displayName, bool isReadOnly, bool required)
         {
             GetViewsField field = new GetViewsField();
             field.name = name;
-            field.type = "xs:DateTime";
+            field.type = DataTypeHelper.GetAmplaDataType<T>();
             field.displayName = displayName;
             field.hasAllowedValues = false;
             field.hasRelationshipMatrixValues = false;
-            field.readOnly = true;
-            return field;
-        }
-
-        private static GetViewsField LocationField()
-        {
-            GetViewsField field = new GetViewsField();
-            field.name = "ObjectId";
-            field.type = "xs:String";
-            field.displayName = "Location";
-            field.hasAllowedValues = false;
-            field.hasRelationshipMatrixValues = false;
-            field.readOnly = true;
-            return field;
-        }
-
-        private static GetViewsField StringField(string name)
-        {
-            GetViewsField field = new GetViewsField();
-            field.name = name;
-            field.type = "xs:String";
-            field.displayName = name;
-            field.hasAllowedValues = false;
-            field.hasRelationshipMatrixValues = false;
-            field.readOnly = false;
-            return field;
-        }
-
-        private static GetViewsField DoubleField(string name)
-        {
-            GetViewsField field = new GetViewsField();
-            field.name = name;
-            field.type = "xs:Double";
-            field.displayName = name;
-            field.hasAllowedValues = false;
-            field.hasRelationshipMatrixValues = false;
-            field.readOnly = false;
+            field.readOnly = isReadOnly;
+            field.required = required;
             return field;
         }
 

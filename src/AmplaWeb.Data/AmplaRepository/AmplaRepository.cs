@@ -20,7 +20,9 @@ namespace AmplaWeb.Data.AmplaRepository
             if (new AmplaAddDataBinding<TModel>(models, records, ViewProperties, ModelProperties).Bind())
             {
                 request.SubmitDataRecords = records.ToArray();
-                WebServiceClient.SubmitData(request);
+                SubmitDataResponse response = WebServiceClient.SubmitData(request);
+
+                new AmplaDataSubmissionResultBinding<TModel>(response.DataSubmissionResults, models, ModelProperties).Bind();
             }
         }
 
@@ -44,12 +46,11 @@ namespace AmplaWeb.Data.AmplaRepository
             request.Credentials = CreateCredentials();
             List<UpdateRecordStatus> records = new List<UpdateRecordStatus>();
             List<TModel> models = new List<TModel> { model };
-            if (new AmplaConfirmDataBinding<TModel>(models, records, ViewProperties).Bind())
+            if (new AmplaConfirmDataBinding<TModel>(models, records, ModelProperties).Bind())
             {
                 request.UpdateRecords = records.ToArray();
                 WebServiceClient.UpdateRecordStatus(request);
             }
-
         }
 
         public void Unconfirm(TModel model)
@@ -58,7 +59,7 @@ namespace AmplaWeb.Data.AmplaRepository
             request.Credentials = CreateCredentials();
             List<UpdateRecordStatus> records = new List<UpdateRecordStatus>();
             List<TModel> models = new List<TModel> { model };
-            if (new AmplaUnconfirmDataBinding<TModel>(models, records, ViewProperties).Bind())
+            if (new AmplaUnconfirmDataBinding<TModel>(models, records, ModelProperties).Bind())
             {
                 request.UpdateRecords = records.ToArray();
                 WebServiceClient.UpdateRecordStatus(request);
@@ -67,12 +68,19 @@ namespace AmplaWeb.Data.AmplaRepository
 
         public void Update(TModel model)
         {
+            List<int> identifiers = new List<int>();
+
+            TModel existing = null;
+            if (new ModelIdentifierBinding<TModel>(model, identifiers, ModelProperties).Bind())
+            {
+                existing = FindById(identifiers[0]);
+            }
+            
             SubmitDataRequest request = new SubmitDataRequest();
             request.Credentials = CreateCredentials();
             List<SubmitDataRecord> records = new List<SubmitDataRecord>();
-            List<TModel> models = new List<TModel> { model };
-
-            if (new AmplaUpdateDataBinding<TModel>(models, records, ViewProperties).Bind())
+            
+            if (new AmplaUpdateDataBinding<TModel>(existing, model, records, ViewProperties, ModelProperties).Bind())
             {
                 request.SubmitDataRecords = records.ToArray();
                 WebServiceClient.SubmitData(request);

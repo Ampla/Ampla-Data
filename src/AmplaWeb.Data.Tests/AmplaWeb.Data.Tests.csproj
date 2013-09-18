@@ -55,6 +55,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmplaData2008\LoggingDataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\SimpleDataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
     <Compile Include="AmplaRepository\AmplaReadOnlyRepositoryUnitTests.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="Binding\ModelData\ModelPropertyNonDefaultUnitTests.cs" />
     <Compile Include="Binding\ViewData\ViewFiltersCollectionUnitTests.cs" />
     <Compile Include="Binding\ViewData\ViewPermissionsUnitTests.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\ListLogger.cs" />
     <Compile Include="Records\DateTimeExtensions.cs" />
     <Compile Include="Records\FieldValue.cs" />
     <Compile Include="Records\InMemoryRecord.cs" />

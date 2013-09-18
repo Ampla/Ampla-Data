@@ -21,6 +21,8 @@ namespace AmplaWeb.Data.Binding
         {
             if (models.Count == 0) return false;
 
+            string propertyId = ModelIdentifier.GetPropertyName<TModel>();
+
             foreach (TModel model in models)
             {
                 DeleteRecord record = new DeleteRecord

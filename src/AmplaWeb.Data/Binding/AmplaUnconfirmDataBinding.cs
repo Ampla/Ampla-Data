@@ -1,26 +1,14 @@
 ﻿using System.Collections.Generic;
 using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.ViewData;
+using AmplaWeb.Data.Binding.ModelData;
 
 namespace AmplaWeb.Data.Binding
 {
-    public class AmplaUnconfirmDataBinding<TModel> : IAmplaBinding where TModel : new()
+    public class AmplaUnconfirmDataBinding<TModel> : AmplaUpdateRecordStatusBinding<TModel> where TModel : new()
     {
-        private List<TModel> models;
-        private List<UpdateRecordStatus> records;
-        private IAmplaViewProperties<TModel> viewProperties;
-
-        public AmplaUnconfirmDataBinding(List<TModel> models, List<UpdateRecordStatus> records, IAmplaViewProperties<TModel> viewProperties)
+        public AmplaUnconfirmDataBinding(List<TModel> models, List<UpdateRecordStatus> records, IModelProperties<TModel> modelProperties)
+            : base(models, records, modelProperties, UpdateRecordStatusAction.Unconfirm)
         {
-            
-            this.models = models;
-            this.records = records;
-            this.viewProperties = viewProperties;
-        }
-
-        public bool Bind()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
