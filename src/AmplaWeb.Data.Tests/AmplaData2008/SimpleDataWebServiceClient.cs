@@ -4,6 +4,7 @@ using System.ServiceModel;
 using System.Xml;
 
 using AmplaWeb.Data.Records;
+using AmplaWeb.Data.Views;
 
 namespace AmplaWeb.Data.AmplaData2008
 {
@@ -17,8 +18,8 @@ namespace AmplaWeb.Data.AmplaData2008
         private readonly Dictionary<int, InMemoryRecord> database = new Dictionary<int, InMemoryRecord>();
         private readonly string reportingPoint;
 
-        private string userName = "User";
-        private string password = "password";
+        private const string userName = "User";
+        private const string password = "password";
 
         private int setId = 1000;
         
@@ -36,8 +37,9 @@ namespace AmplaWeb.Data.AmplaData2008
             }
             this.module = Convert.ToString(amplaModule);
             reportingPoint = location;
-        }
 
+            GetViewFunc = ProductionViews.EmptyView;
+        }
 
         /// <summary>
         /// Gets the data.
@@ -269,17 +271,18 @@ namespace AmplaWeb.Data.AmplaData2008
             CheckModule(request.Module);
             GetViewsResponse response = new GetViewsResponse
             {
-                Views = new[] { new GetView
-                    {
-                        Fields = new GetViewsField[0], 
-                        AllowedOperations = new GetViewsAllowedOperation[0], 
-                        Filters = new GetViewsFilter[0], 
-                        Periods = new GetViewsPeriod[0]
-                    } 
+                Views = new[] 
+                { 
+                    GetViewFunc()
                 }
             };
             return response;
         }
+
+        public Func<GetView> GetViewFunc
+        {
+            get; set;
+        } 
 
         /// <summary>
         /// Splits the records.

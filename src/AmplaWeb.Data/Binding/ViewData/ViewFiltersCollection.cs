@@ -6,10 +6,13 @@ namespace AmplaWeb.Data.Binding.ViewData
     {
         public void Initialise(GetView view)
         {
-            foreach (GetViewsFilter filter in view.Filters)
+            if (view != null && view.Filters != null)
             {
-                ViewFilter viewFilter = new ViewFilter(filter);
-                Add(viewFilter.Name, viewFilter);
+                foreach (GetViewsFilter filter in view.Filters)
+                {
+                    ViewFilter viewFilter = new ViewFilter(filter);
+                    Add(viewFilter.Name, viewFilter);
+                }
             }
         }
     }

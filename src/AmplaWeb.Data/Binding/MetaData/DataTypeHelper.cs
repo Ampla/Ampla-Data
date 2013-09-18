@@ -12,11 +12,14 @@ namespace AmplaWeb.Data.Binding.MetaData
                      {
                          return typeof (int);
                      }
+                 case "xs:Double":
+                     {
+                         return typeof(double);
+                     }
                  case "xs:DateTime":
                      {
-                         return typeof(DateTime);
+                         return typeof (DateTime);
                      }
-
                  case "xs:Boolean":
                      {
                          return typeof(bool);

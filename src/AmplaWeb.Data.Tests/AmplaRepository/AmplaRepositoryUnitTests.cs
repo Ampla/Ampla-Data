@@ -4,6 +4,7 @@ using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Attributes;
 using AmplaWeb.Data.Records;
 using AmplaWeb.Data.Tests;
+using AmplaWeb.Data.Views;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.AmplaRepository
@@ -107,16 +108,14 @@ namespace AmplaWeb.Data.AmplaRepository
         }
 
         [Test]
-        [Ignore("Need to Implement GetViews()")]
         public void AddNewModel()
         {
             SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            webServiceClient.GetViewFunc = ProductionViews.AreaValueModelView;
             Assert.That(webServiceClient.DatabaseRecords, Is.Empty);
 
             AmplaRepository<AreaValueModel> repository = new AmplaRepository<AreaValueModel>(webServiceClient, userName, password);
-            AreaValueModel model = new AreaValueModel();
-            model.Area = "ROM";
-            model.Value = 100;
+            AreaValueModel model = new AreaValueModel {Area = "ROM", Value = 100};
 
             repository.Add(model);
             Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
@@ -125,7 +124,32 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record.Location, Is.EqualTo(location));
             Assert.That(record.RecordId, Is.GreaterThan(0));
             Assert.That(record.GetFieldValue("Area",""), Is.EqualTo("ROM"));
-            Assert.That(record.GetFieldValue("Value", ""), Is.EqualTo(100.0d));
+            Assert.That(record.GetFieldValue<double>("Value", 0), Is.EqualTo(100.0d));
+            Assert.That(record.GetFieldValue("Sample Period", DateTime.MinValue), Is.Not.EqualTo(DateTime.MinValue));
+        }
+
+        /// <summary>
+        /// Need to check that if an id is specified it is updated.
+        /// </summary>
+        [Test]
+        public void AddNewModelWithExistingId()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            webServiceClient.GetViewFunc = ProductionViews.AreaValueModelView;
+            Assert.That(webServiceClient.DatabaseRecords, Is.Empty);
+
+            AmplaRepository<AreaValueModel> repository = new AmplaRepository<AreaValueModel>(webServiceClient, userName, password);
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100, Id = 99};
+
+            repository.Add(model);
+            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+
+            InMemoryRecord record = webServiceClient.DatabaseRecords[0];
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.RecordId, Is.GreaterThan(0));
+            Assert.That(record.RecordId, Is.Not.EqualTo(99));
+            Assert.That(record.GetFieldValue("Area", ""), Is.EqualTo("ROM"));
+            Assert.That(record.GetFieldValue<double>("Value", 0), Is.EqualTo(100.0d));
             Assert.That(record.GetFieldValue("Sample Period", DateTime.MinValue), Is.Not.EqualTo(DateTime.MinValue));
         }
     }
