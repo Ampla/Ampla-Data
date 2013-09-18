@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Attributes;
+using AmplaWeb.Data.Logging;
 using AmplaWeb.Data.Records;
 using AmplaWeb.Data.Tests;
 using AmplaWeb.Data.Views;
@@ -126,6 +127,8 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record.GetFieldValue("Area",""), Is.EqualTo("ROM"));
             Assert.That(record.GetFieldValue<double>("Value", 0), Is.EqualTo(100.0d));
             Assert.That(record.GetFieldValue("Sample Period", DateTime.MinValue), Is.Not.EqualTo(DateTime.MinValue));
+
+            Assert.That(model.Id, Is.EqualTo(record.RecordId));
         }
 
         /// <summary>
@@ -151,6 +154,193 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record.GetFieldValue("Area", ""), Is.EqualTo("ROM"));
             Assert.That(record.GetFieldValue<double>("Value", 0), Is.EqualTo(100.0d));
             Assert.That(record.GetFieldValue("Sample Period", DateTime.MinValue), Is.Not.EqualTo(DateTime.MinValue));
+
+            Assert.That(model.Id, Is.EqualTo(record.RecordId));
+        }
+
+        [Test]
+        public void DeleteModel()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            webServiceClient.GetViewFunc = ProductionViews.AreaValueModelView;
+            Assert.That(webServiceClient.DatabaseRecords, Is.Empty);
+
+            AmplaRepository<AreaValueModel> repository = new AmplaRepository<AreaValueModel>(webServiceClient, userName, password);
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            repository.Add(model);
+            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+
+            InMemoryRecord record = webServiceClient.DatabaseRecords[0];
+            Assert.That(record.RecordId, Is.GreaterThan(0));
+            Assert.That(record.IsDeleted(), Is.False);
+
+            Assert.That(model.Id, Is.EqualTo(record.RecordId));
+
+            AreaValueModel deleteModel = repository.FindById(model.Id);
+            Assert.That(deleteModel, Is.Not.Null);
+
+            repository.Delete(deleteModel);
+
+            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+
+            record = webServiceClient.DatabaseRecords[0];
+            Assert.That(record.RecordId, Is.EqualTo(deleteModel.Id));
+            Assert.That(record.IsDeleted(), Is.True);
+        }
+
+        [Test]
+        public void ConfirmModel()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            webServiceClient.GetViewFunc = ProductionViews.AreaValueModelView;
+            Assert.That(webServiceClient.DatabaseRecords, Is.Empty);
+
+            AmplaRepository<AreaValueModel> repository = new AmplaRepository<AreaValueModel>(webServiceClient, userName, password);
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            repository.Add(model);
+            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+
+            InMemoryRecord record = webServiceClient.DatabaseRecords[0];
+            Assert.That(record.RecordId, Is.GreaterThan(0));
+            Assert.That(record.IsConfirmed(), Is.False);
+
+            Assert.That(model.Id, Is.EqualTo(record.RecordId));
+
+            AreaValueModel confirmModel = repository.FindById(model.Id);
+            Assert.That(confirmModel, Is.Not.Null);
+
+            repository.Confirm(confirmModel);
+
+            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+
+            record = webServiceClient.DatabaseRecords[0];
+            Assert.That(record.RecordId, Is.EqualTo(confirmModel.Id));
+            Assert.That(record.IsConfirmed(), Is.True);
+        }
+
+        [Test]
+        public void UnconfirmModel()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            webServiceClient.GetViewFunc = ProductionViews.AreaValueModelView;
+            Assert.That(webServiceClient.DatabaseRecords, Is.Empty);
+
+            AmplaRepository<AreaValueModel> repository = new AmplaRepository<AreaValueModel>(webServiceClient, userName, password);
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            repository.Add(model);
+            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+
+            InMemoryRecord record = webServiceClient.DatabaseRecords[0];
+            Assert.That(record.RecordId, Is.GreaterThan(0));
+            Assert.That(record.IsConfirmed(), Is.False);
+
+            Assert.That(model.Id, Is.EqualTo(record.RecordId));
+
+            AreaValueModel confirmModel = repository.FindById(model.Id);
+            Assert.That(confirmModel, Is.Not.Null);
+            repository.Confirm(confirmModel);
+
+            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+
+            record = webServiceClient.DatabaseRecords[0];
+            Assert.That(record.RecordId, Is.EqualTo(confirmModel.Id));
+            Assert.That(record.IsConfirmed(), Is.True);
+
+            AreaValueModel unConfirmModel = repository.FindById(model.Id);
+            Assert.That(unConfirmModel, Is.Not.Null);
+            repository.Unconfirm(unConfirmModel);
+
+            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+
+            record = webServiceClient.DatabaseRecords[0];
+            Assert.That(record.RecordId, Is.EqualTo(unConfirmModel.Id));
+            Assert.That(record.IsConfirmed(), Is.False);
+        }
+
+        [Test]
+        public void UpdateModel()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            webServiceClient.GetViewFunc = ProductionViews.AreaValueModelView;
+            Assert.That(webServiceClient.DatabaseRecords, Is.Empty);
+
+            AmplaRepository<AreaValueModel> repository = new AmplaRepository<AreaValueModel>(webServiceClient, userName, password);
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            repository.Add(model);
+            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+
+            InMemoryRecord record = webServiceClient.DatabaseRecords[0];
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.RecordId, Is.GreaterThan(0));
+            Assert.That(record.GetFieldValue("Area", ""), Is.EqualTo("ROM"));
+            Assert.That(record.GetFieldValue<double>("Value", 0), Is.EqualTo(100.0d));
+            Assert.That(record.GetFieldValue("Sample Period", DateTime.MinValue), Is.Not.EqualTo(DateTime.MinValue));
+
+            Assert.That(model.Id, Is.EqualTo(record.RecordId));
+
+            AreaValueModel updateModel = repository.FindById(model.Id);
+            Assert.That(updateModel, Is.Not.Null);
+
+            updateModel.Value = 200;
+            repository.Update(updateModel);
+
+            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+
+            record = webServiceClient.DatabaseRecords[0];
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.RecordId, Is.EqualTo(model.Id));
+            Assert.That(record.GetFieldValue("Area", ""), Is.EqualTo("ROM"));
+            Assert.That(record.GetFieldValue<double>("Value", 0), Is.EqualTo(200.0d));
+        }
+
+        [Test]
+        public void UpdateModelWithNoChanges()
+        {
+            ListLogger listLogger = new ListLogger();
+            
+            SimpleDataWebServiceClient simpleWebServiceClient = new SimpleDataWebServiceClient(module, location);
+            IDataWebServiceClient webServiceClient = new LoggingDataWebServiceClient(simpleWebServiceClient, listLogger);
+            simpleWebServiceClient.GetViewFunc = ProductionViews.AreaValueModelView;
+            Assert.That(simpleWebServiceClient.DatabaseRecords, Is.Empty);
+
+            AmplaRepository<AreaValueModel> repository = new AmplaRepository<AreaValueModel>(webServiceClient, userName, password);
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            repository.Add(model);
+            Assert.That(simpleWebServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+
+            InMemoryRecord record = simpleWebServiceClient.DatabaseRecords[0];
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.RecordId, Is.GreaterThan(0));
+            Assert.That(record.GetFieldValue("Area", ""), Is.EqualTo("ROM"));
+            Assert.That(record.GetFieldValue<double>("Value", 0), Is.EqualTo(100.0d));
+            Assert.That(record.GetFieldValue("Sample Period", DateTime.MinValue), Is.Not.EqualTo(DateTime.MinValue));
+
+            Assert.That(model.Id, Is.EqualTo(record.RecordId));
+
+            AreaValueModel updateModel = repository.FindById(model.Id);
+            Assert.That(updateModel, Is.Not.Null);
+
+            int currentMessages = listLogger.Messages.Count;
+            
+            Assert.That(currentMessages, Is.GreaterThan(0));
+
+            updateModel.Value = 100;
+            repository.Update(updateModel);
+
+            Assert.That(listLogger.Messages.Count, Is.EqualTo(currentMessages + 1));
+            // record is not submitted
+            Assert.That(simpleWebServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+
+            record = simpleWebServiceClient.DatabaseRecords[0];
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.RecordId, Is.EqualTo(model.Id));
+            Assert.That(record.GetFieldValue("Area", ""), Is.EqualTo("ROM"));
+            Assert.That(record.GetFieldValue<double>("Value", 0), Is.EqualTo(100.0d));
         }
     }
 }
