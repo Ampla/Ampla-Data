@@ -14,7 +14,7 @@ Key Concepts
 Repository Pattern 
 ===
 Provides ReadOnly access to Ampla data.
-```
+``` C#
 public interface IReadOnlyRepository<TModel>
 {
 	IList<TModel> GetAll();
@@ -27,7 +27,7 @@ public interface IReadOnlyRepository<TModel>
 
 IRepository Extends IReadOnlyRepository to provide write access
 
-```
+``` C#
 public interface IRepository<TModel> : IReadOnlyRepository<TModel>
 {
 	/// Read access from IReadOnlyRepository
@@ -55,7 +55,7 @@ Field attributes:
 
 These attributes are used to mark model classes for use in the Repository.
 Example:
-```
+``` C#
 namespace AmplaWeb.Models
 {
 	[AmplaLocation(Location = "Enterprise.Site.Area.Example")]
@@ -85,7 +85,7 @@ Features include:
 * DateTime properties are automatically presented as Local time in the model.
 
 Example:
-```
+``` C#
 // set up Repository
 IRepositorySet repositorySet = new AmplaRepositorySet("User", "password");
 IRepository<ExampleModel> repository = repositorySet.GetRepository<ExampleModel>();
