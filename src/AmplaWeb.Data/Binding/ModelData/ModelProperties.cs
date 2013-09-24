@@ -42,7 +42,7 @@ namespace AmplaWeb.Data.Binding.ModelData
                 properties.Add(propertyName);
                 propertyInfoDictionary[propertyName] = property;
                 TypeConverterAttribute typeConverterAttribute;
-                TypeConverter typeConverter = TypeDescriptor.GetConverter(property.PropertyType);
+                TypeConverter typeConverter = GetTypeConverter(property);
                 if (property.TryGetAttribute(out typeConverterAttribute))
                 {
                     Type converterType = Type.GetType(typeConverterAttribute.ConverterTypeName);
@@ -54,6 +54,15 @@ namespace AmplaWeb.Data.Binding.ModelData
                 typeConverterDictionary[propertyName] = typeConverter;
             }
             propertyNames = properties.ToArray();
+        }
+
+        private static TypeConverter GetTypeConverter(PropertyInfo property)
+        {
+            if (property.PropertyType == typeof (DateTime))
+            {
+                return new Iso8601DateTimeConverter();
+            }
+            return TypeDescriptor.GetConverter(property.PropertyType);
         }
 
         /// <summary>

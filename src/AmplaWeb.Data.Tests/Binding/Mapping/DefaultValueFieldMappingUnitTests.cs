@@ -53,17 +53,18 @@ namespace AmplaWeb.Data.Binding.Mapping
         [Test]
         public void ResolveValueWithModelValue()
         {
-            string defaultValue = DateTime.Today.AddDays(-1).ToIso8601Format();
-            const string expectedValue = "2001-01-26";
-            DefaultValueFieldMapping fieldMapping = new DefaultValueFieldMapping("Sample", () => defaultValue);
+            DateTime localTime = new DateTime(2001, 01, 26);
+            string utcTime = new Iso8601DateTimeConverter().ConvertToInvariantString(localTime);
+
+            DefaultValueFieldMapping fieldMapping = new DefaultValueFieldMapping("Sample", () => "blah");
            
-            Model model = new Model {Id = 0, Sample = new DateTime(2001, 01, 26)};
+            Model model = new Model {Id = 0, Sample = localTime};
 
             ModelProperties<Model> modelProperties = new ModelProperties<Model>();
 
             string value;
             Assert.That(fieldMapping.TryResolveValue(modelProperties, model, out value), Is.True);
-            Assert.That(value, Is.EqualTo(expectedValue));
+            Assert.That(value, Is.EqualTo(utcTime));
         }
 
     }
