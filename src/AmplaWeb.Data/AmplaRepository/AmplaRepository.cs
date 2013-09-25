@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Binding;
+using AmplaWeb.Data.Binding.ViewData;
 
 namespace AmplaWeb.Data.AmplaRepository
 {
@@ -16,8 +17,10 @@ namespace AmplaWeb.Data.AmplaRepository
             request.Credentials = CreateCredentials();
             List<SubmitDataRecord> records = new List<SubmitDataRecord>();
             List<TModel> models = new List<TModel> { model };
-           
-            if (new AmplaAddDataBinding<TModel>(models, records, ViewProperties, ModelProperties).Bind())
+
+            IAmplaViewProperties<TModel> amplaViewProperties = GetViewProperties(model);
+
+            if (new AmplaAddDataBinding<TModel>(models, records, amplaViewProperties, ModelProperties).Bind())
             {
                 request.SubmitDataRecords = records.ToArray();
                 SubmitDataResponse response = WebServiceClient.SubmitData(request);
@@ -79,8 +82,10 @@ namespace AmplaWeb.Data.AmplaRepository
             SubmitDataRequest request = new SubmitDataRequest();
             request.Credentials = CreateCredentials();
             List<SubmitDataRecord> records = new List<SubmitDataRecord>();
-            
-            if (new AmplaUpdateDataBinding<TModel>(existing, model, records, ViewProperties, ModelProperties).Bind())
+
+            IAmplaViewProperties<TModel> amplaViewProperties = GetViewProperties(model); 
+
+            if (new AmplaUpdateDataBinding<TModel>(existing, model, records, amplaViewProperties, ModelProperties).Bind())
             {
                 request.SubmitDataRecords = records.ToArray();
                 WebServiceClient.SubmitData(request);

@@ -13,7 +13,7 @@ namespace AmplaWeb.Data.AmplaRepository
         private IDataWebServiceClient webServiceClient;
         private readonly string userName;
         private readonly string password;
-        private IAmplaViewProperties<TModel> amplaViewProperties;
+        private readonly Dictionary<string, IAmplaViewProperties<TModel>> amplaViewDictionary; 
         private readonly IModelProperties<TModel> modelProperties; 
 
         public AmplaReadOnlyRepository(IDataWebServiceClient webServiceClient, string userName, string password)
@@ -22,6 +22,7 @@ namespace AmplaWeb.Data.AmplaRepository
             this.userName = userName;
             this.password = password;
             modelProperties = new ModelProperties<TModel>();
+            amplaViewDictionary = new Dictionary<string, IAmplaViewProperties<TModel>>();
         }
 
         public void Dispose()
@@ -34,27 +35,26 @@ namespace AmplaWeb.Data.AmplaRepository
             get { return modelProperties; }
         }
 
-        protected IAmplaViewProperties<TModel> ViewProperties
+        protected IAmplaViewProperties<TModel> GetViewProperties(TModel model)
         {
-            get
+            IAmplaViewProperties<TModel> amplaView;
+            string location = ModelProperties.GetLocation(model);
+            if (!amplaViewDictionary.TryGetValue(location, out amplaView))
             {
-                if (amplaViewProperties == null)
-                {
-                    AmplaViewProperties<TModel> viewProperties = new AmplaViewProperties<TModel>(ModelProperties);
-                    GetViewsRequest request = new GetViewsRequest();
-                    request.Credentials = CreateCredentials();
-                    request.Mode = NavigationMode.Location;
-                    request.Context = NavigationContext.Plant;
-                    request.ViewPoint = modelProperties.FilterLocation;
-                    request.Module = modelProperties.Module;
+                AmplaViewProperties<TModel> viewProperties = new AmplaViewProperties<TModel>(ModelProperties);
+                GetViewsRequest request = new GetViewsRequest();
+                request.Credentials = CreateCredentials();
+                request.Mode = NavigationMode.Location;
+                request.Context = NavigationContext.Plant;
+                request.ViewPoint = location;
+                request.Module = modelProperties.Module;
 
-                    GetViewsResponse response = WebServiceClient.GetViews(request);
-                    viewProperties.Initialise(response);
-
-                    amplaViewProperties = viewProperties;
-                }
-                return amplaViewProperties;
+                GetViewsResponse response = WebServiceClient.GetViews(request);
+                viewProperties.Initialise(response);
+                amplaViewDictionary[location] = viewProperties;
+                amplaView = viewProperties;
             }
+            return amplaView;
         }
 
         protected IDataWebServiceClient WebServiceClient
