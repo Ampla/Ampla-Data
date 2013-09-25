@@ -37,16 +37,6 @@ namespace AmplaWeb.Data.Binding.ViewData
             fieldResolvers = BuildFieldResolvers();
         }
 
-        public List<string> GetFields()
-        {
-            List<string> properties = new List<string>(modelProperties.GetProperties());
-            if (!properties.Contains("Location"))
-            {
-                properties.Add("Location");
-            }
-            return properties;
-        }
-
         public IEnumerable<FieldMapping> GetFieldMappings()
         {
             return fieldResolvers;
