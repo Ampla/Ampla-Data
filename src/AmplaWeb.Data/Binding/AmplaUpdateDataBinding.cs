@@ -29,9 +29,11 @@ namespace AmplaWeb.Data.Binding
             if (existing == null) return false;
             if (update == null) return false;
 
+            if (modelProperties.GetLocation(existing) != modelProperties.GetLocation(update)) return false;
+
             SubmitDataRecord record = new SubmitDataRecord
             {
-                Location = modelProperties.Location,
+                Location = modelProperties.GetLocation(existing),
                 Module = modelProperties.Module,
                 MergeCriteria = new MergeCriteria
                 {

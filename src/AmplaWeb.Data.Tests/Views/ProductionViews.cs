@@ -18,6 +18,17 @@ namespace AmplaWeb.Data.Views
             };
         }
 
+        public static GetView StandardView()
+        {
+            GetView view = new GetView
+                {
+                    name = "Production.StandardView",
+                    DisplayName = "Production",
+                    Fields = StandardFieldsPlus()
+                };
+            return view;
+        }
+
         public static GetView AreaValueModelView()
         {
             GetView view = new GetView

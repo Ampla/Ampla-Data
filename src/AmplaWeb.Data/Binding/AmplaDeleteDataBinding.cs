@@ -27,7 +27,7 @@ namespace AmplaWeb.Data.Binding
             {
                 DeleteRecord record = new DeleteRecord
                     {
-                        Location = modelProperties.Location,
+                        Location = modelProperties.GetLocation(model),
                         Module = modelProperties.Module,
                         MergeCriteria = new DeleteRecordsMergeCriteria
                             {

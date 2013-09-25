@@ -25,17 +25,6 @@ namespace AmplaWeb.Data.Binding.Mapping
         public string Name { get; private set; }
 
         /// <summary>
-        /// Does the field support reading?
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [can read]; otherwise, <c>false</c>.
-        /// </value>
-        public bool CanRead
-        {
-            get; protected set;
-        }
-
-        /// <summary>
         /// Does the field support writing?
         /// </summary>
         /// <value>

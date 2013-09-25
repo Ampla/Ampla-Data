@@ -13,7 +13,6 @@ namespace AmplaWeb.Data.Binding.Mapping
         /// <param name="name">The name.</param>
         public ReadOnlyFieldMapping(string name) : base(name)
         {
-            CanRead = true;
             CanWrite = false;
         }
 

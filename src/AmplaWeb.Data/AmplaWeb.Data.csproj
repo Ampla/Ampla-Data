@@ -65,7 +65,6 @@
     <Compile Include="Binding\Mapping\ModelFieldMapping.cs" />
     <Compile Include="Binding\Mapping\ReadOnlyFieldMapping.cs" />
     <Compile Include="Binding\MetaData\DataTypeHelper.cs" />
-    <Compile Include="Binding\MetaData\DateTimeExtensions.cs" />
     <Compile Include="Binding\ViewData\ViewCollection.cs" />
     <Compile Include="Binding\ViewData\ViewPeriodsCollection.cs" />
     <Compile Include="Binding\ViewData\ViewField.cs" />

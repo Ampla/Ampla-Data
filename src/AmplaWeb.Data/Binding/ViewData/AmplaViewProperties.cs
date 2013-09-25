@@ -104,9 +104,14 @@ namespace AmplaWeb.Data.Binding.ViewData
         {
             if (field.Name == "SampleDateTime")
             {
-                return new DefaultValueFieldMapping("Sample Period", () => DateTime.UtcNow.ToIso8601Format());
+                return new DefaultValueFieldMapping("Sample Period", Iso8601UtcNow);
             }
             return null;
+        }
+
+        private static string Iso8601UtcNow()
+        {
+            return new Iso8601DateTimeConverter().ConvertToInvariantString(DateTime.UtcNow);
         }
 
         private FieldMapping GetSpecialFieldMapping(ViewField field)
@@ -118,12 +123,12 @@ namespace AmplaWeb.Data.Binding.ViewData
 
             if (field.Name == "ObjectId")
             {
-                return new LocationFieldMapping("Location", modelProperties.Location);
+                return new LocationFieldMapping("Location", modelProperties.FilterLocation);
             }
 
             if (field.Name == "SampleDateTime")
             {
-                return new DefaultValueFieldMapping("Sample Period", () => DateTime.UtcNow.ToIso8601Format());
+                return new DefaultValueFieldMapping("Sample Period", Iso8601UtcNow);
             }
             return null;
         }

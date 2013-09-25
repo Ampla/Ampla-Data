@@ -29,7 +29,7 @@ namespace AmplaWeb.Data.Binding
             {
                 SubmitDataRecord record = new SubmitDataRecord
                     {
-                        Location = modelProperties.Location,
+                        Location = modelProperties.GetLocation(model),
                         Module = modelProperties.Module,
                         MergeCriteria = null
                     };

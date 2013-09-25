@@ -10,9 +10,16 @@ namespace AmplaWeb.Data.Binding.ModelData
     public interface IModelProperties<in TModel> where TModel : new()
     {
         /// <summary>
+        /// Gets the location for the model
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        string GetLocation(TModel model);
+
+        /// <summary>
         ///     The Ampla Location that the model represents
         /// </summary>
-        string Location { get; }
+        string FilterLocation { get; }
 
         /// <summary>
         ///     The Ampla module 

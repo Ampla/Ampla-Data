@@ -17,7 +17,7 @@ namespace AmplaWeb.Data.Binding.ModelData
         private readonly Dictionary<string, PropertyInfo> propertyInfoDictionary = new Dictionary<string, PropertyInfo>();
         private readonly Dictionary<string, TypeConverter> typeConverterDictionary = new Dictionary<string, TypeConverter>();
         private readonly string[] propertyNames;
-        private readonly string location;
+        private readonly string filterLocation;
         private readonly AmplaModules module;
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace AmplaWeb.Data.Binding.ModelData
         public ModelProperties()
         {
             AmplaModules? temp;
-            bool ok = AmplaLocationAttribute.TryGetLocation<TModel>(out location);
+            bool ok = AmplaLocationAttribute.TryGetLocation<TModel>(out filterLocation);
             ok &= AmplaModuleAttribute.TryGetModule<TModel>(out temp);
 
             if (!ok) throw new ArgumentException("Unable to read the AmplaLocationAttribute or AmplaModuleAttribute on type: " + typeof(TModel).FullName);
@@ -66,11 +66,29 @@ namespace AmplaWeb.Data.Binding.ModelData
         }
 
         /// <summary>
+        /// Gets the location from the model
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        public string GetLocation(TModel model)
+        {
+            if (!Equals(model, null))
+            {
+                string modelLocation;
+                if (TryGetPropertyValue(model, "Location", out modelLocation))
+                {
+                    return string.IsNullOrEmpty(modelLocation) ? filterLocation : modelLocation;
+                }
+            }
+            return filterLocation;
+        }
+
+        /// <summary>
         ///     The Ampla Location that the model represents
         /// </summary>
-        public string Location
+        public string FilterLocation
         {
-            get { return location; }
+            get { return filterLocation; }
         }
 
         /// <summary>

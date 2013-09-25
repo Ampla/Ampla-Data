@@ -13,7 +13,6 @@ namespace AmplaWeb.Data.Binding.Mapping
         /// <param name="name"></param>
         public ModelFieldMapping(string name) : base(name)
         {
-            CanRead = true;
             CanWrite = true;
         }
 

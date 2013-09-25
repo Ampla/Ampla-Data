@@ -47,7 +47,7 @@ namespace AmplaWeb.Data.Binding.ModelData
         public void TestSimpleModel()
         {
             ModelProperties<SimpleModel> modelProperties = new ModelProperties<SimpleModel>();
-            Assert.That(modelProperties.Location, Is.EqualTo("Enterprise.Site.Area.Simple"));
+            Assert.That(modelProperties.GetLocation(null), Is.EqualTo("Enterprise.Site.Area.Simple"));
             Assert.That(modelProperties.Module, Is.EqualTo(AmplaModules.Production));
 
             IList<string> properties = modelProperties.GetProperties();
@@ -59,7 +59,7 @@ namespace AmplaWeb.Data.Binding.ModelData
         public void TestInheritedModel()
         {
             ModelProperties<InheritedModel> modelProperties = new ModelProperties<InheritedModel>();
-            Assert.That(modelProperties.Location, Is.EqualTo("Enterprise.Site.Area.Simple"));
+            Assert.That(modelProperties.GetLocation(null), Is.EqualTo("Enterprise.Site.Area.Simple"));
             Assert.That(modelProperties.Module, Is.EqualTo(AmplaModules.Production));
 
             IList<string> properties = modelProperties.GetProperties();

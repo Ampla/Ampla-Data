@@ -43,7 +43,6 @@ namespace AmplaWeb.Data.Binding.Mapping
         {
             ReadOnlyFieldMapping fieldMapping = new ReadOnlyFieldMapping("EquipmentId");
             Assert.That(fieldMapping.CanWrite, Is.False);
-            Assert.That(fieldMapping.CanRead, Is.True);
         }
 
     }

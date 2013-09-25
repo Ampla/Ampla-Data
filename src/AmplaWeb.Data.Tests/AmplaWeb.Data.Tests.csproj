@@ -60,6 +60,7 @@
     <Compile Include="AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
     <Compile Include="AmplaRepository\AmplaReadOnlyRepositoryUnitTests.cs" />
     <Compile Include="AmplaRepository\AmplaRepositoryDateTimeUnitTests.cs" />
+    <Compile Include="AmplaRepository\AmplaRepositoryLocationUnitTests.cs" />
     <Compile Include="AmplaRepository\AmplaRepositoryTestFixture.cs" />
     <Compile Include="AmplaRepository\AmplaRepositoryUnitTests.cs" />
     <Compile Include="Attributes\AmplaLocationAttributeUnitTests.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Binding\Mapping\IdFieldMappingUnitTests.cs" />
     <Compile Include="Binding\Mapping\ModelFieldMappingUnitTests.cs" />
     <Compile Include="Binding\Mapping\ReadOnlyFieldMappingUnitTests.cs" />
+    <Compile Include="Binding\ModelData\ModelPropertyLocationUnitTests.cs" />
     <Compile Include="Binding\ModelData\ModelPropertiesUnitTests.cs" />
     <Compile Include="Binding\ModelData\ModelPropertyNonDefaultUnitTests.cs" />
     <Compile Include="Binding\ViewData\ViewFiltersCollectionUnitTests.cs" />

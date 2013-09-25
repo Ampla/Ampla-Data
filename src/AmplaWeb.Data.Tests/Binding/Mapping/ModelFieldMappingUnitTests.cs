@@ -39,7 +39,6 @@ namespace AmplaWeb.Data.Binding.Mapping
         {
             ModelFieldMapping fieldMapping = new ModelFieldMapping("Sample");
             Assert.That(fieldMapping.CanWrite, Is.True);
-            Assert.That(fieldMapping.CanRead, Is.True);
         }
     }
 

@@ -37,7 +37,7 @@ namespace AmplaWeb.Data.Binding.Mapping
         [Test]
         public void ResolveValueWithDefaultValue()
         {
-            string defaultValue = DateTime.UtcNow.ToIso8601Format();
+            string defaultValue = new Iso8601DateTimeConverter().ConvertToInvariantString(DateTime.UtcNow);
             DefaultValueFieldMapping fieldMapping = new DefaultValueFieldMapping("Sample", () => defaultValue);
 
             Model model = new Model {Id = 0};

@@ -45,7 +45,7 @@ namespace AmplaWeb.Data.AmplaRepository
                     request.Credentials = CreateCredentials();
                     request.Mode = NavigationMode.Location;
                     request.Context = NavigationContext.Plant;
-                    request.ViewPoint = modelProperties.Location;
+                    request.ViewPoint = modelProperties.FilterLocation;
                     request.Module = modelProperties.Module;
 
                     GetViewsResponse response = WebServiceClient.GetViews(request);
@@ -88,7 +88,7 @@ namespace AmplaWeb.Data.AmplaRepository
                         },
                     Filter = new DataFilter
                         {
-                            Location = ModelProperties.Location,
+                            Location = ModelProperties.FilterLocation,
                             Criteria = GetFilters(filters)
                         },
                     View = new GetDataView

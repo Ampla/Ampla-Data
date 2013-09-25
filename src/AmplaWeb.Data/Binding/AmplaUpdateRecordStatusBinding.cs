@@ -28,7 +28,7 @@ namespace AmplaWeb.Data.Binding
             {
                 UpdateRecordStatus record = new UpdateRecordStatus
                 {
-                    Location = modelProperties.Location,
+                    Location = modelProperties.GetLocation(model),
                     Module = modelProperties.Module,
 
                     MergeCriteria = new UpdateRecordStatusMergeCriteria

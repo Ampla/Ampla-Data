@@ -14,7 +14,6 @@ namespace AmplaWeb.Data.Binding.Mapping
         /// <param name="value">The value.</param>
         public ConstantFieldMapping(string name, string value) : base(name)
         {
-            CanRead = true;
             CanWrite = false;
 
             Value = value;
