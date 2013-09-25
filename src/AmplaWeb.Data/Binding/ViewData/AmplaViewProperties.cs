@@ -36,16 +36,6 @@ namespace AmplaWeb.Data.Binding.ViewData
             viewPeriodsCollection.Initialise(view);
             fieldResolvers = BuildFieldResolvers();
         }
-        
-        public string GetPropertyValue(TModel model, string property)
-        {
-            string value;
-            if (modelProperties.TryGetPropertyValue(model, property, out value))
-            {
-                
-            }
-            throw new NotImplementedException();
-        }
 
         public List<string> GetFields()
         {
