@@ -10,17 +10,18 @@ namespace AmplaWeb.Data.Binding
         private readonly DataSubmissionResult[] dataSubmissionResults;
         private readonly List<TModel> models;
         private readonly IModelProperties<TModel> modelProperties;
+        private readonly string idProperty;
 
         public AmplaDataSubmissionResultBinding(DataSubmissionResult[] dataSubmissionResults, List<TModel> models, IModelProperties<TModel> modelProperties )
         {
             this.dataSubmissionResults = dataSubmissionResults ?? new DataSubmissionResult[0];
             this.models = models;
             this.modelProperties = modelProperties;
+            idProperty = ModelIdentifier.GetPropertyName<TModel>();
         }
 
         public bool Bind()
         {
-            string idProperty = ModelIdentifier.GetPropertyName<TModel>();
             if (string.IsNullOrEmpty(idProperty))
             {
                 return false;
@@ -40,6 +41,11 @@ namespace AmplaWeb.Data.Binding
                 }
             }
             return true;
+        }
+
+        public bool Validate()
+        {
+            return !string.IsNullOrEmpty(idProperty);
         }
     }
 }

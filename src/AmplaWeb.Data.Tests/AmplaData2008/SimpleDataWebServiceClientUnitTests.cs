@@ -1,4 +1,5 @@
 ﻿
+using System.ServiceModel;
 using AmplaWeb.Data.Records;
 using AmplaWeb.Data.Tests;
 using NUnit.Framework;
@@ -34,6 +35,26 @@ namespace AmplaWeb.Data.AmplaData2008
             Assert.That(response.DataSubmissionResults[0].SetId, Is.GreaterThan(100));
 
             Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void InsertInvalidLocation()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Production", "Plant.Area.Production");
+
+            InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
+            record.Location = record.Location + ".Invalid";
+
+            SubmitDataRequest request = new SubmitDataRequest
+            {
+                Credentials = CreateCredentials(),
+                SubmitDataRecords = new[]
+                    {
+                        record.ConvertToSubmitDataRecord()
+                    }
+            };
+
+            Assert.Throws<FaultException>(() => webServiceClient.SubmitData(request));
         }
 
         [Test]
@@ -101,18 +122,40 @@ namespace AmplaWeb.Data.AmplaData2008
             CheckViewPoints(response.Hierarchy.ViewPoints, "", "Plant");
             CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints, "Plant", "Area");
             CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints[0].ReportingPoints, "Plant.Area", "Production");
-
         }
 
-        private static void CheckViewPoints(ViewPoint[] points, string parent, string name)
+        [Test]
+        public void GetNavigationHierarchyTwoLocations()
+        {
+            string[] locations = new [] { "Plant.Area.Production", "Plant.Area.Equipment.Production"};
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Production",
+                                                                                         locations);
+
+            GetNavigationHierarchyResponse response = webServiceClient.GetNavigationHierarchy(new GetNavigationHierarchyRequest { Module = AmplaModules.Production });
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Hierarchy, Is.Not.Null);
+            CheckViewPoints(response.Hierarchy.ViewPoints, "", "Plant");
+            CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints, "Plant", "Area");
+            CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints[0].ViewPoints, "Plant.Area", "Equipment");
+
+            CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints[0].ReportingPoints, "Plant.Area", "Production");
+            CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints[0].ViewPoints[0].ReportingPoints, "Plant.Area.Equipment", "Production");
+        }
+
+        private static void CheckViewPoints(ViewPoint[] points, string parent, params string[] names)
         {
             Assert.That(points, Is.Not.Empty, parent);
-            Assert.That(points.Length, Is.EqualTo(1), parent);
-            Assert.That(points[0].DisplayName, Is.EqualTo(name), parent);
-            Assert.That(points[0].LocalizedDisplayName, Is.EqualTo(name), parent);
-            Assert.That(points[0].id, Is.EqualTo((parent.Length > 0 ? parent + "." : "") + name), parent);
-            Assert.That(points[0].ViewPoints, Is.Not.Null, parent);
-            Assert.That(points[0].ReportingPoints, Is.Not.Null, parent);
+            Assert.That(points.Length, Is.EqualTo(names.Length), parent);
+            for (int i = 0; i < names.Length; i++)
+            {
+                string name = names[0];
+
+                Assert.That(points[i].DisplayName, Is.EqualTo(name), "[{0}] {1}", i, parent);
+                Assert.That(points[i].LocalizedDisplayName, Is.EqualTo(name), "[{0}] {1}", i, parent);
+                Assert.That(points[i].id, Is.EqualTo((parent.Length > 0 ? parent + "." : "") + name), "[{0}] {1}", i, parent);
+                Assert.That(points[i].ViewPoints, Is.Not.Null, "[{0}] {1}", i, parent);
+                Assert.That(points[i].ReportingPoints, Is.Not.Null, "[{0}] {1}", i, parent);
+            }
         }
 
         private static void CheckViewPoints(GetNavigationReportingPoint[] points, string parent, string name)

@@ -7,7 +7,7 @@ namespace AmplaWeb.Data.Binding
 {
     public class AmplaGetDataBinding<TModel> : IAmplaBinding where TModel : new()
     {
-        private IModelProperties<TModel> modelProperties;
+        private readonly IModelProperties<TModel> modelProperties;
         private readonly GetDataResponse response;
         private readonly List<TModel> records;
 
@@ -43,5 +43,9 @@ namespace AmplaWeb.Data.Binding
             return true;
         }
 
+        public bool Validate()
+        {
+            return true;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AmplaWeb.Data.AmplaData2008;
+using AmplaWeb.Data.Binding.ModelData.Validation;
 
 namespace AmplaWeb.Data.Binding.ModelData
 {
@@ -17,9 +18,9 @@ namespace AmplaWeb.Data.Binding.ModelData
         string GetLocation(TModel model);
 
         /// <summary>
-        ///     The Ampla Location that the model represents
+        ///     The Location Filter for accessing the model
         /// </summary>
-        string FilterLocation { get; }
+        LocationFilter LocationFilter { get; }
 
         /// <summary>
         ///     The Ampla module 
@@ -57,5 +58,13 @@ namespace AmplaWeb.Data.Binding.ModelData
         /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>
         bool IsDefaultValue(TModel model, string propertyName);
+
+        /// <summary>
+        ///     Validates the model and adds the messages
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="validationMessages"></param>
+        /// <returns></returns>
+        bool ValidateModel(TModel model, ValidationMessages validationMessages);
     }
 }

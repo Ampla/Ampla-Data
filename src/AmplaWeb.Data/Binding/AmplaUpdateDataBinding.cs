@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Binding.Mapping;
 using AmplaWeb.Data.Binding.ModelData;
+using AmplaWeb.Data.Binding.ModelData.Validation;
 using AmplaWeb.Data.Binding.ViewData;
 
 namespace AmplaWeb.Data.Binding
@@ -68,5 +69,23 @@ namespace AmplaWeb.Data.Binding
             return records.Count > 0;
         }
 
+        public bool Validate()
+        {
+            ValidationMessages validationMessages = new ValidationMessages();
+
+            string existingLocation = modelProperties.GetLocation(existing);
+
+            RequiredLocationValidator<TModel> requiredLocation = new RequiredLocationValidator<TModel>(existingLocation);
+            
+            bool isValid = requiredLocation.Validate(modelProperties, update, validationMessages);
+            isValid &= modelProperties.ValidateModel(update, validationMessages);
+            
+            if (!isValid)
+            {
+                validationMessages.Throw();
+            }
+
+            return isValid;
+        }
     }
 }

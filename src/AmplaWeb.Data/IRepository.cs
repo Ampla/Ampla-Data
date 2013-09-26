@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace AmplaWeb.Data
 {
     /// <summary>
@@ -7,7 +9,6 @@ namespace AmplaWeb.Data
     /// <typeparam name="TModel">The type of the model.</typeparam>
     public interface IRepository<TModel> : IReadOnlyRepository<TModel>
     {
-
         /// <summary>
         /// Adds the specified model.
         /// </summary>
@@ -37,5 +38,12 @@ namespace AmplaWeb.Data
         /// </summary>
         /// <param name="model">The model.</param>
         void Unconfirm(TModel model);
+
+        /// <summary>
+        /// Gets the allowed values for the property
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <returns></returns>
+        List<string> GetAllowedValues(string property);
     }
 }

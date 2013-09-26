@@ -7,5 +7,7 @@ namespace AmplaWeb.Data.Binding
     public interface IAmplaBinding
     {
         bool Bind();
+
+        bool Validate();
     }
 }

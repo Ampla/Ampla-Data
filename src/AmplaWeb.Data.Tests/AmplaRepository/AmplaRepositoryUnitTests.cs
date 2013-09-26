@@ -298,7 +298,7 @@ namespace AmplaWeb.Data.AmplaRepository
             updateModel.Value = 100;
             Repository.Update(updateModel);
 
-            Assert.That(Messages.Count, Is.EqualTo(currentMessages + 1));
+            Assert.That(Messages.Count, Is.EqualTo(currentMessages + 1), string.Join("\r\n", Messages));
             // record is not submitted
             Assert.That(Records.Count, Is.EqualTo(1));
 

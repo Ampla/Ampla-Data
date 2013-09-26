@@ -49,9 +49,16 @@
     <Compile Include="AmplaRepository\AmplaRepositorySet.cs" />
     <Compile Include="Attributes\AmplaFieldAttribute.cs" />
     <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
+    <Compile Include="Binding\AmplaNavigationBinding.cs" />
     <Compile Include="Binding\AmplaUpdateRecordStatusBinding.cs" />
     <Compile Include="Binding\MetaData\Iso8601DateTimeConverter.cs" />
     <Compile Include="Binding\ModelData\IModelProperties.cs" />
+    <Compile Include="Binding\ModelData\LocationFilter.cs" />
+    <Compile Include="Binding\ModelData\Validation\IModelValidator.cs" />
+    <Compile Include="Binding\ModelData\Validation\LocationValidator.cs" />
+    <Compile Include="Binding\ModelData\Validation\NullModelValidator.cs" />
+    <Compile Include="Binding\ModelData\Validation\RequiredLocationValidator.cs" />
+    <Compile Include="Binding\ModelData\Validation\ValidationMessages.cs" />
     <Compile Include="Binding\ModelIdentifierBinding.cs" />
     <Compile Include="Binding\ViewData\IAmplaViewProperties.cs" />
     <Compile Include="FilterValue.cs" />
@@ -61,7 +68,6 @@
     <Compile Include="Binding\Mapping\DefaultValueFieldMapping.cs" />
     <Compile Include="Binding\Mapping\FieldMapping.cs" />
     <Compile Include="Binding\Mapping\IdFieldMapping.cs" />
-    <Compile Include="Binding\Mapping\LocationFieldMapping.cs" />
     <Compile Include="Binding\Mapping\ModelFieldMapping.cs" />
     <Compile Include="Binding\Mapping\ReadOnlyFieldMapping.cs" />
     <Compile Include="Binding\MetaData\DataTypeHelper.cs" />

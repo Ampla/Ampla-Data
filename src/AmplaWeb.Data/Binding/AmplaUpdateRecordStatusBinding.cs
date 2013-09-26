@@ -11,6 +11,7 @@ namespace AmplaWeb.Data.Binding
         private readonly IModelProperties<TModel> modelProperties;
 
         private readonly UpdateRecordStatusAction recordAction;
+        private readonly string idProperty;
 
         protected AmplaUpdateRecordStatusBinding(List<TModel> models, List<UpdateRecordStatus> records, IModelProperties<TModel> modelProperties, UpdateRecordStatusAction recordAction)
         {
@@ -18,6 +19,7 @@ namespace AmplaWeb.Data.Binding
             this.records = records;
             this.modelProperties = modelProperties;
             this.recordAction = recordAction;
+            idProperty = ModelIdentifier.GetPropertyName<TModel>();
         }
 
         public bool Bind()
@@ -41,6 +43,11 @@ namespace AmplaWeb.Data.Binding
             }
 
             return true;
+        }
+
+        public bool Validate()
+        {
+            return !string.IsNullOrEmpty(idProperty);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AmplaWeb.Data.Tests;
+﻿using AmplaWeb.Data.Binding.ModelData;
+using AmplaWeb.Data.Tests;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.Attributes
@@ -42,37 +43,37 @@ namespace AmplaWeb.Data.Attributes
         [Test]
         public void TryGetWithLocation()
         {
-            string location;
+            LocationFilter location;
             bool result = AmplaLocationAttribute.TryGetLocation<ModelWithLocation>(out location);
         
-            Assert.That(location, Is.EqualTo("Enterprise.Site.Area.Point"));
+            Assert.That(location.Filter, Is.EqualTo("Enterprise.Site.Area.Point"));
             Assert.That(result, Is.True);
         }
 
         [Test]
         public void TryGetInheritedWithLocation()
         {
-            string location;
+            LocationFilter location;
             bool result = AmplaLocationAttribute.TryGetLocation<InheritedModelWithLocation>(out location);
 
-            Assert.That(location, Is.EqualTo("Enterprise.Site.Area.Point"));
+            Assert.That(location.Filter, Is.EqualTo("Enterprise.Site.Area.Point"));
             Assert.That(result, Is.True);
         }
 
         [Test]
         public void TryGetModelWithOverriddenLocation()
         {
-            string location;
+            LocationFilter location;
             bool result = AmplaLocationAttribute.TryGetLocation<ModelWithOverriddenLocation>(out location);
 
-            Assert.That(location, Is.EqualTo("Enterprise.Site.Area.Overridden"));
+            Assert.That(location.Filter, Is.EqualTo("Enterprise.Site.Area.Overridden"));
             Assert.That(result, Is.True);
         }
 
         [Test]
         public void TryGetWithNoLocation()
         {
-            string location;
+            LocationFilter location;
             bool result = AmplaLocationAttribute.TryGetLocation<ModelWithNoLocation>(out location);
 
             Assert.That(location, Is.EqualTo(null));
@@ -82,7 +83,7 @@ namespace AmplaWeb.Data.Attributes
         [Test]
         public void TryGetWithNoAttribute()
         {
-            string location;
+            LocationFilter location;
             bool result = AmplaLocationAttribute.TryGetLocation<ModelNoAttribute>(out location);
 
             Assert.That(location, Is.EqualTo(null));
@@ -92,20 +93,20 @@ namespace AmplaWeb.Data.Attributes
         [Test]
         public void TryGetWithEmptyAttribute()
         {
-            string location;
+            LocationFilter location;
             bool result = AmplaLocationAttribute.TryGetLocation<ModelWithEmptyLocation>(out location);
 
-            Assert.That(location, Is.EqualTo(""));
+            Assert.That(location, Is.EqualTo(null));
             Assert.That(result, Is.False);
         }
 
         [Test]
         public void TryGetWithConstructorLocation()
         {
-            string location;
+            LocationFilter location;
             bool result = AmplaLocationAttribute.TryGetLocation<ModelLocationViaConstructor>(out location);
 
-            Assert.That(location, Is.EqualTo("Enterprise.Site.Area.Point"));
+            Assert.That(location.Filter, Is.EqualTo("Enterprise.Site.Area.Point"));
             Assert.That(result, Is.True);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using AmplaWeb.Data.Binding.MetaData;
+using AmplaWeb.Data.Binding.ModelData;
 
 namespace AmplaWeb.Data.Attributes
 {
@@ -34,21 +35,33 @@ namespace AmplaWeb.Data.Attributes
         public string Location { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [with recurse] is set
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [with recurse]; otherwise, <c>false</c>.
+        /// </value>
+        public bool WithRecurse { get; set; }
+
+        /// <summary>
         ///     Tries to get the Location value from the specified type.
         /// </summary>
         /// <typeparam name="TModel">The type of the model.</typeparam>
         /// <param name="location">The location.</param>
         /// <returns></returns>
-        public static bool TryGetLocation<TModel>(out string location)
+        public static bool TryGetLocation<TModel>(out LocationFilter location)
         {
             location = null;
             AmplaLocationAttribute attribute;
             if (typeof (TModel).TryGetAttribute(out attribute))
             {
-                location = attribute.Location;
+                location = new LocationFilter(attribute.Location, attribute.WithRecurse);
+                if (string.IsNullOrEmpty(location.Location))
+                {
+                    location = null;
+                }
             }
 
-            return !string.IsNullOrEmpty(location);
+            return location != null;
         }
     }
 }

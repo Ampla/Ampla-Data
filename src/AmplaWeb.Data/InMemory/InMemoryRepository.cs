@@ -70,6 +70,11 @@ namespace AmplaWeb.Data.InMemory
             throw new NotImplementedException();
         }
 
+        public List<string> GetAllowedValues(string property)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(TModel model)
         {
             TModel prev = FindById(ModelIdentifier.GetValue<TModel, int>(model));

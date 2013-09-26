@@ -13,7 +13,6 @@ namespace AmplaWeb.Data.AmplaRepository
         private IDataWebServiceClient webServiceClient;
         private readonly string userName;
         private readonly string password;
-        private readonly Dictionary<string, IAmplaViewProperties<TModel>> amplaViewDictionary; 
         private readonly IModelProperties<TModel> modelProperties; 
 
         public AmplaReadOnlyRepository(IDataWebServiceClient webServiceClient, string userName, string password)
@@ -22,8 +21,7 @@ namespace AmplaWeb.Data.AmplaRepository
             this.userName = userName;
             this.password = password;
             modelProperties = new ModelProperties<TModel>();
-            amplaViewDictionary = new Dictionary<string, IAmplaViewProperties<TModel>>();
-        }
+         }
 
         public void Dispose()
         {
@@ -35,27 +33,7 @@ namespace AmplaWeb.Data.AmplaRepository
             get { return modelProperties; }
         }
 
-        protected IAmplaViewProperties<TModel> GetViewProperties(TModel model)
-        {
-            IAmplaViewProperties<TModel> amplaView;
-            string location = ModelProperties.GetLocation(model);
-            if (!amplaViewDictionary.TryGetValue(location, out amplaView))
-            {
-                AmplaViewProperties<TModel> viewProperties = new AmplaViewProperties<TModel>(ModelProperties);
-                GetViewsRequest request = new GetViewsRequest();
-                request.Credentials = CreateCredentials();
-                request.Mode = NavigationMode.Location;
-                request.Context = NavigationContext.Plant;
-                request.ViewPoint = location;
-                request.Module = modelProperties.Module;
 
-                GetViewsResponse response = WebServiceClient.GetViews(request);
-                viewProperties.Initialise(response);
-                amplaViewDictionary[location] = viewProperties;
-                amplaView = viewProperties;
-            }
-            return amplaView;
-        }
 
         protected IDataWebServiceClient WebServiceClient
         {
@@ -68,7 +46,8 @@ namespace AmplaWeb.Data.AmplaRepository
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<TModel> records = new List<TModel>();
-            if (new AmplaGetDataBinding<TModel>(response, records, ModelProperties).Bind())
+            IAmplaBinding binding = new AmplaGetDataBinding<TModel>(response, records, ModelProperties);
+            if (binding.Validate() && binding.Bind())
             {
                 return records;
             }
@@ -88,7 +67,7 @@ namespace AmplaWeb.Data.AmplaRepository
                         },
                     Filter = new DataFilter
                         {
-                            Location = ModelProperties.FilterLocation,
+                            Location = ModelProperties.LocationFilter.Filter,
                             Criteria = GetFilters(filters)
                         },
                     View = new GetDataView
@@ -123,7 +102,8 @@ namespace AmplaWeb.Data.AmplaRepository
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<TModel> records = new List<TModel>();
-            if (new AmplaGetDataBinding<TModel>(response, records, ModelProperties).Bind())
+            IAmplaBinding binding = new AmplaGetDataBinding<TModel>(response, records, ModelProperties);
+            if (binding.Validate() && binding.Bind())
             {
                 return records.Count == 1 ? records[0] : null;    
             }
@@ -137,7 +117,8 @@ namespace AmplaWeb.Data.AmplaRepository
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<TModel> records = new List<TModel>();
-            if (new AmplaGetDataBinding<TModel>(response, records, ModelProperties).Bind())
+            IAmplaBinding binding = new AmplaGetDataBinding<TModel>(response, records, ModelProperties);
+            if (binding.Validate() && binding.Bind())
             {
                 return records;
             }

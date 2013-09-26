@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Attributes;
 using AmplaWeb.Data.Binding.MetaData;
+using AmplaWeb.Data.Binding.ModelData.Validation;
 
 namespace AmplaWeb.Data.Binding.ModelData
 {
@@ -16,8 +18,9 @@ namespace AmplaWeb.Data.Binding.ModelData
     {
         private readonly Dictionary<string, PropertyInfo> propertyInfoDictionary = new Dictionary<string, PropertyInfo>();
         private readonly Dictionary<string, TypeConverter> typeConverterDictionary = new Dictionary<string, TypeConverter>();
+        private readonly List<IModelValidator<TModel>> modelValidators = new List<IModelValidator<TModel>>();  
         private readonly string[] propertyNames;
-        private readonly string filterLocation;
+        private readonly LocationFilter locationFilter;
         private readonly AmplaModules module;
 
         /// <summary>
@@ -26,7 +29,7 @@ namespace AmplaWeb.Data.Binding.ModelData
         public ModelProperties()
         {
             AmplaModules? temp;
-            bool ok = AmplaLocationAttribute.TryGetLocation<TModel>(out filterLocation);
+            bool ok = AmplaLocationAttribute.TryGetLocation<TModel>(out locationFilter);
             ok &= AmplaModuleAttribute.TryGetModule<TModel>(out temp);
 
             if (!ok) throw new ArgumentException("Unable to read the AmplaLocationAttribute or AmplaModuleAttribute on type: " + typeof(TModel).FullName);
@@ -52,8 +55,19 @@ namespace AmplaWeb.Data.Binding.ModelData
                     }
                 }
                 typeConverterDictionary[propertyName] = typeConverter;
+
+                AddModelValidators(property, modelValidators);
             }
+            modelValidators.Add(new NullModelValidator<TModel>());
             propertyNames = properties.ToArray();
+        }
+
+        private static void AddModelValidators(PropertyInfo property, IList<IModelValidator<TModel>> validators )
+        {
+            if (property.Name == "Location")
+            {
+                validators.Add(new LocationValidator<TModel>());
+            }
         }
 
         private static TypeConverter GetTypeConverter(PropertyInfo property)
@@ -72,23 +86,24 @@ namespace AmplaWeb.Data.Binding.ModelData
         /// <returns></returns>
         public string GetLocation(TModel model)
         {
+            string modelLocation = null;
             if (!Equals(model, null))
             {
-                string modelLocation;
-                if (TryGetPropertyValue(model, "Location", out modelLocation))
-                {
-                    return string.IsNullOrEmpty(modelLocation) ? filterLocation : modelLocation;
-                }
+                TryGetPropertyValue(model, "Location", out modelLocation);
             }
-            return filterLocation;
+            if (string.IsNullOrEmpty(modelLocation))
+            {
+                return locationFilter.WithRecurse ? null : locationFilter.Location;
+            }
+            return modelLocation;
         }
 
         /// <summary>
         ///     The Ampla Location that the model represents
         /// </summary>
-        public string FilterLocation
+        public LocationFilter LocationFilter
         {
-            get { return filterLocation; }
+            get { return locationFilter; }
         }
 
         /// <summary>
@@ -211,6 +226,11 @@ namespace AmplaWeb.Data.Binding.ModelData
             bool modelResolved = TryGetPropertyValue(model, property, out modelValue);
 
             return defaultResolved && modelResolved && (defaultValue == modelValue);
+        }
+
+        public bool ValidateModel(TModel model, ValidationMessages validationMessages)
+        {
+            return modelValidators.Aggregate(true, (current, validator) => current & validator.Validate(this, model, validationMessages));
         }
     }
 }

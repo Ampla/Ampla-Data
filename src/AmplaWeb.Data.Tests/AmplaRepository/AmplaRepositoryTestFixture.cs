@@ -12,7 +12,7 @@ namespace AmplaWeb.Data.AmplaRepository
     public abstract class AmplaRepositoryTestFixture<TModel> : TestFixture where TModel : class, new()
     {
         private readonly string module;
-        private readonly string location;
+        private readonly string[] locations;
         private readonly Func<GetView> getViewFunc;
         private const string userName = "User";
         private const string password = "password";
@@ -21,17 +21,22 @@ namespace AmplaWeb.Data.AmplaRepository
         private SimpleDataWebServiceClient webServiceClient;
         private ListLogger listLogger;
 
-        protected AmplaRepositoryTestFixture(string module, string location, Func<GetView> getViewFunc)
+        protected AmplaRepositoryTestFixture(string module, string[] locations, Func<GetView> getViewFunc)
         {
             this.module = module;
-            this.location = location;
+            this.locations = locations;
             this.getViewFunc = getViewFunc;
+        }
+
+        protected AmplaRepositoryTestFixture(string module, string location, Func<GetView> getViewFunc) 
+            : this(module, new [] {location}, getViewFunc)
+        {
         }
 
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            webServiceClient = new SimpleDataWebServiceClient(module, location);
+            webServiceClient = new SimpleDataWebServiceClient(module, locations);
             webServiceClient.GetViewFunc = getViewFunc;
             listLogger = new ListLogger();
             repository = new AmplaRepository<TModel>(new LoggingDataWebServiceClient(webServiceClient, listLogger), userName, password);

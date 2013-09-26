@@ -9,19 +9,19 @@ namespace AmplaWeb.Data.Binding
         private readonly List<TModel> models;
         private readonly List<DeleteRecord> records;
         private readonly IModelProperties<TModel> modelProperties;
+        private string idProperty;
 
         public AmplaDeleteDataBinding(List<TModel> models, List<DeleteRecord> records, IModelProperties<TModel> modelProperties )
         {
             this.models = models;
             this.records = records;
             this.modelProperties = modelProperties;
+            idProperty = ModelIdentifier.GetPropertyName<TModel>();
         }
 
         public bool Bind()
         {
             if (models.Count == 0) return false;
-
-            string propertyId = ModelIdentifier.GetPropertyName<TModel>();
 
             foreach (TModel model in models)
             {
@@ -40,5 +40,9 @@ namespace AmplaWeb.Data.Binding
             return true;
         }
 
+        public bool Validate()
+        {
+            return !string.IsNullOrEmpty(idProperty);
+        }
     }
 }

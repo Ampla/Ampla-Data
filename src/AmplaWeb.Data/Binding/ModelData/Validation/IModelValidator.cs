@@ -1,0 +1,9 @@
+﻿using System.Collections.Generic;
+
+namespace AmplaWeb.Data.Binding.ModelData.Validation
+{
+    public interface IModelValidator<TModel> where TModel : new()
+    {
+        bool Validate(IModelProperties<TModel> modelProperties, TModel model, ValidationMessages validationMessages);
+    }
+}

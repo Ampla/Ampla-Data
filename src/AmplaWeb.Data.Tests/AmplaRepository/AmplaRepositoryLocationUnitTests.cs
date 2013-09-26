@@ -1,5 +1,5 @@
 ﻿using System;
-using AmplaWeb.Data.AmplaData2008;
+using System.ServiceModel;
 using AmplaWeb.Data.Attributes;
 using AmplaWeb.Data.Records;
 using AmplaWeb.Data.Views;
@@ -11,7 +11,7 @@ namespace AmplaWeb.Data.AmplaRepository
     public class AmplaRepositoryLocationUnitTests : AmplaRepositoryTestFixture<AmplaRepositoryLocationUnitTests.LocationModel>
     {
 
-        [AmplaLocation(Location="Enterprise")]
+        [AmplaLocation(Location="Enterprise", WithRecurse = true)]
         [AmplaModule(Module = "Production")]
         public class LocationModel
         {
@@ -24,16 +24,16 @@ namespace AmplaWeb.Data.AmplaRepository
         }
 
         private const string module = "Production";
-        private const string location = "Enterprise";
+        private static readonly string[] Locations =  new [] {"Enterprise.Site.Area.Point1", "Enterprise.Site.Area.Point2"} ;
 
-        public AmplaRepositoryLocationUnitTests() : base(module, location, ProductionViews.StandardView)
+        public AmplaRepositoryLocationUnitTests() : base(module, Locations, ProductionViews.StandardView)
         {
         }
 
         [Test]
-        public void SubmitADifferentLocation()
+        public void AddAValidLocation()
         {
-            LocationModel model = new LocationModel {Location = "Enterprise.Site.Point"};
+            LocationModel model = new LocationModel {Location = Locations[1]};
             Repository.Add(model);
 
             Assert.That(model.Id, Is.GreaterThan(0));
@@ -41,25 +41,43 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(Records, Is.Not.Empty);
 
             InMemoryRecord record = Records[0];
-            Assert.That(record.Location, Is.EqualTo("Enterprise.Site.Point"));
+            Assert.That(record.Location, Is.EqualTo(Locations[1]));
             Assert.That(record.Module, Is.EqualTo("Production"));
             Assert.That(record.GetFieldValue("Sample Period", DateTime.MinValue), Is.GreaterThan(DateTime.MinValue));
         }
 
         [Test]
-        public void SubmitADefaultLocation()
+        public void AddWithoutALocation()
         {
-            LocationModel model = new LocationModel { };
+            LocationModel model = new LocationModel();
+            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => Repository.Add(model));
+            Assert.That(exception.ToString(), Is.StringContaining("Location '' is not valid."));
+        }
+
+        [Test]
+        public void AddWithAnInvalidLocation()
+        {
+            LocationModel model = new LocationModel {Location = "Invalid.Location"};
+            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => Repository.Add(model));
+            Assert.That(exception.ToString(), Is.StringContaining("Location 'Invalid.Location' is not valid."));
+        }
+
+        [Test]
+        public void UpdateToChangeLocation()
+        {
+            LocationModel model = new LocationModel {Location = Locations[0]};
             Repository.Add(model);
 
-            Assert.That(model.Id, Is.GreaterThan(0));
+            LocationModel existing = Repository.FindById(model.Id);
+            Assert.That(existing, Is.Not.Null);
 
-            Assert.That(Records, Is.Not.Empty);
+            existing.Location = Locations[1];
 
-            InMemoryRecord record = Records[0];
-            Assert.That(record.Location, Is.EqualTo("Enterprise"));
-            Assert.That(record.Module, Is.EqualTo("Production"));
-            Assert.That(record.GetFieldValue("Sample Period", DateTime.MinValue), Is.GreaterThan(DateTime.MinValue));
+            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => Repository.Update(existing));
+            Assert.That(exception.ToString(), Is.StringContaining("The Location property is not the required value: "));
         }
+
+
+
     }
 }

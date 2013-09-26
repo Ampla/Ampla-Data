@@ -103,7 +103,7 @@ namespace AmplaWeb.Data.Binding.ViewData
 
             if (field.Name == "ObjectId")
             {
-                return new LocationFieldMapping("Location", modelProperties.FilterLocation);
+                return new ReadOnlyFieldMapping("Location");
             }
 
             if (field.Name == "SampleDateTime")

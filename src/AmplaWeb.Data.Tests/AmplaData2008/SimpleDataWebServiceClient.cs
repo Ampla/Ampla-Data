@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using System.Xml;
 
 using AmplaWeb.Data.Records;
+using AmplaWeb.Data.Records.Filters;
 using AmplaWeb.Data.Views;
 
 namespace AmplaWeb.Data.AmplaData2008
@@ -16,27 +18,37 @@ namespace AmplaWeb.Data.AmplaData2008
         private readonly AmplaModules amplaModule;
         private readonly string module;
         private readonly Dictionary<int, InMemoryRecord> database = new Dictionary<int, InMemoryRecord>();
-        private readonly string reportingPoint;
+        private readonly string[] reportingPoints;
 
         private const string userName = "User";
         private const string password = "password";
 
         private int setId = 1000;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleDataWebServiceClient"/> class.
         /// </summary>
         /// <param name="module">The module.</param>
         /// <param name="location">The location.</param>
+        public SimpleDataWebServiceClient(string module, string location) : this(module, new [] {location})
+        {
+            
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleDataWebServiceClient"/> class.
+        /// </summary>
+        /// <param name="module">The module.</param>
+        /// <param name="locations">The valid locations.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">module</exception>
-        public SimpleDataWebServiceClient(string module, string location)
+        public SimpleDataWebServiceClient(string module, string[] locations)
         {
             if (!Enum.TryParse(module, out amplaModule))
             {
                 throw new ArgumentOutOfRangeException("module");
             }
             this.module = Convert.ToString(amplaModule);
-            reportingPoint = location;
+            reportingPoints = locations;
 
             GetViewFunc = ProductionViews.EmptyView;
         }
@@ -48,72 +60,57 @@ namespace AmplaWeb.Data.AmplaData2008
         /// <returns></returns>
         public GetDataResponse GetData(GetDataRequest request)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            List<InMemoryRecord> recordsToReturn = new List<InMemoryRecord>();
-            string location = request.Filter.Location;
-
-            CheckModule(request.View.Module);
-
-            int? recordId = null;
-            foreach (FilterEntry entry in request.Filter.Criteria)
-            {
-                if (entry.Name == "Id")
+            return TryCatchThrowFault(() =>
                 {
-                    recordId = int.Parse(entry.Value);
-                }
-            }
+                    XmlDocument xmlDoc = new XmlDocument();
 
-            foreach (InMemoryRecord amplaRecord in database.Values)
-            {
-                if (amplaRecord.Location == location)
-                {
-                    if ((recordId == null) || recordId.Value == amplaRecord.RecordId)
+                    CheckModule(request.View.Module);
+
+                    InMemoryFilterMatcher filterMatcher = new InMemoryFilterMatcher(request.Filter);
+
+                    List<InMemoryRecord> recordsToReturn = database.Values.Where(filterMatcher.Matches).ToList();
+
+                    List<Row> rows = new List<Row>();
+                    foreach (InMemoryRecord record in recordsToReturn)
                     {
-                        recordsToReturn.Add(amplaRecord);
-                    }
-                }
-            }
-
-            List<Row> rows = new List<Row>();
-            foreach (InMemoryRecord record in recordsToReturn)
-            {
-                Row row = new Row {id = Convert.ToString(record.RecordId)};
-                List<XmlElement> values = new List<XmlElement>();
-                foreach (FieldValue value in record.Fields)
-                {
-                    string name = XmlConvert.EncodeName(value.Name);
-                    XmlElement element = xmlDoc.CreateElement(name, "http://www.citect.com/Ampla/Data/2008/06");
-                    element.InnerText = value.Value;
-                    values.Add(element);
-                }
-                row.Any = values.ToArray();
-                rows.Add(row);
-            }
-
-            GetDataResponse response = new GetDataResponse
-                {
-                    Context = new GetDataResponseContext
+                        Row row = new Row {id = Convert.ToString(record.RecordId)};
+                        List<XmlElement> values = new List<XmlElement>();
+                        foreach (FieldValue value in record.Fields)
                         {
-                            Context = request.View.Context,
-                            Metadata = request.Metadata,
-                            Mode = request.View.Mode,
-                            Module = request.View.Module,
-                            ResolveIdentifiers = request.OutputOptions.ResolveIdentifiers,
-                            ViewName = request.View.Name,
-                            Fields = request.View.Fields,
-                            ModelFields = request.View.ModelFields,
-                        },
-                    RowSets = new[]
-                        {
-                            new RowSet
-                                {
-                                    Rows = rows.ToArray(),
-                                    Columns = new FieldDefinition[0]
-                                }
+                            string name = XmlConvert.EncodeName(value.Name);
+                            XmlElement element = xmlDoc.CreateElement(name, "http://www.citect.com/Ampla/Data/2008/06");
+                            element.InnerText = value.Value;
+                            values.Add(element);
                         }
-                };
+                        row.Any = values.ToArray();
+                        rows.Add(row);
+                    }
 
-            return response;
+                    GetDataResponse response = new GetDataResponse
+                        {
+                            Context = new GetDataResponseContext
+                                {
+                                    Context = request.View.Context,
+                                    Metadata = request.Metadata,
+                                    Mode = request.View.Mode,
+                                    Module = request.View.Module,
+                                    ResolveIdentifiers = request.OutputOptions.ResolveIdentifiers,
+                                    ViewName = request.View.Name,
+                                    Fields = request.View.Fields,
+                                    ModelFields = request.View.ModelFields,
+                                },
+                            RowSets = new[]
+                                {
+                                    new RowSet
+                                        {
+                                            Rows = rows.ToArray(),
+                                            Columns = new FieldDefinition[0]
+                                        }
+                                }
+                        };
+
+                    return response;
+                });
         }
 
         /// <summary>
@@ -123,60 +120,23 @@ namespace AmplaWeb.Data.AmplaData2008
         /// <returns></returns>
         public GetNavigationHierarchyResponse GetNavigationHierarchy(GetNavigationHierarchyRequest request)
         {
-            CheckModule(request.Module);
-
-            Hierarchy hierarchy = new Hierarchy
-            {
-                module = amplaModule,
-                context = NavigationContext.Plant,
-                mode = NavigationMode.Location,
-                ViewPoints = new[] { new ViewPoint() }
-            };
-
-            string[] parts = reportingPoint.Split('.');
-
-            ViewPoint point = hierarchy.ViewPoints[0];
-
-            for (int i = 0; i < parts.Length; i++)
-            {
-                string fullPath = string.Join(".", parts, 0, i + 1);
-                if (i == parts.Length - 1)
+            return TryCatchThrowFault(() =>
                 {
-                    point.ViewPoints = new ViewPoint[0];
-                    point.ReportingPoints = new[]
-                                                {
-                                                    new GetNavigationReportingPoint
-                                                        {
-                                                            id = fullPath,
-                                                            DisplayName = parts[i],
-                                                            LocalizedDisplayName = parts[i]
-                                                        }
-                                                };
-                }
-                else
-                {
-                    point.id = fullPath;
-                    point.DisplayName = parts[i];
-                    point.LocalizedDisplayName = parts[i];
-                    point.ReportingPoints = new GetNavigationReportingPoint[0];
-                    if (i < parts.Length - 2)
-                    {
-                        point.ViewPoints = new[] { new ViewPoint() };
-                        point = point.ViewPoints[0];
-                    }
-                }
-            }
+                    CheckModule(request.Module);
 
-            return new GetNavigationHierarchyResponse
-            {
-                Hierarchy = hierarchy,
-                Context = new GetNavigationHierarchyResponseContext
-                {
-                    Module = (AmplaModules)Enum.Parse(typeof(AmplaModules), module),
-                    Context = NavigationContext.Plant,
-                    Mode = NavigationMode.Location,
-                }
-            };
+                    SimpleNavigationHierarchy navigationHierarchy = new SimpleNavigationHierarchy(amplaModule, reportingPoints);
+
+                    return new GetNavigationHierarchyResponse
+                        {
+                            Hierarchy = navigationHierarchy.GetHierarchy(),
+                            Context = new GetNavigationHierarchyResponseContext
+                                {
+                                    Module = (AmplaModules) Enum.Parse(typeof (AmplaModules), module),
+                                    Context = NavigationContext.Plant,
+                                    Mode = NavigationMode.Location,
+                                }
+                        };
+                });
         }
 
         /// <summary>
@@ -186,16 +146,21 @@ namespace AmplaWeb.Data.AmplaData2008
         /// <returns></returns>
         public SubmitDataResponse SubmitData(SubmitDataRequest request)
         {
-            List<DataSubmissionResult> results = new List<DataSubmissionResult>();
-            CheckCredentials(request.Credentials);
-            foreach (SubmitDataRecord submitDataRecord in request.SubmitDataRecords)
-            {
-                CheckModule(submitDataRecord.Module);
-                results.Add(submitDataRecord.MergeCriteria == null
-                                ? InsertDataRecord(submitDataRecord)
-                                : UpdateDataRecord(submitDataRecord));
-            }
-            return new SubmitDataResponse { DataSubmissionResults = results.ToArray() };
+            return TryCatchThrowFault(() =>
+                {
+                    List<DataSubmissionResult> results = new List<DataSubmissionResult>();
+                    CheckCredentials(request.Credentials);
+                    foreach (SubmitDataRecord submitDataRecord in request.SubmitDataRecords)
+                    {
+                        CheckModule(submitDataRecord.Module);
+                        CheckLocation(submitDataRecord.Location);
+                        results.Add(submitDataRecord.MergeCriteria == null
+                                        ? InsertDataRecord(submitDataRecord)
+                                        : UpdateDataRecord(submitDataRecord));
+                    }
+
+                    return new SubmitDataResponse {DataSubmissionResults = results.ToArray()};
+                });
         }
 
         /// <summary>
@@ -205,28 +170,32 @@ namespace AmplaWeb.Data.AmplaData2008
         /// <returns></returns>
         public DeleteRecordsResponse DeleteRecords(DeleteRecordsRequest request)
         {
-            List<DeleteRecordsResult> results = new List<DeleteRecordsResult>();
-            CheckCredentials(request.Credentials);
-            foreach (DeleteRecord deleteRecord in request.DeleteRecords)
-            {
-                CheckModule(deleteRecord.Module);
-                int recordId = (int)deleteRecord.MergeCriteria.SetId;
-                InMemoryRecord record = FindRecord(deleteRecord.Location, deleteRecord.Module, recordId);
-                FieldValue deleted = record.Find("Deleted");
-                if (deleted != null)
+            return TryCatchThrowFault(() =>
                 {
-                    record.Fields.Remove(deleted);
-                }
-                record.Fields.Add(new FieldValue("Deleted", "True"));
-                results.Add(new DeleteRecordsResult
-                {
-                    Location = deleteRecord.Location,
-                    Module = deleteRecord.Module,
-                    RecordAction = DeleteRecordsAction.Delete,
-                    SetId = recordId
+                    List<DeleteRecordsResult> results = new List<DeleteRecordsResult>();
+                    CheckCredentials(request.Credentials);
+                    foreach (DeleteRecord deleteRecord in request.DeleteRecords)
+                    {
+                        CheckModule(deleteRecord.Module);
+                        CheckLocation(deleteRecord.Location);
+                        int recordId = (int) deleteRecord.MergeCriteria.SetId;
+                        InMemoryRecord record = FindRecord(deleteRecord.Location, deleteRecord.Module, recordId);
+                        FieldValue deleted = record.Find("Deleted");
+                        if (deleted != null)
+                        {
+                            record.Fields.Remove(deleted);
+                        }
+                        record.Fields.Add(new FieldValue("Deleted", "True"));
+                        results.Add(new DeleteRecordsResult
+                            {
+                                Location = deleteRecord.Location,
+                                Module = deleteRecord.Module,
+                                RecordAction = DeleteRecordsAction.Delete,
+                                SetId = recordId
+                            });
+                    }
+                    return new DeleteRecordsResponse {DeleteRecordsResults = results.ToArray()};
                 });
-            }
-            return new DeleteRecordsResponse { DeleteRecordsResults = results.ToArray() };
         }
 
         /// <summary>
@@ -236,29 +205,33 @@ namespace AmplaWeb.Data.AmplaData2008
         /// <returns></returns>
         public UpdateRecordStatusResponse UpdateRecordStatus(UpdateRecordStatusRequest request)
         {
-            List<UpdateRecordStatusResult> results = new List<UpdateRecordStatusResult>();
-            CheckCredentials(request.Credentials);
-            foreach (UpdateRecordStatus recordStatus in request.UpdateRecords)
-            {
-                CheckModule(recordStatus.Module);
-                int recordId = (int)recordStatus.MergeCriteria.SetId;
-                InMemoryRecord record = FindRecord(recordStatus.Location, recordStatus.Module, recordId);
-                FieldValue confirmed = record.Find("Confirmed");
-                if (confirmed != null)
+            return TryCatchThrowFault(() =>
                 {
-                    record.Fields.Remove(confirmed);
-                }
-                string value = recordStatus.RecordAction == UpdateRecordStatusAction.Confirm ? "True" : "False";
-                record.Fields.Add(new FieldValue("Confirmed", value));
-                results.Add(new UpdateRecordStatusResult
-                {
-                    Location = recordStatus.Location,
-                    Module = recordStatus.Module,
-                    RecordAction = recordStatus.RecordAction,
-                    SetId = recordId
+                    List<UpdateRecordStatusResult> results = new List<UpdateRecordStatusResult>();
+                    CheckCredentials(request.Credentials);
+                    foreach (UpdateRecordStatus recordStatus in request.UpdateRecords)
+                    {
+                        CheckModule(recordStatus.Module);
+                        CheckLocation(recordStatus.Location);
+                        int recordId = (int) recordStatus.MergeCriteria.SetId;
+                        InMemoryRecord record = FindRecord(recordStatus.Location, recordStatus.Module, recordId);
+                        FieldValue confirmed = record.Find("Confirmed");
+                        if (confirmed != null)
+                        {
+                            record.Fields.Remove(confirmed);
+                        }
+                        string value = recordStatus.RecordAction == UpdateRecordStatusAction.Confirm ? "True" : "False";
+                        record.Fields.Add(new FieldValue("Confirmed", value));
+                        results.Add(new UpdateRecordStatusResult
+                            {
+                                Location = recordStatus.Location,
+                                Module = recordStatus.Module,
+                                RecordAction = recordStatus.RecordAction,
+                                SetId = recordId
+                            });
+                    }
+                    return new UpdateRecordStatusResponse {UpdateRecordStatusResults = results.ToArray()};
                 });
-            }
-            return new UpdateRecordStatusResponse { UpdateRecordStatusResults = results.ToArray() };
         }
 
         /// <summary>
@@ -268,21 +241,25 @@ namespace AmplaWeb.Data.AmplaData2008
         /// <returns></returns>
         public GetViewsResponse GetViews(GetViewsRequest request)
         {
-            CheckModule(request.Module);
-            GetViewsResponse response = new GetViewsResponse
-            {
-                Views = new[] 
-                { 
-                    GetViewFunc()
-                }
-            };
-            return response;
+            return TryCatchThrowFault(() =>
+                {
+                    CheckModule(request.Module);
+                    CheckLocation(request.ViewPoint);
+                    GetViewsResponse response = new GetViewsResponse
+                        {
+                            Views = new[]
+                                {
+                                    GetViewFunc()
+                                }
+                        };
+                    return response;
+                });
         }
-
+        
         public Func<GetView> GetViewFunc
         {
             get; set;
-        } 
+        }
 
         /// <summary>
         /// Splits the records.
@@ -291,31 +268,37 @@ namespace AmplaWeb.Data.AmplaData2008
         /// <returns></returns>
         public SplitRecordsResponse SplitRecords(SplitRecordsRequest request)
         {
-            InMemoryRecord record = FindRecord(request.OriginalRecord.Location, request.OriginalRecord.Module,
-                                            (int)request.OriginalRecord.SetId);
-            InMemoryRecord[] splitRecords = record.SplitRecord(request.SplitRecords[0].SplitDateTimeUtc);
+            return TryCatchThrowFault(() =>
+                {
+                    CheckModule(request.OriginalRecord.Module);
+                    CheckLocation(request.OriginalRecord.Location);
 
-            splitRecords[1].RecordId = ++setId;
+                    InMemoryRecord record = FindRecord(request.OriginalRecord.Location, request.OriginalRecord.Module,
+                                                       (int) request.OriginalRecord.SetId);
+                    InMemoryRecord[] splitRecords = record.SplitRecord(request.SplitRecords[0].SplitDateTimeUtc);
 
-            database[splitRecords[0].RecordId] = splitRecords[0];
-            database[splitRecords[1].RecordId] = splitRecords[1];
+                    splitRecords[1].RecordId = ++setId;
 
-            return new SplitRecordsResponse
-            {
-                Context = new SplitRecordsResponseContext { OriginalRecord = request.OriginalRecord },
-                SplitRecordResults =
-                    new[]
-                                   {
-                                       new SplitRecordResult
-                                           {
-                                               StartDateTimeUtc =
-                                                   splitRecords[0].GetFieldValue("Start Time", DateTime.MinValue),
-                                               EndDateTimeUtc =
-                                                   splitRecords[0].GetFieldValue("End Time", DateTime.MinValue),
-                                               SetId = splitRecords[0].RecordId
-                                           }
-                                   }
-            };
+                    database[splitRecords[0].RecordId] = splitRecords[0];
+                    database[splitRecords[1].RecordId] = splitRecords[1];
+
+                    return new SplitRecordsResponse
+                        {
+                            Context = new SplitRecordsResponseContext {OriginalRecord = request.OriginalRecord},
+                            SplitRecordResults =
+                                new[]
+                                    {
+                                        new SplitRecordResult
+                                            {
+                                                StartDateTimeUtc =
+                                                    splitRecords[0].GetFieldValue("Start Time", DateTime.MinValue),
+                                                EndDateTimeUtc =
+                                                    splitRecords[0].GetFieldValue("End Time", DateTime.MinValue),
+                                                SetId = splitRecords[0].RecordId
+                                            }
+                                    }
+                        };
+                });
         }
 
         private DataSubmissionResult InsertDataRecord(SubmitDataRecord submitDataRecord)
@@ -398,6 +381,24 @@ namespace AmplaWeb.Data.AmplaData2008
             }
         }
 
+        private void CheckLocation(string location)
+        {
+            bool isValid = false;
+            foreach (string point in reportingPoints)
+            {
+                if (point == location)
+                {
+                    isValid = true;
+                    break;
+                }
+            }
+
+            if (!isValid)
+            {
+                throw new ArgumentException("Invalid location: '" + location + "'.");
+            }
+        }
+
         public List<InMemoryRecord> DatabaseRecords
         {
             get
@@ -409,6 +410,18 @@ namespace AmplaWeb.Data.AmplaData2008
         public Credentials CreateCredentials()
         {
             return new Credentials { Username = userName, Password = password };
+        }
+
+        private TResult TryCatchThrowFault<TResult>(Func<TResult> func)
+        {
+            try
+            {
+                return func();
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.ToString());
+            }
         }
     }
 }

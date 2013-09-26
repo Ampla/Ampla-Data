@@ -19,6 +19,16 @@ namespace AmplaWeb.Data.Binding.ModelData
             public double Value { get; set; }
         }
 
+        [AmplaLocation(Location = "Enterprise.Site", WithRecurse = true )]
+        [AmplaModule(Module = "Production")]
+        public class SimpleModelWithRecurse
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public double Value { get; set; }
+        }
+
+
         public class ModelWithReadOnly : SimpleModel
         {
             public string ReadOnlyName
@@ -297,6 +307,25 @@ namespace AmplaWeb.Data.Binding.ModelData
             model.Value = 12.34;
             Assert.That(modelProperties.IsDefaultValue(model, "Value"), Is.False, "Value");
         }
+
+        [Test]
+        public void GetLocationWithRecurse()
+        {
+            SimpleModelWithRecurse model = new SimpleModelWithRecurse();
+            ModelProperties<SimpleModelWithRecurse> modelProperties = new ModelProperties<SimpleModelWithRecurse>();
+
+            Assert.That(modelProperties.GetLocation(model), Is.EqualTo(null));
+        }
+
+        [Test]
+        public void GetLocationWithoutRecurse()
+        {
+            SimpleModel model = new SimpleModel();
+            ModelProperties<SimpleModel> modelProperties = new ModelProperties<SimpleModel>();
+
+            Assert.That(modelProperties.GetLocation(model), Is.EqualTo("Enterprise.Site.Area.Simple"));
+        }
+
 
         private void AssertPropertyGetValue<TModel>(ModelProperties<TModel> modelProperties, TModel model, string property, string expected) where TModel : new()
         {
