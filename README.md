@@ -128,15 +128,15 @@ namespace AmplaWeb.Sample.Controllers
 
 The ```IRepositoryController<TModel>``` provides the following actions for models.
 
-* GET  /{Model}
-* GET  /{Model}/Index
-* GET  /{Model}/Details/{Id}
-* GET  /{Model}/Create
-* POST /{Model}/Create
-* GET  /{Model}/Edit/{Id}
-* POST /{Model}/Edit
-* GET  /{Model}/Delete/{Id}
-* POST /{Model}/Delete/{Id}
+* ```GET```  ```/{Model}```
+* ```GET```  ```/{Model}/Index```
+* ```GET```  ```/{Model}/Details/{Id}```
+* ```GET```  ```/{Model}/Create```
+* ```POST``` ```/{Model}/Create```
+* ```GET```  ```/{Model}/Edit/{Id}```
+* ```POST``` ```/{Model}/Edit```
+* ```GET```  ```/{Model}/Delete/{Id}```
+* ```POST``` ```/{Model}/Delete/{Id}```
 
 ``` C#
 using System.Web.Mvc;
