@@ -33,15 +33,18 @@ namespace AmplaWeb.Data.Records.Filters
             {
                 filters.Add(new FieldFilterMatcher<DateTime>("Sample Period", dataFilter.SamplePeriod));
             }
-            foreach (FilterEntry entry in dataFilter.Criteria)
+            if (dataFilter.Criteria != null)
             {
-                if (entry.Name == "Id")
+                foreach (FilterEntry entry in dataFilter.Criteria)
                 {
-                    filters.Add(new IdFilterMatcher(entry.Value));
-                }
-                else
-                {
-                    filters.Add(new FieldFilterMatcher<string>(entry.Name, entry.Value));
+                    if (entry.Name == "Id")
+                    {
+                        filters.Add(new IdFilterMatcher(entry.Value));
+                    }
+                    else
+                    {
+                        filters.Add(new FieldFilterMatcher<string>(entry.Name, entry.Value));
+                    }
                 }
             }
         }

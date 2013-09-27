@@ -22,6 +22,7 @@ namespace AmplaWeb.Data.Binding.ModelData
         private readonly string[] propertyNames;
         private readonly LocationFilter locationFilter;
         private readonly AmplaModules module;
+        private readonly FilterValue[] defaultFilters;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ModelProperties{TModel}"/> class.
@@ -60,6 +61,11 @@ namespace AmplaWeb.Data.Binding.ModelData
             }
             modelValidators.Add(new NullModelValidator<TModel>());
             propertyNames = properties.ToArray();
+
+            if (!AmplaDefaultFiltersAttribute.TryGetFilter<TModel>(out defaultFilters))
+            {
+                defaultFilters = new FilterValue[0];
+            }
         }
 
         private static void AddModelValidators(PropertyInfo property, IList<IModelValidator<TModel>> validators )
@@ -105,6 +111,8 @@ namespace AmplaWeb.Data.Binding.ModelData
         {
             get { return locationFilter; }
         }
+
+        public FilterValue[] DefaultFilters { get { return defaultFilters; } }
 
         /// <summary>
         ///     The Ampla module 

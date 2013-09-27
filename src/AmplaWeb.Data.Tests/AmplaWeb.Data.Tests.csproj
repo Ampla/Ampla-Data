@@ -58,9 +58,13 @@
     <Compile Include="AmplaData2008\LoggingDataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\SimpleDataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
+    <Compile Include="AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />
+    <Compile Include="Attributes\AmplaDefaultFiltersAttributeUnitTests.cs" />
+    <Compile Include="Binding\ModelData\ModelPropertyDefaultFilterUnitTests.cs" />
     <Compile Include="Binding\ModelData\LocationFilterUnitTests.cs" />
     <Compile Include="Binding\ModelData\Validation\RequiredLocationValidatorUnitTests.cs" />
     <Compile Include="Binding\ModelData\Validation\LocationValidatorUnitTests.cs" />
+    <Compile Include="FilterValueUnitTests.cs" />
     <Compile Include="Records\Filters\FieldFilterMatcher.cs" />
     <Compile Include="Records\Filters\FilterMatcher.cs" />
     <Compile Include="Records\Filters\IdFilterMatcher.cs" />

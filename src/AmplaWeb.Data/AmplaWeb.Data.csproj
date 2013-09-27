@@ -48,6 +48,7 @@
     <Compile Include="AmplaRepository\AmplaRepository.cs" />
     <Compile Include="AmplaRepository\AmplaRepositorySet.cs" />
     <Compile Include="Attributes\AmplaFieldAttribute.cs" />
+    <Compile Include="Attributes\AmplaDefaultFiltersAttribute.cs" />
     <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
     <Compile Include="Binding\AmplaNavigationBinding.cs" />
     <Compile Include="Binding\AmplaUpdateRecordStatusBinding.cs" />

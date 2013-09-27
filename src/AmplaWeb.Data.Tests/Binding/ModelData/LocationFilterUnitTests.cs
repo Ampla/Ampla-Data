@@ -1,5 +1,4 @@
-﻿using System;
-using AmplaWeb.Data.Tests;
+﻿using AmplaWeb.Data.Tests;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.Binding.ModelData

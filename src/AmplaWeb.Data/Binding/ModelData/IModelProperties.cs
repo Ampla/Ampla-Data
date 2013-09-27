@@ -23,6 +23,14 @@ namespace AmplaWeb.Data.Binding.ModelData
         LocationFilter LocationFilter { get; }
 
         /// <summary>
+        /// Gets the default filters for the model
+        /// </summary>
+        /// <value>
+        /// The default filters
+        /// </value>
+        FilterValue[] DefaultFilters { get; }
+
+        /// <summary>
         ///     The Ampla module 
         /// </summary>
         AmplaModules Module { get; }

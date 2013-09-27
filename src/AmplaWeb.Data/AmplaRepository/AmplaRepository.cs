@@ -6,16 +6,30 @@ using AmplaWeb.Data.Binding.ViewData;
 
 namespace AmplaWeb.Data.AmplaRepository
 {
+    /// <summary>
+    ///     Ampla Repository that allows the manipulation of Ampla models
+    /// </summary>
+    /// <typeparam name="TModel">The type of the model.</typeparam>
     public class AmplaRepository<TModel> : AmplaReadOnlyRepository<TModel>, IRepository<TModel> where TModel : class, new()
     {
 
-        private readonly Dictionary<string, IAmplaViewProperties<TModel>> amplaViewDictionary; 
+        private readonly Dictionary<string, IAmplaViewProperties<TModel>> amplaViewDictionary;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AmplaRepository{TModel}"/> class.
+        /// </summary>
+        /// <param name="webServiceClient">The web service client.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="password">The password.</param>
         public AmplaRepository(IDataWebServiceClient webServiceClient, string userName, string password) : base(webServiceClient, userName, password)
         {
             amplaViewDictionary = new Dictionary<string, IAmplaViewProperties<TModel>>();
         }
 
+        /// <summary>
+        /// Adds the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
         public void Add(TModel model)
         {
             SubmitDataRequest request = new SubmitDataRequest();
@@ -39,6 +53,10 @@ namespace AmplaWeb.Data.AmplaRepository
             }
         }
 
+        /// <summary>
+        /// Deletes the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
         public void Delete(TModel model)
         {
             DeleteRecordsRequest request = new DeleteRecordsRequest();
@@ -54,6 +72,10 @@ namespace AmplaWeb.Data.AmplaRepository
             }
         }
 
+        /// <summary>
+        /// Confirms the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
         public void Confirm(TModel model)
         {
             UpdateRecordStatusRequest request = new UpdateRecordStatusRequest();
@@ -69,6 +91,10 @@ namespace AmplaWeb.Data.AmplaRepository
             }
         }
 
+        /// <summary>
+        /// Unconfirms the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
         public void Unconfirm(TModel model)
         {
             UpdateRecordStatusRequest request = new UpdateRecordStatusRequest();
@@ -84,6 +110,11 @@ namespace AmplaWeb.Data.AmplaRepository
             }
         }
 
+        /// <summary>
+        /// Gets the allowed values.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <returns></returns>
         public List<string> GetAllowedValues(string property)
         {
             if (property == "Location")
@@ -106,6 +137,10 @@ namespace AmplaWeb.Data.AmplaRepository
             return null;
         }
 
+        /// <summary>
+        /// Updates the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
         public void Update(TModel model)
         {
             List<int> identifiers = new List<int>();
@@ -131,6 +166,11 @@ namespace AmplaWeb.Data.AmplaRepository
             }
         }
 
+        /// <summary>
+        /// Gets the view properties.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
         protected IAmplaViewProperties<TModel> GetViewProperties(TModel model)
         {
             IAmplaViewProperties<TModel> amplaView;
@@ -156,6 +196,11 @@ namespace AmplaWeb.Data.AmplaRepository
             return amplaView;
         }
 
+        /// <summary>
+        /// Checks the location is valid.
+        /// </summary>
+        /// <param name="location">The location.</param>
+        /// <exception cref="System.InvalidOperationException"></exception>
         protected void CheckLocationIsValid(string location)
         {
             List<string> locations = GetAllowedValues("Location");
