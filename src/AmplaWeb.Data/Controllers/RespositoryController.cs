@@ -2,7 +2,7 @@
 
 namespace AmplaWeb.Data.Controllers
 {
-    public class RepositoryController<TModel> : BootstrapBaseController where TModel : class, new()
+    public class RepositoryController<TModel> : BootstrapBaseController, IRepositoryController<TModel> where TModel : class, new()
     {
         protected RepositoryController(IRepositorySet repositorySet)
         {

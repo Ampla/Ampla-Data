@@ -62,6 +62,7 @@
     <Compile Include="Binding\ModelData\Validation\ValidationMessages.cs" />
     <Compile Include="Binding\ModelIdentifierBinding.cs" />
     <Compile Include="Binding\ViewData\IAmplaViewProperties.cs" />
+    <Compile Include="Controllers\IRepositoryController.cs" />
     <Compile Include="FilterValue.cs" />
     <Compile Include="Binding\AmplaUnconfirmDataBinding.cs" />
     <Compile Include="Binding\AmplaConfirmDataBinding.cs" />
