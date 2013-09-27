@@ -8,7 +8,8 @@ namespace AmplaWeb.Sample.App_Start
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.MapNavigationRoute<ShiftLogController>("Shift Log", c=> c.Index());
+            routes.MapNavigationRoute<ProductionController>("Production", c => c.Index());
+            routes.MapNavigationRoute<ShiftLogController>("Shift Log", c => c.Index());
 
             routes.MapNavigationRoute<IngotCastController>("Ingot Casts", c => c.Default())
                   .AddChildRoute<IngotCastController>("Select", c => c.Select())

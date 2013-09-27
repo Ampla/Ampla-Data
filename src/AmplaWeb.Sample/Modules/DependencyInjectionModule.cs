@@ -35,10 +35,13 @@ namespace AmplaWeb.Sample.Modules
 
             }
 
+            
+
             builder.RegisterType<HomeController>().InstancePerLifetimeScope();
             builder.RegisterType<IngotCastController>().InstancePerLifetimeScope();
             builder.RegisterType<IngotBundleController>().InstancePerLifetimeScope();
             builder.RegisterType<ShiftLogController>().InstancePerLifetimeScope();
+            builder.RegisterType<ProductionController>().InstancePerLifetimeScope();
         }
     }
 }

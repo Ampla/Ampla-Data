@@ -134,6 +134,7 @@
     <Compile Include="Controllers\ExampleLayoutsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngotCastController.cs" />
+    <Compile Include="Controllers\ProductionController.cs" />
     <Compile Include="Controllers\ShiftLogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -141,6 +142,7 @@
     <Compile Include="Models\HomeInputModel.cs" />
     <Compile Include="Models\IngotBundleModel.cs" />
     <Compile Include="Models\IngotCastModel.cs" />
+    <Compile Include="Models\ProductionModel.cs" />
     <Compile Include="Models\ShiftLogModel.cs" />
     <Compile Include="Modules\DependencyInjectionModule.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
