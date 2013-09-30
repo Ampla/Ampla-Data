@@ -23,7 +23,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <returns></returns>
         public IRepository<TModel> GetRepository<TModel>() where TModel : class, new()
         {
-            DataWebServiceClient webServiceClient = new DataWebServiceClient("NetTcpBinding_IDataWebService");
+            IDataWebServiceClient webServiceClient = DataWebServiceFactory.Create();
             return new AmplaRepository<TModel>(webServiceClient, userName, password);
         }
 
@@ -34,7 +34,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <returns></returns>
         public IReadOnlyRepository<TModel> GetReadOnlyRepository<TModel>() where TModel : class, new()
         {
-            DataWebServiceClient webServiceClient = new DataWebServiceClient("NetTcpBinding_IDataWebService");
+            IDataWebServiceClient webServiceClient = DataWebServiceFactory.Create();
             return new AmplaReadOnlyRepository<TModel>(webServiceClient, userName, password);
         }
     }

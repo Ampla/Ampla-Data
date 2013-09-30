@@ -1,13 +1,13 @@
 ﻿using AmplaWeb.Data;
 using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.InMemory;
-using AmplaWeb.Sample.Controllers;
 using AmplaWeb.Sample.Models;
 using Autofac;
+using Autofac.Integration.Mvc;
 
 namespace AmplaWeb.Sample.Modules
 {
-    public class DependencyInjectionModule : Module
+    public class ControllerInjectionModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
@@ -34,14 +34,9 @@ namespace AmplaWeb.Sample.Modules
                 bundleRepository.Add(new IngotBundleModel { CastNo = "Cast 234" });
 
             }
-
             
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            builder.RegisterType<HomeController>().InstancePerLifetimeScope();
-            builder.RegisterType<IngotCastController>().InstancePerLifetimeScope();
-            builder.RegisterType<IngotBundleController>().InstancePerLifetimeScope();
-            builder.RegisterType<ShiftLogController>().InstancePerLifetimeScope();
-            builder.RegisterType<ProductionController>().InstancePerLifetimeScope();
         }
     }
 }

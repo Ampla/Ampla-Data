@@ -4,7 +4,6 @@ namespace AmplaWeb.Data.Membership
 {
     public abstract class ReadOnlyRoleProvider : RoleProvider
     {
-
         /// <summary>
         /// Adds a new role to the data source for the configured applicationName.
         /// </summary>
@@ -47,6 +46,19 @@ namespace AmplaWeb.Data.Membership
         /// <param name="roleNames">A string array of role names to remove the specified user names from.</param>
         /// <exception cref="System.NotImplementedException"></exception>
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the specified role name already exists in the role data source for the configured applicationName.
+        /// </summary>
+        /// <param name="roleName">The name of the role to search for in the data source.</param>
+        /// <returns>
+        /// true if the role name already exists in the data source for the configured applicationName; otherwise, false.
+        /// </returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override bool RoleExists(string roleName)
         {
             throw new System.NotImplementedException();
         }

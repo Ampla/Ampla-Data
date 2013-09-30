@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Security;
 
-namespace AmplaWeb.Data.Membership
+namespace AmplaWeb.Security.Membership
 {
     /// <summary>
     ///     Logged on Ampla User that represents the username, and Session

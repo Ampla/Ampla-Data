@@ -1,9 +1,26 @@
 ﻿
 
-namespace AmplaWeb.Data.Membership
+using System.Collections.Generic;
+using AmplaWeb.Data.Membership;
+
+namespace AmplaWeb.Security.Membership
 {
     public class AmplaRoleProvider : ReadOnlyRoleProvider
     {
+        private readonly string[] roles;
+
+
+        public AmplaRoleProvider()
+        {
+            roles = new List<string>
+                {
+                    "ViewRecord",
+                    "AddRecord",
+                    "EditRecord"
+                }.ToArray();
+        }
+
+
         /// <summary>
         /// Gets a value indicating whether the specified user is in the specified role for the configured applicationName.
         /// </summary>
@@ -28,20 +45,7 @@ namespace AmplaWeb.Data.Membership
         /// <exception cref="System.NotImplementedException"></exception>
         public override string[] GetRolesForUser(string username)
         {
-            throw new System.NotImplementedException();
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the specified role name already exists in the role data source for the configured applicationName.
-        /// </summary>
-        /// <param name="roleName">The name of the role to search for in the data source.</param>
-        /// <returns>
-        /// true if the role name already exists in the data source for the configured applicationName; otherwise, false.
-        /// </returns>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public override bool RoleExists(string roleName)
-        {
-            throw new System.NotImplementedException();
+            return roles;
         }
 
         /// <summary>
@@ -53,7 +57,7 @@ namespace AmplaWeb.Data.Membership
         /// <exception cref="System.NotImplementedException"></exception>
         public override string[] GetAllRoles()
         {
-            throw new System.NotImplementedException();
+            return roles;
         }
     }
 }

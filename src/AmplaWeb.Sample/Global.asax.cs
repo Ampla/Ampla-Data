@@ -1,8 +1,11 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Sample.App_Start;
 using AmplaWeb.Sample.Modules;
+using AmplaWeb.Security.AmplaSecurity2007;
 using Autofac;
 using Autofac.Integration.Mvc;
 
@@ -15,13 +18,15 @@ namespace AmplaWeb.Sample
         protected void Application_Start()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterModule<DependencyInjectionModule>();
-            //builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterModule<ControllerInjectionModule>();
+            builder.RegisterModule<SecurityInjectionModule>();
+
+            SecurityWebServiceFactory.Factory = () => new SecurityWebServiceClient("BasicHttpBinding_ISecurityWebService");
+            DataWebServiceFactory.Factory = () => new DataWebServiceClient("NetTcpBinding_IDataWebService");
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
          
-
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

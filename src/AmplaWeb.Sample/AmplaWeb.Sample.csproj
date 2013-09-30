@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -144,7 +145,8 @@
     <Compile Include="Models\IngotCastModel.cs" />
     <Compile Include="Models\ProductionModel.cs" />
     <Compile Include="Models\ShiftLogModel.cs" />
-    <Compile Include="Modules\DependencyInjectionModule.cs" />
+    <Compile Include="Modules\SecurityInjectionModule.cs" />
+    <Compile Include="Modules\ControllerInjectionModule.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
     <Compile Include="NavigationRoutes\NavigationExtensions.cs" />
@@ -218,11 +220,17 @@
     <Content Include="Views\ExampleLayouts\Fluid.cshtml" />
     <Content Include="Views\IngotCast\Select.cshtml" />
     <Content Include="Views\shared\Delete.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AmplaWeb.Data\AmplaWeb.Data.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
       <Name>AmplaDataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AmplaWeb.Security\AmplaWeb.Security.csproj">
+      <Project>{89F8C9B1-4161-4F50-A96C-45C826E31856}</Project>
+      <Name>AmplaWeb.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
