@@ -33,9 +33,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,6 +49,8 @@
     <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
     <Compile Include="AmplaRepository\AmplaRepository.cs" />
     <Compile Include="AmplaRepository\AmplaRepositorySet.cs" />
+    <Compile Include="AmplaSecurity2007\ISecurityWebServiceClient.cs" />
+    <Compile Include="AmplaSecurity2007\SecurityWebServiceClient.cs" />
     <Compile Include="Attributes\AmplaFieldAttribute.cs" />
     <Compile Include="Attributes\AmplaDefaultFiltersAttribute.cs" />
     <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
@@ -105,8 +109,18 @@
     <Compile Include="AmplaData2008\IDataWebServiceClient.cs" />
     <Compile Include="Binding\ViewData\ViewFieldsCollection.cs" />
     <Compile Include="Binding\ViewData\ViewFiltersCollection.cs" />
+    <Compile Include="Membership\AmplaMembershipProvider.cs" />
+    <Compile Include="Membership\AmplaRoleProvider.cs" />
+    <Compile Include="Membership\AmplaUser.cs" />
+    <Compile Include="Membership\ReadOnlyMembershipProvider.cs" />
+    <Compile Include="Membership\ReadOnlyRoleProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\AmplaData2008\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AmplaSecurity2007\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -115,13 +129,23 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Service References\AmplaData2008\DataWebService.wsdl" />
+    <None Include="Service References\AmplaSecurity2007\AmplaWeb.Data.AmplaSecurity2007.CreateSessionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AmplaSecurity2007\AmplaWeb.Data.AmplaSecurity2007.ReleaseSessionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AmplaSecurity2007\AmplaWeb.Data.AmplaSecurity2007.RenewSessionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AmplaSecurity2007\SecurityWebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AmplaData2008\" />
+    <WCFMetadataStorage Include="Service References\AmplaSecurity2007\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\AmplaData2008\Reference.svcmap">
@@ -129,6 +153,13 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AmplaSecurity2007\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
