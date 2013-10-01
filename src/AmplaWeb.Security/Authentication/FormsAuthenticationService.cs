@@ -8,10 +8,6 @@ namespace AmplaWeb.Security.Authentication
 {
     public class FormsAuthenticationService : IFormsAuthenticationService
     {
-        public FormsAuthenticationService()
-        {
-        }
-
         public void SignIn(AmplaUser amplaUser, bool createPersistentCookie)
         {
             if (amplaUser == null) throw new ArgumentNullException("amplaUser");
