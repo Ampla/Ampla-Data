@@ -7,14 +7,12 @@ namespace AmplaWeb.Data.AmplaRepository
     /// </summary>
     public class AmplaRepositorySet : IRepositorySet
     {
-        public AmplaRepositorySet(string userName, string password)
+        private readonly ICredentialsProvider credentialsProvider;
+
+        public AmplaRepositorySet(ICredentialsProvider credentialsProvider)
         {
-            this.userName = userName;
-            this.password = password;
+            this.credentialsProvider = credentialsProvider;
         }
-        
-        private readonly string userName;
-        private readonly string password;
 
         /// <summary>
         /// Gets the Ampla repository for the specficied model
@@ -24,7 +22,7 @@ namespace AmplaWeb.Data.AmplaRepository
         public IRepository<TModel> GetRepository<TModel>() where TModel : class, new()
         {
             IDataWebServiceClient webServiceClient = DataWebServiceFactory.Create();
-            return new AmplaRepository<TModel>(webServiceClient, userName, password);
+            return new AmplaRepository<TModel>(webServiceClient, credentialsProvider);
         }
 
         /// <summary>
@@ -35,7 +33,7 @@ namespace AmplaWeb.Data.AmplaRepository
         public IReadOnlyRepository<TModel> GetReadOnlyRepository<TModel>() where TModel : class, new()
         {
             IDataWebServiceClient webServiceClient = DataWebServiceFactory.Create();
-            return new AmplaReadOnlyRepository<TModel>(webServiceClient, userName, password);
+            return new AmplaReadOnlyRepository<TModel>(webServiceClient, credentialsProvider);
         }
     }
 }

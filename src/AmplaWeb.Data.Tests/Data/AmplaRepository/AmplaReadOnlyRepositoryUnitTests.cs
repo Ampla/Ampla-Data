@@ -18,8 +18,7 @@ namespace AmplaWeb.Data.AmplaRepository
             public string Area { get; set; }
         }
 
-        private const string userName = "User";
-        private const string password = "password";
+        private ICredentialsProvider credentialsProvider = CredentialsProvider.ForUsernameAndPassword("User", "password");
         private const string module = "Production";
         private const string location = "Plant.Area.Values";
 
@@ -27,7 +26,7 @@ namespace AmplaWeb.Data.AmplaRepository
         public void GetAll()
         {
             IDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
-            AmplaReadOnlyRepository<AreaValueModel> repository = new AmplaReadOnlyRepository<AreaValueModel>(webServiceClient, userName, password);
+            AmplaReadOnlyRepository<AreaValueModel> repository = new AmplaReadOnlyRepository<AreaValueModel>(webServiceClient, credentialsProvider);
             IList<AreaValueModel> models = repository.GetAll();
 
             Assert.That(models, Is.Empty);
@@ -46,7 +45,7 @@ namespace AmplaWeb.Data.AmplaRepository
 
             Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
             
-            AmplaReadOnlyRepository<AreaValueModel> repository = new AmplaReadOnlyRepository<AreaValueModel>(webServiceClient, userName, password);
+            AmplaReadOnlyRepository<AreaValueModel> repository = new AmplaReadOnlyRepository<AreaValueModel>(webServiceClient, credentialsProvider);
             IList<AreaValueModel> models = repository.GetAll();
 
             Assert.That(models, Is.Not.Empty);
@@ -68,7 +67,7 @@ namespace AmplaWeb.Data.AmplaRepository
 
             Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
 
-            AmplaReadOnlyRepository<AreaValueModel> repository = new AmplaReadOnlyRepository<AreaValueModel>(webServiceClient, userName, password);
+            AmplaReadOnlyRepository<AreaValueModel> repository = new AmplaReadOnlyRepository<AreaValueModel>(webServiceClient, credentialsProvider);
             AreaValueModel model = repository.FindById(recordId);
 
             Assert.That(model.Id, Is.EqualTo(recordId));
@@ -94,7 +93,7 @@ namespace AmplaWeb.Data.AmplaRepository
 
             Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
 
-            AmplaReadOnlyRepository<AreaValueModel> repository = new AmplaReadOnlyRepository<AreaValueModel>(webServiceClient, userName, password);
+            AmplaReadOnlyRepository<AreaValueModel> repository = new AmplaReadOnlyRepository<AreaValueModel>(webServiceClient, credentialsProvider);
             AreaValueModel model = repository.FindById(recordId);
 
             Assert.That(model.Id, Is.EqualTo(recordId));

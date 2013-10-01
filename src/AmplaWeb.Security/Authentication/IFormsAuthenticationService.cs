@@ -9,7 +9,8 @@ namespace AmplaWeb.Security.Authentication
     {
         void SignIn(AmplaUser amplaUser, bool createPersistentCookie);
         void SignOut();
-        void StoreUserTicket(HttpResponse response, AmplaUser user);
+
+        void StoreUserTicket(HttpResponseBase response, AmplaUser user, bool createPersistentCookie);
         FormsAuthenticationTicket GetUserTicket();
         void SetCurrentUser(IPrincipal principal);
     }

@@ -15,13 +15,7 @@ namespace AmplaWeb.Data.AmplaRepository
 
         private readonly Dictionary<string, IAmplaViewProperties<TModel>> amplaViewDictionary;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AmplaRepository{TModel}"/> class.
-        /// </summary>
-        /// <param name="webServiceClient">The web service client.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="password">The password.</param>
-        public AmplaRepository(IDataWebServiceClient webServiceClient, string userName, string password) : base(webServiceClient, userName, password)
+        public AmplaRepository(IDataWebServiceClient webServiceClient, ICredentialsProvider credentialsProvider) : base(webServiceClient, credentialsProvider)
         {
             amplaViewDictionary = new Dictionary<string, IAmplaViewProperties<TModel>>();
         }

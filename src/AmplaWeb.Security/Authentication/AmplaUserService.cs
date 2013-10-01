@@ -173,12 +173,13 @@ namespace AmplaWeb.Security.Authentication
             }
         }
 
-        private AmplaUser FindUserByName(string name)
+        private AmplaUser FindUserByName(string userName)
         {
+            string lowerUser = userName.ToLower();
             AmplaUser user;
             lock (dictionaryLock)
             {
-                validatedUserDictionary.TryGetValue(name, out user);
+                validatedUserDictionary.TryGetValue(lowerUser, out user);
             }
             return user;
         }
@@ -217,7 +218,5 @@ namespace AmplaWeb.Security.Authentication
                 }
             }
         }
-
-
     }
 }

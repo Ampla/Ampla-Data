@@ -39,5 +39,28 @@ namespace AmplaWeb.Security.Authentication
             Assert.That(message, Is.Not.Empty);
             Assert.That(message, Is.StringContaining("password"));
         }
+
+        [Test]
+        public void LoginAndLogout()
+        {
+            SimpleSecurityWebServiceClient webServiceClient = new SimpleSecurityWebServiceClient("User");
+            AmplaUserService amplaUserService = new AmplaUserService(webServiceClient);
+
+            string message;
+            AmplaUser user = amplaUserService.Login("User", "password", out message);
+            Assert.That(user, Is.Not.Null);
+
+            Assert.That(webServiceClient.Sessions, Is.Not.Empty);
+
+            Assert.That(user.UserName, Is.EqualTo("User"));
+            Assert.That(user.Session, Is.Not.Empty);
+            Assert.That(user.Session, Is.EqualTo(webServiceClient.Sessions[0].SessionId));
+            Assert.That(message, Is.Null.Or.Empty);
+
+            amplaUserService.Logout("User");
+
+            Assert.That(webServiceClient.Sessions, Is.Empty);
+
+        }
     }
 }

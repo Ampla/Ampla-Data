@@ -19,10 +19,11 @@ namespace AmplaWeb.Security.Authentication
             FormsAuthentication.SignOut();
         }
 
-        public void StoreUserTicket(HttpResponse response, AmplaUser amplaUser)
+        public void StoreUserTicket(HttpResponseBase response, AmplaUser amplaUser, bool createPersistentCookie)
         {
             string session = amplaUser.Session;
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, amplaUser.UserName, DateTime.Now, DateTime.Now.AddMinutes(30), false, session);
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, amplaUser.UserName, DateTime.Now, DateTime.Now.AddMinutes(30), createPersistentCookie, session);
+
             response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket)));
         }
 

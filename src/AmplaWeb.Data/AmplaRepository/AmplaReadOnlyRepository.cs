@@ -14,23 +14,15 @@ namespace AmplaWeb.Data.AmplaRepository
     public class AmplaReadOnlyRepository<TModel> : IReadOnlyRepository<TModel> where TModel : class, new()
     {
         private IDataWebServiceClient webServiceClient;
-        private readonly string userName;
-        private readonly string password;
+        private readonly ICredentialsProvider credentialsProvider;
         private readonly IModelProperties<TModel> modelProperties;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AmplaReadOnlyRepository{TModel}"/> class.
-        /// </summary>
-        /// <param name="webServiceClient">The web service client.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="password">The password.</param>
-        public AmplaReadOnlyRepository(IDataWebServiceClient webServiceClient, string userName, string password)
+        public AmplaReadOnlyRepository(IDataWebServiceClient webServiceClient, ICredentialsProvider credentialsProvider)
         {
             this.webServiceClient = webServiceClient;
-            this.userName = userName;
-            this.password = password;
+            this.credentialsProvider = credentialsProvider;
             modelProperties = new ModelProperties<TModel>();
-         }
+        }
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -150,7 +142,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <returns></returns>
         protected Credentials CreateCredentials()
         {
-            return new Credentials {Username = userName, Password = password};
+            return credentialsProvider.GetCredentials();
         }
 
         /// <summary>

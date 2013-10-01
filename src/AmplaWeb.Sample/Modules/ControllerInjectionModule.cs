@@ -1,4 +1,5 @@
 ﻿using AmplaWeb.Data;
+using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.InMemory;
 using AmplaWeb.Sample.Models;
@@ -17,7 +18,8 @@ namespace AmplaWeb.Sample.Modules
 
             if (type == "Ampla")
             {
-                builder.Register(c => new AmplaRepositorySet("User", "password")).As<IRepositorySet>();
+                builder.Register(c => CredentialsProvider.ForUsernameAndPassword("User", "password")).As<ICredentialsProvider>();
+                builder.RegisterType<AmplaRepositorySet>().As<IRepositorySet>();
             }
             else
             {
@@ -32,11 +34,9 @@ namespace AmplaWeb.Sample.Modules
                 bundleRepository.Add(new IngotBundleModel { CastNo = "Cast 123" });
                 bundleRepository.Add(new IngotBundleModel { CastNo = "Cast 123" });
                 bundleRepository.Add(new IngotBundleModel { CastNo = "Cast 234" });
-
             }
             
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
-
         }
     }
 }

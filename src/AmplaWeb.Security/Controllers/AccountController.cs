@@ -38,7 +38,7 @@ namespace AmplaWeb.Security.Controllers
                 AmplaUser amplaUser = amplaUserService.Login(model.UserName, model.Password, out message);
                 if (amplaUser != null)
                 {
-                    formsAuthenticationService.SignIn(amplaUser, model.RememberMe);
+                    formsAuthenticationService.StoreUserTicket(Response, amplaUser, model.RememberMe);
 
                     if (UrlIsLocal(returnUrl))
                     {
@@ -69,10 +69,14 @@ namespace AmplaWeb.Security.Controllers
         // GET: /Account/Logout
         public ActionResult Logout()
         {
-            string user = HttpContext.User.Identity.Name;
-            amplaUserService.Logout(user);
-            formsAuthenticationService.SignOut();
-            Information("Logout successful.");
+            var ticket = formsAuthenticationService.GetUserTicket();
+            if (ticket != null)
+            {
+                string user = ticket.Name;
+                amplaUserService.Logout(user);
+                formsAuthenticationService.SignOut();
+                Information("Logout successful.");
+            }
             return RedirectToAction("Index", "Home");
         }
 

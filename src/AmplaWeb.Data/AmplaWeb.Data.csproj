@@ -47,10 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmplaData2008\CredentialsProvider.cs" />
     <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\DataWebServiceFactory.cs" />
     <Compile Include="AmplaRepository\AmplaRepository.cs" />
     <Compile Include="AmplaRepository\AmplaRepositorySet.cs" />
+    <Compile Include="AmplaData2008\ICredentialsProvider.cs" />
     <Compile Include="Attributes\AmplaFieldAttribute.cs" />
     <Compile Include="Attributes\AmplaDefaultFiltersAttribute.cs" />
     <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
