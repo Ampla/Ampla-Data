@@ -1,7 +1,6 @@
 ﻿
 
 using System.Collections.Generic;
-using AmplaWeb.Data.Membership;
 
 namespace AmplaWeb.Security.Membership
 {
@@ -9,14 +8,17 @@ namespace AmplaWeb.Security.Membership
     {
         private readonly string[] roles;
 
-
         public AmplaRoleProvider()
         {
             roles = new List<string>
                 {
                     "ViewRecord",
                     "AddRecord",
-                    "EditRecord"
+                    "EditRecord",
+                    "DeleteRecord",
+                    "ConfirmRecord",
+                    "UnconfirmRecord",
+                    "SplitRecord"
                 }.ToArray();
         }
 

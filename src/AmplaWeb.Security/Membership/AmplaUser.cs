@@ -21,7 +21,7 @@ namespace AmplaWeb.Security.Membership
             null, 
             null, 
             true, 
-            false, 
+            false,
             DateTime.MinValue, 
             DateTime.MinValue, 
             DateTime.MinValue, 
@@ -42,5 +42,6 @@ namespace AmplaWeb.Security.Membership
             get;
             private set;
         }
+
     }
 }

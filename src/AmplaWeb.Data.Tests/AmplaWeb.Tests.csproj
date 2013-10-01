@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F262B484-F272-4514-BEE2-D630D1C997A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AmplaWeb</RootNamespace>
+    <AssemblyName>AmplaWeb.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AmplaWeb.Data\AmplaWeb.Data.csproj">
+      <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
+      <Name>AmplaWeb.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AmplaWeb.Security\AmplaWeb.Security.csproj">
+      <Project>{89F8C9B1-4161-4F50-A96C-45C826E31856}</Project>
+      <Name>AmplaWeb.Security</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\AmplaData2008\LoggingDataWebServiceClient.cs" />
+    <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClient.cs" />
+    <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
+    <Compile Include="Data\AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />
+    <Compile Include="Data\Attributes\AmplaDefaultFiltersAttributeUnitTests.cs" />
+    <Compile Include="Data\Binding\ModelData\ModelPropertyDefaultFilterUnitTests.cs" />
+    <Compile Include="Data\Binding\ModelData\LocationFilterUnitTests.cs" />
+    <Compile Include="Data\Binding\ModelData\Validation\RequiredLocationValidatorUnitTests.cs" />
+    <Compile Include="Data\Binding\ModelData\Validation\LocationValidatorUnitTests.cs" />
+    <Compile Include="Data\FilterValueUnitTests.cs" />
+    <Compile Include="Data\Records\Filters\FieldFilterMatcher.cs" />
+    <Compile Include="Data\Records\Filters\FilterMatcher.cs" />
+    <Compile Include="Data\Records\Filters\IdFilterMatcher.cs" />
+    <Compile Include="Data\Records\Filters\LocationFilterMatcher.cs" />
+    <Compile Include="Data\Records\Filters\LocationWithRecurseFilterMatcher.cs" />
+    <Compile Include="Data\Records\Filters\InMemoryFilterMatcher.cs" />
+    <Compile Include="Data\AmplaData2008\SimpleNavigationHierarchy.cs" />
+    <Compile Include="Data\AmplaRepository\AmplaReadOnlyRepositoryUnitTests.cs" />
+    <Compile Include="Data\AmplaRepository\AmplaRepositoryDateTimeUnitTests.cs" />
+    <Compile Include="Data\AmplaRepository\AmplaRepositoryLocationUnitTests.cs" />
+    <Compile Include="Data\AmplaRepository\AmplaRepositoryTestFixture.cs" />
+    <Compile Include="Data\AmplaRepository\AmplaRepositoryUnitTests.cs" />
+    <Compile Include="Data\Attributes\AmplaLocationAttributeUnitTests.cs" />
+    <Compile Include="Data\Attributes\AmplaModuleAttributeUnitTests.cs" />
+    <Compile Include="Data\Attributes\AmplaFieldAttributeUnitTests.cs" />
+    <Compile Include="Data\Binding\Mapping\ConstantFieldMappingUnitTests.cs" />
+    <Compile Include="Data\Binding\Mapping\DefaultValueFieldMappingUnitTests.cs" />
+    <Compile Include="Data\Binding\Mapping\IdFieldMappingUnitTests.cs" />
+    <Compile Include="Data\Binding\Mapping\ModelFieldMappingUnitTests.cs" />
+    <Compile Include="Data\Binding\Mapping\ReadOnlyFieldMappingUnitTests.cs" />
+    <Compile Include="Data\Binding\ModelData\ModelPropertyLocationUnitTests.cs" />
+    <Compile Include="Data\Binding\ModelData\ModelPropertiesUnitTests.cs" />
+    <Compile Include="Data\Binding\ModelData\ModelPropertyNonDefaultUnitTests.cs" />
+    <Compile Include="Data\Binding\ViewData\ViewFiltersCollectionUnitTests.cs" />
+    <Compile Include="Data\Binding\ViewData\ViewPermissionsUnitTests.cs" />
+    <Compile Include="Data\Logging\ILogger.cs" />
+    <Compile Include="Data\Logging\ListLogger.cs" />
+    <Compile Include="Data\Records\DateTimeExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Records\FieldValue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Records\InMemoryRecord.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Records\InMemoryRecordExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Records\PersistenceHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Records\ProductionRecords.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Data\Records\ProductionRecordsUnitTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Security\AmplaSecurity2007\SimpleSecurityWebServiceClient.cs" />
+    <Compile Include="Security\AmplaSecurity2007\SimpleSecurityWebServiceClientUnitTests.cs" />
+    <Compile Include="Security\AmplaSecurity2007\SimpleSession.cs" />
+    <Compile Include="Security\Authentication\AmplaUserServiceUnitTests.cs" />
+    <Compile Include="TestFixture.cs" />
+    <Compile Include="Data\Views\ProductionViews.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

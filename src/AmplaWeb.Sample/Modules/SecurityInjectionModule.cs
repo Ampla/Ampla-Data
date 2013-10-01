@@ -13,7 +13,7 @@ namespace AmplaWeb.Sample.Modules
 
             builder.Register(c => Membership.Provider).As<MembershipProvider>();
             builder.RegisterType<FormsAuthenticationService>().As<IFormsAuthenticationService>();
-            builder.RegisterType<MembershipService>().As<IMembershipService>();
+            builder.RegisterType<AmplaUserService>().As<IAmplaUserService>().SingleInstance();
             builder.RegisterControllers(typeof(Security.Controllers.AccountController).Assembly);
 
         }

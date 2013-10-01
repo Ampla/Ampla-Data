@@ -1,6 +1,6 @@
 ﻿using System.Web.Security;
 
-namespace AmplaWeb.Data.Membership
+namespace AmplaWeb.Security.Membership
 {
     public abstract class ReadOnlyRoleProvider : RoleProvider
     {

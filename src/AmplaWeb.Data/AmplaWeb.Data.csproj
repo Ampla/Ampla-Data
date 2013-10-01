@@ -51,8 +51,6 @@
     <Compile Include="AmplaData2008\DataWebServiceFactory.cs" />
     <Compile Include="AmplaRepository\AmplaRepository.cs" />
     <Compile Include="AmplaRepository\AmplaRepositorySet.cs" />
-    <Compile Include="AmplaSecurity2007\ISecurityWebServiceClient.cs" />
-    <Compile Include="AmplaSecurity2007\SecurityWebServiceClient.cs" />
     <Compile Include="Attributes\AmplaFieldAttribute.cs" />
     <Compile Include="Attributes\AmplaDefaultFiltersAttribute.cs" />
     <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
@@ -117,11 +115,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\AmplaSecurity2007\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="WebService\WebServiceFactory.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,29 +123,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Service References\AmplaData2008\DataWebService.wsdl" />
-    <None Include="Service References\AmplaSecurity2007\AmplaWeb.Data.AmplaSecurity2007.CreateSessionResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaSecurity2007\AmplaWeb.Data.AmplaSecurity2007.ReleaseSessionResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaSecurity2007\AmplaWeb.Data.AmplaSecurity2007.RenewSessionResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaSecurity2007\SecurityWebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AmplaData2008\" />
-    <WCFMetadataStorage Include="Service References\AmplaSecurity2007\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\AmplaData2008\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\AmplaSecurity2007\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

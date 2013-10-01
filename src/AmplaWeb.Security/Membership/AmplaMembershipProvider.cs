@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Web.Security;
-
-using AmplaWeb.Security.AmplaSecurity2007;
+using AmplaWeb.Security.Authentication;
 
 namespace AmplaWeb.Security.Membership
 {
     public class AmplaMembershipProvider : ReadOnlyMembershipProvider
     {
-        private readonly ISecurityWebServiceClient securityWebServiceClient;
+        private readonly IAmplaUserService amplaUserService;
 
-        public AmplaMembershipProvider() : this(new SecurityWebServiceFactory())
+        public AmplaMembershipProvider() : this(new AmplaUserService())
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AmplaMembershipProvider"/> class.
-        /// </summary>
-        /// <param name="securityWebServiceClient">The security web service client.</param>
-        public AmplaMembershipProvider(ISecurityWebServiceClient securityWebServiceClient)
+        public AmplaMembershipProvider(IAmplaUserService amplaUserService)
         {
-            this.securityWebServiceClient = securityWebServiceClient;
+            this.amplaUserService = amplaUserService;
         }
 
         /// <summary>
@@ -32,10 +27,9 @@ namespace AmplaWeb.Security.Membership
         /// </returns>
         public override bool ValidateUser(string username, string password)
         {
-            CreateSessionRequest request = new CreateSessionRequest {Username = username, Password = password};
-
-            CreateSessionResponse response = securityWebServiceClient.CreateSession(request);
-            return response != null;
+            string message;
+            AmplaUser amplaUser = amplaUserService.Login(username, password, out message);
+            return amplaUser != null;
         }
 
         /// <summary>
@@ -49,16 +43,14 @@ namespace AmplaWeb.Security.Membership
         public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
         {
             string session = Convert.ToString(providerUserKey);
-            RenewSessionRequest request = new RenewSessionRequest {Session = new Session {SessionID = session}};
-            
-            RenewSessionResponse response = securityWebServiceClient.RenewSession(request);
-
-            return new AmplaUser(response.Session.User, response.Session.SessionID);
+            AmplaUser amplaUser = amplaUserService.RenewSession(session);
+            return amplaUser;
         }
         
         public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            throw new NotImplementedException();
+            AmplaUser amplaUser = amplaUserService.GetLoggedInUser(username);
+            return amplaUser;
         }
     }
 }

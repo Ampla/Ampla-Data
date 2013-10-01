@@ -226,7 +226,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AmplaWeb.Data\AmplaWeb.Data.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
-      <Name>AmplaDataAccess</Name>
+      <Name>AmplaWeb.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\AmplaWeb.Security\AmplaWeb.Security.csproj">
       <Project>{89F8C9B1-4161-4F50-A96C-45C826E31856}</Project>

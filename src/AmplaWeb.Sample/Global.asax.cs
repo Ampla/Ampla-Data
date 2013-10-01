@@ -1,11 +1,11 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Sample.App_Start;
 using AmplaWeb.Sample.Modules;
 using AmplaWeb.Security.AmplaSecurity2007;
+using AmplaWeb.Security.Authentication;
 using Autofac;
 using Autofac.Integration.Mvc;
 
@@ -15,6 +15,13 @@ namespace AmplaWeb.Sample
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
+        public override void Init()
+        {
+            base.Init();
+
+            new AmplaAuthorizationModule().Initialize(this);
+        }
+
         protected void Application_Start()
         {
             var builder = new ContainerBuilder();
@@ -26,7 +33,7 @@ namespace AmplaWeb.Sample
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-         
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

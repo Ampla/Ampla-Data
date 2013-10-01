@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using AmplaWeb.Data.Controllers;
-using AmplaWeb.Data.Membership;
 using AmplaWeb.Security.Authentication;
 using AmplaWeb.Security.Membership;
 using AmplaWeb.Security.Models;
@@ -9,17 +8,12 @@ namespace AmplaWeb.Security.Controllers
 {
     public class AccountController : BootstrapBaseController
     {
-        private readonly IMembershipService membershipService;
+        private readonly IAmplaUserService amplaUserService;
         private readonly IFormsAuthenticationService formsAuthenticationService;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AccountController"/> class.
-        /// </summary>
-        /// <param name="membershipService">The membership service.</param>
-        /// <param name="formsAuthenticationService">The forms authentication service.</param>
-        public AccountController(IMembershipService membershipService, IFormsAuthenticationService formsAuthenticationService)
+        public AccountController(IAmplaUserService amplaUserService, IFormsAuthenticationService formsAuthenticationService)
         {
-            this.membershipService = membershipService;
+            this.amplaUserService = amplaUserService;
             this.formsAuthenticationService = formsAuthenticationService;
         }
 
@@ -40,28 +34,43 @@ namespace AmplaWeb.Security.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (membershipService.ValidateUser(model.UserName, model.Password))
+                string message;
+                AmplaUser amplaUser = amplaUserService.Login(model.UserName, model.Password, out message);
+                if (amplaUser != null)
                 {
-                    formsAuthenticationService.SignIn(model.UserName, model.RememberMe);
-                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
-                        && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    formsAuthenticationService.SignIn(amplaUser, model.RememberMe);
+
+                    if (UrlIsLocal(returnUrl))
                     {
                         Information("Login successful.");
                         return Redirect(returnUrl);
                     }
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                Error(message);
+                ModelState.AddModelError("", message);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
+        private bool UrlIsLocal(string url)
+        {
+            return 
+                !string.IsNullOrEmpty(url) 
+                && Url.IsLocalUrl(url) 
+                && url.StartsWith("/") 
+                && !url.StartsWith("//") 
+                && !url.StartsWith("/\\");
+        }
+
         //
         // GET: /Account/Logout
         public ActionResult Logout()
         {
+            string user = HttpContext.User.Identity.Name;
+            amplaUserService.Logout(user);
             formsAuthenticationService.SignOut();
             Information("Logout successful.");
             return RedirectToAction("Index", "Home");
