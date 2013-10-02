@@ -1,14 +1,16 @@
 ﻿
 @if (Request.IsAuthenticated)
 {
-    <div class="btn-group">
-        <a class="btn btn-inverse" href="#"><i class="icon-user icon-white"></i> @User.Identity.Name</a>
-        <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li>@Html.ActionLink("Details", "User", "Account")</li>
-            <li><a href="javascript:document.getElementById('logoutMenuForm').submit()">Logout</a></li>            
-        </ul>
-    </div>
+    <li>
+        <div class="btn-group">
+            <a class="btn btn-inverse" href="#"><i class="icon-user icon-white"></i> @User.Identity.Name</a>
+            <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Details", "User", "Account")</li>
+                <li><a href="javascript:document.getElementById('logoutMenuForm').submit()">Logout</a></li>            
+            </ul>
+        </div>
+    </li>
     using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutMenuForm", @class="hidden" }))
     {
         @Html.AntiForgeryToken()
@@ -16,5 +18,5 @@
 }
 else
 {
-    <a class="btn btn-info" href="@Url.Action("Login", "Account")" > <i class="icon-user icon-white"></i> Login</a>
+    <li><a class="btn btn-info" href="@Url.Action("Login", "Account")" > <i class="icon-user icon-white"></i> Login</a></li>
 }
