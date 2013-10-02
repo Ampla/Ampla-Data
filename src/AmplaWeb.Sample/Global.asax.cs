@@ -19,7 +19,7 @@ namespace AmplaWeb.Sample
         {
             base.Init();
 
-            new AmplaAuthorizationModule().Initialize(this);
+            new AmplaAuthenticationModule().Initialize(this);
         }
 
         protected void Application_Start()

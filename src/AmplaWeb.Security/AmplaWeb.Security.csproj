@@ -51,7 +51,7 @@
     <Compile Include="AmplaSecurity2007\ISecurityWebServiceClient.cs" />
     <Compile Include="AmplaSecurity2007\SecurityWebServiceClient.cs" />
     <Compile Include="AmplaSecurity2007\SecurityWebServiceFactory.cs" />
-    <Compile Include="Authentication\AmplaAuthorizationModule.cs" />
+    <Compile Include="Authentication\AmplaAuthenticationModule.cs" />
     <Compile Include="Authentication\AmplaCredentialsProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Membership\AmplaMembershipProvider.cs" />

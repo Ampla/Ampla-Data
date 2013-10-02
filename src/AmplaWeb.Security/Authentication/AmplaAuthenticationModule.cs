@@ -8,15 +8,15 @@ using AmplaWeb.Security.Membership;
 
 namespace AmplaWeb.Security.Authentication
 {
-    public class AmplaAuthorizationModule
+    public class AmplaAuthenticationModule
     {
         private readonly IFormsAuthenticationService formsAuthenticationService;
 
-        public AmplaAuthorizationModule() : this(new FormsAuthenticationService())
+        public AmplaAuthenticationModule() : this(new FormsAuthenticationService())
         {
         }
 
-        public AmplaAuthorizationModule(IFormsAuthenticationService formsAuthenticationService)
+        public AmplaAuthenticationModule(IFormsAuthenticationService formsAuthenticationService)
         {
             this.formsAuthenticationService = formsAuthenticationService;
         }
@@ -44,6 +44,12 @@ namespace AmplaWeb.Security.Authentication
                         if (amplaUser != null)
                         {
                             formsAuthenticationService.StoreUserTicket(HttpContext.Current.Response.Cookies, amplaUser, false);
+                            
+                            UriBuilder builder = new UriBuilder(HttpContext.Current.Request.Url);
+                            var query = HttpUtility.ParseQueryString(builder.Query);
+                            query.Remove("amplaSession");
+                            builder.Query = query.ToString();
+                            HttpContext.Current.Response.Redirect(builder.ToString());
                         }
                     }
                     
