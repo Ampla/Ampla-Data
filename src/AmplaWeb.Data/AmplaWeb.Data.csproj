@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\RepositoryAdapter.cs" />
     <Compile Include="AmplaData2008\CredentialsProvider.cs" />
     <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\DataWebServiceFactory.cs" />
