@@ -19,6 +19,16 @@ namespace AmplaWeb.Security.AmplaSecurity2007
         
         public Func<string, bool> ValidatePasswordFunc { get; set; }
 
+        /// <summary>
+        /// Adds the existing session.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        public void AddExistingSession(string userName)
+        {
+            SimpleSession existingSession = new SimpleSession(userName);
+            sessions.Add(existingSession);
+        }
+
         public List<SimpleSession> Sessions
         {
             get
@@ -64,10 +74,11 @@ namespace AmplaWeb.Security.AmplaSecurity2007
             string userName = request.Session.User;
             string sessionId = request.Session.SessionID;
 
-            SimpleSession session = sessions.Find(s => s.UserName == userName);
+            SimpleSession session = sessions.Find(s => s.SessionId == sessionId) ??
+                                    sessions.Find(s => s.UserName == userName);
             if (session != null)
             {
-                
+                return new RenewSessionResponse { Session = session.GetSession() };
             }
             throw new InvalidOperationException("Unable to find user with session");
         }

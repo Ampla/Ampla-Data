@@ -62,5 +62,84 @@ namespace AmplaWeb.Security.Authentication
             Assert.That(webServiceClient.Sessions, Is.Empty);
 
         }
+
+        [Test]
+        public void LoginUsingSession()
+        {
+            SimpleSecurityWebServiceClient webServiceClient = new SimpleSecurityWebServiceClient("User");
+            webServiceClient.AddExistingSession("Admin");
+
+            AmplaUserService amplaUserService = new AmplaUserService(webServiceClient);
+
+            Assert.That(webServiceClient.Sessions, Is.Not.Empty);
+
+            string session = webServiceClient.Sessions[0].SessionId;
+
+            string message;
+            AmplaUser user = amplaUserService.Login(session, out message);
+            Assert.That(user, Is.Not.Null);
+
+            Assert.That(user.UserName, Is.EqualTo("Admin"));
+            Assert.That(user.Session, Is.Not.Empty);
+            Assert.That(user.Session, Is.EqualTo(session));
+            Assert.That(message, Is.Null.Or.Empty);
+        }
+
+        [Test]
+        public void LoginUsingSessionAndLogout()
+        {
+            SimpleSecurityWebServiceClient webServiceClient = new SimpleSecurityWebServiceClient("User");
+            webServiceClient.AddExistingSession("Admin");
+
+            AmplaUserService amplaUserService = new AmplaUserService(webServiceClient);
+
+            Assert.That(webServiceClient.Sessions, Is.Not.Empty);
+
+            string session = webServiceClient.Sessions[0].SessionId;
+
+            string message;
+            AmplaUser user = amplaUserService.Login(session, out message);
+            Assert.That(user, Is.Not.Null);
+
+            Assert.That(user.UserName, Is.EqualTo("Admin"));
+            Assert.That(user.Session, Is.Not.Empty);
+            Assert.That(user.Session, Is.EqualTo(session));
+            Assert.That(message, Is.Null.Or.Empty);
+
+            amplaUserService.Logout("Admin");
+
+            Assert.That(webServiceClient.Sessions, Is.Not.Empty);
+        }
+
+        [Test]
+        public void LoginTwice()
+        {
+            SimpleSecurityWebServiceClient webServiceClient = new SimpleSecurityWebServiceClient("User");
+            AmplaUserService amplaUserService = new AmplaUserService(webServiceClient);
+
+            string message;
+            AmplaUser user = amplaUserService.Login("User", "password", out message);
+            Assert.That(user, Is.Not.Null);
+
+            Assert.That(webServiceClient.Sessions, Is.Not.Empty);
+
+            Assert.That(user.UserName, Is.EqualTo("User"));
+            Assert.That(user.Session, Is.Not.Empty);
+            Assert.That(user.Session, Is.EqualTo(webServiceClient.Sessions[0].SessionId));
+            Assert.That(message, Is.Null.Or.Empty);
+
+            // login again
+            user = amplaUserService.Login("User", "password", out message);
+            Assert.That(user, Is.Not.Null);
+
+            Assert.That(webServiceClient.Sessions, Is.Not.Empty);
+            Assert.That(webServiceClient.Sessions.Count, Is.EqualTo(1));
+
+            Assert.That(user.UserName, Is.EqualTo("User"));
+            Assert.That(user.Session, Is.Not.Empty);
+            Assert.That(user.Session, Is.EqualTo(webServiceClient.Sessions[0].SessionId));
+            Assert.That(message, Is.Null.Or.Empty);
+            
+        }
     }
 }

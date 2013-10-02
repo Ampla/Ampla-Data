@@ -56,7 +56,7 @@ namespace AmplaWeb.Security.Authentication
                 CreateSessionResponse response = CatchExceptions(() => securityWebService.CreateSession(request), out exception);
                 if (response != null)
                 {
-                    user = new AmplaUser(response.Session.User, response.Session.SessionID);
+                    user = new AmplaUser(response.Session.User, response.Session.SessionID) {RememberToLogout = true};
                     StoreUser(user);
                 }
 
@@ -66,6 +66,42 @@ namespace AmplaWeb.Security.Authentication
                 }
             }
         
+            return user;
+        }
+
+        /// <summary>
+        /// Login an Ampla user using session
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public AmplaUser Login(string session, out string message)
+        {
+            message = null;
+            AmplaUser user = FindUserBySession(session);
+
+            if (user != null)
+            {
+                user = Renew(user);
+            }
+
+            if (user == null)
+            {
+                RenewSessionRequest request = new RenewSessionRequest { Session = new Session { SessionID = session, User = ""} };
+
+                Exception exception;
+                RenewSessionResponse response = CatchExceptions(() => securityWebService.RenewSession(request), out exception);
+                if (response != null)
+                {
+                    user = new AmplaUser(response.Session.User, response.Session.SessionID) { RememberToLogout = false };
+                    StoreUser(user);
+                }
+                if (user == null)
+                {
+                    message = exception.Message;
+                }
+            }
+
             return user;
         }
 
@@ -114,11 +150,15 @@ namespace AmplaWeb.Security.Authentication
             {
                 RemoveUser(user);
 
-                ReleaseSessionRequest request = new ReleaseSessionRequest {
-                        Session = new Session {User = user.UserName, SessionID = user.Session}
-                    };
-                Exception exception;
-                CatchExceptions(() => securityWebService.ReleaseSession(request), out exception);
+                if (user.RememberToLogout)
+                {
+                    ReleaseSessionRequest request = new ReleaseSessionRequest
+                        {
+                            Session = new Session {User = user.UserName, SessionID = user.Session}
+                        };
+                    Exception exception;
+                    CatchExceptions(() => securityWebService.ReleaseSession(request), out exception);
+                }
             }
         }
 

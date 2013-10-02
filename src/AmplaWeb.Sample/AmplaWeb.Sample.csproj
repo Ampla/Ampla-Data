@@ -222,6 +222,7 @@
     <Content Include="Views\shared\Delete.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Account\CurrentUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AmplaWeb.Data\AmplaWeb.Data.csproj">

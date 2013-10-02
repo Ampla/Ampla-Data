@@ -29,6 +29,7 @@ namespace AmplaWeb.Security.Membership
             DateTime.MinValue)
         {
             Session = session;
+            RememberToLogout = true;
         }
 
         /// <summary>
@@ -42,6 +43,11 @@ namespace AmplaWeb.Security.Membership
             get;
             private set;
         }
+
+        /// <summary>
+        /// Should the user be logged out when finished
+        /// </summary>
+        public bool RememberToLogout { get; set; }
 
     }
 }

@@ -15,6 +15,14 @@ namespace AmplaWeb.Security.Authentication
         /// <param name="message"></param>
         /// <returns></returns>
         AmplaUser Login(string userName, string password, out string message);
+
+        /// <summary>
+        ///     Login an Ampla user using session
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        AmplaUser Login(string session, out string message);
         
         /// <summary>
         ///     Renew the session

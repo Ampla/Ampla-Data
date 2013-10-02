@@ -18,7 +18,7 @@ namespace AmplaWeb.Sample.App_Start
 
             routes.MapNavigationRoute<IngotBundleController>("Ingot Bundles", c => c.Index());
 
-
+            /*
             routes.MapNavigationRoute<HomeController>("Automatic Scaffolding", c => c.Index());
 
             routes.MapNavigationRoute<ExampleLayoutsController>("Example Layouts", c => c.Starter())
@@ -26,6 +26,7 @@ namespace AmplaWeb.Sample.App_Start
                   .AddChildRoute<ExampleLayoutsController>("Fluid", c => c.Fluid())
                   .AddChildRoute<ExampleLayoutsController>("Sign In", c => c.SignIn())
                 ;
+             */
         }
     }
 }

@@ -3,6 +3,7 @@ using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.InMemory;
 using AmplaWeb.Sample.Models;
+using AmplaWeb.Security.Authentication;
 using Autofac;
 using Autofac.Integration.Mvc;
 
@@ -18,7 +19,7 @@ namespace AmplaWeb.Sample.Modules
 
             if (type == "Ampla")
             {
-                builder.Register(c => CredentialsProvider.ForUsernameAndPassword("User", "password")).As<ICredentialsProvider>();
+                builder.RegisterType<AmplaCredentialsProvider>().As<ICredentialsProvider>();
                 builder.RegisterType<AmplaRepositorySet>().As<IRepositorySet>();
             }
             else
