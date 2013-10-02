@@ -40,7 +40,7 @@ namespace AmplaWeb.Security.Authentication
                     if (amplaUserService != null)
                     {
                         string message;
-                        AmplaUser amplaUser = amplaUserService.Login(amplaSession, out message);
+                        AmplaUser amplaUser = amplaUserService.SessionLogin(amplaSession, out message);
                         if (amplaUser != null)
                         {
                             formsAuthenticationService.StoreUserTicket(HttpContext.Current.Response.Cookies, amplaUser, false);

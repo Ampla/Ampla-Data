@@ -2,11 +2,12 @@
 
 namespace AmplaWeb.Data.Controllers
 {
+    [Authorize]
     public abstract class ReadOnlyRepositoryController<TModel> : BootstrapBaseController where TModel : class, new()
     {
-        protected ReadOnlyRepositoryController(IRepositorySet repositorySet)
+        protected ReadOnlyRepositoryController(IReadOnlyRepository<TModel> repository)
         {
-            Repository = repositorySet.GetReadOnlyRepository<TModel>();
+            Repository = repository;
         }
 
         protected IReadOnlyRepository<TModel> Repository { get; private set; }

@@ -9,8 +9,7 @@ namespace AmplaWeb.Sample.Controllers
 {
     public class IngotBundleController : RepositoryController<IngotBundleModel>
     {
-        public IngotBundleController(IRepositorySet repositorySet)
-            : base(repositorySet)
+        public IngotBundleController(IRepository<IngotBundleModel> repository) : base(repository)
         {
             
         }

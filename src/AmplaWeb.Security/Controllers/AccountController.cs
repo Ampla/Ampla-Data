@@ -50,18 +50,56 @@ namespace AmplaWeb.Security.Controllers
                 };
             return View("CurrentUser", model);
         }
+        
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult LoginIntegrated(string returnUrl)
+        {
+            IntegratedLoginModel model = new IntegratedLoginModel {UseIntegratedSecurity = true};
+            
+            if (ModelState.IsValid)
+            {
+                string message;
+                if (!model.UseIntegratedSecurity)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                AmplaUser amplaUser = amplaUserService.IntegratedLogin(out message);
+                if (amplaUser != null)
+                {
+                    formsAuthenticationService.StoreUserTicket(Response.Cookies, amplaUser, model.RememberMe);
+
+                    if (UrlIsLocal(returnUrl))
+                    {
+                        Information("Login successful.");
+                        return Redirect(returnUrl);
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                Error(message);
+                ModelState.AddModelError("", message);
+
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View("Login");
+        }
 
         //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl)
+        public ActionResult Login(SimpleLoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
                 string message;
-                AmplaUser amplaUser = amplaUserService.Login(model.UserName, model.Password, out message);
+                AmplaUser amplaUser = amplaUserService.SimpleLogin(model.UserName, model.Password, out message);
                 if (amplaUser != null)
                 {
                     formsAuthenticationService.StoreUserTicket(Response.Cookies, amplaUser, model.RememberMe);

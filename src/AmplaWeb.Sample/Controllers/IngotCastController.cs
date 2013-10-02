@@ -7,7 +7,7 @@ namespace AmplaWeb.Sample.Controllers
 {
     public class IngotCastController : RepositoryController<IngotCastModel>
     {
-        public IngotCastController(IRepositorySet repositorySet) : base(repositorySet)
+        public IngotCastController(IRepository<IngotCastModel> repository) : base(repository)
         {
         }
 

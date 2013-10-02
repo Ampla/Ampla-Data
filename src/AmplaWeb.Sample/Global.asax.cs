@@ -1,8 +1,12 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using AmplaWeb.Data;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Sample.App_Start;
+using AmplaWeb.Sample.Controllers;
+using AmplaWeb.Sample.Models;
 using AmplaWeb.Sample.Modules;
 using AmplaWeb.Security.AmplaSecurity2007;
 using AmplaWeb.Security.Authentication;
@@ -41,6 +45,7 @@ namespace AmplaWeb.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BootstrapBundleConfig.RegisterBundles(System.Web.Optimization.BundleTable.Bundles);
             ExampleLayoutsRouteConfig.RegisterRoutes(RouteTable.Routes);
+
         }
     }
 }

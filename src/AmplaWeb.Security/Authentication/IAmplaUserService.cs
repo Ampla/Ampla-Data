@@ -14,7 +14,7 @@ namespace AmplaWeb.Security.Authentication
         /// <param name="password"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        AmplaUser Login(string userName, string password, out string message);
+        AmplaUser SimpleLogin(string userName, string password, out string message);
 
         /// <summary>
         ///     Login an Ampla user using session
@@ -22,7 +22,14 @@ namespace AmplaWeb.Security.Authentication
         /// <param name="session"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        AmplaUser Login(string session, out string message);
+        AmplaUser SessionLogin(string session, out string message);
+
+        /// <summary>
+        ///     Login using Integrated Security
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        AmplaUser IntegratedLogin(out string message);
         
         /// <summary>
         ///     Renew the session

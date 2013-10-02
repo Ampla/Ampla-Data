@@ -6,7 +6,7 @@ namespace AmplaWeb.Sample.Controllers
 {
     public class ProductionController : RepositoryController<ProductionModel>
     {
-        public ProductionController(IRepositorySet repositorySet) : base(repositorySet)
+        public ProductionController(IRepository<ProductionModel> repository) : base(repository)
         {
         }
     }

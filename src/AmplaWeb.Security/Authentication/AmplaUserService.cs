@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using AmplaWeb.Security.AmplaSecurity2007;
 using AmplaWeb.Security.Membership;
 
@@ -38,7 +39,7 @@ namespace AmplaWeb.Security.Authentication
         /// <param name="password"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public AmplaUser Login(string userName, string password, out string message)
+        public AmplaUser SimpleLogin(string userName, string password, out string message)
         {
             message = null;
             AmplaUser user = FindUserByName(userName);
@@ -75,7 +76,7 @@ namespace AmplaWeb.Security.Authentication
         /// <param name="session"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public AmplaUser Login(string session, out string message)
+        public AmplaUser SessionLogin(string session, out string message)
         {
             message = null;
             AmplaUser user = FindUserBySession(session);
@@ -103,6 +104,43 @@ namespace AmplaWeb.Security.Authentication
             }
 
             return user;
+        }
+
+        public AmplaUser IntegratedLogin(out string message)
+        {
+            message = null;
+            AmplaUser user = FindCurrentUser();
+
+            if (user != null)
+            {
+                user = Renew(user);
+            }
+
+            if (user == null)
+            {
+                CreateSessionRequest request = new CreateSessionRequest();
+
+                Exception exception;
+                CreateSessionResponse response = CatchExceptions(() => securityWebService.CreateSession(request), out exception);
+                if (response != null)
+                {
+                    user = new AmplaUser(response.Session.User, response.Session.SessionID) { RememberToLogout = true };
+                    StoreUser(user);
+                }
+
+                if (user == null)
+                {
+                    message = exception.Message;
+                }
+            }
+
+            return user;
+        }
+
+        private AmplaUser FindCurrentUser()
+        {
+            string currentUser = WindowsIdentity.GetCurrent().Name;
+            return FindUserByName(currentUser);
         }
 
         /// <summary>

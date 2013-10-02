@@ -2,11 +2,12 @@
 
 namespace AmplaWeb.Data.Controllers
 {
+    [Authorize]
     public class RepositoryController<TModel> : BootstrapBaseController, IRepositoryController<TModel> where TModel : class, new()
     {
-        protected RepositoryController(IRepositorySet repositorySet)
+        protected RepositoryController(IRepository<TModel> repository)
         {
-            Repository = repositorySet.GetRepository<TModel>();
+            Repository = repository;
         }
 
         protected IRepository<TModel> Repository { get; private set; }
@@ -15,7 +16,6 @@ namespace AmplaWeb.Data.Controllers
         ///     GET /{Model}/
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = "ViewRecord")]
         public ActionResult Index()
         {
             return View(Repository.GetAll());
@@ -40,7 +40,6 @@ namespace AmplaWeb.Data.Controllers
         ///     GET /{Model}/Create
         /// </summary>
         /// <returns></returns>
-        [Authorize(Roles = "AddRecord")]
         public ActionResult Create()
         {
             TModel model = new TModel();
@@ -52,7 +51,6 @@ namespace AmplaWeb.Data.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Roles = "AddRecord")]
         public ActionResult Create(TModel model)
         {
             if (ModelState.IsValid)

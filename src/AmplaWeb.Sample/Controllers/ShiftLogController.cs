@@ -6,7 +6,7 @@ namespace AmplaWeb.Sample.Controllers
 {
     public class ShiftLogController : RepositoryController<ShiftLogModel>
     {
-        public ShiftLogController(IRepositorySet repositorySet) : base(repositorySet)
+        public ShiftLogController(IRepository<ShiftLogModel> repository) : base(repository)
         {
         }
     }

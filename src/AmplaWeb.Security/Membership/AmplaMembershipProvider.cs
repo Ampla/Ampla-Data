@@ -28,7 +28,7 @@ namespace AmplaWeb.Security.Membership
         public override bool ValidateUser(string username, string password)
         {
             string message;
-            AmplaUser amplaUser = amplaUserService.Login(username, password, out message);
+            AmplaUser amplaUser = amplaUserService.SimpleLogin(username, password, out message);
             return amplaUser != null;
         }
 

@@ -2,7 +2,7 @@
 
 namespace AmplaWeb.Security.Models
 {
-    public class LoginModel
+    public class SimpleLoginModel
     {
         [Required]
         [Display(Name = "User name")]
