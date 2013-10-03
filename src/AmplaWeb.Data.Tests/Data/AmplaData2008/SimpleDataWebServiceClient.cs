@@ -153,7 +153,7 @@ namespace AmplaWeb.Data.AmplaData2008
                     foreach (SubmitDataRecord submitDataRecord in request.SubmitDataRecords)
                     {
                         CheckModule(submitDataRecord.Module);
-                        CheckLocation(submitDataRecord.Location);
+                        CheckReportingPoint(submitDataRecord.Location);
                         results.Add(submitDataRecord.MergeCriteria == null
                                         ? InsertDataRecord(submitDataRecord)
                                         : UpdateDataRecord(submitDataRecord));
@@ -177,7 +177,7 @@ namespace AmplaWeb.Data.AmplaData2008
                     foreach (DeleteRecord deleteRecord in request.DeleteRecords)
                     {
                         CheckModule(deleteRecord.Module);
-                        CheckLocation(deleteRecord.Location);
+                        CheckReportingPoint(deleteRecord.Location);
                         int recordId = (int) deleteRecord.MergeCriteria.SetId;
                         InMemoryRecord record = FindRecord(deleteRecord.Location, deleteRecord.Module, recordId);
                         FieldValue deleted = record.Find("Deleted");
@@ -212,7 +212,7 @@ namespace AmplaWeb.Data.AmplaData2008
                     foreach (UpdateRecordStatus recordStatus in request.UpdateRecords)
                     {
                         CheckModule(recordStatus.Module);
-                        CheckLocation(recordStatus.Location);
+                        CheckReportingPoint(recordStatus.Location);
                         int recordId = (int) recordStatus.MergeCriteria.SetId;
                         InMemoryRecord record = FindRecord(recordStatus.Location, recordStatus.Module, recordId);
                         FieldValue confirmed = record.Find("Confirmed");
@@ -271,7 +271,7 @@ namespace AmplaWeb.Data.AmplaData2008
             return TryCatchThrowFault(() =>
                 {
                     CheckModule(request.OriginalRecord.Module);
-                    CheckLocation(request.OriginalRecord.Location);
+                    CheckReportingPoint(request.OriginalRecord.Location);
 
                     InMemoryRecord record = FindRecord(request.OriginalRecord.Location, request.OriginalRecord.Module,
                                                        (int) request.OriginalRecord.SetId);
@@ -383,15 +383,18 @@ namespace AmplaWeb.Data.AmplaData2008
 
         private void CheckLocation(string location)
         {
-            bool isValid = false;
-            foreach (string point in reportingPoints)
+            bool isValid = reportingPoints.Any(point => point == location)
+                || reportingPoints.Any(point => point.StartsWith(location)); 
+
+            if (!isValid)
             {
-                if (point == location)
-                {
-                    isValid = true;
-                    break;
-                }
+                throw new ArgumentException("Invalid location: '" + location + "'.");
             }
+        }
+
+        private void CheckReportingPoint(string location)
+        {
+            bool isValid = reportingPoints.Any(point => point == location);
 
             if (!isValid)
             {

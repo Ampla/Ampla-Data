@@ -35,8 +35,7 @@ namespace AmplaWeb.Data.AmplaRepository
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            webServiceClient = new SimpleDataWebServiceClient(module, locations);
-            webServiceClient.GetViewFunc = getViewFunc;
+            webServiceClient = new SimpleDataWebServiceClient(module, locations) {GetViewFunc = getViewFunc};
             listLogger = new ListLogger();
             repository = new AmplaRepository<TModel>(new LoggingDataWebServiceClient(webServiceClient, listLogger), 
                 CredentialsProvider.ForUsernameAndPassword(userName, password));

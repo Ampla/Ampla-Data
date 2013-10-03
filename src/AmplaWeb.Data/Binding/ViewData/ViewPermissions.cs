@@ -5,32 +5,67 @@ namespace AmplaWeb.Data.Binding.ViewData
     /// <summary>
     ///     Represents whether the View can support the record operations
     /// </summary>
-    public class ViewPermissions
+    public class ViewPermissions : IViewPermissions
     {
         public ViewPermissions()
         {
-            CanAdd = false;
-            CanDelete = false;
-            CanView = false;
-            CanConfirm = false;
-            CanModify = false;
-            CanSplit = false;
-            CanUnconfirm = false;
+            canAdd = false;
+            canDelete = false;
+            canView = false;
+            canConfirm = false;
+            canModify = false;
+            canSplit = false;
+            canUnconfirm = false;
         }
 
-        public bool CanView { get; private set; }
+        private bool canView;
 
-        public bool CanAdd { get; private set; }
-        
-        public bool CanDelete { get; private set; }
-        
-        public bool CanModify { get; private set; }
+        public bool CanView()
+        {
+            return canView;
+        }
 
-        public bool CanConfirm { get; private set; }
-        
-        public bool CanUnconfirm { get; private set; }
+        private bool canAdd;
 
-        public bool CanSplit { get; private set; }
+        public bool CanAdd()
+        {
+            return canAdd;
+        }
+
+        private bool canDelete;
+
+        public bool CanDelete()
+        {
+            return canDelete;
+        }
+
+        private bool canModify;
+
+        public bool CanModify()
+        {
+            return canModify;
+        }
+
+        private bool canConfirm;
+
+        public bool CanConfirm()
+        {
+            return canConfirm;
+        }
+
+        private bool canUnconfirm;
+
+        public bool CanUnconfirm()
+        {
+            return canUnconfirm;
+        }
+
+        private bool canSplit;
+
+        public bool CanSplit()
+        {
+            return canSplit;
+        }
 
         /// <summary>
         ///     Initialise the record permissions from the GetViews 
@@ -46,38 +81,38 @@ namespace AmplaWeb.Data.Binding.ViewData
                     {
                         case ViewAllowedOperations.AddRecord:
                             {
-                                CanAdd = operation.Allowed;
+                                canAdd = operation.Allowed;
                                 break;
                             }
                         case ViewAllowedOperations.ConfirmRecord:
                             {
-                                CanConfirm = operation.Allowed;
+                                canConfirm = operation.Allowed;
                                 break;
                             }
                         case ViewAllowedOperations.DeleteRecord:
                             {
-                                CanDelete = operation.Allowed;
+                                canDelete = operation.Allowed;
                                 break;
                             }
                         case ViewAllowedOperations.ModifyRecord:
                             {
-                                CanModify = operation.Allowed;
+                                canModify = operation.Allowed;
                                 break;
                             }
 
                         case ViewAllowedOperations.SplitRecord:
                             {
-                                CanSplit = operation.Allowed;
+                                canSplit = operation.Allowed;
                                 break;
                             }
                         case ViewAllowedOperations.UnconfirmRecord:
                             {
-                                CanUnconfirm = operation.Allowed;
+                                canUnconfirm = operation.Allowed;
                                 break;
                             }
                         case ViewAllowedOperations.ViewRecord:
                             {
-                                CanView = operation.Allowed;
+                                canView = operation.Allowed;
                                 break;
                             }
                     }

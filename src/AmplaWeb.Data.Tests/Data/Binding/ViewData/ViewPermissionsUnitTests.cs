@@ -1,103 +1,166 @@
-﻿using AmplaWeb.Data.AmplaData2008;
+﻿using System;
+using AmplaWeb.Data.AmplaData2008;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.Binding.ViewData
 {
     [TestFixture]
-    public class ViewPermissionsUnitTests : TestFixture
+    public class ViewPermissionsUnitTests : ViewPermissionsBaseUnitTests
     {
+        protected override IViewPermissions CreateViewPermissions(ViewPermissions permissions)
+        {
+            return permissions;
+        }
+
+        protected override void AssertTrue(Func<bool> assert)
+        {
+            Assert.That(assert(), Is.True);
+        }
+
+        protected override void AssertFalse(Func<bool> assert)
+        {
+            Assert.That(assert(), Is.False);
+        }
+    }
+
+    [TestFixture]
+    public class EnsureViewPermissionsAdapterUnitTests : ViewPermissionsBaseUnitTests
+    {
+        protected override IViewPermissions CreateViewPermissions(ViewPermissions permissions)
+        {
+            return new EnforceViewPermissionsAdapter(permissions);
+        }
+
+        protected override void AssertTrue(Func<bool> assert)
+        {
+            Assert.That(assert(), Is.True);
+        }
+
+        protected override void AssertFalse(Func<bool> assert)
+        {
+            Assert.Throws<InvalidOperationException>(()=>assert());
+        }
+
+        [Test]
+        public void NullConstructor()
+        {
+            Assert.Throws<ArgumentNullException>(() => new EnforceViewPermissionsAdapter(null));
+        }
+    }
+
+    [TestFixture]
+    public abstract class ViewPermissionsBaseUnitTests : TestFixture
+    {
+        private ViewPermissions permissions;
+        private IViewPermissions viewPermissions;
+
+        protected abstract IViewPermissions CreateViewPermissions(ViewPermissions permissions);
+
+        protected abstract void AssertTrue(Func<bool> assert);
+
+        protected abstract void AssertFalse(Func<bool> assert);
+
+        protected override void OnSetUp()
+        {
+            base.OnSetUp();
+            permissions = new ViewPermissions();
+            viewPermissions = CreateViewPermissions(permissions);
+        }
+
         [Test]
         public void Default()
         {
-            ViewPermissions permissions = new ViewPermissions();
-            AssertAllFalse(permissions);
+            AssertAllFalse();
         }
         
         [Test]
         public void InitialiseNull()
         {
-            ViewPermissions permissions = new ViewPermissions();
             permissions.Initialise(null);
-            AssertAllFalse(permissions);
+            AssertAllFalse();
         }
         
         [Test]
         public void InitialiseCanAdd()
         {
-            ViewPermissions permissions = new ViewPermissions();
             permissions.Initialise(new [] { Add()});
-            AssertAllFalseExcept(permissions, "Add");
+            AssertAllFalseExcept("Add");
         }
 
         [Test]
         public void InitialiseCanConfirm()
         {
-            ViewPermissions permissions = new ViewPermissions();
             permissions.Initialise(new[] { Confirm() });
-            AssertAllFalseExcept(permissions, "Confirm");
+            AssertAllFalseExcept("Confirm");
         }
 
         [Test]
         public void InitialiseCanDelete()
         {
-            ViewPermissions permissions = new ViewPermissions();
             permissions.Initialise(new[] { Delete() });
-            AssertAllFalseExcept(permissions, "Delete");
+            AssertAllFalseExcept("Delete");
         }
 
         [Test]
         public void InitialiseCanModify()
         {
-            ViewPermissions permissions = new ViewPermissions();
             permissions.Initialise(new[] { Modify() });
-            AssertAllFalseExcept(permissions, "Modify");
+            AssertAllFalseExcept("Modify");
         }
 
         [Test]
         public void InitialiseCanSplit()
         {
-            ViewPermissions permissions = new ViewPermissions();
             permissions.Initialise(new[] { Split() });
-            AssertAllFalseExcept(permissions, "Split");
+            AssertAllFalseExcept("Split");
         }
 
         [Test]
         public void InitialiseCanUnconfirm()
         {
-            ViewPermissions permissions = new ViewPermissions();
             permissions.Initialise(new[] { Unconfirm() });
-            AssertAllFalseExcept(permissions, "Unconfirm");
+            AssertAllFalseExcept("Unconfirm");
         }
 
         [Test]
         public void InitialiseCanView()
         {
-            ViewPermissions permissions = new ViewPermissions();
             permissions.Initialise(new[] { View() });
-            AssertAllFalseExcept(permissions, "View");
+            AssertAllFalseExcept("View");
         }
 
-
-        private static void AssertAllFalse(ViewPermissions permissions)
+        private void AssertAllFalse()
         {
-            Assert.That(permissions.CanAdd, Is.False);
-            Assert.That(permissions.CanConfirm, Is.False);
-            Assert.That(permissions.CanDelete, Is.False);
-            Assert.That(permissions.CanModify, Is.False);
-            Assert.That(permissions.CanSplit, Is.False);
-            Assert.That(permissions.CanUnconfirm, Is.False);
-            Assert.That(permissions.CanView, Is.False);
+            AssertMethod(viewPermissions.CanAdd, false);
+            AssertMethod(viewPermissions.CanConfirm, false);
+            AssertMethod(viewPermissions.CanDelete, false);
+            AssertMethod(viewPermissions.CanModify, false);
+            AssertMethod(viewPermissions.CanSplit, false);
+            AssertMethod(viewPermissions.CanUnconfirm, false);
+            AssertMethod(viewPermissions.CanView, false);
         }
 
-        private static void AssertAllFalseExcept(ViewPermissions permissions, string operation)
+        private void AssertMethod(Func<bool> func, bool result)
         {
-            Assert.That(permissions.CanAdd, Is.EqualTo(operation == "Add"));
-            Assert.That(permissions.CanConfirm, Is.EqualTo(operation == "Confirm"));
-            Assert.That(permissions.CanDelete, Is.EqualTo(operation == "Delete"));
-            Assert.That(permissions.CanModify, Is.EqualTo(operation == "Modify"));
-            Assert.That(permissions.CanSplit, Is.EqualTo(operation == "Split"));
-            Assert.That(permissions.CanUnconfirm, Is.EqualTo(operation == "Unconfirm"));
-            Assert.That(permissions.CanView, Is.EqualTo(operation == "View"));
+            if (result)
+            {
+                AssertTrue(func);
+            }
+            else
+            {
+                AssertFalse(func);
+            }
+        }
+        
+        private void AssertAllFalseExcept(string operation)
+        {
+            AssertMethod(viewPermissions.CanAdd, operation == "Add");
+            AssertMethod(viewPermissions.CanConfirm, operation == "Confirm");
+            AssertMethod(viewPermissions.CanDelete, operation == "Delete");
+            AssertMethod(viewPermissions.CanModify, operation == "Modify");
+            AssertMethod(viewPermissions.CanSplit, operation == "Split");
+            AssertMethod(viewPermissions.CanUnconfirm, operation == "Unconfirm");
+            AssertMethod(viewPermissions.CanView, operation == "View");
         }
 
         private static GetViewsAllowedOperation Add()

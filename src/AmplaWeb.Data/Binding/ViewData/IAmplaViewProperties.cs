@@ -8,7 +8,13 @@ namespace AmplaWeb.Data.Binding.ViewData
         /// <summary>
         ///     Gets the Permissions for the view
         /// </summary>
-        ViewPermissions Permissions { get; }
+        IViewPermissions Enforce { get; }
+
+        
+        /// <summary>
+        ///     Gets the Permissions for the view
+        /// </summary>
+        IViewPermissions Permissions { get; }
         
         /// <summary>
         ///     Gets the Field Mappings for the view

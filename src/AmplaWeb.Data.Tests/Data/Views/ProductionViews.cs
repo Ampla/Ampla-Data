@@ -1,10 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Binding.MetaData;
 
 namespace AmplaWeb.Data.Views
 {
+    public static class ProductionViewExtensions
+    {
+        public static GetViewsAllowedOperation[] AllowAll(this GetViewsAllowedOperation[] existingOperations)
+        {
+            return existingOperations.Allow(AllOperations);
+        }
+
+        public static GetViewsAllowedOperation[] Allow(this GetViewsAllowedOperation[] existingOperations,
+                                                       params ViewAllowedOperations[] operations)
+        {
+            List<ViewAllowedOperations> allowedOperations = new List<ViewAllowedOperations>(operations ?? new ViewAllowedOperations[0]);
+            List<ViewAllowedOperations> existingPermissions = (from operation in existingOperations where operation.Allowed select operation.Operation).ToList();
+
+            return AllOperations.Select(operation => new GetViewsAllowedOperation
+                {
+                    Operation = operation, Allowed = existingPermissions.Contains(operation) || allowedOperations.Contains(operation)
+                }).ToArray();
+        }
+
+        public static readonly ViewAllowedOperations[] AllOperations = new[]
+            {
+                ViewAllowedOperations.AddRecord, 
+                ViewAllowedOperations.ConfirmRecord,
+                ViewAllowedOperations.DeleteRecord, 
+                ViewAllowedOperations.ModifyRecord,
+                ViewAllowedOperations.SplitRecord, 
+                ViewAllowedOperations.UnconfirmRecord,
+                ViewAllowedOperations.ViewRecord
+            };
+
+    }
+
     public class ProductionViews
     {
         public static GetView EmptyView()
@@ -24,7 +57,8 @@ namespace AmplaWeb.Data.Views
                 {
                     name = "Production.StandardView",
                     DisplayName = "Production",
-                    Fields = StandardFieldsPlus()
+                    Fields = StandardFieldsPlus(),
+                    AllowedOperations = AllowAll(),
                 };
             return view;
         }
@@ -39,10 +73,17 @@ namespace AmplaWeb.Data.Views
                         {
                             Field<string>("Area"),
                             Field<double>("Value")
-                        })
+                        }),
+                    AllowedOperations = AllowAll()
+
                 };
 
             return view;
+        }
+
+        public static GetViewsAllowedOperation[] AllowAll()
+        {
+            return new GetViewsAllowedOperation[0].AllowAll();
         }
 
         private static GetViewsField[] StandardFieldsPlus(params GetViewsField[] extraFields)

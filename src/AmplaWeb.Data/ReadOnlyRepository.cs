@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace AmplaWeb.Data.InMemory
+namespace AmplaWeb.Data
 {
     public class ReadOnlyRepository<TModel> : IReadOnlyRepository<TModel>
     {
-        private IRepository<TModel> repository;
+        private readonly IRepository<TModel> repository;
 
         public ReadOnlyRepository(IRepository<TModel> repository)
         {
@@ -13,7 +13,7 @@ namespace AmplaWeb.Data.InMemory
 
         public void Dispose()
         {
-            repository = null;
+            repository.Dispose();
         }
 
         public IList<TModel> GetAll()

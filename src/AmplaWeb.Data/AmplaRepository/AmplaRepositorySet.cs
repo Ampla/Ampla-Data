@@ -33,7 +33,7 @@ namespace AmplaWeb.Data.AmplaRepository
         public IReadOnlyRepository<TModel> GetReadOnlyRepository<TModel>() where TModel : class, new()
         {
             IDataWebServiceClient webServiceClient = DataWebServiceFactory.Create();
-            return new AmplaReadOnlyRepository<TModel>(webServiceClient, credentialsProvider);
+            return new AmplaReadOnlyRepository<TModel>(new AmplaRepository<TModel>(webServiceClient, credentialsProvider));
         }
     }
 }

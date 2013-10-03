@@ -15,14 +15,22 @@ namespace AmplaWeb.Data.Binding.ViewData
         private readonly ViewFieldsCollection viewFieldsCollection = new ViewFieldsCollection();
         private readonly ViewFiltersCollection viewFiltersCollection = new ViewFiltersCollection();
         private readonly ViewPeriodsCollection viewPeriodsCollection = new ViewPeriodsCollection();
-        private List<FieldMapping> fieldResolvers = new List<FieldMapping>(); 
+        private List<FieldMapping> fieldResolvers = new List<FieldMapping>();
+        private readonly IViewPermissions enforcePermissions;
 
         public AmplaViewProperties( IModelProperties<TModel> modelProperties )
         {
             this.modelProperties = modelProperties;
+            permissions = new ViewPermissions();
+            enforcePermissions = new EnforceViewPermissionsAdapter(permissions);
         }
 
-        public ViewPermissions Permissions
+        public IViewPermissions Enforce
+        {
+            get { return enforcePermissions; }
+        }
+
+        public IViewPermissions Permissions
         {
             get { return permissions; }
         }
@@ -31,6 +39,7 @@ namespace AmplaWeb.Data.Binding.ViewData
         {
             GetView view = response.Views[0];
             permissions.Initialise(view.AllowedOperations);
+            
             viewFieldsCollection.Initialise(view);
             viewFiltersCollection.Initialise(view);
             viewPeriodsCollection.Initialise(view);

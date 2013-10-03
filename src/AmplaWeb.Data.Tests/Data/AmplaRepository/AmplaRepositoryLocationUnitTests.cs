@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ServiceModel;
 using AmplaWeb.Data.Attributes;
 using AmplaWeb.Data.Records;
 using AmplaWeb.Data.Views;
@@ -77,7 +76,17 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(exception.ToString(), Is.StringContaining("The Location property is not the required value: "));
         }
 
-
+        [Test]
+        public void GetAll()
+        {
+            Assert.DoesNotThrow(() => Repository.GetAll());
+        }
+        
+        [Test]
+        public void FindByFilter()
+        {
+            Assert.DoesNotThrow(() => Repository.FindByFilter(null));
+        }
 
     }
 }

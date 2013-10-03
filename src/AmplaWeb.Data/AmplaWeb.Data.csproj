@@ -69,6 +69,8 @@
     <Compile Include="Binding\ModelData\Validation\ValidationMessages.cs" />
     <Compile Include="Binding\ModelIdentifierBinding.cs" />
     <Compile Include="Binding\ViewData\IAmplaViewProperties.cs" />
+    <Compile Include="Binding\ViewData\IViewPermissions.cs" />
+    <Compile Include="Binding\ViewData\EnforceViewPermissionsAdapter.cs" />
     <Compile Include="Controllers\IRepositoryController.cs" />
     <Compile Include="FilterValue.cs" />
     <Compile Include="Binding\AmplaUnconfirmDataBinding.cs" />
@@ -91,7 +93,6 @@
     <Compile Include="Controllers\RespositoryController.cs" />
     <Compile Include="InMemory\InMemoryRepository.cs" />
     <Compile Include="InMemory\InMemoryRepositorySet.cs" />
-    <Compile Include="InMemory\ReadOnlyRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IRepositorySet.cs" />
     <Compile Include="Attributes\AmplaLocationAttribute.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Binding\ViewData\ViewFieldsCollection.cs" />
     <Compile Include="Binding\ViewData\ViewFiltersCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadOnlyRepository.cs" />
     <Compile Include="Service References\AmplaData2008\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

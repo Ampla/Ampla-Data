@@ -25,7 +25,7 @@ namespace AmplaWeb.Sample.Modules
                 builder.Register(c => SecurityWebServiceFactory.Create()).As<ISecurityWebServiceClient>();
                 
                 builder.RegisterType<AmplaCredentialsProvider>().As<ICredentialsProvider>();
-                builder.RegisterType<AmplaRepositorySet>().As<IRepositorySet>();
+                //builder.RegisterType<AmplaRepositorySet>().As<IRepositorySet>();
                 builder.RegisterGeneric(typeof (AmplaRepository<>)).As(typeof(IRepository<>));
                 builder.RegisterGeneric(typeof(AmplaReadOnlyRepository<>)).As(typeof(IReadOnlyRepository<>));
             }
