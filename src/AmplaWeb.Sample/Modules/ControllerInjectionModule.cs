@@ -26,8 +26,15 @@ namespace AmplaWeb.Sample.Modules
                 
                 builder.RegisterType<AmplaCredentialsProvider>().As<ICredentialsProvider>();
                 //builder.RegisterType<AmplaRepositorySet>().As<IRepositorySet>();
-                builder.RegisterGeneric(typeof (AmplaRepository<>)).As(typeof(IRepository<>));
+                builder.RegisterGeneric(typeof (AmplaRepository<>)).Named("repository", typeof (IRepository<>));
                 builder.RegisterGeneric(typeof(AmplaReadOnlyRepository<>)).As(typeof(IReadOnlyRepository<>));
+
+                // Register the generic decorator so it can wrap
+                // the resolved named generics.
+                builder.RegisterGenericDecorator(
+                    typeof (RenewSessionAdapter<>),
+                    typeof (IRepository<>), "repository").As(typeof(IRepository<>));
+
             }
             else
             {

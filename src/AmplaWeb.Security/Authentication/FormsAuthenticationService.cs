@@ -29,6 +29,13 @@ namespace AmplaWeb.Security.Authentication
             FormsAuthentication.SignOut();
         }
 
+        public void SessionExpired()
+        {
+            FormsAuthentication.SignOut();
+            string url = request.Url.ToString();
+            response.Redirect(url);
+        }
+
         public void StoreUserTicket(AmplaUser amplaUser, bool createPersistentCookie)
         {
             string session = amplaUser.Session;

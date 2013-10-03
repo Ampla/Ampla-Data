@@ -31,6 +31,7 @@ namespace AmplaWeb.Security.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -82,7 +83,6 @@ namespace AmplaWeb.Security.Controllers
                 }
                 Error(message);
                 ModelState.AddModelError("", message);
-
             }
 
             // If we got this far, something failed, redisplay form

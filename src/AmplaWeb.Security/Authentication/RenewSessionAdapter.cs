@@ -17,11 +17,14 @@ namespace AmplaWeb.Security.Authentication
         protected override void Adapt()
         {
             FormsAuthenticationTicket ticket = formsAuthenticationService.GetUserTicket();
-            string session = ticket.UserData;
-            
-            if (userService.RenewSession(session) == null)
+            if (ticket != null)
             {
-                formsAuthenticationService.SignOut();
+                string session = ticket.UserData;
+
+                if (userService.RenewSession(session) == null)
+                {
+                    formsAuthenticationService.SessionExpired();
+                }
             }
         }
     }

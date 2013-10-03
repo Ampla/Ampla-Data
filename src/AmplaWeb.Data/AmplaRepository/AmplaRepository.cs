@@ -383,7 +383,8 @@ namespace AmplaWeb.Data.AmplaRepository
                         Mode = NavigationMode.Location,
                         Context = NavigationContext.Plant,
                         ViewPoint = location,
-                        Module = ModelProperties.Module
+                        Module = ModelProperties.Module,
+                        Localization = new Localization()
                     };
 
                 GetViewsResponse response = WebServiceClient.GetViews(request);
