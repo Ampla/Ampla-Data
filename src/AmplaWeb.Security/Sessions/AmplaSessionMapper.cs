@@ -7,6 +7,9 @@ using AmplaWeb.Security.Web.Interfaces;
 
 namespace AmplaWeb.Security.Sessions
 {
+    /// <summary>
+    ///     Session Mapper class for automatic logging in sessions from the query string using http://localhost/?amplaSession={session}
+    /// </summary>
     public class AmplaSessionMapper : ISessionMapper
     {
         private readonly IHttpRequestWrapper requestWrapper;
@@ -21,7 +24,10 @@ namespace AmplaWeb.Security.Sessions
             this.amplaUserService = amplaUserService;
             this.formsAuthenticationService = formsAuthenticationService;
         }
-        
+
+        /// <summary>
+        /// Login the session if possible
+        /// </summary>
         public void Login()
         {
             NameValueCollection queryString = requestWrapper.QueryString;
