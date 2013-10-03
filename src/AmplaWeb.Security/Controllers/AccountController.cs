@@ -71,7 +71,7 @@ namespace AmplaWeb.Security.Controllers
                 AmplaUser amplaUser = amplaUserService.IntegratedLogin(out message);
                 if (amplaUser != null)
                 {
-                    formsAuthenticationService.StoreUserTicket(Response.Cookies, amplaUser, model.RememberMe);
+                    formsAuthenticationService.StoreUserTicket(amplaUser, model.RememberMe);
 
                     if (UrlIsLocal(returnUrl))
                     {
@@ -102,7 +102,7 @@ namespace AmplaWeb.Security.Controllers
                 AmplaUser amplaUser = amplaUserService.SimpleLogin(model.UserName, model.Password, out message);
                 if (amplaUser != null)
                 {
-                    formsAuthenticationService.StoreUserTicket(Response.Cookies, amplaUser, model.RememberMe);
+                    formsAuthenticationService.StoreUserTicket(amplaUser, model.RememberMe);
 
                     if (UrlIsLocal(returnUrl))
                     {

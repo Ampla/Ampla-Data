@@ -53,7 +53,9 @@
     <Compile Include="AmplaSecurity2007\SecurityWebServiceFactory.cs" />
     <Compile Include="Authentication\AmplaAuthenticationModule.cs" />
     <Compile Include="Authentication\AmplaCredentialsProvider.cs" />
+    <Compile Include="Sessions\ISessionMapper.cs" />
     <Compile Include="Authentication\RenewSessionAdapter.cs" />
+    <Compile Include="Sessions\AmplaSessionMapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Membership\AmplaMembershipProvider.cs" />
     <Compile Include="Membership\AmplaRoleProvider.cs" />
@@ -74,6 +76,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Web\Interfaces\IHttpRequestWrapper.cs" />
+    <Compile Include="Web\Interfaces\IHttpResponseWrapper.cs" />
+    <Compile Include="Web\Wrappers\AmplaHttpRequestWrapper.cs" />
+    <Compile Include="Web\Wrappers\AmplaHttpResponseWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
