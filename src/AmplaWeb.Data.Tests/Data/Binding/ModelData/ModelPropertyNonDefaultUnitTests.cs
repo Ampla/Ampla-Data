@@ -21,8 +21,7 @@ namespace AmplaWeb.Data.Binding.ModelData
         public void GetPropertiesReturnsAmplaField()
         {
             ModelProperties<ModelWithAmplaField> modelProperties = new ModelProperties<ModelWithAmplaField>();
-            ModelWithAmplaField model = new ModelWithAmplaField { FullName = "John Doe" };
-
+            
             var properties = modelProperties.GetProperties();
             Assert.That(properties.Count, Is.EqualTo(1));
             Assert.That(properties[0], Is.EqualTo("Full Name"));

@@ -126,14 +126,16 @@ namespace AmplaWeb.Data.Views
 
         private static GetViewsField Field<T>(string name, string displayName, bool isReadOnly, bool required)
         {
-            GetViewsField field = new GetViewsField();
-            field.name = name;
-            field.type = DataTypeHelper.GetAmplaDataType<T>();
-            field.displayName = displayName;
-            field.hasAllowedValues = false;
-            field.hasRelationshipMatrixValues = false;
-            field.readOnly = isReadOnly;
-            field.required = required;
+            GetViewsField field = new GetViewsField
+                {
+                    name = name,
+                    type = DataTypeHelper.GetAmplaDataType<T>(),
+                    displayName = displayName,
+                    hasAllowedValues = false,
+                    hasRelationshipMatrixValues = false,
+                    readOnly = isReadOnly,
+                    required = required
+                };
             return field;
         }
 

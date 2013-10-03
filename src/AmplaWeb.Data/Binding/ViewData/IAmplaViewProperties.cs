@@ -3,7 +3,7 @@ using AmplaWeb.Data.Binding.Mapping;
 
 namespace AmplaWeb.Data.Binding.ViewData
 {
-    public interface IAmplaViewProperties<in TModel>
+    public interface IAmplaViewProperties
     {
         /// <summary>
         ///     Gets the Permissions for the view

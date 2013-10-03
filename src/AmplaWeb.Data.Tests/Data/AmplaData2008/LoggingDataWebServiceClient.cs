@@ -1,5 +1,4 @@
-﻿using System.IO;
-using AmplaWeb.Data.Logging;
+﻿using AmplaWeb.Data.Logging;
 
 namespace AmplaWeb.Data.AmplaData2008
 {

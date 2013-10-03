@@ -7,7 +7,7 @@ using AmplaWeb.Data.Binding.ModelData;
 
 namespace AmplaWeb.Data.Binding.ViewData
 {
-    public class AmplaViewProperties<TModel> : IAmplaViewProperties<TModel> where TModel : new()
+    public class AmplaViewProperties<TModel> : IAmplaViewProperties where TModel : new()
     {
         private readonly IModelProperties<TModel> modelProperties;
 

@@ -9,7 +9,7 @@ namespace AmplaWeb.Data.Binding
         private readonly List<TModel> models;
         private readonly List<DeleteRecord> records;
         private readonly IModelProperties<TModel> modelProperties;
-        private string idProperty;
+        private readonly string idProperty;
 
         public AmplaDeleteDataBinding(List<TModel> models, List<DeleteRecord> records, IModelProperties<TModel> modelProperties )
         {

@@ -15,7 +15,7 @@ namespace AmplaWeb.Data.AmplaRepository
     public class AmplaRepository<TModel> : IRepository<TModel> where TModel : class, new()
     {
 
-        private readonly Dictionary<string, IAmplaViewProperties<TModel>> amplaViewDictionary;
+        private readonly Dictionary<string, IAmplaViewProperties> amplaViewDictionary;
         private IDataWebServiceClient webServiceClient;
         private readonly ICredentialsProvider credentialsProvider;
         private readonly IModelProperties<TModel> modelProperties;
@@ -25,9 +25,8 @@ namespace AmplaWeb.Data.AmplaRepository
             this.webServiceClient = webServiceClient;
             this.credentialsProvider = credentialsProvider;
             modelProperties = new ModelProperties<TModel>();
-            amplaViewDictionary = new Dictionary<string, IAmplaViewProperties<TModel>>();
+            amplaViewDictionary = new Dictionary<string, IAmplaViewProperties>();
         }
-
 
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
@@ -65,7 +64,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <returns></returns>
         public IList<TModel> GetAll()
         {
-            IAmplaViewProperties<TModel> amplaViewProperties = GetViewProperties(null);
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(null);
             amplaViewProperties.Enforce.CanView();
 
             var request = GetDataRequest();
@@ -80,8 +79,7 @@ namespace AmplaWeb.Data.AmplaRepository
 
             return null;
         }
-
- 
+        
         /// <summary>
         /// Finds the model using the id.
         /// </summary>
@@ -89,7 +87,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <returns></returns>
         public TModel FindById(int id)
         {
-            IAmplaViewProperties<TModel> amplaViewProperties = GetViewProperties(null);
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(null);
             amplaViewProperties.Enforce.CanView();
 
             FilterValue filter = new FilterValue("Id", Convert.ToString(id));
@@ -113,7 +111,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <returns></returns>
         public IList<TModel> FindByFilter(params FilterValue[] filters)
         {
-            IAmplaViewProperties<TModel> amplaViewProperties = GetViewProperties(null);
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(null);
             amplaViewProperties.Enforce.CanView();
             
             var request = GetDataRequest(filters);
@@ -134,7 +132,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <param name="model">The model.</param>
         public void Add(TModel model)
         {   
-            IAmplaViewProperties<TModel> amplaViewProperties = GetViewProperties(model);
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(model);
             amplaViewProperties.Enforce.CanAdd();
 
             SubmitDataRequest request = new SubmitDataRequest {Credentials = CreateCredentials()};
@@ -161,7 +159,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <param name="model">The model.</param>
         public void Delete(TModel model)
         {
-            IAmplaViewProperties<TModel> amplaViewProperties = GetViewProperties(model);
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(model);
             amplaViewProperties.Enforce.CanDelete();
 
             DeleteRecordsRequest request = new DeleteRecordsRequest {Credentials = CreateCredentials()};
@@ -182,7 +180,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <param name="model">The model.</param>
         public void Confirm(TModel model)
         {
-            IAmplaViewProperties<TModel> amplaViewProperties = GetViewProperties(model);
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(model);
             amplaViewProperties.Enforce.CanConfirm();
 
             UpdateRecordStatusRequest request = new UpdateRecordStatusRequest {Credentials = CreateCredentials()};
@@ -203,7 +201,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <param name="model">The model.</param>
         public void Unconfirm(TModel model)
         {
-            IAmplaViewProperties<TModel> amplaViewProperties = GetViewProperties(model);
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(model);
             amplaViewProperties.Enforce.CanUnconfirm();
 
             UpdateRecordStatusRequest request = new UpdateRecordStatusRequest {Credentials = CreateCredentials()};
@@ -237,7 +235,7 @@ namespace AmplaWeb.Data.AmplaRepository
 
                 GetNavigationHierarchyResponse response = WebServiceClient.GetNavigationHierarchy(request);
                 List<string> values = new List<string>();
-                IAmplaBinding binding = new AmplaNavigationBinding<TModel>(response, values, ModelProperties);
+                IAmplaBinding binding = new AmplaNavigationBinding(response, values);
                 if (binding.Validate() && binding.Bind())
                 {
                     return values;
@@ -253,7 +251,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <param name="model">The model.</param>
         public void Update(TModel model)
         {
-            IAmplaViewProperties<TModel> amplaViewProperties = GetViewProperties(model);
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(model);
             amplaViewProperties.Enforce.CanModify();
 
             List<int> identifiers = new List<int>();
@@ -353,9 +351,9 @@ namespace AmplaWeb.Data.AmplaRepository
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
-        protected IAmplaViewProperties<TModel> GetViewProperties(TModel model)
+        protected IAmplaViewProperties GetViewProperties(TModel model)
         {
-            IAmplaViewProperties<TModel> amplaView;
+            IAmplaViewProperties amplaView;
 
             string location;
             bool checkForValidLocation;

@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.ModelData;
 
 namespace AmplaWeb.Data.Binding
 {
-    public class AmplaNavigationBinding<TModel> : IAmplaBinding where TModel : class, new()
+    public class AmplaNavigationBinding : IAmplaBinding
     {
         private readonly GetNavigationHierarchyResponse response;
         private readonly List<string> values;
-        private readonly IModelProperties<TModel> modelProperties;
 
-        public AmplaNavigationBinding(GetNavigationHierarchyResponse response, List<string> values,
-                                      IModelProperties<TModel> modelProperties)
+        public AmplaNavigationBinding(GetNavigationHierarchyResponse response, List<string> values)
         {
             this.response = response;
             this.values = values;
-            this.modelProperties = modelProperties;
         }
 
         public bool Validate()

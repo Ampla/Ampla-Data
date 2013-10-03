@@ -139,8 +139,9 @@ namespace AmplaWeb.Security.Authentication
 
         private AmplaUser FindCurrentUser()
         {
-            string currentUser = WindowsIdentity.GetCurrent().Name;
-            return FindUserByName(currentUser);
+            IIdentity identity = WindowsIdentity.GetCurrent();
+
+            return identity != null ? FindUserByName(identity.Name) : null;
         }
 
         /// <summary>

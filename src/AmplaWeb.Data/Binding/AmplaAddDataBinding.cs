@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Binding.Mapping;
@@ -13,10 +12,10 @@ namespace AmplaWeb.Data.Binding
     {
         private readonly List<TModel> models;
         private readonly List<SubmitDataRecord> records;
-        private readonly IAmplaViewProperties<TModel> amplaViewProperties;
+        private readonly IAmplaViewProperties amplaViewProperties;
         private readonly IModelProperties<TModel> modelProperties;
 
-        public AmplaAddDataBinding(List<TModel> models, List<SubmitDataRecord> records, IAmplaViewProperties<TModel> amplaViewProperties, IModelProperties<TModel> modelProperties )
+        public AmplaAddDataBinding(List<TModel> models, List<SubmitDataRecord> records, IAmplaViewProperties amplaViewProperties, IModelProperties<TModel> modelProperties )
         {
             this.models = models;
             this.records = records;
@@ -45,7 +44,7 @@ namespace AmplaWeb.Data.Binding
                         string value;
                         if (fieldMapping.TryResolveValue(modelProperties, model, out value))
                         {
-                            Field field = new Field() {Name = fieldMapping.Name, Value = value};
+                            Field field = new Field {Name = fieldMapping.Name, Value = value};
                             fields.Add(field);
                         }
                     }

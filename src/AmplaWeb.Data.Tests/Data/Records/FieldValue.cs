@@ -56,9 +56,7 @@ namespace AmplaWeb.Data.Records
 
         public override string ToString()
         {
-            const bool isRequired = false;
-            const bool isReadOnly = false;
-            return string.Format("[{0}] = {1}{2}{3}", Name, Value, isRequired ? " {Required}" : "", isReadOnly ? " {ReadOnly}" : "");
+            return string.Format("[{0}] = {1}", Name, Value);
         }
 
         public virtual FieldValue Clone()

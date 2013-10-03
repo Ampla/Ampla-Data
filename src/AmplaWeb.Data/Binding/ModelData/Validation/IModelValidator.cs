@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AmplaWeb.Data.Binding.ModelData.Validation
+﻿namespace AmplaWeb.Data.Binding.ModelData.Validation
 {
     public interface IModelValidator<TModel> where TModel : new()
     {

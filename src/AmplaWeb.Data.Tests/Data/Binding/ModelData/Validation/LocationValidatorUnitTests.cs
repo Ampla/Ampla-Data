@@ -1,5 +1,4 @@
-﻿using System;
-using AmplaWeb.Data.Attributes;
+﻿using AmplaWeb.Data.Attributes;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.Binding.ModelData.Validation

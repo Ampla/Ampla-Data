@@ -63,7 +63,7 @@ namespace AmplaWeb.Data.AmplaData2008
                         folders.Add(child.GetViewPoint());
                     }
                 }
-                return new ViewPoint()
+                return new ViewPoint
                     {
                         id = Id,
                         DisplayName = Name,
