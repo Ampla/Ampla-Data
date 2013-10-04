@@ -5,9 +5,9 @@ namespace AmplaWeb.Data.Web.Wrappers
 {
     public class AmplaHttpSessionWrapper : IHttpSessionWrapper
     {
-        private readonly IHttpSessionState httpSessionState;
+        private readonly HttpSessionState httpSessionState;
 
-        public AmplaHttpSessionWrapper(IHttpSessionState httpSessionState)
+        public AmplaHttpSessionWrapper(HttpSessionState httpSessionState)
         {
             this.httpSessionState = httpSessionState;
         }

@@ -5,6 +5,7 @@ using AmplaWeb.Data.Session;
 using AmplaWeb.Data.Web.Interfaces;
 using AmplaWeb.Data.Web.Wrappers;
 using AmplaWeb.Security.Authentication;
+using AmplaWeb.Security.Authentication.Forms;
 using AmplaWeb.Security.Sessions;
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -22,8 +23,9 @@ namespace AmplaWeb.Sample.Modules
 
             builder.RegisterType<AmplaSessionStorage>().As<IAmplaSessionStorage>();
             builder.RegisterType<SessionStateCredentialsProvider>().As<ICredentialsProvider>();
+            builder.RegisterType<AmplaSessionStorage>().As<IAmplaSessionStorage>();
 
-            //builder.RegisterType<FormsAuthenticationService>().As<IFormsAuthenticationService>();
+            builder.RegisterType<FormsAuthenticationService>().As<IFormsAuthenticationService>();
             builder.RegisterType<AmplaUserStore>().As<IAmplaUserStore>().SingleInstance();
             builder.RegisterType<AmplaUserService>().As<IAmplaUserService>();
 
@@ -32,6 +34,7 @@ namespace AmplaWeb.Sample.Modules
 
             builder.Register(c => new AmplaHttpRequestWrapper(HttpContext.Current.Request)).As<IHttpRequestWrapper>();
             builder.Register(c => new AmplaHttpResponseWrapper(HttpContext.Current.Response)).As<IHttpResponseWrapper>();
+            builder.Register(c => new AmplaHttpSessionWrapper(HttpContext.Current.Session)).As<IHttpSessionWrapper>();
 
             // Register the generic decorator so it can wrap
             // the resolved named generics.
