@@ -1,5 +1,6 @@
 ﻿using System.Web.Security;
 using AmplaWeb.Data;
+using AmplaWeb.Data.Session;
 using AmplaWeb.Security.Authentication.Forms;
 
 namespace AmplaWeb.Security.Authentication
@@ -8,20 +9,24 @@ namespace AmplaWeb.Security.Authentication
     {
         private readonly IAmplaUserService userService;
         private readonly IFormsAuthenticationService formsAuthenticationService;
-
-        public RenewSessionAdapter(IRepository<TModel> repository, IAmplaUserService userService, IFormsAuthenticationService formsAuthenticationService) : base(repository)
+        private readonly IAmplaSessionStorage sessionStorage;
+        
+        public RenewSessionAdapter(IRepository<TModel> repository, 
+                                   IAmplaUserService userService,
+                                   IFormsAuthenticationService formsAuthenticationService,
+                                   IAmplaSessionStorage sessionStorage) : base(repository)
         {
             this.userService = userService;
             this.formsAuthenticationService = formsAuthenticationService;
+            this.sessionStorage = sessionStorage;
         }
 
         protected override void Adapt()
         {
-            FormsAuthenticationTicket ticket = formsAuthenticationService.GetUserTicket();
-            if (ticket != null)
+            string session = sessionStorage.GetAmplaSession();
+        
+            if (!string.IsNullOrEmpty(session))
             {
-                string session = ticket.UserData;
-
                 if (userService.RenewSession(session) == null)
                 {
                     formsAuthenticationService.SessionExpired();

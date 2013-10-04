@@ -23,8 +23,7 @@ namespace AmplaWeb.Sample.Modules
 
             builder.RegisterType<AmplaSessionStorage>().As<IAmplaSessionStorage>();
             builder.RegisterType<SessionStateCredentialsProvider>().As<ICredentialsProvider>();
-            builder.RegisterType<AmplaSessionStorage>().As<IAmplaSessionStorage>();
-
+            
             builder.RegisterType<FormsAuthenticationService>().As<IFormsAuthenticationService>();
             builder.RegisterType<AmplaUserStore>().As<IAmplaUserStore>().SingleInstance();
             builder.RegisterType<AmplaUserService>().As<IAmplaUserService>();

@@ -7,6 +7,7 @@ namespace AmplaWeb.Security.Models
         public string UserName { get; set; }
         public string Session { get; set; }
         public DateTime Started { get; set; }
-        public DateTime Expires { get; set; }
+        public DateTime LastActivity { get; set; }
+        public string LoginType { get; set; }
     }
 }

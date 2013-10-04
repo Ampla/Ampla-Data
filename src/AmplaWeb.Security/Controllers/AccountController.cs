@@ -45,14 +45,19 @@ namespace AmplaWeb.Security.Controllers
         [Authorize]
         public ActionResult CurrentUser()
         {
-            FormsAuthenticationTicket ticket = formsAuthenticationService.GetUserTicket();
+            string session = amplaSessionStorage.GetAmplaSession();
+
+            AmplaUser user = amplaUserService.RenewSession(session);
+
             UserModel model = new UserModel
                 {
-                    UserName = ticket.Name,
-                    Session = ticket.UserData,
-                    Started = ticket.IssueDate,
-                    Expires = ticket.Expiration
+                    UserName = user.UserName,
+                    Session = user.Session,
+                    Started = user.LoginTime,
+                    LastActivity = user.LastActivity,
+                    LoginType = user.LoginType
                 };
+            
             return View("CurrentUser", model);
         }
         
