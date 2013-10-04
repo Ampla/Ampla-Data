@@ -42,18 +42,5 @@ namespace AmplaWeb.Security.Authentication
         /// </summary>
         /// <param name="userName"></param>
         void Logout(string userName);
-
-        /// <summary>
-        ///     Gets an array of currently logged in users
-        /// </summary>
-        /// <returns></returns>
-        string[] GetUsers();
-
-        /// <summary>
-        ///     Gets the already logged in user specified by the name
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        AmplaUser GetLoggedInUser(string name);
     }
 }

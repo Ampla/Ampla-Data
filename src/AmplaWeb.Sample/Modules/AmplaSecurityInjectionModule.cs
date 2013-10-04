@@ -21,7 +21,8 @@ namespace AmplaWeb.Sample.Modules
             builder.RegisterType<FormsAuthenticationCredentialsProvider>().As<ICredentialsProvider>();
 
             builder.RegisterType<FormsAuthenticationService>().As<IFormsAuthenticationService>();
-            builder.RegisterType<AmplaUserService>().As<IAmplaUserService>().SingleInstance();
+            builder.RegisterType<AmplaUserStore>().As<IAmplaUserStore>().SingleInstance();
+            builder.RegisterType<AmplaUserService>().As<IAmplaUserService>();
 
             builder.RegisterControllers(typeof(Security.Controllers.AccountController).Assembly);
             builder.RegisterType<AmplaSessionMapper>().As<ISessionMapper>();

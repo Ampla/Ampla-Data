@@ -86,7 +86,9 @@ namespace AmplaWeb.Security.AmplaSecurity2007
         public ReleaseSessionResponse ReleaseSession(ReleaseSessionRequest request)
         {
             string userName = request.Session.User;
-            SimpleSession session = sessions.Find(s => s.UserName == userName);
+            string sessionId = request.Session.SessionID;
+            SimpleSession session = sessions.Find(s => s.SessionId == sessionId) ??
+                                    sessions.Find(s => s.UserName == userName);
             if (session != null)
             {
                 session.Logout();

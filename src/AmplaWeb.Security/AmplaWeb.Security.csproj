@@ -52,8 +52,10 @@
     <Compile Include="AmplaSecurity2007\SecurityWebServiceClient.cs" />
     <Compile Include="AmplaSecurity2007\SecurityWebServiceFactory.cs" />
     <Compile Include="Authentication\AmplaAuthenticationModule.cs" />
+    <Compile Include="Authentication\AmplaUserStore.cs" />
     <Compile Include="Authentication\FormsAuthenticationCredentialsProvider.cs" />
     <Compile Include="Authentication\IAmplaUser.cs" />
+    <Compile Include="Authentication\IAmplaUserStore.cs" />
     <Compile Include="Sessions\ISessionMapper.cs" />
     <Compile Include="Authentication\RenewSessionAdapter.cs" />
     <Compile Include="Sessions\AmplaSessionMapper.cs" />

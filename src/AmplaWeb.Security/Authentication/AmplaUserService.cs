@@ -11,33 +11,18 @@ namespace AmplaWeb.Security.Authentication
     public class AmplaUserService : IAmplaUserService
     {
         private readonly ISecurityWebServiceClient securityWebService;
-        private readonly Dictionary<string, AmplaUser> validatedUserDictionary = new Dictionary<string, AmplaUser>();
-        private readonly Dictionary<string, AmplaUser> validatedSessionDictionary = new Dictionary<string, AmplaUser>();
-        private readonly object dictionaryLock = new object();
+        private readonly IAmplaUserStore amplaUserStore;
+       
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AmplaUserService"/> class.
-        /// </summary>
-        public AmplaUserService() : this(new SecurityWebServiceFactory())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AmplaUserService"/> class.
+        /// Initializes a new instance of the <see cref="AmplaUserService" /> class.
         /// </summary>
         /// <param name="securityWebService">The security web service.</param>
-        public AmplaUserService(ISecurityWebServiceClient securityWebService)
+        /// <param name="amplaUserStore">The ampla user store.</param>
+        public AmplaUserService(ISecurityWebServiceClient securityWebService, IAmplaUserStore amplaUserStore)
         {
             this.securityWebService = securityWebService;
-        }
-
-        /// <summary>
-        /// Gets the default user if it is defined
-        /// </summary>
-        /// <returns></returns>
-        public AmplaUser GetDefaultUser()
-        {
-            return null;
+            this.amplaUserStore = amplaUserStore;
         }
 
         /// <summary>
@@ -50,7 +35,7 @@ namespace AmplaWeb.Security.Authentication
         public AmplaUser SimpleLogin(string userName, string password, out string message)
         {
             message = null;
-            AmplaUser user = FindUserByName(userName);
+            AmplaUser user = amplaUserStore.GetUserByName(userName);
 
             if (user != null)
             {
@@ -66,7 +51,7 @@ namespace AmplaWeb.Security.Authentication
                 if (response != null)
                 {
                     user = new AmplaUser(response.Session.User, response.Session.SessionID, true, "Username/Password");
-                    StoreUser(user);
+                    amplaUserStore.StoreUser(user);
                 }
 
                 if (user == null)
@@ -87,7 +72,7 @@ namespace AmplaWeb.Security.Authentication
         public AmplaUser SessionLogin(string session, out string message)
         {
             message = null;
-            AmplaUser user = FindUserBySession(session);
+            AmplaUser user = amplaUserStore.GetUserBySession(session);
 
             if (user != null)
             {
@@ -103,7 +88,7 @@ namespace AmplaWeb.Security.Authentication
                 if (response != null)
                 {
                     user = new AmplaUser(response.Session.User, response.Session.SessionID, false, "AmplaSession");
-                    StoreUser(user);
+                    amplaUserStore.StoreUser(user);
                 }
                 if (user == null)
                 {
@@ -133,7 +118,7 @@ namespace AmplaWeb.Security.Authentication
                 if (response != null)
                 {
                     user = new AmplaUser(response.Session.User, response.Session.SessionID, true, "Integrated");
-                    StoreUser(user);
+                    amplaUserStore.StoreUser(user);
                 }
 
                 if (user == null)
@@ -149,7 +134,7 @@ namespace AmplaWeb.Security.Authentication
         {
             IIdentity identity = WindowsIdentity.GetCurrent();
 
-            return identity != null ? FindUserByName(identity.Name) : null;
+            return identity != null ? amplaUserStore.GetUserByName(identity.Name) : null;
         }
 
         /// <summary>
@@ -159,25 +144,8 @@ namespace AmplaWeb.Security.Authentication
         /// <returns></returns>
         public AmplaUser RenewSession(string session)
         {
-            AmplaUser user = FindUserBySession(session);
+            AmplaUser user = amplaUserStore.GetUserBySession(session);
 
-            if (user != null)
-            {
-                user = Renew(user);
-            }
-
-            return user;
-        }
-
-
-        /// <summary>
-        /// Gets the logged in user with name.
-        /// </summary>
-        /// <param name="userName">Name of the user.</param>
-        /// <returns></returns>
-        public AmplaUser GetLoggedInUser(string userName)
-        {
-            AmplaUser user = FindUserByName(userName);
             if (user != null)
             {
                 user = Renew(user);
@@ -192,10 +160,10 @@ namespace AmplaWeb.Security.Authentication
         /// <param name="userName"></param>
         public void Logout(string userName)
         {
-            AmplaUser user = FindUserByName(userName);
+            AmplaUser user = amplaUserStore.GetUserByName(userName);
             if (user != null)
             {
-                RemoveUser(user);
+                amplaUserStore.RemoveUser(user);
 
                 if (user.RememberToLogout)
                 {
@@ -208,21 +176,6 @@ namespace AmplaWeb.Security.Authentication
                 }
             }
         }
-
-        /// <summary>
-        /// Gets an array of currently logged in users
-        /// </summary>
-        /// <returns></returns>
-        public string[] GetUsers()
-        {
-            List<string> users;
-            lock (dictionaryLock)
-            {
-                users = new List<string>(validatedUserDictionary.Keys);
-            }
-            return users.ToArray();
-        }
-
 
         private AmplaUser Renew(AmplaUser user)
         {
@@ -240,7 +193,7 @@ namespace AmplaWeb.Security.Authentication
                 }
                 else
                 {
-                    RemoveUser(user);
+                    amplaUserStore.RemoveUser(user);
                 }
             }
             return renewedUser;
@@ -260,50 +213,5 @@ namespace AmplaWeb.Security.Authentication
             }
         }
 
-        private AmplaUser FindUserByName(string userName)
-        {
-            string lowerUser = userName.ToLower();
-            AmplaUser user;
-            lock (dictionaryLock)
-            {
-                validatedUserDictionary.TryGetValue(lowerUser, out user);
-            }
-            return user;
-        }
-
-        private AmplaUser FindUserBySession(string session)
-        {
-            AmplaUser user;
-            lock (dictionaryLock)
-            {
-                validatedSessionDictionary.TryGetValue(session, out user);
-            }
-            return user;
-        }
-        
-        private void StoreUser(AmplaUser user)
-        {
-            string lowerName = user.UserName.ToLower();
-            string sessionId = user.Session;
-            lock (dictionaryLock)
-            {
-                validatedUserDictionary[lowerName] = user;
-                validatedSessionDictionary[sessionId] = user;
-            }
-        }
-
-        private void RemoveUser(AmplaUser user)
-        {
-            if (user != null)
-            {
-                string lowerName = user.UserName.ToLower();
-                string sessionId = user.Session;
-                lock (dictionaryLock)
-                {
-                    validatedUserDictionary.Remove(lowerName);
-                    validatedSessionDictionary.Remove(sessionId);
-                }
-            }
-        }
     }
 }

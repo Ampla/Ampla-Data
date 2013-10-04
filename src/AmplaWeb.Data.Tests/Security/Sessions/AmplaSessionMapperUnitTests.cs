@@ -19,7 +19,7 @@ namespace AmplaWeb.Security.Sessions
              string url = "http://localhost/?amplaSession=" + session;
              SimpleHttpContext context = new SimpleHttpContext(url);
 
-             IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient);
+             IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
              IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context);
 
              AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context, context, amplaUserService, formsAuthenticationService);
@@ -45,7 +45,7 @@ namespace AmplaWeb.Security.Sessions
              const string url = "http://localhost/?amplaSession=" + session;
              SimpleHttpContext context = new SimpleHttpContext(url);
 
-             IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient);
+             IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
              IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context);
 
              AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context, context, amplaUserService, formsAuthenticationService);
@@ -70,7 +70,7 @@ namespace AmplaWeb.Security.Sessions
              string url = "http://localhost/?session=" + session;
              SimpleHttpContext context = new SimpleHttpContext(url);
 
-             IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient);
+             IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
              IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context);
 
              AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context, context, amplaUserService, formsAuthenticationService);
