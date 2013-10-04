@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace AmplaWeb.Security.Web.Interfaces
+namespace AmplaWeb.Data.Web.Interfaces
 {
     public interface IHttpResponseWrapper
     {

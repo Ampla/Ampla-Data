@@ -120,14 +120,15 @@
     <Compile Include="Data\Records\ProductionRecordsUnitTests.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\Web\Wrappers\SimpleHttpSession.cs" />
     <Compile Include="Security\AmplaSecurity2007\SimpleSecurityWebServiceClient.cs" />
     <Compile Include="Security\AmplaSecurity2007\SimpleSecurityWebServiceClientUnitTests.cs" />
     <Compile Include="Security\AmplaSecurity2007\SimpleSession.cs" />
     <Compile Include="Security\Sessions\AmplaSessionMapperUnitTests.cs" />
     <Compile Include="Security\Authentication\AmplaUserServiceUnitTests.cs" />
-    <Compile Include="Security\Web\Wrappers\SimpleHttpContext.cs" />
-    <Compile Include="Security\Web\Wrappers\SimpleHttpRequest.cs" />
-    <Compile Include="Security\Web\Wrappers\SimpleHttpResponse.cs" />
+    <Compile Include="Data\Web\Wrappers\SimpleHttpContext.cs" />
+    <Compile Include="Data\Web\Wrappers\SimpleHttpRequest.cs" />
+    <Compile Include="Data\Web\Wrappers\SimpleHttpResponse.cs" />
     <Compile Include="TestFixture.cs" />
     <Compile Include="Data\Views\ProductionViews.cs" />
   </ItemGroup>

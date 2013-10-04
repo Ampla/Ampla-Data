@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Web;
+using AmplaWeb.Data.Web.Interfaces;
 using AmplaWeb.Security.Authentication;
-using AmplaWeb.Security.Web.Interfaces;
+using AmplaWeb.Security.Authentication.Forms;
 
 namespace AmplaWeb.Security.Sessions
 {

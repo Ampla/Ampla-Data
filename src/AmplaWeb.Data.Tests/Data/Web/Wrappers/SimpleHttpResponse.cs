@@ -1,7 +1,7 @@
 ﻿using System.Web;
-using AmplaWeb.Security.Web.Interfaces;
+using AmplaWeb.Data.Web.Interfaces;
 
-namespace AmplaWeb.Security.Web.Wrappers
+namespace AmplaWeb.Data.Web.Wrappers
 {
     public class SimpleHttpResponse : IHttpResponseWrapper
     {

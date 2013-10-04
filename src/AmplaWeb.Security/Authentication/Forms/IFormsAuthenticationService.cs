@@ -1,10 +1,9 @@
 ﻿using System.Web.Security;
 
-namespace AmplaWeb.Security.Authentication
+namespace AmplaWeb.Security.Authentication.Forms
 {
     public interface IFormsAuthenticationService
     {
-        void SignIn(AmplaUser amplaUser, bool createPersistentCookie);
         void SignOut();
 
         void SessionExpired();

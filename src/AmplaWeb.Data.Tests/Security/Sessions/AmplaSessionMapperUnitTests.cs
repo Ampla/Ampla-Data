@@ -1,7 +1,9 @@
 ﻿using System;
+using AmplaWeb.Data.Session;
+using AmplaWeb.Data.Web.Wrappers;
 using AmplaWeb.Security.AmplaSecurity2007;
 using AmplaWeb.Security.Authentication;
-using AmplaWeb.Security.Web.Wrappers;
+using AmplaWeb.Security.Authentication.Forms;
 using NUnit.Framework;
 
 namespace AmplaWeb.Security.Sessions
@@ -20,7 +22,10 @@ namespace AmplaWeb.Security.Sessions
              SimpleHttpContext context = new SimpleHttpContext(url);
 
              IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
-             IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context);
+
+             new AmplaSessionStorage(new SimpleHttpSession());
+
+             IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context,new AmplaSessionStorage(new SimpleHttpSession()));
 
              AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context, context, amplaUserService, formsAuthenticationService);
 
@@ -46,7 +51,7 @@ namespace AmplaWeb.Security.Sessions
              SimpleHttpContext context = new SimpleHttpContext(url);
 
              IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
-             IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context);
+             IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context, null);
 
              AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context, context, amplaUserService, formsAuthenticationService);
 
@@ -71,7 +76,7 @@ namespace AmplaWeb.Security.Sessions
              SimpleHttpContext context = new SimpleHttpContext(url);
 
              IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
-             IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context);
+             IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context, null);
 
              AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context, context, amplaUserService, formsAuthenticationService);
 

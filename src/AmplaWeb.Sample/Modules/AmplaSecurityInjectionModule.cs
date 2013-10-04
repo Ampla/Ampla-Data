@@ -1,11 +1,11 @@
 ﻿using System.Web;
-using System.Web.Security;
 using AmplaWeb.Data;
 using AmplaWeb.Data.AmplaData2008;
+using AmplaWeb.Data.Session;
+using AmplaWeb.Data.Web.Interfaces;
+using AmplaWeb.Data.Web.Wrappers;
 using AmplaWeb.Security.Authentication;
 using AmplaWeb.Security.Sessions;
-using AmplaWeb.Security.Web.Interfaces;
-using AmplaWeb.Security.Web.Wrappers;
 using Autofac;
 using Autofac.Integration.Mvc;
 
@@ -18,9 +18,12 @@ namespace AmplaWeb.Sample.Modules
             base.Load(builder);
             
             // to register the forms credentials provider
-            builder.RegisterType<FormsAuthenticationCredentialsProvider>().As<ICredentialsProvider>();
+            //builder.RegisterType<FormsAuthenticationCredentialsProvider>().As<ICredentialsProvider>();
 
-            builder.RegisterType<FormsAuthenticationService>().As<IFormsAuthenticationService>();
+            builder.RegisterType<AmplaSessionStorage>().As<IAmplaSessionStorage>();
+            builder.RegisterType<SessionStateCredentialsProvider>().As<ICredentialsProvider>();
+
+            //builder.RegisterType<FormsAuthenticationService>().As<IFormsAuthenticationService>();
             builder.RegisterType<AmplaUserStore>().As<IAmplaUserStore>().SingleInstance();
             builder.RegisterType<AmplaUserService>().As<IAmplaUserService>();
 

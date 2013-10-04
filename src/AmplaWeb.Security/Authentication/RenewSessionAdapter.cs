@@ -1,5 +1,6 @@
 ﻿using System.Web.Security;
 using AmplaWeb.Data;
+using AmplaWeb.Security.Authentication.Forms;
 
 namespace AmplaWeb.Security.Authentication
 {

@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
 using AmplaWeb.Data.Controllers;
+using AmplaWeb.Data.Session;
 using AmplaWeb.Security.Authentication;
+using AmplaWeb.Security.Authentication.Forms;
 using AmplaWeb.Security.Models;
 
 namespace AmplaWeb.Security.Controllers
@@ -13,16 +15,19 @@ namespace AmplaWeb.Security.Controllers
     {
         private readonly IAmplaUserService amplaUserService;
         private readonly IFormsAuthenticationService formsAuthenticationService;
+        private readonly IAmplaSessionStorage amplaSessionStorage;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// Initializes a new instance of the <see cref="AccountController" /> class.
         /// </summary>
         /// <param name="amplaUserService">The ampla user service.</param>
         /// <param name="formsAuthenticationService">The forms authentication service.</param>
-        public AccountController(IAmplaUserService amplaUserService, IFormsAuthenticationService formsAuthenticationService)
+        /// <param name="amplaSessionStorage">The ampla session storage.</param>
+        public AccountController(IAmplaUserService amplaUserService, IFormsAuthenticationService formsAuthenticationService, IAmplaSessionStorage amplaSessionStorage)
         {
             this.amplaUserService = amplaUserService;
             this.formsAuthenticationService = formsAuthenticationService;
+            this.amplaSessionStorage = amplaSessionStorage;
         }
 
         //
@@ -71,6 +76,7 @@ namespace AmplaWeb.Security.Controllers
                 AmplaUser amplaUser = amplaUserService.IntegratedLogin(out message);
                 if (amplaUser != null)
                 {
+                    amplaSessionStorage.SetAmplaSession(amplaUser.Session);
                     formsAuthenticationService.StoreUserTicket(amplaUser, model.RememberMe);
 
                     if (UrlIsLocal(returnUrl))
@@ -101,6 +107,8 @@ namespace AmplaWeb.Security.Controllers
                 AmplaUser amplaUser = amplaUserService.SimpleLogin(model.UserName, model.Password, out message);
                 if (amplaUser != null)
                 {
+                    amplaSessionStorage.SetAmplaSession(amplaUser.Session);
+
                     formsAuthenticationService.StoreUserTicket(amplaUser, model.RememberMe);
 
                     if (UrlIsLocal(returnUrl))
@@ -138,6 +146,7 @@ namespace AmplaWeb.Security.Controllers
             {
                 string user = ticket.Name;
                 amplaUserService.Logout(user);
+                amplaSessionStorage.SetAmplaSession(null);
                 formsAuthenticationService.SignOut();
                 Information("Logout successful.");
             }

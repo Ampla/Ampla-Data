@@ -1,36 +1,34 @@
 ﻿using System;
-using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
-using AmplaWeb.Security.Web.Interfaces;
+using AmplaWeb.Data.Session;
+using AmplaWeb.Data.Web.Interfaces;
 
-namespace AmplaWeb.Security.Authentication
+namespace AmplaWeb.Security.Authentication.Forms
 {
     public class FormsAuthenticationService : IFormsAuthenticationService
     {
         private readonly IHttpRequestWrapper request;
         private readonly IHttpResponseWrapper response;
+        private readonly IAmplaSessionStorage amplaSessionStorage;
 
-        public FormsAuthenticationService(IHttpRequestWrapper request, IHttpResponseWrapper response)
+        public FormsAuthenticationService(IHttpRequestWrapper request, IHttpResponseWrapper response, IAmplaSessionStorage amplaSessionStorage)
         {
             this.request = request;
             this.response = response;
-        }
-
-        public void SignIn(AmplaUser amplaUser, bool createPersistentCookie)
-        {
-            if (amplaUser == null) throw new ArgumentNullException("amplaUser");
-            FormsAuthentication.SetAuthCookie(amplaUser.UserName, createPersistentCookie);
+            this.amplaSessionStorage = amplaSessionStorage;
         }
 
         public void SignOut()
         {
             FormsAuthentication.SignOut();
+            amplaSessionStorage.SetAmplaSession(null);
         }
 
         public void SessionExpired()
         {
             FormsAuthentication.SignOut();
+            amplaSessionStorage.SetAmplaSession(null);
             string url = request.Url.ToString();
             response.Redirect(url);
         }
@@ -38,8 +36,9 @@ namespace AmplaWeb.Security.Authentication
         public void StoreUserTicket(AmplaUser amplaUser, bool createPersistentCookie)
         {
             string session = amplaUser.Session;
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, amplaUser.UserName, DateTime.Now, DateTime.Now.AddMinutes(30), createPersistentCookie, session);
+            amplaSessionStorage.SetAmplaSession(session);
 
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, amplaUser.UserName, DateTime.Now, DateTime.Now.AddMinutes(30), createPersistentCookie, session);
             response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket)));
         }
 
@@ -55,11 +54,6 @@ namespace AmplaWeb.Security.Authentication
                 }
             }
             return null;
-        }
-
-        public void SetCurrentUser(IPrincipal principal)
-        {
-            HttpContext.Current.User = principal;
         }
     }
 }
