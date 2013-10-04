@@ -1,6 +1,4 @@
-﻿using System.Security.Principal;
-using System.Web.Security;
-using AmplaWeb.Security.Membership;
+﻿using System.Web.Security;
 
 namespace AmplaWeb.Security.Authentication
 {
@@ -11,9 +9,7 @@ namespace AmplaWeb.Security.Authentication
 
         void SessionExpired();
 
-        void StoreUserTicket(AmplaUser user, bool createPersistentCookie);
+        void StoreUserTicket(AmplaUser amplaUser, bool createPersistentCookie);
         FormsAuthenticationTicket GetUserTicket();
-        
-        void SetCurrentUser(IPrincipal principal);
     }
 }

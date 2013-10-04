@@ -1,5 +1,4 @@
 ﻿using AmplaWeb.Security.AmplaSecurity2007;
-using AmplaWeb.Security.Membership;
 using NUnit.Framework;
 
 namespace AmplaWeb.Security.Authentication

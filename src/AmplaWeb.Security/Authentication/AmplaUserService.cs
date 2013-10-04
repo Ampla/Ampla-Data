@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Security.Principal;
 using AmplaWeb.Security.AmplaSecurity2007;
-using AmplaWeb.Security.Membership;
 
 namespace AmplaWeb.Security.Authentication
 {
@@ -33,6 +32,15 @@ namespace AmplaWeb.Security.Authentication
         }
 
         /// <summary>
+        /// Gets the default user if it is defined
+        /// </summary>
+        /// <returns></returns>
+        public AmplaUser GetDefaultUser()
+        {
+            return null;
+        }
+
+        /// <summary>
         /// Login an Ampla users using username and password
         /// </summary>
         /// <param name="userName"></param>
@@ -57,7 +65,7 @@ namespace AmplaWeb.Security.Authentication
                 CreateSessionResponse response = CatchExceptions(() => securityWebService.CreateSession(request), out exception);
                 if (response != null)
                 {
-                    user = new AmplaUser(response.Session.User, response.Session.SessionID) {RememberToLogout = true};
+                    user = new AmplaUser(response.Session.User, response.Session.SessionID, true, "Username/Password");
                     StoreUser(user);
                 }
 
@@ -94,7 +102,7 @@ namespace AmplaWeb.Security.Authentication
                 RenewSessionResponse response = CatchExceptions(() => securityWebService.RenewSession(request), out exception);
                 if (response != null)
                 {
-                    user = new AmplaUser(response.Session.User, response.Session.SessionID) { RememberToLogout = false };
+                    user = new AmplaUser(response.Session.User, response.Session.SessionID, false, "AmplaSession");
                     StoreUser(user);
                 }
                 if (user == null)
@@ -124,7 +132,7 @@ namespace AmplaWeb.Security.Authentication
                 CreateSessionResponse response = CatchExceptions(() => securityWebService.CreateSession(request), out exception);
                 if (response != null)
                 {
-                    user = new AmplaUser(response.Session.User, response.Session.SessionID) { RememberToLogout = true };
+                    user = new AmplaUser(response.Session.User, response.Session.SessionID, true, "Integrated");
                     StoreUser(user);
                 }
 
@@ -218,6 +226,7 @@ namespace AmplaWeb.Security.Authentication
 
         private AmplaUser Renew(AmplaUser user)
         {
+            AmplaUser renewedUser = null;
             if (user != null)
             {
                 RenewSessionRequest request = new RenewSessionRequest { Session = new Session { User = user.UserName, SessionID = user.Session}};
@@ -226,16 +235,15 @@ namespace AmplaWeb.Security.Authentication
                 RenewSessionResponse response = CatchExceptions(() => securityWebService.RenewSession(request), out exception);
                 if (response != null)
                 {
-                    user = new AmplaUser(response.Session.User, response.Session.SessionID);
-                    StoreUser(user);
+                    renewedUser = user;
+                    renewedUser.UpdateActivityDate();
                 }
                 else
                 {
                     RemoveUser(user);
-                    user = null;
                 }
             }
-            return user;
+            return renewedUser;
         }
 
         private T CatchExceptions<T>(Func<T> func, out Exception exception)

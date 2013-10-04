@@ -29,8 +29,11 @@ namespace AmplaWeb.Sample
         protected void Application_Start()
         {
             var builder = new ContainerBuilder();
+
             builder.RegisterModule<ControllerInjectionModule>();
-            builder.RegisterModule<SecurityInjectionModule>();
+            
+            builder.RegisterModule<AmplaSecurityInjectionModule>();
+            //builder.RegisterModule(new SimpleSecurityInjectionModule("User", "password"));
 
             SecurityWebServiceFactory.Factory = () => new SecurityWebServiceClient("BasicHttpBinding_ISecurityWebService");
             DataWebServiceFactory.Factory = () => new DataWebServiceClient("NetTcpBinding_IDataWebService");

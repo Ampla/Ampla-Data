@@ -1,5 +1,4 @@
-﻿using AmplaWeb.Security.Membership;
-
+﻿
 namespace AmplaWeb.Security.Authentication
 {
     /// <summary>

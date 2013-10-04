@@ -149,8 +149,9 @@
     <Compile Include="Models\IngotCastModel.cs" />
     <Compile Include="Models\ProductionModel.cs" />
     <Compile Include="Models\ShiftLogModel.cs" />
-    <Compile Include="Modules\SecurityInjectionModule.cs" />
+    <Compile Include="Modules\AmplaSecurityInjectionModule.cs" />
     <Compile Include="Modules\ControllerInjectionModule.cs" />
+    <Compile Include="Modules\SimpleSecurityInjectionModule.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
     <Compile Include="NavigationRoutes\NavigationExtensions.cs" />

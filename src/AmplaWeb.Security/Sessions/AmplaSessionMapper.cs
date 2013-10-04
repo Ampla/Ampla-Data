@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.Web;
 using AmplaWeb.Security.Authentication;
-using AmplaWeb.Security.Membership;
 using AmplaWeb.Security.Web.Interfaces;
 
 namespace AmplaWeb.Security.Sessions

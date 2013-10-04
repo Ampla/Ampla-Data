@@ -2,10 +2,8 @@
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.InMemory;
-using AmplaWeb.Sample.Controllers;
 using AmplaWeb.Sample.Models;
 using AmplaWeb.Security.AmplaSecurity2007;
-using AmplaWeb.Security.Authentication;
 using Autofac;
 using Autofac.Integration.Mvc;
 
@@ -24,17 +22,9 @@ namespace AmplaWeb.Sample.Modules
                 builder.Register(c => DataWebServiceFactory.Create()).As<IDataWebServiceClient>();
                 builder.Register(c => SecurityWebServiceFactory.Create()).As<ISecurityWebServiceClient>();
                 
-                builder.RegisterType<AmplaCredentialsProvider>().As<ICredentialsProvider>();
-                //builder.RegisterType<AmplaRepositorySet>().As<IRepositorySet>();
-                builder.RegisterGeneric(typeof (AmplaRepository<>)).Named("repository", typeof (IRepository<>));
+                builder.RegisterGeneric(typeof(AmplaRepository<>)).As(typeof(IRepository<>));
+                builder.RegisterGeneric(typeof(AmplaRepository<>)).Named("repository", typeof (IRepository<>));
                 builder.RegisterGeneric(typeof(AmplaReadOnlyRepository<>)).As(typeof(IReadOnlyRepository<>));
-
-                // Register the generic decorator so it can wrap
-                // the resolved named generics.
-                builder.RegisterGenericDecorator(
-                    typeof (RenewSessionAdapter<>),
-                    typeof (IRepository<>), "repository").As(typeof(IRepository<>));
-
             }
             else
             {

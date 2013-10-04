@@ -2,7 +2,6 @@
 using System.Web.Security;
 using AmplaWeb.Data.Controllers;
 using AmplaWeb.Security.Authentication;
-using AmplaWeb.Security.Membership;
 using AmplaWeb.Security.Models;
 
 namespace AmplaWeb.Security.Controllers

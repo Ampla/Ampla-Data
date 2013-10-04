@@ -2,7 +2,6 @@
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
-using AmplaWeb.Security.Membership;
 using AmplaWeb.Security.Web.Interfaces;
 
 namespace AmplaWeb.Security.Authentication
