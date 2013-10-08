@@ -13,7 +13,7 @@ namespace AmplaWeb.Data.Web.Wrappers
     /// </summary>
     public class SimpleHttpContext 
     {
-        public class SimpleHttpRequest : IHttpRequestWrapper
+        private class SimpleHttpRequest : IHttpRequestWrapper
         {
             public SimpleHttpRequest(string requestUrl, HttpCookieCollection cookies)
             {
@@ -27,7 +27,7 @@ namespace AmplaWeb.Data.Web.Wrappers
             public HttpCookieCollection Cookies { get; private set; }
         }
 
-        public class SimpleHttpResponse : IHttpResponseWrapper
+        private class SimpleHttpResponse : IHttpResponseWrapper
         {
             private readonly Action<string> redirectFunc;
 
@@ -44,7 +44,7 @@ namespace AmplaWeb.Data.Web.Wrappers
             }
         }
 
-        public class SimpleHttpSession : IHttpSessionWrapper
+        private class SimpleHttpSession : IHttpSessionWrapper
         {
             private readonly Dictionary<string, object> dictionary = new Dictionary<string, object>();
             /// <summary>
