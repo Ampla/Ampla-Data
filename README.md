@@ -10,6 +10,8 @@ Key Concepts
 * Automatic binding of Ampla data to C# classes
 * Automatic mapping of Local date time to/from UTC 
 * Support for ASP.NET MVC Controllers
+* Support for Forms Authentication 
+* Support for passing Ampla session via QueryString 
 
 Repository Pattern 
 ===
@@ -49,7 +51,7 @@ Attributes are used to declare models for use in the repository.
 Class attributes:
 * ```[AmplaLocation(Location="Enterprise.Site.Area.Point")]```
 * ```[AmplaModule(Module="Production")]```
-* ```[AmplaDefaultFields("Confirmed=True")]
+* ```[AmplaDefaultFields("Confirmed=True")]```
 
 Field attributes:
 * ```[AmplaField(Field = "Sample Period")]```
@@ -88,7 +90,7 @@ Features include:
 Example:
 ``` C#
 // set up Repository
-IRepositorySet repositorySet = new AmplaRepositorySet("User", "password");
+IRepositorySet repositorySet = new AmplaRepositorySet(CredentialsProvider.ForUsernameAndPassword("User", "password"));
 IRepository<ExampleModel> repository = repositorySet.GetRepository<ExampleModel>();
 
 // create the model
@@ -119,10 +121,10 @@ namespace AmplaWeb.Sample.Controllers
 {
     public class ProductionController : RepositoryController<ProductionModel>
     {
-        public ProductionController(IRepositorySet repositorySet) : base(repositorySet)
+		public ProductionController(IRepository<ProductionModel> repository) : base(repository)
         {
         }
-    }
+	}
 }
 ```
 
@@ -207,3 +209,20 @@ namespace AmplaWeb.Data.Controllers
     }
 }
 ```
+
+ASP.NET Forms Authentication
+===
+Forms Authentication is supported using either a Username and password or passing the ampla session in the query string.
+
+To pass the session via the query string, use the amplaSession key.
+
+Example: 
+	http://localhost/?amplaSession=c064fac5-26f5-4ce4-9955-8c7a5491ead5
+	
+How to pass the AmplaSession using the Ampla Document item.
+===
+* Add a ```Document``` item
+* Set the Modules ```Production```, ```Quality```, etc
+* Specify the Url ```http://localhost/production/index```
+* Ensure that the ```AppendSessionId``` property is ```True```
+
