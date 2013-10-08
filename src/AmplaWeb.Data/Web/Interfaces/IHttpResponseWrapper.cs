@@ -2,6 +2,9 @@
 
 namespace AmplaWeb.Data.Web.Interfaces
 {
+    /// <summary>
+    ///     Interface that wraps the HttpResponse object to simplify testing
+    /// </summary>
     public interface IHttpResponseWrapper
     {
         /// <summary>

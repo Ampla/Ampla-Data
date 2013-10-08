@@ -11,6 +11,36 @@ namespace AmplaWeb.Security.Sessions
     [TestFixture]
     public class AmplaSessionMapperUnitTests : TestFixture
     {
+        private SimpleHttpContext context;
+
+        protected override void OnSetUp()
+        {
+            base.OnSetUp();
+            context = new SimpleHttpContext("http://localhost");
+        }
+
+        /// <summary>
+        /// SessionStorage is created each time it is access to ensure it gets the current context.
+        /// </summary>
+        private IAmplaSessionStorage SessionStorage
+        {
+            get
+            {
+                return new AmplaSessionStorage(context.Session);
+            }
+        }
+
+        /// <summary>
+        /// FormsAuthentication Service is created each time to ensure it gets the the current context
+        /// </summary>
+        private IFormsAuthenticationService FormsAuthenticationService
+        {
+            get
+            {
+                return new FormsAuthenticationService(context.Request, context.Response, SessionStorage);
+            }
+        }
+
          [Test]
          public void AutomaticLoginFromSession()
          {
@@ -19,22 +49,21 @@ namespace AmplaWeb.Security.Sessions
 
              string session = webServiceClient.Sessions[0].SessionId;
              string url = "http://localhost/?amplaSession=" + session;
-             SimpleHttpContext context = new SimpleHttpContext(url);
+             
+             context = new SimpleHttpContext(url);
 
              IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
+             Assert.That(SessionStorage.GetAmplaSession(), Is.Empty);
 
-             new AmplaSessionStorage(new SimpleHttpSession());
-
-             IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context,new AmplaSessionStorage(new SimpleHttpSession()));
-
-             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context, context, amplaUserService, formsAuthenticationService);
-
+             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context.Request, context.Response, amplaUserService, FormsAuthenticationService);
              amplaSessionMapper.Login();
 
-             Assert.That(context.RequestCookies, Is.Not.Empty);
-             Assert.That(context.Url, Is.EqualTo(new Uri("http://localhost/")));
+             Assert.That(context.Request.Cookies, Is.Not.Empty);
+             Assert.That(context.Request.Url, Is.EqualTo(new Uri("http://localhost/")));
 
-             var ticket = formsAuthenticationService.GetUserTicket();
+             Assert.That(SessionStorage.GetAmplaSession(), Is.EqualTo(session));
+
+             var ticket = FormsAuthenticationService.GetUserTicket();
 
              Assert.That(ticket, Is.Not.Null);
              Assert.That(ticket.UserData, Is.EqualTo(session));
@@ -48,21 +77,22 @@ namespace AmplaWeb.Security.Sessions
              const string session = "invalid";
 
              const string url = "http://localhost/?amplaSession=" + session;
-             SimpleHttpContext context = new SimpleHttpContext(url);
+
+             context = new SimpleHttpContext(url);
 
              IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
-             IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context, null);
 
-             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context, context, amplaUserService, formsAuthenticationService);
+             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context.Request, context.Response, amplaUserService, FormsAuthenticationService);
 
              amplaSessionMapper.Login();
 
-             Assert.That(context.RequestCookies, Is.Empty);
-             Assert.That(context.Url, Is.EqualTo(new Uri(url)));
+             Assert.That(context.Request.Cookies, Is.Empty);
+             Assert.That(context.Request.Url, Is.EqualTo(new Uri(url)));
 
-             var ticket = formsAuthenticationService.GetUserTicket();
+             var ticket = FormsAuthenticationService.GetUserTicket();
 
              Assert.That(ticket, Is.Null);
+             Assert.That(SessionStorage.GetAmplaSession(), Is.Empty);
          }
 
          [Test]
@@ -73,21 +103,21 @@ namespace AmplaWeb.Security.Sessions
 
              string session = webServiceClient.Sessions[0].SessionId;
              string url = "http://localhost/?session=" + session;
-             SimpleHttpContext context = new SimpleHttpContext(url);
-
+             context = new SimpleHttpContext(url);
+             
              IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
-             IFormsAuthenticationService formsAuthenticationService = new FormsAuthenticationService(context, context, null);
 
-             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context, context, amplaUserService, formsAuthenticationService);
+             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context.Request, context.Response, amplaUserService, FormsAuthenticationService);
 
              amplaSessionMapper.Login();
 
-             Assert.That(context.RequestCookies, Is.Empty);
-             Assert.That(context.Url, Is.EqualTo(new Uri(url)));
+             Assert.That(context.Request.Cookies, Is.Empty);
+             Assert.That(context.Request.Url, Is.EqualTo(new Uri(url)));
 
-             var ticket = formsAuthenticationService.GetUserTicket();
+             var ticket = FormsAuthenticationService.GetUserTicket();
 
              Assert.That(ticket, Is.Null);
+             Assert.That(SessionStorage.GetAmplaSession(), Is.Empty);
          }
     }
 }

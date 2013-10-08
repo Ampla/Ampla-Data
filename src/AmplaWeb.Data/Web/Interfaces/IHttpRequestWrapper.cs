@@ -4,10 +4,25 @@ using System.Web;
 
 namespace AmplaWeb.Data.Web.Interfaces
 {
+    /// <summary>
+    /// Interface that wraps the HttpRequest object to simplify testing
+    /// </summary>
     public interface IHttpRequestWrapper
     {
+        /// <summary>
+        /// Gets the query string for the request
+        /// </summary>
+        /// <value>
+        /// The query string.
+        /// </value>
         NameValueCollection QueryString { get; }
 
+        /// <summary>
+        /// Gets the URL for the request
+        /// </summary>
+        /// <value>
+        /// The URL.
+        /// </value>
         Uri Url { get; }
 
         /// <summary>

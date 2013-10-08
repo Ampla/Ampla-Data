@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Security.Principal;
 using AmplaWeb.Security.AmplaSecurity2007;
 

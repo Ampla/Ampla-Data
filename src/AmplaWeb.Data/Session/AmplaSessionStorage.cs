@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web.SessionState;
 using AmplaWeb.Data.Web.Interfaces;
 
 namespace AmplaWeb.Data.Session
