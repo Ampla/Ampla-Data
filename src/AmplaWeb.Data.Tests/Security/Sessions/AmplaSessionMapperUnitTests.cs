@@ -37,7 +37,7 @@ namespace AmplaWeb.Security.Sessions
         {
             get
             {
-                return new FormsAuthenticationService(context.Request, context.Response, SessionStorage);
+                return new FormsAuthenticationService(context.Request, context.Response);
             }
         }
 
@@ -55,7 +55,7 @@ namespace AmplaWeb.Security.Sessions
              IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
              Assert.That(SessionStorage.GetAmplaSession(), Is.Empty);
 
-             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context.Request, context.Response, amplaUserService, FormsAuthenticationService);
+             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context.Request, context.Response, amplaUserService, FormsAuthenticationService, SessionStorage);
              amplaSessionMapper.Login();
 
              Assert.That(context.Request.Cookies, Is.Not.Empty);
@@ -82,7 +82,7 @@ namespace AmplaWeb.Security.Sessions
 
              IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
 
-             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context.Request, context.Response, amplaUserService, FormsAuthenticationService);
+             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context.Request, context.Response, amplaUserService, FormsAuthenticationService, SessionStorage);
 
              amplaSessionMapper.Login();
 
@@ -107,7 +107,7 @@ namespace AmplaWeb.Security.Sessions
              
              IAmplaUserService amplaUserService = new AmplaUserService(webServiceClient, new AmplaUserStore());
 
-             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context.Request, context.Response, amplaUserService, FormsAuthenticationService);
+             AmplaSessionMapper amplaSessionMapper = new AmplaSessionMapper(context.Request, context.Response, amplaUserService, FormsAuthenticationService, SessionStorage);
 
              amplaSessionMapper.Login();
 

@@ -10,25 +10,21 @@ namespace AmplaWeb.Security.Authentication.Forms
     {
         private readonly IHttpRequestWrapper request;
         private readonly IHttpResponseWrapper response;
-        private readonly IAmplaSessionStorage amplaSessionStorage;
 
-        public FormsAuthenticationService(IHttpRequestWrapper request, IHttpResponseWrapper response, IAmplaSessionStorage amplaSessionStorage)
+        public FormsAuthenticationService(IHttpRequestWrapper request, IHttpResponseWrapper response)
         {
             this.request = request;
             this.response = response;
-            this.amplaSessionStorage = amplaSessionStorage;
         }
 
         public void SignOut()
         {
             FormsAuthentication.SignOut();
-            amplaSessionStorage.SetAmplaSession(null);
         }
 
         public void SessionExpired()
         {
             FormsAuthentication.SignOut();
-            amplaSessionStorage.SetAmplaSession(null);
             string url = request.Url.ToString();
             response.Redirect(url);
         }
@@ -36,7 +32,6 @@ namespace AmplaWeb.Security.Authentication.Forms
         public void StoreUserTicket(AmplaUser amplaUser, bool createPersistentCookie)
         {
             string session = amplaUser.Session;
-            amplaSessionStorage.SetAmplaSession(session);
 
             FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, amplaUser.UserName, DateTime.Now, DateTime.Now.AddMinutes(30), createPersistentCookie, session);
             response.Cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket)));

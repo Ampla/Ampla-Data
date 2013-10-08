@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Web;
+using AmplaWeb.Data.Session;
 using AmplaWeb.Data.Web.Interfaces;
 using AmplaWeb.Security.Authentication;
 using AmplaWeb.Security.Authentication.Forms;
@@ -16,13 +17,15 @@ namespace AmplaWeb.Security.Sessions
         private readonly IHttpResponseWrapper responseWrapper;
         private readonly IAmplaUserService amplaUserService;
         private readonly IFormsAuthenticationService formsAuthenticationService;
+        private readonly IAmplaSessionStorage amplaSessionStorage;
 
-        public AmplaSessionMapper(IHttpRequestWrapper requestWrapper, IHttpResponseWrapper responseWrapper, IAmplaUserService amplaUserService, IFormsAuthenticationService formsAuthenticationService)
+        public AmplaSessionMapper(IHttpRequestWrapper requestWrapper, IHttpResponseWrapper responseWrapper, IAmplaUserService amplaUserService, IFormsAuthenticationService formsAuthenticationService, IAmplaSessionStorage amplaSessionStorage)
         {
             this.requestWrapper = requestWrapper;
             this.responseWrapper = responseWrapper;
             this.amplaUserService = amplaUserService;
             this.formsAuthenticationService = formsAuthenticationService;
+            this.amplaSessionStorage = amplaSessionStorage;
         }
 
         /// <summary>
@@ -42,6 +45,7 @@ namespace AmplaWeb.Security.Sessions
                     if (amplaUser != null)
                     {
                         formsAuthenticationService.StoreUserTicket(amplaUser, false);
+                        amplaSessionStorage.SetAmplaSession(amplaUser.Session);
 
                         UriBuilder builder = new UriBuilder(requestWrapper.Url);
                         var query = HttpUtility.ParseQueryString(builder.Query);
