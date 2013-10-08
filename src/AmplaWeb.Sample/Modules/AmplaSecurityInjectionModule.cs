@@ -31,7 +31,7 @@ namespace AmplaWeb.Sample.Modules
             builder.RegisterControllers(typeof(Security.Controllers.AccountController).Assembly);
             builder.RegisterType<LoginAmplaSessionUsingQueryString>();
 
-            // ensure the sessions are aligned with Forms Authentication
+            // ensure the HttpSessions are aligned with Forms Authentication sessions
             builder.RegisterType<AlignSessionWithFormsAuthentication>();
 
             builder.Register(c => new AmplaHttpRequestWrapper(HttpContext.Current.Request)).As<IHttpRequestWrapper>();
