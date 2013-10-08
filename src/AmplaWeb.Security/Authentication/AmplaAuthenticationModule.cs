@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.Mvc;
 using AmplaWeb.Security.Sessions;
 
-
 namespace AmplaWeb.Security.Authentication
 {
     public class AmplaAuthenticationModule
@@ -11,17 +10,24 @@ namespace AmplaWeb.Security.Authentication
         public void Initialize(HttpApplication httpApplication)
         {
             httpApplication.AuthenticateRequest += AuthenticateRequest;
+            httpApplication.PostAcquireRequestState += PostAcquireRequestState;
+        }
+
+        private void PostAcquireRequestState(object sender, EventArgs e)
+        {
+            AlignSessionWithFormsAuthentication ensureAlignedSession = DependencyResolver.Current.GetService<AlignSessionWithFormsAuthentication>();
+            ensureAlignedSession.Execute();
         }
 
         private void AuthenticateRequest(object sender, EventArgs eventArgs)
         {
             if (!HttpContext.Current.Request.IsAuthenticated)
             {
-                var sessionMapper = DependencyResolver.Current.GetService<ISessionMapper>();
+                var loginAmplaSession = DependencyResolver.Current.GetService<LoginAmplaSessionUsingQueryString>();
 
-                if (sessionMapper != null)
+                if (loginAmplaSession != null)
                 {
-                    sessionMapper.Login();
+                    loginAmplaSession.Execute();
                 }
             }
         }

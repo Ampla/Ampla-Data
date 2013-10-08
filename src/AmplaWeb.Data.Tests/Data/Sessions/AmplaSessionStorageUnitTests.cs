@@ -1,7 +1,7 @@
 ﻿using AmplaWeb.Data.Web.Wrappers;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Session
+namespace AmplaWeb.Data.Sessions
 {
     [TestFixture]
     public class AmplaSessionStorageUnitTests : TestFixture
@@ -11,7 +11,8 @@ namespace AmplaWeb.Data.Session
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            sessionStorage = new AmplaSessionStorage(new SimpleHttpContext("http://localhost/").Session);
+            SimpleHttpContext context = SimpleHttpContext.Create("http://localhost");
+            sessionStorage = new AmplaSessionStorage(context.Session);
         }
         
         [Test]

@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
-using System.Web.Security;
 using AmplaWeb.Data.Controllers;
-using AmplaWeb.Data.Session;
+using AmplaWeb.Data.Sessions;
 using AmplaWeb.Security.Authentication;
 using AmplaWeb.Security.Authentication.Forms;
 using AmplaWeb.Security.Models;

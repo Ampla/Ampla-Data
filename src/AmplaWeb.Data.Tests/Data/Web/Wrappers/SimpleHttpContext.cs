@@ -1,7 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Web;
 using AmplaWeb.Data.Web.Interfaces;
 
@@ -11,75 +9,57 @@ namespace AmplaWeb.Data.Web.Wrappers
     ///     HttpContext that will support the HttpRequest, HttpResponse, HttpSession wrappers.
     ///     Note that the Request.Redirect will create a new Context for the redirect.
     /// </summary>
-    public class SimpleHttpContext 
+    /// <remarks>
+    /// After a redirect, the previous request/response wrappers are disposed to ensure the unit tests are easy 
+    /// </remarks>
+    public class SimpleHttpContext
     {
-        private class SimpleHttpRequest : IHttpRequestWrapper
+        public static SimpleHttpContext Create(string requestUrl)
         {
-            public SimpleHttpRequest(string requestUrl, HttpCookieCollection cookies)
-            {
-                Url = new Uri(requestUrl);
-                QueryString = HttpUtility.ParseQueryString(Url.Query);
-                Cookies = cookies;
-            }
-
-            public NameValueCollection QueryString { get; private set; }
-            public Uri Url { get; private set; }
-            public HttpCookieCollection Cookies { get; private set; }
+            return new SimpleHttpContext(requestUrl);
         }
 
-        private class SimpleHttpResponse : IHttpResponseWrapper
+        private SimpleHttpContext(string requestUrl) 
         {
-            private readonly Action<string> redirectFunc;
-
-            public SimpleHttpResponse(Action<string> redirectFunc)
-            {
-                this.redirectFunc = redirectFunc;
-                Cookies = new HttpCookieCollection();
-            }
-
-            public HttpCookieCollection Cookies { get; private set; }
-            public void Redirect(string url)
-            {
-                redirectFunc(url);
-            }
+            request = SimpleHttpRequest.Create(requestUrl, new HttpCookieCollection(), true);
+            response = SimpleHttpResponse.Create(Redirect);
+            session = SimpleHttpSession.Create(true);
         }
 
-        private class SimpleHttpSession : IHttpSessionWrapper
+        public SimpleHttpContext WithSessionsDisabled()
         {
-            private readonly Dictionary<string, object> dictionary = new Dictionary<string, object>();
-            /// <summary>
-            /// Sets the value.
-            /// </summary>
-            /// <param name="key">The key.</param>
-            /// <param name="value">The value.</param>
-            public void SetValue(string key, object value)
-            {
-                dictionary[key] = value;
-            }
-
-            /// <summary>
-            /// Gets the value.
-            /// </summary>
-            /// <param name="key">The key.</param>
-            /// <returns></returns>
-            public object GetValue(string key)
-            {
-                object value;
-                dictionary.TryGetValue(key, out value);
-                return value;
-            }
+            SimpleHttpContext newContext = new SimpleHttpContext(request.Url.ToString())
+                {
+                    Session = SimpleHttpSession.Create(false)
+                };
+            request.Dispose();
+            response.Dispose();
+            return newContext;
         }
 
-        public SimpleHttpContext(string requestUrl)
+        public SimpleHttpContext WithRequestsNotAuthenticated()
         {
-            request = new SimpleHttpRequest(requestUrl,new HttpCookieCollection());
-            response = new SimpleHttpResponse(Redirect);
-            session = new SimpleHttpSession();
+            SimpleHttpContext newContext = new SimpleHttpContext(request.Url.ToString())
+            {
+                Session = SimpleHttpSession.Create(false),
+                Request = SimpleHttpRequest.Create(request.Url.ToString(), request.Cookies, false)
+            };
+            request.Dispose();
+            response.Dispose();
+            return newContext;
         }
 
         public IHttpRequestWrapper Request
         {
-            get { return request; }
+            get
+            {
+                return request;
+            }
+            private set
+            {
+                request.Dispose();
+                request = (SimpleHttpRequest) value;
+            }
         }
 
         public IHttpResponseWrapper Response
@@ -90,11 +70,12 @@ namespace AmplaWeb.Data.Web.Wrappers
         public IHttpSessionWrapper Session
         {
             get { return session; }
+            private set { session = (SimpleHttpSession) value; }
         }
 
         private SimpleHttpRequest request;
         private SimpleHttpResponse response;
-        private readonly SimpleHttpSession session;
+        private SimpleHttpSession session;
 
         /// <summary>
         /// Redirects the specified URL.
@@ -102,8 +83,15 @@ namespace AmplaWeb.Data.Web.Wrappers
         /// <param name="url">The URL.</param>
         private void Redirect(string url)
         {
-            request = new SimpleHttpRequest(url, response.Cookies);
-            response = new SimpleHttpResponse(Redirect);
+            IDisposable oldRequest = request;
+            IDisposable oldResponse = response;
+
+            request = SimpleHttpRequest.Create(url, response.Cookies, request.IsAuthenticated);
+            response = SimpleHttpResponse.Create(Redirect);
+
+            oldRequest.Dispose();
+            oldResponse.Dispose();
+
         }
     }
 }

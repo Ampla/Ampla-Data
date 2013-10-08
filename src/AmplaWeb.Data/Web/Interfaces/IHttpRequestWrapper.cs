@@ -32,5 +32,13 @@ namespace AmplaWeb.Data.Web.Interfaces
         /// The cookies.
         /// </value>
         HttpCookieCollection Cookies { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the request has been [authenticated].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is authenticated]; otherwise, <c>false</c>.
+        /// </value>
+        bool IsAuthenticated { get; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web;
 using System.Web.Security;
-using AmplaWeb.Data.Session;
 using AmplaWeb.Data.Web.Interfaces;
 
 namespace AmplaWeb.Security.Authentication.Forms

@@ -10,7 +10,7 @@ namespace AmplaWeb.Data.Web.Wrappers
          [Test]
          public void RedirectWillChangeRequestUrl()
          {
-             SimpleHttpContext context = new SimpleHttpContext("http://localhost/Production/Index");
+             SimpleHttpContext context = SimpleHttpContext.Create("http://localhost/Production/Index");
              Assert.That(context.Request.Url.ToString(), Is.EqualTo("http://localhost/Production/Index"));
              
              context.Response.Redirect("http://localhost/Quality/Index");
@@ -20,7 +20,7 @@ namespace AmplaWeb.Data.Web.Wrappers
          [Test]
          public void RedirectWillChangeTakeResponseCookiesToRequest()
          {
-             SimpleHttpContext context = new SimpleHttpContext("http://localhost/Production/Index");
+             SimpleHttpContext context = SimpleHttpContext.Create("http://localhost/Production/Index");
              Assert.That(context.Request.Url.ToString(), Is.EqualTo("http://localhost/Production/Index"));
 
              Assert.That(context.Request.Cookies, Is.Empty);
@@ -33,5 +33,27 @@ namespace AmplaWeb.Data.Web.Wrappers
              Assert.That(context.Request.Cookies, Is.Not.Empty);
              Assert.That(context.Response.Cookies, Is.Empty);
          }
+
+        [Test]
+        public void OldRequestThrowsDisposed()
+        {
+            SimpleHttpContext context = SimpleHttpContext.Create("http://localhost/Production/Index");
+            var oldRequest = context.Request;
+            var oldResponse = context.Response;
+
+            context.Response.Redirect("http://localhost/Quality/Index");
+            Uri url = null;
+            Assert.Throws<ObjectDisposedException>(() => { url = oldRequest.Url; });
+            Assert.That(url, Is.Null);
+
+            Assert.Throws<ObjectDisposedException>(() => oldResponse.Redirect("http://localhost"));
+        }
+
+        [Test]
+        public void WithSessionsDisabled()
+        {
+            SimpleHttpContext context = SimpleHttpContext.Create("http://localhost").WithSessionsDisabled();
+            Assert.That(context.Session.Enabled, Is.False);
+        }
     }
 }

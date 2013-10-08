@@ -1,7 +1,7 @@
 ﻿using System;
 using AmplaWeb.Data.Web.Interfaces;
 
-namespace AmplaWeb.Data.Session
+namespace AmplaWeb.Data.Sessions
 {
     /// <summary>
     ///     AmplaSessionStorage in the HttpSession
@@ -15,6 +15,14 @@ namespace AmplaWeb.Data.Session
         {
             this.httpSessionWrapper = httpSessionWrapper;
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the session storage is [enabled].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enabled]; otherwise, <c>false</c>.
+        /// </value>
+        public bool Enabled { get { return httpSessionWrapper.Enabled; }}
 
         /// <summary>
         /// Sets the ampla session.

@@ -6,6 +6,14 @@
     public interface IHttpSessionWrapper
     {
         /// <summary>
+        /// Gets a value indicating whether the session is [enabled].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enabled]; otherwise, <c>false</c>.
+        /// </value>
+        bool Enabled { get; }
+
+        /// <summary>
         /// Sets the value.
         /// </summary>
         /// <param name="key">The key.</param>

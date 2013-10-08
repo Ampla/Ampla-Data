@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Web;
-using AmplaWeb.Data.Session;
+using AmplaWeb.Data.Sessions;
 using AmplaWeb.Data.Web.Interfaces;
 using AmplaWeb.Security.Authentication;
 using AmplaWeb.Security.Authentication.Forms;
@@ -11,7 +11,7 @@ namespace AmplaWeb.Security.Sessions
     /// <summary>
     ///     Session Mapper class for automatic logging in sessions from the query string using http://localhost/?amplaSession={session}
     /// </summary>
-    public class AmplaSessionMapper : ISessionMapper
+    public class LoginAmplaSessionUsingQueryString : ISessionCommand
     {
         private readonly IHttpRequestWrapper requestWrapper;
         private readonly IHttpResponseWrapper responseWrapper;
@@ -19,7 +19,7 @@ namespace AmplaWeb.Security.Sessions
         private readonly IFormsAuthenticationService formsAuthenticationService;
         private readonly IAmplaSessionStorage amplaSessionStorage;
 
-        public AmplaSessionMapper(IHttpRequestWrapper requestWrapper, IHttpResponseWrapper responseWrapper, IAmplaUserService amplaUserService, IFormsAuthenticationService formsAuthenticationService, IAmplaSessionStorage amplaSessionStorage)
+        public LoginAmplaSessionUsingQueryString(IHttpRequestWrapper requestWrapper, IHttpResponseWrapper responseWrapper, IAmplaUserService amplaUserService, IFormsAuthenticationService formsAuthenticationService, IAmplaSessionStorage amplaSessionStorage)
         {
             this.requestWrapper = requestWrapper;
             this.responseWrapper = responseWrapper;
@@ -31,7 +31,7 @@ namespace AmplaWeb.Security.Sessions
         /// <summary>
         /// Login the session if possible
         /// </summary>
-        public void Login()
+        public void Execute()
         {
             NameValueCollection queryString = requestWrapper.QueryString;
 

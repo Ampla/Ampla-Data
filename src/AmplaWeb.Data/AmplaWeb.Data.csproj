@@ -120,9 +120,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Session\AmplaSessionStorage.cs" />
-    <Compile Include="Session\IAmplaSessionStorage.cs" />
-    <Compile Include="Session\SessionStateCredentialsProvider.cs" />
+    <Compile Include="Sessions\AmplaSessionStorage.cs" />
+    <Compile Include="Sessions\IAmplaSessionStorage.cs" />
+    <Compile Include="Sessions\SessionStateCredentialsProvider.cs" />
     <Compile Include="WebService\WebServiceFactory.cs" />
     <Compile Include="Web\Interfaces\IHttpRequestWrapper.cs" />
     <Compile Include="Web\Interfaces\IHttpResponseWrapper.cs" />

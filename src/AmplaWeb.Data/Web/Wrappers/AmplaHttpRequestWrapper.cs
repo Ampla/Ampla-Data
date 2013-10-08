@@ -53,5 +53,16 @@ namespace AmplaWeb.Data.Web.Wrappers
         {
             get { return request.Cookies; }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the request has been [authenticated].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is authenticated]; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsAuthenticated 
+        { 
+            get { return request.IsAuthenticated; }
+        }
     }
 }

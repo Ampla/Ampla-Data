@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using AmplaWeb.Data;
 using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Session;
+using AmplaWeb.Data.Sessions;
 using AmplaWeb.Data.Web.Interfaces;
 using AmplaWeb.Data.Web.Wrappers;
 using AmplaWeb.Security.Authentication;
@@ -29,7 +29,10 @@ namespace AmplaWeb.Sample.Modules
             builder.RegisterType<AmplaUserService>().As<IAmplaUserService>();
 
             builder.RegisterControllers(typeof(Security.Controllers.AccountController).Assembly);
-            builder.RegisterType<AmplaSessionMapper>().As<ISessionMapper>();
+            builder.RegisterType<LoginAmplaSessionUsingQueryString>();
+
+            // ensure the sessions are aligned with Forms Authentication
+            builder.RegisterType<AlignSessionWithFormsAuthentication>();
 
             builder.Register(c => new AmplaHttpRequestWrapper(HttpContext.Current.Request)).As<IHttpRequestWrapper>();
             builder.Register(c => new AmplaHttpResponseWrapper(HttpContext.Current.Response)).As<IHttpResponseWrapper>();

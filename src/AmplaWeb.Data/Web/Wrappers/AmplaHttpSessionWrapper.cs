@@ -20,13 +20,27 @@ namespace AmplaWeb.Data.Web.Wrappers
         }
 
         /// <summary>
+        /// Gets a value indicating whether the session is [enabled].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enabled]; otherwise, <c>false</c>.
+        /// </value>
+        public bool Enabled
+        {
+            get { return httpSessionState != null; }
+        }
+
+        /// <summary>
         /// Sets the value.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         public void SetValue(string key, object value)
         {
-            httpSessionState[key] = value;
+            if (httpSessionState != null)
+            {
+                httpSessionState[key] = value;
+            }
         }
 
         /// <summary>
@@ -36,7 +50,11 @@ namespace AmplaWeb.Data.Web.Wrappers
         /// <returns></returns>
         public object GetValue(string key)
         {
-            return httpSessionState[key];
+            if (httpSessionState != null)
+            {
+                return httpSessionState[key];
+            }
+            return null;
         }
     }
 }

@@ -56,9 +56,10 @@
     <Compile Include="Authentication\FormsAuthenticationCredentialsProvider.cs" />
     <Compile Include="Authentication\IAmplaUser.cs" />
     <Compile Include="Authentication\IAmplaUserStore.cs" />
-    <Compile Include="Sessions\ISessionMapper.cs" />
+    <Compile Include="Sessions\AlignSessionWithFormsAuthentication.cs" />
+    <Compile Include="Sessions\ISessionCommand.cs" />
     <Compile Include="Authentication\RenewSessionAdapter.cs" />
-    <Compile Include="Sessions\AmplaSessionMapper.cs" />
+    <Compile Include="Sessions\LoginAmplaSessionUsingQueryString.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Authentication\AmplaUser.cs" />
     <Compile Include="Authentication\Forms\FormsAuthenticationService.cs" />
