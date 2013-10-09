@@ -10,7 +10,7 @@ namespace AmplaWeb.Data
     public interface IReadOnlyRepository<TModel> : IDisposable
     {
         /// <summary>
-        /// Get all the models from the model
+        /// Get all the models 
         /// </summary>
         /// <returns></returns>
         IList<TModel> GetAll();
@@ -23,7 +23,7 @@ namespace AmplaWeb.Data
         TModel FindById(int id);
 
         /// <summary>
-        ///     Find a list of models that match the specified filter
+        ///     Find a list of models that match the specified filters
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>

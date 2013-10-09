@@ -67,12 +67,15 @@
     <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClient.cs" />
     <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
     <Compile Include="Data\AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />
+    <Compile Include="Data\AmplaRepository\DowntimeAmplaRepositoryUnitTests.cs" />
     <Compile Include="Data\Attributes\AmplaDefaultFiltersAttributeUnitTests.cs" />
+    <Compile Include="Data\Binding\Mapping\ValidatedModelFieldMappingUnitTests.cs" />
     <Compile Include="Data\Binding\ModelData\ModelPropertyDefaultFilterUnitTests.cs" />
     <Compile Include="Data\Binding\ModelData\LocationFilterUnitTests.cs" />
     <Compile Include="Data\Binding\ModelData\Validation\RequiredLocationValidatorUnitTests.cs" />
     <Compile Include="Data\Binding\ModelData\Validation\LocationValidatorUnitTests.cs" />
     <Compile Include="Data\FilterValueUnitTests.cs" />
+    <Compile Include="Data\Records\DowntimeRecords.cs" />
     <Compile Include="Data\Records\Filters\FieldFilterMatcher.cs" />
     <Compile Include="Data\Records\Filters\FilterMatcher.cs" />
     <Compile Include="Data\Records\Filters\IdFilterMatcher.cs" />
@@ -122,6 +125,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\Sessions\AmplaSessionStorageUnitTests.cs" />
+    <Compile Include="Data\Views\DowntimeViews.cs" />
+    <Compile Include="Data\Views\StandardViews.cs" />
+    <Compile Include="Data\Views\ViewExtensions.cs" />
     <Compile Include="Data\Web\Wrappers\SimpleHttpContextUnitTests.cs" />
     <Compile Include="Data\Web\Wrappers\SimpleHttpRequest.cs" />
     <Compile Include="Data\Web\Wrappers\SimpleHttpResponse.cs" />

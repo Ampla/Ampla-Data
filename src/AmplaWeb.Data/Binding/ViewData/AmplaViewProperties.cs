@@ -83,7 +83,6 @@ namespace AmplaWeb.Data.Binding.ViewData
                 if (fieldMapping != null)
                 {
                     fieldMappings.Add(fieldMapping);
-    
                 }
             }
             return fieldMappings;
@@ -119,6 +118,22 @@ namespace AmplaWeb.Data.Binding.ViewData
             {
                 return new DefaultValueFieldMapping("Sample Period", Iso8601UtcNow);
             }
+
+            if (field.Name == "Cause Location")
+            {
+                return new ValidatedModelFieldMapping(field.Name, s => !string.IsNullOrEmpty(s));
+            }
+
+            if (field.Name == "Cause")
+            {
+                return new ValidatedModelFieldMapping(field.Name, s => !string.IsNullOrEmpty(s));
+            }
+
+            if (field.Name == "Classification")
+            {
+                return new ValidatedModelFieldMapping(field.Name, s => !string.IsNullOrEmpty(s));
+            }
+
             return null;
         }
     }
