@@ -134,7 +134,7 @@ namespace AmplaWeb.Security.Controllers
         {
             return 
                 !string.IsNullOrEmpty(url) 
-                && Url.IsLocalUrl(url) 
+                && (Url == null || Url.IsLocalUrl(url)) 
                 && url.StartsWith("/") 
                 && !url.StartsWith("//") 
                 && !url.StartsWith("/\\");
@@ -150,10 +150,10 @@ namespace AmplaWeb.Security.Controllers
             {
                 string user = ticket.Name;
                 amplaUserService.Logout(user);
-                amplaSessionStorage.SetAmplaSession(null);
-                formsAuthenticationService.SignOut();
                 Information("Logout successful.");
             }
+            amplaSessionStorage.SetAmplaSession(null);
+            formsAuthenticationService.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

@@ -161,5 +161,6 @@ namespace AmplaWeb.Security.Authentication
             Assert.That(user.Session, Is.Not.EqualTo(session2));
             Assert.That(message, Is.Null.Or.Empty);
         }
+
     }
 }

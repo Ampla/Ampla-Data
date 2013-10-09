@@ -45,6 +45,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +126,7 @@
     <Compile Include="Data\Web\Wrappers\SimpleHttpRequest.cs" />
     <Compile Include="Data\Web\Wrappers\SimpleHttpResponse.cs" />
     <Compile Include="Data\Web\Wrappers\SimpleHttpSession.cs" />
+    <Compile Include="Security\Controllers\AccountControllersUnitTests.cs" />
     <Compile Include="Security\AmplaSecurity2007\SimpleSecurityWebServiceClient.cs" />
     <Compile Include="Security\AmplaSecurity2007\SimpleSecurityWebServiceClientUnitTests.cs" />
     <Compile Include="Security\AmplaSecurity2007\SimpleSession.cs" />
