@@ -1,32 +1,14 @@
 ﻿using System;
-using AmplaWeb.Data.Attributes;
+using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.Records;
 using AmplaWeb.Data.Views;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.AmplaRepository
+namespace AmplaWeb.Data.Downtime
 {
     [TestFixture]
-    public class DowntimeAmplaRepositoryUnitTests : AmplaRepositoryTestFixture<DowntimeAmplaRepositoryUnitTests.SimpleDowntimeModel>
+    public class DowntimeAmplaRepositoryUnitTests : AmplaRepositoryTestFixture<SimpleDowntimeModel>
     {
-        [AmplaLocation(Location = "Enterprise.Site.Area.Point")]
-        [AmplaModule(Module = "Downtime")]
-        public class SimpleDowntimeModel
-        {
-            public int Id { get; set; }
-            public string Location { get; set; }
-
-            [AmplaField(Field="Start Time")]
-            public DateTime StartTime { get; set; }
-
-            [AmplaField(Field = "Cause Location")]
-            public string CauseLocation { get; set; }
-
-            public string Cause { get; set; }
-            
-            public string Classification { get; set; }
-        }
-
         private const string module = "Downtime";
         private const string location = "Enterprise.Site.Area.Point";
 
@@ -77,8 +59,11 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record.GetFieldValue("Cause Location", string.Empty), Is.EqualTo("Enterprise.Site"));
         }
 
+        /// <summary>
+        /// Cause will read the value as string but will only write as a int
+        /// </summary>
         [Test]
-        public void SubmitWithCause()
+        public void SubmitWithCauseAsString()
         {
             SimpleDowntimeModel model = new SimpleDowntimeModel { Location = location, StartTime = DateTime.Now, Cause = "Broken"};
             Repository.Add(model);
@@ -89,11 +74,11 @@ namespace AmplaWeb.Data.AmplaRepository
 
             InMemoryRecord record = Records[0];
             Assert.That(record.Location, Is.EqualTo(location));
-            Assert.That(record.GetFieldValue("Cause", string.Empty), Is.EqualTo("Broken"));
+            Assert.That(record.Find("Cause"), Is.Null);
         }
 
         [Test]
-        public void SubmitWithClassification()
+        public void SubmitWithClassificationAsString()
         {
             SimpleDowntimeModel model = new SimpleDowntimeModel { Location = location, StartTime = DateTime.Now, Classification = "Unplanned Process" };
             Repository.Add(model);
@@ -104,7 +89,7 @@ namespace AmplaWeb.Data.AmplaRepository
 
             InMemoryRecord record = Records[0];
             Assert.That(record.Location, Is.EqualTo(location));
-            Assert.That(record.GetFieldValue("Classification", string.Empty), Is.EqualTo("Unplanned Process"));
+            Assert.That(record.Find("Classification"), Is.Null);
         }
 
     }

@@ -282,7 +282,7 @@ namespace AmplaWeb.Data.AmplaRepository
                 Metadata = true,
                 OutputOptions = new GetDataOutputOptions
                 {
-                    ResolveIdentifiers = true
+                    ResolveIdentifiers = ModelProperties.ResolveIdentifiers,
                 },
                 Filter = GetDataFilter(filters),
                 View = new GetDataView

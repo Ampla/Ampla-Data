@@ -18,19 +18,7 @@ namespace AmplaWeb.Data.Records
 
         public static int SaveTo(this InMemoryRecord record, SimpleDataWebServiceClient webServiceClient)
         {
-            SubmitDataRequest request = new SubmitDataRequest
-                {
-                    Credentials = webServiceClient.CreateCredentials(),
-                    SubmitDataRecords = new[] {record.ConvertToSubmitDataRecord()}
-                };
-            SubmitDataResponse response = webServiceClient.SubmitData(request);
-
-            int recordId = 0;
-            if (response.DataSubmissionResults.Length > 0)
-            {
-                recordId = (int) response.DataSubmissionResults[0].SetId;
-            }
-            return recordId;
+            return webServiceClient.AddExistingRecord(record);
         }
 
         public static bool IsDeleted(this InMemoryRecord record)

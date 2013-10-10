@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.ServiceModel;
 using AmplaWeb.Data.Records;
 using NUnit.Framework;
@@ -140,6 +141,82 @@ namespace AmplaWeb.Data.AmplaData2008
             CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints[0].ReportingPoints, "Plant.Area", "Production");
             CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints[0].ViewPoints[0].ReportingPoints, "Plant.Area.Equipment", "Production");
         }
+
+        [Test]
+        public void GetData_ResolveIdentifiers_True()
+        {
+            InMemoryRecord record = DowntimeRecords.NewRecord().MarkAsNew();
+            record.SetFieldIdValue("Cause", "Shutdown", 100);
+            record.SetFieldIdValue("Classification", "Unplanned Process", 200);
+
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(record.Module,
+                                                                                         record.Location);
+            record.SaveTo(webServiceClient);
+
+            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+
+            string recordId = Convert.ToString(webServiceClient.DatabaseRecords[0].RecordId);
+
+            GetDataRequest request = new GetDataRequest
+                {
+                    Credentials = CreateCredentials(),
+                    Filter = new DataFilter {Location = record.Location, Criteria = new [] { new FilterEntry {Name = "Id", Value = recordId}}},
+                    View = new GetDataView { Context = NavigationContext.Plant, Mode = NavigationMode.Location, Module = AmplaModules.Downtime},
+                    Metadata = true,
+                    OutputOptions = new GetDataOutputOptions {ResolveIdentifiers = true}
+                };
+            GetDataResponse response = webServiceClient.GetData(request);
+
+            AssertResponseContainsValue(response, "Cause", "Shutdown");
+            AssertResponseContainsValue(response, "Classification", "Unplanned Process");
+        }
+
+        [Test]
+        public void GetData_ResolveIdentifiers_False()
+        {
+            InMemoryRecord record = DowntimeRecords.NewRecord().MarkAsNew();
+            record.SetFieldIdValue("Cause", "Shutdown", 100);
+            record.SetFieldIdValue("Classification", "Unplanned Process", 200);
+
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(record.Module,
+                                                                                         record.Location);
+            record.SaveTo(webServiceClient);
+
+            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+
+          
+            string recordId = Convert.ToString(webServiceClient.DatabaseRecords[0].RecordId);
+
+            GetDataRequest request = new GetDataRequest
+            {
+                Credentials = CreateCredentials(),
+                Filter = new DataFilter { Location = record.Location, Criteria = new[] { new FilterEntry { Name = "Id", Value = recordId } } },
+                View = new GetDataView { Context = NavigationContext.Plant, Mode = NavigationMode.Location, Module = AmplaModules.Downtime },
+                Metadata = true,
+                OutputOptions = new GetDataOutputOptions { ResolveIdentifiers = false },
+            };
+            GetDataResponse response = webServiceClient.GetData(request);
+            AssertResponseContainsValue(response, "Cause", "100");
+            AssertResponseContainsValue(response, "Classification", "200");
+        }
+
+        private void AssertResponseContainsValue(GetDataResponse response, string field, string value)
+        {
+            Assert.That(response.RowSets, Is.Not.Empty);
+            Assert.That(response.RowSets[0].Rows, Is.Not.Empty);
+            Assert.That(response.RowSets[0].Rows[0].Any, Is.Not.Empty);
+            int found = 0; 
+            foreach (var rowValue in response.RowSets[0].Rows[0].Any)
+            {
+                if (rowValue.Name == field)
+                {
+                    Assert.That(rowValue.InnerText, Is.EqualTo(value), "Field {0} value is not set", field);
+                    found++;
+                }
+            }
+            Assert.That(found, Is.EqualTo(1), "Field: {0} not found", field);
+        }
+
 
         private static void CheckViewPoints(ViewPoint[] points, string parent, params string[] names)
         {

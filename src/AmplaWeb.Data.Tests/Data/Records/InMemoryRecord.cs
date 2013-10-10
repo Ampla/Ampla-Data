@@ -91,6 +91,19 @@ namespace AmplaWeb.Data.Records
                 field.SetValue(value);
             }
         }
+
+        public void SetFieldIdValue<T>(string fieldName, T value, int id)
+        {
+            FieldValue field = Find(fieldName);
+            if (field == null)
+            {
+                Fields.Add(new FieldValue(fieldName, PersistenceHelper.ConvertToString(value), id));
+            }
+            else
+            {
+                field.SetIdValue(value, id);
+            }
+        }
     }
 
   

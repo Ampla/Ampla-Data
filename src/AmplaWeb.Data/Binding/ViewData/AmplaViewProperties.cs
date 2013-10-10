@@ -102,6 +102,12 @@ namespace AmplaWeb.Data.Binding.ViewData
             return new Iso8601DateTimeConverter().ConvertToInvariantString(DateTime.UtcNow);
         }
 
+        private static bool IsValidId(string s)
+        {
+            int i;
+            return !string.IsNullOrEmpty(s) && int.TryParse(s, out i) && i > 0; 
+        }
+
         private FieldMapping GetSpecialFieldMapping(ViewField field)
         {
             if (field.Name == "Id")
@@ -126,12 +132,12 @@ namespace AmplaWeb.Data.Binding.ViewData
 
             if (field.Name == "Cause")
             {
-                return new ValidatedModelFieldMapping(field.Name, s => !string.IsNullOrEmpty(s));
+                return new ValidatedModelFieldMapping(field.Name, IsValidId);
             }
 
             if (field.Name == "Classification")
             {
-                return new ValidatedModelFieldMapping(field.Name, s => !string.IsNullOrEmpty(s));
+                return new ValidatedModelFieldMapping(field.Name, IsValidId);
             }
 
             return null;

@@ -122,6 +122,33 @@ namespace AmplaWeb.Data.Binding.ModelData
             get { return module; }
         }
 
+        public bool ResolveIdentifiers
+        {
+            get
+            {
+                bool requiresId = false;
+                bool requiresString = false;
+
+                PropertyInfo cause;
+                PropertyInfo classification;
+                propertyInfoDictionary.TryGetValue("Cause", out cause);
+                propertyInfoDictionary.TryGetValue("Classification", out classification);
+
+                if (cause != null)
+                {
+                    requiresId |= cause.PropertyType == typeof (int);
+                    requiresString |= cause.PropertyType == typeof (string);
+                }
+
+                if (classification != null)
+                {
+                    requiresId |= classification.PropertyType == typeof (int);
+                    requiresString |= classification.PropertyType == typeof(string);
+                }
+                return !requiresId || requiresString;
+            }
+        }
+
         /// <summary>
         /// Tries to set a string value of the property for the model.
         /// </summary>

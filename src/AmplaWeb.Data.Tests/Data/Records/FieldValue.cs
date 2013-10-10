@@ -5,15 +5,23 @@ namespace AmplaWeb.Data.Records
     public class FieldValue : IComparable<FieldValue>
     {
         public FieldValue()
-            : this("Field", "Value")
+            : this("Field", "Value", null)
         {
         }
 
         public FieldValue(string name, string value)
+            : this(name, value, null)
+        {
+        }
+
+        public FieldValue(string name, string value, int? id)
         {
             Name = name;
             Value = value;
+            Id = id;
         }
+
+        public int? Id { get; set; }
 
         public string Value
         {
@@ -56,12 +64,16 @@ namespace AmplaWeb.Data.Records
 
         public override string ToString()
         {
+            if (Id.HasValue)
+            {
+                return string.Format("[{0}] = {1} ({2})", Name, Value, Id);
+            }
             return string.Format("[{0}] = {1}", Name, Value);
         }
 
         public virtual FieldValue Clone()
         {
-            return new FieldValue(Name, Value) ;
+            return new FieldValue(Name, Value, Id) ;
         }
 
         public void SetValue<T>(T value)
@@ -69,9 +81,20 @@ namespace AmplaWeb.Data.Records
             Value = PersistenceHelper.ConvertToString(value);
         }
 
+        public void SetIdValue<T>(T value, int id)
+        {
+            Value = PersistenceHelper.ConvertToString(value);
+            Id = id;
+        }
+
         public T GetValue<T>()
         {
             return PersistenceHelper.ConvertFromString<T>(Value);
+        }
+
+        public string ResolveValue(bool resolveId)
+        {
+            return resolveId ? Value : Id.HasValue ? Convert.ToString(Id) : Value;
         }
     }
 }

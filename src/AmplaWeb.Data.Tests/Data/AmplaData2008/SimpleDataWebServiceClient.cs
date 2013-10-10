@@ -50,7 +50,7 @@ namespace AmplaWeb.Data.AmplaData2008
             this.module = Convert.ToString(amplaModule);
             reportingPoints = locations;
 
-            GetViewFunc = ProductionViews.EmptyView;
+            GetViewFunc = StandardViews.EmptyView;
         }
 
         /// <summary>
@@ -69,6 +69,7 @@ namespace AmplaWeb.Data.AmplaData2008
                     InMemoryFilterMatcher filterMatcher = new InMemoryFilterMatcher(request.Filter);
 
                     List<InMemoryRecord> recordsToReturn = database.Values.Where(filterMatcher.Matches).ToList();
+                    bool resolveIdentifiers = request.OutputOptions.ResolveIdentifiers;
 
                     List<Row> rows = new List<Row>();
                     foreach (InMemoryRecord record in recordsToReturn)
@@ -79,7 +80,7 @@ namespace AmplaWeb.Data.AmplaData2008
                         {
                             string name = XmlConvert.EncodeName(value.Name);
                             XmlElement element = xmlDoc.CreateElement(name, "http://www.citect.com/Ampla/Data/2008/06");
-                            element.InnerText = value.Value;
+                            element.InnerText = value.ResolveValue(resolveIdentifiers);
                             values.Add(element);
                         }
                         row.Any = values.ToArray();
@@ -410,7 +411,18 @@ namespace AmplaWeb.Data.AmplaData2008
             }
         }
 
-        public Credentials CreateCredentials()
+        public int AddExistingRecord(InMemoryRecord record)
+        {
+            setId++;
+
+            InMemoryRecord clone = record.Clone();
+            clone.RecordId = setId;
+
+            database[setId] = clone;
+            return setId;
+        }
+
+        internal Credentials CreateCredentials()
         {
             return new Credentials { Username = userName, Password = password };
         }

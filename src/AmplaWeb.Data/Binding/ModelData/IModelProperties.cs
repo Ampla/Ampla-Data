@@ -36,6 +36,14 @@ namespace AmplaWeb.Data.Binding.ModelData
         AmplaModules Module { get; }
 
         /// <summary>
+        /// Gets a value indicating whether [resolve identifiers] should be specified
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [resolve identifiers]; otherwise, <c>false</c>.
+        /// </value>
+        bool ResolveIdentifiers { get; }
+
+        /// <summary>
         /// Tries to set a string value of the property for the model.
         /// </summary>
         /// <param name="model">The model.</param>
