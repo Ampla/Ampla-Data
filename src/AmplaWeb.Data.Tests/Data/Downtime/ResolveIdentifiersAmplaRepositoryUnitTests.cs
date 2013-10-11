@@ -10,7 +10,7 @@ namespace AmplaWeb.Data.Downtime
     public class ResolveIdentifiersAmplaRepositoryUnitTests : AmplaRepositoryTestFixture<IdentifierDowntimeModel>
     {
         private const string module = "Downtime";
-        private const string location = "Plant.Area.Downtime";
+        private const string location = "Enterprise.Site.Area.Downtime";
 
         public ResolveIdentifiersAmplaRepositoryUnitTests() : base(module, location, DowntimeViews.StandardView)
         {
@@ -90,6 +90,8 @@ namespace AmplaWeb.Data.Downtime
         public void LoadModelWithIds()
         {
             InMemoryRecord record = DowntimeRecords.NewRecord().MarkAsNew();
+            Assert.That(record.Location, Is.EqualTo(location));
+
             record.SetFieldValue("Cause Location", "Plant.Area");
             record.SetFieldIdValue("Cause", "Shutdown", 100);
             record.SetFieldIdValue("Classification", "Unplanned Process", 200);
@@ -101,6 +103,8 @@ namespace AmplaWeb.Data.Downtime
             Assert.That(recordId, Is.GreaterThan(0));
 
             IdentifierDowntimeModel model = Repository.FindById(recordId);
+
+            Assert.That(model, Is.Not.Null);
 
             Assert.That(model.Cause, Is.EqualTo(100));
             Assert.That(model.Classification, Is.EqualTo(200));
@@ -110,6 +114,8 @@ namespace AmplaWeb.Data.Downtime
         public void LoadModelWithStrings()
         {
             InMemoryRecord record = DowntimeRecords.NewRecord().MarkAsNew();
+            Assert.That(record.Location, Is.EqualTo(location));
+
             record.SetFieldValue("Cause Location", "Plant.Area");
             record.SetFieldIdValue("Cause", "Shutdown", 100);
             record.SetFieldIdValue("Classification", "Unplanned Process", 200);
@@ -121,6 +127,8 @@ namespace AmplaWeb.Data.Downtime
             Assert.That(recordId, Is.GreaterThan(0));
 
             IdentifierDowntimeModel model = Repository.FindById(recordId);
+
+            Assert.That(model, Is.Not.Null);
 
             Assert.That(model.Cause, Is.EqualTo(100));
             Assert.That(model.Classification, Is.EqualTo(200));

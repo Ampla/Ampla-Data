@@ -3,7 +3,7 @@ using AmplaWeb.Data.Attributes;
 
 namespace AmplaWeb.Data.Downtime
 {
-    [AmplaLocation(Location = "Plant.Area.Downtime")]
+    [AmplaLocation(Location = "Enterprise.Site.Area.Downtime")]
     [AmplaModule(Module = "Downtime")]
     public class IdentifierDowntimeModel
     {

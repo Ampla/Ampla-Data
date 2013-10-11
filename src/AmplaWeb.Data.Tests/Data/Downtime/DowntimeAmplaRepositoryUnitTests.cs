@@ -10,7 +10,7 @@ namespace AmplaWeb.Data.Downtime
     public class DowntimeAmplaRepositoryUnitTests : AmplaRepositoryTestFixture<SimpleDowntimeModel>
     {
         private const string module = "Downtime";
-        private const string location = "Enterprise.Site.Area.Point";
+        private const string location = "Enterprise.Site.Area.Downtime";
 
         public DowntimeAmplaRepositoryUnitTests() : base(module, location, DowntimeViews.StandardView)
         {
@@ -106,6 +106,25 @@ namespace AmplaWeb.Data.Downtime
             Assert.That(record.Location, Is.EqualTo(location));
             Assert.That(record.Find("Sample Period"), Is.Null);
             Assert.That(record.GetFieldValue("Start Time", DateTime.MinValue), Is.Not.EqualTo(DateTime.MinValue));
+        }
+
+        [Test]
+        public void GetFromRecord()
+        {
+            DateTime before = DateTime.Now.AddMinutes(-1);
+            DateTime after = DateTime.Now.AddMinutes(+1);
+
+            int recordId = SaveRecord(DowntimeRecords.NewRecord().MarkAsNew());
+            Assert.That(recordId, Is.GreaterThan(1000));
+
+            Assert.That(Records, Is.Not.Empty);
+
+            SimpleDowntimeModel model = Repository.FindById(recordId);
+            Assert.That(model, Is.Not.Null);
+
+            Assert.That(model.Location, Is.EqualTo(location));
+            Assert.That(model.StartTime, Is.GreaterThan(before).And.LessThan(after));
+            Assert.That(model.Duration, Is.EqualTo(90));
         }
 
     }

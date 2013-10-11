@@ -79,7 +79,10 @@
     <Compile Include="Data\Binding\ModelData\Validation\LocationValidatorUnitTests.cs" />
     <Compile Include="Data\Downtime\SimpleDowntimeModel.cs" />
     <Compile Include="Data\FilterValueUnitTests.cs" />
-    <Compile Include="Data\Records\DowntimeRecords.cs" />
+    <Compile Include="Data\Knowledge\KnowledgeAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Data\Knowledge\KnowledgeRecords.cs" />
+    <Compile Include="Data\Knowledge\SimpleKnowledgeModel.cs" />
+    <Compile Include="Data\Downtime\DowntimeRecords.cs" />
     <Compile Include="Data\Records\FieldValueUnitTests.cs" />
     <Compile Include="Data\Records\Filters\FieldFilterMatcher.cs" />
     <Compile Include="Data\Records\Filters\FilterMatcher.cs" />
@@ -123,13 +126,14 @@
     <Compile Include="Data\Records\PersistenceHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Records\ProductionRecords.cs">
+    <Compile Include="Data\Production\ProductionRecords.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Records\ProductionRecordsUnitTests.cs">
+    <Compile Include="Data\Production\ProductionRecordsUnitTests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\Sessions\AmplaSessionStorageUnitTests.cs" />
+    <Compile Include="Data\Views\KnowledgeViews.cs" />
     <Compile Include="Data\Views\DowntimeViews.cs" />
     <Compile Include="Data\Views\StandardViews.cs" />
     <Compile Include="Data\Views\ViewExtensions.cs" />

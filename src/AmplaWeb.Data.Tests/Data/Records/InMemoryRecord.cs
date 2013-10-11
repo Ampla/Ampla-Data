@@ -15,8 +15,8 @@ namespace AmplaWeb.Data.Records
 
         public string Location
         {
-            get;
-            set;
+            get { return GetFieldValue("Location", string.Empty); }
+            set { SetFieldValue("Location", value); }
         }
 
         public int RecordId

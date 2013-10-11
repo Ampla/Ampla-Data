@@ -3,7 +3,7 @@ using AmplaWeb.Data.Attributes;
 
 namespace AmplaWeb.Data.Downtime
 {
-    [AmplaLocation(Location = "Enterprise.Site.Area.Point")]
+    [AmplaLocation(Location = "Enterprise.Site.Area.Downtime")]
     [AmplaModule(Module = "Downtime")]
     public class SimpleDowntimeModel
     {
@@ -12,6 +12,8 @@ namespace AmplaWeb.Data.Downtime
 
         [AmplaField(Field = "Start Time")]
         public DateTime StartTime { get; set; }
+
+        public int Duration { get; set; }
 
         [AmplaField(Field = "Cause Location")]
         public string CauseLocation { get; set; }

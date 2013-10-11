@@ -19,7 +19,7 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
                 {AmplaModules.Downtime, new DowntimeModuleMapping()},
                 {AmplaModules.Energy, new NullModuleMapping()},
                 {AmplaModules.Inventory, new NullModuleMapping()},
-                {AmplaModules.Knowledge, new NullModuleMapping()},
+                {AmplaModules.Knowledge, new KnowledgeModuleMapping()},
                 {AmplaModules.Maintenance, new NullModuleMapping()},
                 {AmplaModules.Metrics, new NullModuleMapping()},
                 {AmplaModules.Planning, new NullModuleMapping()},

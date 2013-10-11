@@ -1,6 +1,8 @@
 ﻿
 using System;
 using System.ServiceModel;
+using AmplaWeb.Data.Downtime;
+using AmplaWeb.Data.Production;
 using AmplaWeb.Data.Records;
 using NUnit.Framework;
 
@@ -66,6 +68,7 @@ namespace AmplaWeb.Data.AmplaData2008
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
             InMemoryRecord update = record.Clone();
             update.Fields.Clear();
+            update.Location = record.Location;
             update.Fields.Add(new FieldValue("New Field", "100"));
 
             SubmitDataRequest request = new SubmitDataRequest
@@ -198,6 +201,48 @@ namespace AmplaWeb.Data.AmplaData2008
             GetDataResponse response = webServiceClient.GetData(request);
             AssertResponseContainsValue(response, "Cause", "100");
             AssertResponseContainsValue(response, "Classification", "200");
+        }
+
+        [Test]
+        public void GetDataReturnsLocation()
+        {
+            const string location = "Plant.Area.Production";
+
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Production", location);
+
+            InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
+
+            SubmitDataRequest submitRequest = new SubmitDataRequest
+            {
+                Credentials = CreateCredentials(),
+                SubmitDataRecords = new[]
+                    {
+                        record.ConvertToSubmitDataRecord()
+                    }
+            };
+            SubmitDataResponse submitResponse = webServiceClient.SubmitData(submitRequest);
+            Assert.That(submitResponse.DataSubmissionResults, Is.Not.Null);
+            Assert.That(submitResponse.DataSubmissionResults.Length, Is.EqualTo(1));
+            Assert.That(submitResponse.DataSubmissionResults[0].RecordAction, Is.EqualTo(RecordAction.Insert));
+            Assert.That(submitResponse.DataSubmissionResults[0].SetId, Is.GreaterThan(100));
+
+            string recordId = Convert.ToString(submitResponse.DataSubmissionResults[0].SetId);
+            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+
+            Assert.That(webServiceClient.DatabaseRecords[0].Location, Is.EqualTo(location));
+
+            GetDataRequest request = new GetDataRequest
+            {
+                Credentials = CreateCredentials(),
+                Filter = new DataFilter { Location = record.Location, Criteria = new[] { new FilterEntry { Name = "Id", Value = recordId } } },
+                View = new GetDataView { Context = NavigationContext.Plant, Mode = NavigationMode.Location, Module = AmplaModules.Production },
+                Metadata = true,
+                OutputOptions = new GetDataOutputOptions { ResolveIdentifiers = false },
+            };
+            GetDataResponse response = webServiceClient.GetData(request);
+
+            AssertResponseContainsValue(response, "Duration", "90");
+            AssertResponseContainsValue(response, "Location", location);
         }
 
         private void AssertResponseContainsValue(GetDataResponse response, string field, string value)

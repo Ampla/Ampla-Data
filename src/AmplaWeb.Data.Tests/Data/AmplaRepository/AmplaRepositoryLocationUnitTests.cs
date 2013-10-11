@@ -1,5 +1,6 @@
 ﻿using System;
 using AmplaWeb.Data.Attributes;
+using AmplaWeb.Data.Production;
 using AmplaWeb.Data.Records;
 using AmplaWeb.Data.Views;
 using NUnit.Framework;
@@ -86,6 +87,49 @@ namespace AmplaWeb.Data.AmplaRepository
         public void FindByFilter()
         {
             Assert.DoesNotThrow(() => Repository.FindByFilter(null));
+        }
+
+        [Test]
+        public void GetViaModel()
+        {
+            DateTime before = DateTime.Now.AddMinutes(-1);
+            DateTime after = DateTime.Now.AddMinutes(+1);
+
+            LocationModel model = new LocationModel { Location = Locations[1] };
+            Repository.Add(model);
+
+            Assert.That(model.Id, Is.GreaterThan(0));
+
+            Assert.That(Records, Is.Not.Empty);
+
+            InMemoryRecord record = Records[0];
+            Assert.That(record.Location, Is.EqualTo(Locations[1]));
+            Assert.That(record.Module, Is.EqualTo("Production"));
+            Assert.That(record.GetFieldValue("Sample Period", DateTime.MinValue), Is.InRange(before.ToUniversalTime(), after.ToUniversalTime()));
+
+            LocationModel getModel = Repository.FindById(model.Id);
+            Assert.That(getModel.Sample, Is.InRange(before, after));
+            Assert.That(getModel.Location, Is.EqualTo(Locations[1]));
+        }
+
+        [Test]
+        public void GetViaRecord()
+        {
+            DateTime before = DateTime.Now.AddMinutes(-1);
+            DateTime after = DateTime.Now.AddMinutes(+1);
+
+            InMemoryRecord record =ProductionRecords.NewRecord();
+            record.Location = Locations[0];
+
+            int recordId = SaveRecord(record);
+
+            Assert.That(recordId, Is.GreaterThan(0));
+
+            Assert.That(Records, Is.Not.Empty);
+
+            LocationModel getModel = Repository.FindById(recordId);
+            Assert.That(getModel.Sample, Is.InRange(before, after));
+            Assert.That(getModel.Location, Is.EqualTo(Locations[0]));
         }
 
     }

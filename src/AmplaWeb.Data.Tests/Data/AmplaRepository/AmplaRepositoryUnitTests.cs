@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AmplaWeb.Data.Attributes;
+using AmplaWeb.Data.Production;
 using AmplaWeb.Data.Records;
 using AmplaWeb.Data.Views;
 using NUnit.Framework;
@@ -114,6 +115,7 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record.GetFieldValue("Area",""), Is.EqualTo("ROM"));
             Assert.That(record.GetFieldValue<double>("Value", 0), Is.EqualTo(100.0d));
             Assert.That(record.GetFieldValue("Sample Period", DateTime.MinValue), Is.Not.EqualTo(DateTime.MinValue));
+            Assert.That(record.Find("Location"), Is.Not.Null);
 
             Assert.That(model.Id, Is.EqualTo(record.RecordId));
         }

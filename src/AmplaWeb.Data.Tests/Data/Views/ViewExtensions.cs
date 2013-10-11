@@ -24,6 +24,19 @@ namespace AmplaWeb.Data.Views
             }).ToArray();
         }
 
+        public static GetViewsAllowedOperation[] Disallow(this GetViewsAllowedOperation[] existingOperations,
+                                                params ViewAllowedOperations[] operations)
+        {
+            List<ViewAllowedOperations> disallowedOperations = new List<ViewAllowedOperations>(operations ?? new ViewAllowedOperations[0]);
+            List<ViewAllowedOperations> existingPermissions = (from operation in existingOperations where operation.Allowed select operation.Operation).ToList();
+
+            return AllOperations.Select(operation => new GetViewsAllowedOperation
+            {
+                Operation = operation,
+                Allowed = existingPermissions.Contains(operation) && !disallowedOperations.Contains(operation)
+            }).ToArray();
+        }
+
         public static readonly ViewAllowedOperations[] AllOperations = new[]
             {
                 ViewAllowedOperations.AddRecord, 
