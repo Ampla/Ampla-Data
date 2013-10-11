@@ -92,5 +92,21 @@ namespace AmplaWeb.Data.Downtime
             Assert.That(record.Find("Classification"), Is.Null);
         }
 
+        [Test]
+        public void DefaultStartTime()
+        {
+            SimpleDowntimeModel model = new SimpleDowntimeModel { Location = location};
+            Repository.Add(model);
+
+            Assert.That(model.Id, Is.GreaterThan(0));
+
+            Assert.That(Records, Is.Not.Empty);
+
+            InMemoryRecord record = Records[0];
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.Find("Sample Period"), Is.Null);
+            Assert.That(record.GetFieldValue("Start Time", DateTime.MinValue), Is.Not.EqualTo(DateTime.MinValue));
+        }
+
     }
 }

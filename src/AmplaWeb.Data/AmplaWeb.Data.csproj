@@ -59,6 +59,11 @@
     <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
     <Compile Include="Binding\AmplaNavigationBinding.cs" />
     <Compile Include="Binding\AmplaUpdateRecordStatusBinding.cs" />
+    <Compile Include="Binding\Mapping\Modules\DowntimeModuleMapping.cs" />
+    <Compile Include="Binding\Mapping\Modules\IModuleMapping.cs" />
+    <Compile Include="Binding\Mapping\Modules\ModuleMapping.cs" />
+    <Compile Include="Binding\Mapping\Modules\ProductionModuleMapping.cs" />
+    <Compile Include="Binding\Mapping\Modules\StandardModuleMapping.cs" />
     <Compile Include="Binding\Mapping\ValidatedModelFieldMapping.cs" />
     <Compile Include="Binding\MetaData\Iso8601DateTimeConverter.cs" />
     <Compile Include="Binding\ModelData\IModelProperties.cs" />

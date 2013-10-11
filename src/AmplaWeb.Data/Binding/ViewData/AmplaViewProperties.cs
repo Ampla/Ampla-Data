@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Binding.Mapping;
+using AmplaWeb.Data.Binding.Mapping.Modules;
 using AmplaWeb.Data.Binding.MetaData;
 using AmplaWeb.Data.Binding.ModelData;
 
@@ -53,33 +54,37 @@ namespace AmplaWeb.Data.Binding.ViewData
 
         private List<FieldMapping> BuildFieldResolvers()
         {
+            IModuleMapping moduleMapping = ModuleMapping.GetModuleMapping(modelProperties.Module);
+
             List<FieldMapping> fieldMappings = new List<FieldMapping>();
             List<string> modelFields = new List<string>(modelProperties.GetProperties());
             foreach (ViewField field in viewFieldsCollection.GetValues())
             {
-                FieldMapping fieldMapping;
-
                 bool isModelProperty = modelFields.Contains(field.DisplayName);
 
-                if (isModelProperty)
-                {
-                    fieldMapping = GetSpecialFieldMapping(field);
-                    if (fieldMapping == null)
-                    {
-                        if (field.ReadOnly)
-                        {
-                            fieldMapping = new ReadOnlyFieldMapping(field.DisplayName);
-                        }
-                        else
-                        {
-                            fieldMapping = new ModelFieldMapping(field.DisplayName);
-                        }
-                    }
-                }
-                else
-                {
-                    fieldMapping = GetRequiredFieldMapping(field);
-                }
+                FieldMapping fieldMapping = moduleMapping.GetFieldMapping(field, isModelProperty);
+
+                
+                
+                //if (isModelProperty)
+                //{
+                //    fieldMapping = moduleMapping.GetFieldMapping(field);
+                //    if (fieldMapping == null)
+                //    {
+                //        if (field.ReadOnly)
+                //        {
+                //            fieldMapping = new ReadOnlyFieldMapping(field.DisplayName);
+                //        }
+                //        else
+                //        {
+                //            fieldMapping = new ModelFieldMapping(field.DisplayName);
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    fieldMapping = moduleMapping.GetRequiredFieldMapping(field);
+                //}
                 if (fieldMapping != null)
                 {
                     fieldMappings.Add(fieldMapping);
