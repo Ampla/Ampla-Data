@@ -135,6 +135,7 @@
     <Compile Include="BootstrapSupport\HtmlHelpers\GlyphIcons.cs" />
     <Compile Include="BootstrapSupport\HtmlHelpers\Paging.cs" />
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
+    <Compile Include="Controllers\PlanningController.cs" />
     <Compile Include="Controllers\QualityController.cs" />
     <Compile Include="Controllers\DowntimeController.cs" />
     <Compile Include="Controllers\IngotBundleController.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\PlanningModel.cs" />
     <Compile Include="Models\QualityModel.cs" />
     <Compile Include="Models\DowntimeModel.cs" />
     <Compile Include="Models\HomeInputModel.cs" />

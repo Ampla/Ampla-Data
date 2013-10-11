@@ -22,7 +22,7 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
                 {AmplaModules.Knowledge, new KnowledgeModuleMapping()},
                 {AmplaModules.Maintenance, new NullModuleMapping()},
                 {AmplaModules.Metrics, new NullModuleMapping()},
-                {AmplaModules.Planning, new NullModuleMapping()},
+                {AmplaModules.Planning, new PlanningModuleMapping()},
                 {AmplaModules.Production, new ProductionModuleMapping()},
                 {AmplaModules.Quality, new QualityModuleMapping()},
             };

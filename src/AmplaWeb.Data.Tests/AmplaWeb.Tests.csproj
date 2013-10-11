@@ -68,6 +68,10 @@
     <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
     <Compile Include="Data\AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />
     <Compile Include="Data\Binding\ModelData\DowntimeModelPropertiesUnitTests.cs" />
+    <Compile Include="Data\Planning\PlanningAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Data\Planning\PlanningRecords.cs" />
+    <Compile Include="Data\Planning\PlanningViews.cs" />
+    <Compile Include="Data\Planning\SimplePlanningModel.cs" />
     <Compile Include="Data\Quality\QualityViews.cs" />
     <Compile Include="Data\Quality\QualityAmplaRepositoryUnitTests.cs" />
     <Compile Include="Data\Quality\QualityRecords.cs" />
