@@ -24,7 +24,7 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
                 {AmplaModules.Metrics, new NullModuleMapping()},
                 {AmplaModules.Planning, new NullModuleMapping()},
                 {AmplaModules.Production, new ProductionModuleMapping()},
-                {AmplaModules.Quality, new NullModuleMapping()},
+                {AmplaModules.Quality, new QualityModuleMapping()},
             };
 
         /// <summary>

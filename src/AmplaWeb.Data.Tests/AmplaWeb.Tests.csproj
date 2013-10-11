@@ -68,6 +68,10 @@
     <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
     <Compile Include="Data\AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />
     <Compile Include="Data\Binding\ModelData\DowntimeModelPropertiesUnitTests.cs" />
+    <Compile Include="Data\Quality\QualityViews.cs" />
+    <Compile Include="Data\Quality\QualityAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Data\Quality\QualityRecords.cs" />
+    <Compile Include="Data\Quality\SimpleQualityModel.cs" />
     <Compile Include="Data\Downtime\IdentifierDowntimeModel.cs" />
     <Compile Include="Data\Downtime\ResolveIdentifiersAmplaRepositoryUnitTests.cs" />
     <Compile Include="Data\Downtime\DowntimeAmplaRepositoryUnitTests.cs" />
@@ -133,8 +137,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\Sessions\AmplaSessionStorageUnitTests.cs" />
-    <Compile Include="Data\Views\KnowledgeViews.cs" />
-    <Compile Include="Data\Views\DowntimeViews.cs" />
+    <Compile Include="Data\Knowledge\KnowledgeViews.cs" />
+    <Compile Include="Data\Downtime\DowntimeViews.cs" />
     <Compile Include="Data\Views\StandardViews.cs" />
     <Compile Include="Data\Views\ViewExtensions.cs" />
     <Compile Include="Data\Web\Wrappers\SimpleHttpContextUnitTests.cs" />
@@ -150,7 +154,7 @@
     <Compile Include="Security\Authentication\AmplaUserServiceUnitTests.cs" />
     <Compile Include="Data\Web\Wrappers\SimpleHttpContext.cs" />
     <Compile Include="TestFixture.cs" />
-    <Compile Include="Data\Views\ProductionViews.cs" />
+    <Compile Include="Data\Production\ProductionViews.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

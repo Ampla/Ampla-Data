@@ -59,6 +59,7 @@
     <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
     <Compile Include="Binding\AmplaNavigationBinding.cs" />
     <Compile Include="Binding\AmplaUpdateRecordStatusBinding.cs" />
+    <Compile Include="Binding\Mapping\Modules\QualityModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\KnowledgeModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\DowntimeModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\IModuleMapping.cs" />

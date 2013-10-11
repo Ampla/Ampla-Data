@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using AmplaWeb.Data.AmplaData2008;
+using AmplaWeb.Data.Views;
 
-namespace AmplaWeb.Data.Views
+namespace AmplaWeb.Data.Downtime
 {
     public class DowntimeViews : StandardViews
     {

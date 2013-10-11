@@ -15,6 +15,7 @@ namespace AmplaWeb.Data.Binding.MetaData
                 new DataTypeMap(typeof (DateTime), "xs:DateTime"),
                 new DataTypeMap(typeof (Double), "xs:Double"),
                 new DataTypeMap(typeof (Single), "xs:Single"),
+                new DataTypeMap(typeof(byte), "xs:Byte"),
             };
 
             AmplaToTypeDictionary = new Dictionary<string, Type>();
