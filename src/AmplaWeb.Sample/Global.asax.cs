@@ -47,7 +47,7 @@ namespace AmplaWeb.Sample
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BootstrapBundleConfig.RegisterBundles(System.Web.Optimization.BundleTable.Bundles);
-            ExampleLayoutsRouteConfig.RegisterRoutes(RouteTable.Routes);
+            NavigationRouteConfig.RegisterRoutes(RouteTable.Routes);
 
         }
     }

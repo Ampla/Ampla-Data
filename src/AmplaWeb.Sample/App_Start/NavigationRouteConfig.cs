@@ -4,7 +4,7 @@ using AmplaWeb.Sample.NavigationRoutes;
 
 namespace AmplaWeb.Sample.App_Start
 {
-    public class ExampleLayoutsRouteConfig
+    public class NavigationRouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
@@ -13,6 +13,7 @@ namespace AmplaWeb.Sample.App_Start
             routes.MapNavigationRoute<MetricsController>("Metrics", c => c.Index());
             routes.MapNavigationRoute<QualityController>("Quality", c => c.Index());
             routes.MapNavigationRoute<PlanningController>("Planning", c => c.Index());
+            routes.MapNavigationRoute<MaintenanceController>("Maintenance", c => c.Index()); 
             routes.MapNavigationRoute<ShiftLogController>("Shift Log", c => c.Index());
 
             routes.MapNavigationRoute<IngotCastController>("Ingot Casts", c => c.Default())

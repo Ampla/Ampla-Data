@@ -130,11 +130,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BootstrapBundleConfig.cs" />
-    <Compile Include="App_Start\ExampleLayoutsRouteConfig.cs" />
+    <Compile Include="App_Start\NavigationRouteConfig.cs" />
     <Compile Include="BootstrapSupport\ControlGroupExtensions.cs" />
     <Compile Include="BootstrapSupport\HtmlHelpers\GlyphIcons.cs" />
     <Compile Include="BootstrapSupport\HtmlHelpers\Paging.cs" />
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
+    <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\MetricsController.cs" />
     <Compile Include="Controllers\PlanningController.cs" />
     <Compile Include="Controllers\QualityController.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\MaintenanceModel.cs" />
     <Compile Include="Models\MetricsModel.cs" />
     <Compile Include="Models\PlanningModel.cs" />
     <Compile Include="Models\QualityModel.cs" />
