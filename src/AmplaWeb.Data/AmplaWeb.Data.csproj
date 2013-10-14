@@ -59,6 +59,7 @@
     <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
     <Compile Include="Binding\AmplaNavigationBinding.cs" />
     <Compile Include="Binding\AmplaUpdateRecordStatusBinding.cs" />
+    <Compile Include="Binding\Mapping\Modules\EnergyModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\MaintenanceModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\MetricsModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\PlanningModuleMapping.cs" />
