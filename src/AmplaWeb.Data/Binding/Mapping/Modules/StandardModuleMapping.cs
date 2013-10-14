@@ -12,7 +12,7 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
         {
             AddSpecialMapping("Id", () => new IdFieldMapping("Id"));
             AddSpecialMapping("ObjectId", () => new ReadOnlyFieldMapping("Location"));
-            AddAllowedOperation(ViewAllowedOperations.ViewRecord);
+            AddSupportedOperation(ViewAllowedOperations.ViewRecord);
         }
 
         protected void AddSpecialMapping(string field, Func<FieldMapping> fieldMappingFunc)
@@ -25,7 +25,7 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
             requiredMappingFuncs[field] = fieldMappingFunc;
         }
 
-        protected void AddAllowedOperation(ViewAllowedOperations operation)
+        protected void AddSupportedOperation(ViewAllowedOperations operation)
         {
             if (!allowedOperations.Contains(operation))
             {
@@ -84,7 +84,7 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
             return fieldMapping;
         }
 
-        public IViewPermissions GetModulePermissions()
+        public IViewPermissions GetSupportedOperations()
         {
             return new ViewPermissions(allowedOperations.ToArray());
         }

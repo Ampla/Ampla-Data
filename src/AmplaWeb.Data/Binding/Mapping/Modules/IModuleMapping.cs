@@ -13,9 +13,9 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
         FieldMapping GetFieldMapping(ViewField field, bool isModelField);
 
         /// <summary>
-        /// Gets the module permissions that determine what operations are allowed per module
+        /// Gets the module operations that are supported
         /// </summary>
         /// <returns></returns>
-        IViewPermissions GetModulePermissions();
+        IViewPermissions GetSupportedOperations();
     }
 }

@@ -10,12 +10,12 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
             AddSpecialMapping("SampleDateTime", () => new DefaultValueFieldMapping("Sample Period", Iso8601UtcNow));
             AddRequiredMapping("SampleDateTime", () => new DefaultValueFieldMapping("Sample Period", Iso8601UtcNow));
 
-            AddAllowedOperation(ViewAllowedOperations.AddRecord);
-            AddAllowedOperation(ViewAllowedOperations.DeleteRecord);
-            AddAllowedOperation(ViewAllowedOperations.ModifyRecord);
+            AddSupportedOperation(ViewAllowedOperations.AddRecord);
+            AddSupportedOperation(ViewAllowedOperations.DeleteRecord);
+            AddSupportedOperation(ViewAllowedOperations.ModifyRecord);
 
-            AddAllowedOperation(ViewAllowedOperations.ConfirmRecord);
-            AddAllowedOperation(ViewAllowedOperations.UnconfirmRecord);
+            AddSupportedOperation(ViewAllowedOperations.ConfirmRecord);
+            AddSupportedOperation(ViewAllowedOperations.UnconfirmRecord);
         }
     }
 }

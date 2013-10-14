@@ -23,7 +23,7 @@ namespace AmplaWeb.Data.Binding.ViewData
         {
             this.modelProperties = modelProperties;
             permissions = new ViewPermissions();
-            IViewPermissions modulePermissions = ModuleMapping.GetModuleMapping(modelProperties.Module).GetModulePermissions();
+            IViewPermissions modulePermissions = ModuleMapping.GetModuleMapping(modelProperties.Module).GetSupportedOperations();
             enforcePermissions = new EnforceViewPermissionsAdapter(modelProperties.Module.ToString(), permissions, modulePermissions);
         }
 

@@ -1,13 +1,13 @@
 ﻿using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Production;
+using AmplaWeb.Data.Planning;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.Binding.Mapping.Modules
 {
     [TestFixture]
-    public class ProductionModuleMappingUnitTests : ModuleMappingTestFixture
+    public class PlanningModuleMappingUnitTests : ModuleMappingTestFixture
     {
-        public ProductionModuleMappingUnitTests() : base(ProductionViews.StandardView, () => new ProductionModuleMapping())
+        public PlanningModuleMappingUnitTests() : base(PlanningViews.StandardView, () => new PlanningModuleMapping())
         {
         }
 
@@ -24,9 +24,21 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
         }
 
         [Test]
-        public void SamplePeriod()
+        public void PlannedStartDateTime()
         {
-            CheckField<DefaultValueFieldMapping>("SampleDateTime", "Sample Period", true, true);
+            CheckField<DefaultValueFieldMapping>("PlannedStartDateTime", "Planned Start Time", true, true);
+        }
+
+        [Test]
+        public void PlannedEndDateTime()
+        {
+            CheckField<DefaultValueFieldMapping>("PlannedEndDateTime", "Planned End Time", true, true);
+        }
+
+        [Test]
+        public void State()
+        {
+            CheckField<ReadOnlyFieldMapping>("State", "State", true, false);
         }
 
         [Test]
@@ -34,10 +46,8 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
         {
             CheckAllowedOperations(
                 ViewAllowedOperations.AddRecord,
-                ViewAllowedOperations.ConfirmRecord,
                 ViewAllowedOperations.DeleteRecord,
                 ViewAllowedOperations.ModifyRecord,
-                ViewAllowedOperations.UnconfirmRecord,
                 ViewAllowedOperations.ViewRecord);
         }
     }

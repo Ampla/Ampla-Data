@@ -25,7 +25,7 @@ namespace AmplaWeb.Data.Sessions
                 string session = amplaSessionStorage.GetAmplaSession();
                 if (!string.IsNullOrEmpty(session))
                 {
-                    return CredentialsProvider.ForSession(amplaSessionStorage.GetAmplaSession()).GetCredentials();
+                    return CredentialsProvider.ForSession(session).GetCredentials();
                 }
             }
             return null;

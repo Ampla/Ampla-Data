@@ -13,9 +13,9 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
             AddRequiredMapping("PlannedStartDateTime", () => new DefaultValueFieldMapping("Planned Start Time", Iso8601UtcNow));
             AddRequiredMapping("PlannedEndDateTime", () => new DefaultValueFieldMapping("Planned End Time", Iso8601UtcNow));
 
-            AddAllowedOperation(ViewAllowedOperations.AddRecord);
-            AddAllowedOperation(ViewAllowedOperations.DeleteRecord);
-            AddAllowedOperation(ViewAllowedOperations.ModifyRecord);
+            AddSupportedOperation(ViewAllowedOperations.AddRecord);
+            AddSupportedOperation(ViewAllowedOperations.DeleteRecord);
+            AddSupportedOperation(ViewAllowedOperations.ModifyRecord);
         }
     }
 }

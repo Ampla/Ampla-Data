@@ -15,14 +15,14 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
             // Add a required field mapping for Downtime fields
             AddRequiredMapping("StartDateTime", () => new DefaultValueFieldMapping("Start Time", Iso8601UtcNow));
 
-            AddAllowedOperation(ViewAllowedOperations.AddRecord);
-            AddAllowedOperation(ViewAllowedOperations.DeleteRecord);
-            AddAllowedOperation(ViewAllowedOperations.ModifyRecord);
+            AddSupportedOperation(ViewAllowedOperations.AddRecord);
+            AddSupportedOperation(ViewAllowedOperations.DeleteRecord);
+            AddSupportedOperation(ViewAllowedOperations.ModifyRecord);
             
-            AddAllowedOperation(ViewAllowedOperations.ConfirmRecord);
-            AddAllowedOperation(ViewAllowedOperations.UnconfirmRecord);
+            AddSupportedOperation(ViewAllowedOperations.ConfirmRecord);
+            AddSupportedOperation(ViewAllowedOperations.UnconfirmRecord);
         
-            AddAllowedOperation(ViewAllowedOperations.SplitRecord);
+            AddSupportedOperation(ViewAllowedOperations.SplitRecord);
         }
     }
 }

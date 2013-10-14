@@ -1,4 +1,5 @@
-﻿using AmplaWeb.Data.Metrics;
+﻿using AmplaWeb.Data.AmplaData2008;
+using AmplaWeb.Data.Metrics;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.Binding.Mapping.Modules
@@ -46,6 +47,12 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
         {
             CheckField<ReadOnlyFieldMapping>("Duration", "Duration", true, false);
         }
- 
+
+        [Test]
+        public void SupportedOperations()
+        {
+            CheckAllowedOperations(
+                ViewAllowedOperations.ViewRecord);
+        }
     }
 }

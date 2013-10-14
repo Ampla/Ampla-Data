@@ -1,13 +1,13 @@
 ﻿using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Production;
+using AmplaWeb.Data.Quality;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.Binding.Mapping.Modules
 {
     [TestFixture]
-    public class ProductionModuleMappingUnitTests : ModuleMappingTestFixture
+    public class QualityModuleMappingUnitTests : ModuleMappingTestFixture
     {
-        public ProductionModuleMappingUnitTests() : base(ProductionViews.StandardView, () => new ProductionModuleMapping())
+        public QualityModuleMappingUnitTests() : base(QualityViews.StandardView, () => new QualityModuleMapping())
         {
         }
 

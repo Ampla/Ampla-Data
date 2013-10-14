@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Binding.ViewData;
 using NUnit.Framework;
@@ -17,26 +18,26 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
             this.moduleMappingFunc = moduleMappingFunc;
         }
 
-        protected IModuleMapping moduleMapping { get; private set; }
-        protected ViewFieldsCollection viewFields { get; private set; }
+        protected IModuleMapping ModuleMapping { get; private set; }
+        protected ViewFieldsCollection ViewFields { get; private set; }
 
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            moduleMapping = moduleMappingFunc();
+            ModuleMapping = moduleMappingFunc();
             GetView view = getViewsFunc();
 
-            viewFields = new ViewFieldsCollection();
-            viewFields.Initialise(view);
+            ViewFields = new ViewFieldsCollection();
+            ViewFields.Initialise(view);
         }
 
         protected void CheckField<T>(string name, string displayName, bool specialField, bool requiredField)
         {
-            ViewField field = viewFields.Find(name);
+            ViewField field = ViewFields.Find(name);
             Assert.That(field, Is.Not.Null, "Unabled to find field: {0}", name);
 
-            FieldMapping specialFieldMapping = moduleMapping.GetFieldMapping(field, true);
-            FieldMapping requiredFieldMapping = moduleMapping.GetFieldMapping(field, false);
+            FieldMapping specialFieldMapping = ModuleMapping.GetFieldMapping(field, true);
+            FieldMapping requiredFieldMapping = ModuleMapping.GetFieldMapping(field, false);
             if (specialField)
             {
                 Assert.That(specialFieldMapping, Is.Not.Null);
@@ -60,6 +61,20 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
             }
         }
 
+        protected void CheckAllowedOperations(params ViewAllowedOperations[] operations)
+        {
+            IViewPermissions supportedOperations = ModuleMapping.GetSupportedOperations();
 
+            List<ViewAllowedOperations> allowedOperations = new List<ViewAllowedOperations>();
+            allowedOperations.AddRange(operations);
+
+            Assert.That(supportedOperations.CanAdd(), Is.EqualTo(allowedOperations.Contains(ViewAllowedOperations.AddRecord)), "AddRecord");
+            Assert.That(supportedOperations.CanConfirm(), Is.EqualTo(allowedOperations.Contains(ViewAllowedOperations.ConfirmRecord)), "ConfirmRecord");
+            Assert.That(supportedOperations.CanDelete(), Is.EqualTo(allowedOperations.Contains(ViewAllowedOperations.DeleteRecord)), "DeleteRecord");
+            Assert.That(supportedOperations.CanModify(), Is.EqualTo(allowedOperations.Contains(ViewAllowedOperations.ModifyRecord)), "ModifyRecord");
+            Assert.That(supportedOperations.CanSplit(), Is.EqualTo(allowedOperations.Contains(ViewAllowedOperations.SplitRecord)), "SplitRecord");
+            Assert.That(supportedOperations.CanUnconfirm(), Is.EqualTo(allowedOperations.Contains(ViewAllowedOperations.UnconfirmRecord)), "UnconfirmRecord");
+            Assert.That(supportedOperations.CanView(), Is.EqualTo(allowedOperations.Contains(ViewAllowedOperations.ViewRecord)), "ViewRecord");
+        }
     }
 }

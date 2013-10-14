@@ -1,4 +1,5 @@
-﻿using AmplaWeb.Data.Binding.ViewData;
+﻿using AmplaWeb.Data.AmplaData2008;
+using AmplaWeb.Data.Binding.ViewData;
 using AmplaWeb.Data.Downtime;
 using NUnit.Framework;
 
@@ -53,6 +54,18 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
             CheckField<ValidatedModelFieldMapping>("Classification", "Classification", true, false);
         }
 
+        [Test]
+        public void SupportedOperations()
+        {
+            CheckAllowedOperations(
+                ViewAllowedOperations.AddRecord, 
+                ViewAllowedOperations.ConfirmRecord,
+                ViewAllowedOperations.DeleteRecord, 
+                ViewAllowedOperations.ModifyRecord,
+                ViewAllowedOperations.SplitRecord, 
+                ViewAllowedOperations.UnconfirmRecord,
+                ViewAllowedOperations.ViewRecord);
+        }
  
     }
 }

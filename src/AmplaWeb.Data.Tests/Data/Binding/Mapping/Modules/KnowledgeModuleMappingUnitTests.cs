@@ -1,13 +1,13 @@
 ﻿using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Production;
+using AmplaWeb.Data.Knowledge;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.Binding.Mapping.Modules
 {
     [TestFixture]
-    public class ProductionModuleMappingUnitTests : ModuleMappingTestFixture
+    public class KnowledgeModuleMappingUnitTests : ModuleMappingTestFixture
     {
-        public ProductionModuleMappingUnitTests() : base(ProductionViews.StandardView, () => new ProductionModuleMapping())
+        public KnowledgeModuleMappingUnitTests() : base(KnowledgeViews.StandardView, () => new KnowledgeModuleMapping())
         {
         }
 
