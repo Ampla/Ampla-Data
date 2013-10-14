@@ -4,9 +4,10 @@ using AmplaWeb.Sample.Models;
 
 namespace AmplaWeb.Sample.Controllers
 {
-    public class DowntimeController : RepositoryController<DowntimeModel>
+    public class EnergyController : RepositoryController<EnergyModel>
     {
-        public DowntimeController(IRepository<DowntimeModel> repository) : base(repository)
+        public EnergyController(IRepository<EnergyModel> repository)
+            : base(repository)
         {
         }
     }

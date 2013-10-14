@@ -13,7 +13,8 @@ namespace AmplaWeb.Sample.App_Start
             routes.MapNavigationRoute<MetricsController>("Metrics", c => c.Index());
             routes.MapNavigationRoute<QualityController>("Quality", c => c.Index());
             routes.MapNavigationRoute<PlanningController>("Planning", c => c.Index());
-            routes.MapNavigationRoute<MaintenanceController>("Maintenance", c => c.Index()); 
+            routes.MapNavigationRoute<MaintenanceController>("Maintenance", c => c.Index());
+            routes.MapNavigationRoute<EnergyController>("Energy", c => c.Index());
             routes.MapNavigationRoute<ShiftLogController>("Shift Log", c => c.Index());
 
             routes.MapNavigationRoute<IngotCastController>("Ingot Casts", c => c.Default())

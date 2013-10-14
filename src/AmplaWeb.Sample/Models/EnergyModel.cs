@@ -5,8 +5,8 @@ using AmplaWeb.Data.Attributes;
 namespace AmplaWeb.Sample.Models
 {
     [AmplaLocation(Location = "Enterprise", WithRecurse = true)]
-    [AmplaModule(Module = "Downtime")]
-    public class DowntimeModel
+    [AmplaModule(Module = "Energy")]
+    public class EnergyModel
     {
         public int Id { get; set; }
 
