@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AmplaWeb.Data.Binding.ViewData
 {
@@ -16,6 +17,11 @@ namespace AmplaWeb.Data.Binding.ViewData
         public IEnumerable<T> GetValues()
         {
             return list;
+        }
+
+        protected T Find(Predicate<T> match)
+        {
+            return list.Find(match);
         }
     }
 }

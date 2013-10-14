@@ -67,7 +67,15 @@
     <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClient.cs" />
     <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
     <Compile Include="Data\AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />
+    <Compile Include="Data\Binding\Mapping\Modules\MetricsModuleMappingUnitTests.cs" />
+    <Compile Include="Data\Binding\Mapping\Modules\DowntimeModuleMappingUnitTests.cs" />
+    <Compile Include="Data\Binding\Mapping\Modules\ModuleMappingTestFixture.cs" />
+    <Compile Include="Data\Binding\Mapping\Modules\ProductionModuleMappingUnitTests.cs" />
     <Compile Include="Data\Binding\ModelData\DowntimeModelPropertiesUnitTests.cs" />
+    <Compile Include="Data\Metrics\MetricsAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Data\Metrics\MetricsRecords.cs" />
+    <Compile Include="Data\Metrics\MetricsViews.cs" />
+    <Compile Include="Data\Metrics\SimpleMetricsModel.cs" />
     <Compile Include="Data\Planning\PlanningAmplaRepositoryUnitTests.cs" />
     <Compile Include="Data\Planning\PlanningRecords.cs" />
     <Compile Include="Data\Planning\PlanningViews.cs" />

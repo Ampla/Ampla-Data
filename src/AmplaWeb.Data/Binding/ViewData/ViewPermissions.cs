@@ -1,4 +1,5 @@
-﻿using AmplaWeb.Data.AmplaData2008;
+﻿using System.Collections.Generic;
+using AmplaWeb.Data.AmplaData2008;
 
 namespace AmplaWeb.Data.Binding.ViewData
 {
@@ -7,15 +8,25 @@ namespace AmplaWeb.Data.Binding.ViewData
     /// </summary>
     public class ViewPermissions : IViewPermissions
     {
-        public ViewPermissions()
+        public ViewPermissions() : this(null)
         {
-            canAdd = false;
-            canDelete = false;
-            canView = false;
-            canConfirm = false;
-            canModify = false;
-            canSplit = false;
-            canUnconfirm = false;
+
+        }
+
+        public ViewPermissions(params ViewAllowedOperations[] allowedOperations)
+        {
+            List<ViewAllowedOperations> operations = new List<ViewAllowedOperations>();
+            if (allowedOperations != null)
+            {
+                operations.AddRange(allowedOperations);
+            }
+            canAdd = operations.Contains(ViewAllowedOperations.AddRecord);
+            canDelete = operations.Contains(ViewAllowedOperations.DeleteRecord);
+            canView = operations.Contains(ViewAllowedOperations.ViewRecord);
+            canConfirm = operations.Contains(ViewAllowedOperations.ConfirmRecord);
+            canModify = operations.Contains(ViewAllowedOperations.ModifyRecord);
+            canSplit = operations.Contains(ViewAllowedOperations.SplitRecord);
+            canUnconfirm = operations.Contains(ViewAllowedOperations.UnconfirmRecord);
         }
 
         private bool canView;

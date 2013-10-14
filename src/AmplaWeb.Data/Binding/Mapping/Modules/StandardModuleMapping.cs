@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Binding.MetaData;
 using AmplaWeb.Data.Binding.ViewData;
 
@@ -9,8 +10,9 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
     {
         protected StandardModuleMapping()
         {
-            AddRequiredMapping("Id", () => new IdFieldMapping("Id"));
-            AddRequiredMapping("ObjectId", () => new ReadOnlyFieldMapping("Location"));
+            AddSpecialMapping("Id", () => new IdFieldMapping("Id"));
+            AddSpecialMapping("ObjectId", () => new ReadOnlyFieldMapping("Location"));
+            AddAllowedOperation(ViewAllowedOperations.ViewRecord);
         }
 
         protected void AddSpecialMapping(string field, Func<FieldMapping> fieldMappingFunc)
@@ -21,6 +23,14 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
         protected void AddRequiredMapping(string field, Func<FieldMapping> fieldMappingFunc)
         {
             requiredMappingFuncs[field] = fieldMappingFunc;
+        }
+
+        protected void AddAllowedOperation(ViewAllowedOperations operation)
+        {
+            if (!allowedOperations.Contains(operation))
+            {
+                allowedOperations.Add(operation);
+            }
         }
 
         protected static bool StringIsNotNullOrEmpty(string value)
@@ -36,6 +46,7 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
         
         private readonly Dictionary<string, Func<FieldMapping>> specialMappingFuncs = new Dictionary<string, Func<FieldMapping>>();
         private readonly Dictionary<string, Func<FieldMapping>> requiredMappingFuncs = new Dictionary<string, Func<FieldMapping>> ();
+        private readonly List<ViewAllowedOperations> allowedOperations = new List<ViewAllowedOperations>(); 
 
         protected static string Iso8601UtcNow()
         {
@@ -71,6 +82,11 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
             }
 
             return fieldMapping;
+        }
+
+        public IViewPermissions GetModulePermissions()
+        {
+            return new ViewPermissions(allowedOperations.ToArray());
         }
     }
 }

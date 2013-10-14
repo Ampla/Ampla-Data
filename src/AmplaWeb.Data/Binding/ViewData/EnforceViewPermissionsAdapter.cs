@@ -4,69 +4,114 @@ namespace AmplaWeb.Data.Binding.ViewData
 {
     public class EnforceViewPermissionsAdapter : IViewPermissions
     {
+        private readonly string module;
         private readonly IViewPermissions viewPermissions;
+        private readonly IViewPermissions modulePermissions;
 
-        public EnforceViewPermissionsAdapter(IViewPermissions viewPermissions)
+        public EnforceViewPermissionsAdapter(string module, IViewPermissions viewPermissions, IViewPermissions modulePermissions)
         {
             if (viewPermissions == null) throw new ArgumentNullException("viewPermissions");
+            this.module = module;
             this.viewPermissions = viewPermissions;
+            this.modulePermissions = modulePermissions;
         }
 
         public bool CanView()
         {
             bool permission = viewPermissions.CanView();
-            ThrowIfNotGranted(permission, "ViewRecord");
-            return permission;
+            ViewPermissionNotGranted(permission, "ViewRecord");
+
+            bool modulePermission = modulePermissions.CanView();
+            ViewPermissionNotGranted(modulePermission, "ViewRecord");
+            
+            return permission && modulePermission;
         }
 
         public bool CanAdd()
         {
+            const string operation = "AddRecord";
             bool permission = viewPermissions.CanAdd();
-            ThrowIfNotGranted(permission, "AddRecord");
-            return permission;
+            ViewPermissionNotGranted(permission, operation);
+
+            bool modulePermission = modulePermissions.CanAdd();
+            ModuleNotValid(modulePermission, operation, module);
+
+            return permission && modulePermission;
         }
 
         public bool CanDelete()
         {
+            const string operation = "DeleteRecord";
             bool permission = viewPermissions.CanDelete();
-            ThrowIfNotGranted(permission, "DeleteRecord");
-            return permission;
+            ViewPermissionNotGranted(permission, operation);
+
+            bool modulePermission = modulePermissions.CanDelete();
+            ModuleNotValid(modulePermission, operation, module);
+
+            return permission && modulePermission;
         }
 
         public bool CanModify()
         {
+            const string operation = "ModifyRecord";
             bool permission = viewPermissions.CanModify();
-            ThrowIfNotGranted(permission, "ModifyRecord");
-            return permission;
+            ViewPermissionNotGranted(permission, operation);
+
+            bool modulePermission = modulePermissions.CanModify();
+            ModuleNotValid(modulePermission, operation, module);
+
+            return permission && modulePermission;
         }
 
         public bool CanConfirm()
         {
+            const string operation = "ConfirmRecord";
             bool permission = viewPermissions.CanConfirm();
-            ThrowIfNotGranted(permission, "ConfirmRecord");
-            return permission;
+            ViewPermissionNotGranted(permission, operation);
+
+            bool modulePermission = modulePermissions.CanConfirm();
+            ModuleNotValid(modulePermission, operation, module);
+
+            return permission && modulePermission;
         }
 
         public bool CanUnconfirm()
         {
+            const string operation = "UnconfirmRecord";
             bool permission = viewPermissions.CanUnconfirm();
-            ThrowIfNotGranted(permission, "UnconfirmRecord");
-            return permission;
+            ViewPermissionNotGranted(permission, operation);
+
+            bool modulePermission = modulePermissions.CanUnconfirm();
+            ModuleNotValid(modulePermission, operation, module);
+
+            return permission && modulePermission;
         }
 
         public bool CanSplit()
         {
+            const string operation = "SplitRecord";
             bool permission = viewPermissions.CanSplit();
-            ThrowIfNotGranted(permission, "SplitRecord");
-            return permission;
+            ViewPermissionNotGranted(permission, operation);
+
+            bool modulePermission = modulePermissions.CanSplit();
+            ModuleNotValid(modulePermission, operation, module);
+
+            return permission && modulePermission;
         }
 
-        private static void ThrowIfNotGranted(bool permission, string operation)
+        private static void ViewPermissionNotGranted(bool permission, string operation)
         {
-            if (!permission)
-            {
-                throw new InvalidOperationException("Permission '" + operation + "' is not granted.");
-            }
+            if (permission) return;
+
+            throw new InvalidOperationException("Permission '" + operation + "' is not granted for view.");
+        }
+
+        private static void ModuleNotValid(bool permission, string operation, string module)
+        {
+            if (permission) return;
+
+            string message = string.Format("Permission '{0}' is not valid for '{1}'.", operation, module);
+            throw new InvalidOperationException(message);
         }
     }
 }

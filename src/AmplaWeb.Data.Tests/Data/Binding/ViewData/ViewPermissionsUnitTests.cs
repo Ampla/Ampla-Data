@@ -21,6 +21,7 @@ namespace AmplaWeb.Data.Binding.ViewData
         {
             Assert.That(assert(), Is.False);
         }
+
     }
 
     [TestFixture]
@@ -28,7 +29,15 @@ namespace AmplaWeb.Data.Binding.ViewData
     {
         protected override IViewPermissions CreateViewPermissions(ViewPermissions permissions)
         {
-            return new EnforceViewPermissionsAdapter(permissions);
+            ViewPermissions modulePermissions = new ViewPermissions(
+                ViewAllowedOperations.AddRecord, 
+                ViewAllowedOperations.ConfirmRecord, 
+                ViewAllowedOperations.DeleteRecord, 
+                ViewAllowedOperations.ModifyRecord, 
+                ViewAllowedOperations.SplitRecord, 
+                ViewAllowedOperations.UnconfirmRecord, 
+                ViewAllowedOperations.ViewRecord);
+            return new EnforceViewPermissionsAdapter("Downtime", permissions, modulePermissions);
         }
 
         protected override void AssertTrue(Func<bool> assert)
@@ -44,7 +53,7 @@ namespace AmplaWeb.Data.Binding.ViewData
         [Test]
         public void NullConstructor()
         {
-            Assert.Throws<ArgumentNullException>(() => new EnforceViewPermissionsAdapter(null));
+            Assert.Throws<ArgumentNullException>(() => new EnforceViewPermissionsAdapter("module", null, new ViewPermissions()));
         }
     }
 
@@ -63,7 +72,12 @@ namespace AmplaWeb.Data.Binding.ViewData
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            permissions = new ViewPermissions();
+            Create(() => new ViewPermissions());
+        }
+
+        private void Create(Func<ViewPermissions> createFunc )
+        {
+            permissions = createFunc();
             viewPermissions = CreateViewPermissions(permissions);
         }
 
@@ -74,16 +88,72 @@ namespace AmplaWeb.Data.Binding.ViewData
         }
         
         [Test]
+        public void ConstructorNull()
+        {
+            Create(() => new ViewPermissions(null));
+            AssertAllFalse();
+        }
+        
+        [Test]
+        public void ConstructorCanAdd()
+        {
+            Create(() => new ViewPermissions(ViewAllowedOperations.AddRecord)); 
+            AssertAllFalseExcept("Add");
+        }
+
+        [Test]
+        public void ConstructorCanConfirm()
+        {
+            Create(() => new ViewPermissions(ViewAllowedOperations.ConfirmRecord)); 
+            AssertAllFalseExcept("Confirm");
+        }
+
+        [Test]
+        public void ConstructorCanDelete()
+        {
+            Create(() => new ViewPermissions(ViewAllowedOperations.DeleteRecord)); 
+            AssertAllFalseExcept("Delete");
+        }
+
+        [Test]
+        public void ConstructorCanModify()
+        {
+            Create(() => new ViewPermissions(ViewAllowedOperations.ModifyRecord)); 
+            AssertAllFalseExcept("Modify");
+        }
+
+        [Test]
+        public void ConstructorCanSplit()
+        {
+            Create(() => new ViewPermissions(ViewAllowedOperations.SplitRecord));
+            AssertAllFalseExcept("Split");
+        }
+
+        [Test]
+        public void ConstructorCanUnconfirm()
+        {
+            Create(() => new ViewPermissions(ViewAllowedOperations.UnconfirmRecord)); 
+            AssertAllFalseExcept("Unconfirm");
+        }
+
+        [Test]
+        public void ConstructorCanView()
+        {
+            Create(() => new ViewPermissions(ViewAllowedOperations.ViewRecord)); 
+            AssertAllFalseExcept("View");
+        }
+
+        [Test]
         public void InitialiseNull()
         {
             permissions.Initialise(null);
             AssertAllFalse();
         }
-        
+
         [Test]
         public void InitialiseCanAdd()
         {
-            permissions.Initialise(new [] { Add()});
+            permissions.Initialise(new[] { Add() });
             AssertAllFalseExcept("Add");
         }
 
