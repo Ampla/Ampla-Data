@@ -105,5 +105,24 @@ namespace AmplaWeb.Data.Metrics
             InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => Repository.Unconfirm(model));
             Assert.That(exception.Message, Is.StringContaining("'UnconfirmRecord'"));
         }
+
+        [Test]
+        public void DeleteModelWillThrow()
+        {
+            int recordId = SaveRecord(MetricsRecords.NewRecord().MarkAsNew());
+            Assert.That(recordId, Is.GreaterThan(1000));
+
+            Assert.That(Records, Is.Not.Empty);
+
+            SimpleMetricsModel model = Repository.FindById(recordId);
+            Assert.That(model, Is.Not.Null);
+            Assert.That(model.Location, Is.EqualTo(location));
+
+            model.TotalTonnes += 100;
+
+            InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => Repository.Delete(model));
+            Assert.That(exception.Message, Is.StringContaining("'DeleteRecord'"));
+        }
+
     }
 }
