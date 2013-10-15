@@ -1,36 +1,27 @@
 ﻿
 @if (Request.IsAuthenticated)
 {
-    <li class="pull-right">
-        <div class="btn-group">
-            <a class="btn btn-inverse" href="#"><i class="icon-user icon-white"></i> @User.Identity.Name</a>
-            <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+    <div>
+        <li class="dropdown" >
+            <a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user icon-white"></i> @User.Identity.Name <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li>@Html.ActionLink("Details", "User", "Account")</li>
                 <li><a href="javascript:document.getElementById('logoutMenuForm').submit()">Logout</a></li>            
             </ul>
-        </div>
-    </li>
-    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutMenuForm", @class="hidden" }))
-    {
-        @Html.AntiForgeryToken()
-    }
+        </li>
+    </div>
+    <div class="hidden"> 
+        @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutMenuForm" }))
+        {
+            @Html.AntiForgeryToken()
+        }
+    </div>
 }
 else
 {
-    <li class="pull-right">
-        <div class="btn-group">
-            <a class="btn btn-info" href="#"><i class="icon-user"></i> Login</a>
-            <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Login", "Login", "Account")</li>
-                <li><a href="javascript:document.getElementById('integratedLoginForm').submit()">Integated Login</a></li>            
-            </ul>
-        </div>
-    </li>
-    
-    using (Html.BeginForm("LoginIntegrated", "Account", FormMethod.Post, new { id = "integratedLoginForm", @class="hidden" }))
-    {
-        @Html.AntiForgeryToken()
-    }
+    <div>
+        <li >
+            <a class="btn btn-info" href="@Url.Action("Login", "Account")"><i class="icon-user"></i> Login </a>
+        </li>
+    </div>
 }

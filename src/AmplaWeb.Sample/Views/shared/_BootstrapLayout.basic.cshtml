@@ -23,10 +23,11 @@
                     </a>
                     <a class="brand" href="/" title="change in _bootstrapLayout.basic.cshtml">Ampla Web.Sample</a>
                     <div class="nav-collapse collapse">
-                        @Html.Partial("_LoginPartial")
                         <ul class="nav">
-                            @Html.Navigation()
-                       
+                           @Html.Navigation()
+                        </ul>
+                        <ul class="nav pull-right">
+                            @Html.Partial("_LoginPartial")
                         </ul>
                     </div>
                 </div>
