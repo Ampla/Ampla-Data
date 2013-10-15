@@ -4,7 +4,7 @@ using AmplaWeb.Sample.Models;
 
 namespace AmplaWeb.Sample.Controllers
 {
-    public class MetricsController : RepositoryController<MetricsModel>
+    public class MetricsController : ReadOnlyRepositoryController<MetricsModel>
     {
         public MetricsController(IRepository<MetricsModel> repository)
             : base(repository)

@@ -5,6 +5,7 @@ namespace AmplaWeb.Sample.Models
 {
     [AmplaLocation(Location="Enterprise", WithRecurse = true)]
     [AmplaModule(Module = "Metrics")]
+    [AmplaDefaultFilters("@GroupBy={Hour}", "Sample Period={Current Day}")]
     public class MetricsModel
     {
         public int Id { get; set; }
