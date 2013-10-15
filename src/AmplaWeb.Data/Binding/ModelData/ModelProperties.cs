@@ -82,6 +82,11 @@ namespace AmplaWeb.Data.Binding.ModelData
             {
                 return new Iso8601DateTimeConverter();
             }
+
+            if (property.PropertyType == typeof (TimeSpan))
+            {
+                return new TimeSpanIntConverter();
+            }
             return TypeDescriptor.GetConverter(property.PropertyType);
         }
 

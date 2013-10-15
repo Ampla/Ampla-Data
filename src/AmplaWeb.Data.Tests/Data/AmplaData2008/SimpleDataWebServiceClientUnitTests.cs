@@ -15,10 +15,13 @@ namespace AmplaWeb.Data.AmplaData2008
             return new Credentials { Username = "User", Password = "password" };
         }
 
+        private string location = "Enterprise.Site.Area.Production";
+        private string module = "Production";
+
         [Test]
         public void Insert()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Production", "Plant.Area.Production");
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
 
@@ -42,7 +45,7 @@ namespace AmplaWeb.Data.AmplaData2008
         [Test]
         public void InsertInvalidLocation()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Production", "Plant.Area.Production");
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
             record.Location = record.Location + ".Invalid";
@@ -62,8 +65,7 @@ namespace AmplaWeb.Data.AmplaData2008
         [Test]
         public void Update()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Production",
-                                                                                         "Plant.Area.Production");
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
             InMemoryRecord update = record.Clone();
@@ -116,15 +118,15 @@ namespace AmplaWeb.Data.AmplaData2008
         [Test]
         public void GetNavigationHierarchy()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Production",
-                                                                                         "Plant.Area.Production");
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
 
             GetNavigationHierarchyResponse response = webServiceClient.GetNavigationHierarchy(new GetNavigationHierarchyRequest { Module = AmplaModules.Production });
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Hierarchy, Is.Not.Null);
-            CheckViewPoints(response.Hierarchy.ViewPoints, "", "Plant");
-            CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints, "Plant", "Area");
-            CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints[0].ReportingPoints, "Plant.Area", "Production");
+            CheckViewPoints(response.Hierarchy.ViewPoints, "", "Enterprise");
+            CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints, "Enterprise", "Site");
+            CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints[0].ViewPoints, "Enterprise.Site", "Area");
+            CheckViewPoints(response.Hierarchy.ViewPoints[0].ViewPoints[0].ViewPoints[0].ReportingPoints, "Enterprise.Site.Area", "Production");
         }
 
         [Test]
@@ -206,9 +208,7 @@ namespace AmplaWeb.Data.AmplaData2008
         [Test]
         public void GetDataReturnsLocation()
         {
-            const string location = "Plant.Area.Production";
-
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Production", location);
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
 

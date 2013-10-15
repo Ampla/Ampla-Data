@@ -67,6 +67,7 @@
     <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClient.cs" />
     <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
     <Compile Include="Data\AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />
+    <Compile Include="Data\AmplaRepository\TimeSpanDurationUnitTests.cs" />
     <Compile Include="Data\Binding\Mapping\Modules\EnergyModuleMappingUnitTests.cs" />
     <Compile Include="Data\Binding\Mapping\Modules\PlanningModuleMappingUnitTests.cs" />
     <Compile Include="Data\Binding\Mapping\Modules\KnowledgeModuleMappingUnitTests.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Data\Binding\Mapping\Modules\DowntimeModuleMappingUnitTests.cs" />
     <Compile Include="Data\Binding\Mapping\Modules\ModuleMappingTestFixture.cs" />
     <Compile Include="Data\Binding\Mapping\Modules\ProductionModuleMappingUnitTests.cs" />
+    <Compile Include="Data\Binding\ModelData\ModelPropertyTimeSpanUnitTests.cs" />
     <Compile Include="Data\Binding\ModelData\DowntimeModelPropertiesUnitTests.cs" />
     <Compile Include="Data\Energy\EnergyAmplaRepositoryUnitTests.cs" />
     <Compile Include="Data\Energy\EnergyRecords.cs" />

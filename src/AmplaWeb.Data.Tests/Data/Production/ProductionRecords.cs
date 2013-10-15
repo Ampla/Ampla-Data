@@ -9,7 +9,7 @@ namespace AmplaWeb.Data.Production
 
         public static InMemoryRecord NewRecord()
         {
-            InMemoryRecord record = new InMemoryRecord {Location = "Plant.Area.Production", Module = "Production"};
+            InMemoryRecord record = new InMemoryRecord {Location = "Enterprise.Site.Area.Production", Module = "Production"};
             record.SetFieldValue("IsManual", false);
             record.SetFieldValue("Deleted", false);
             record.SetFieldValue("Confirmed", false);

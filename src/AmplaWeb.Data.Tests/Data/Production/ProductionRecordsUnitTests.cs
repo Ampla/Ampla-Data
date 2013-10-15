@@ -6,7 +6,7 @@ namespace AmplaWeb.Data.Production
     public class ProductionRecordUnitTests : TestFixture
     {
         private const string module = "Production";
-        private const string location = "Plant.Area.Production";
+        private const string location = "Enterprise.Site.Area.Production";
 
         [Test]
         public void NormalRecord()

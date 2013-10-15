@@ -72,6 +72,7 @@
     <Compile Include="Binding\Mapping\Modules\StandardModuleMapping.cs" />
     <Compile Include="Binding\Mapping\ValidatedModelFieldMapping.cs" />
     <Compile Include="Binding\MetaData\Iso8601DateTimeConverter.cs" />
+    <Compile Include="Binding\MetaData\TimeSpanIntConverter.cs" />
     <Compile Include="Binding\ModelData\IModelProperties.cs" />
     <Compile Include="Binding\ModelData\LocationFilter.cs" />
     <Compile Include="Binding\ModelData\Validation\IModelValidator.cs" />
