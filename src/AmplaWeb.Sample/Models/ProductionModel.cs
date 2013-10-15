@@ -12,6 +12,11 @@ namespace AmplaWeb.Sample.Models
         [AmplaField(Field = "Sample Period")]
         public DateTime Sample { get; set; }
 
+        public TimeSpan Duration { get; set; }
+
         public string Location { get; set; }
+
+        [AmplaField(Field = "Confirmed")]
+        public bool Confirmed { get; set; }
     }
 }

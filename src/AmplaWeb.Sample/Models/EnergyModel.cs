@@ -16,7 +16,7 @@ namespace AmplaWeb.Sample.Models
         [AmplaField(Field = "End Time")]
         public DateTime? EndTime { get; set; }
 
-        public int Duration { get; set; }
+        public TimeSpan Duration { get; set; }
 
         [Required]
         public string Location { get; set; }
