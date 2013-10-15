@@ -18,7 +18,7 @@ namespace AmplaWeb.Data.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View(Repository.GetAll());
+            return View("Index", Repository.GetAll());
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace AmplaWeb.Data.Controllers
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return View("Details", model);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace AmplaWeb.Data.Controllers
         public ActionResult Create()
         {
             TModel model = new TModel();
-            return View(model);
+            return View("Create", model);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace AmplaWeb.Data.Controllers
             }
 
             Error("There were some errors in your form.");
-            return View(model);
+            return View("Create", model);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace AmplaWeb.Data.Controllers
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return View("Edit", model);
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace AmplaWeb.Data.Controllers
 
                 return RedirectToAction("Index");
             }
-            return View(model);
+            return View("Edit", model);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace AmplaWeb.Data.Controllers
             {
                 return HttpNotFound();
             }
-            return View(model);
+            return View("Delete", model);
         }
 
         /// <summary>
