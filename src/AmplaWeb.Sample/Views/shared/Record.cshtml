@@ -1,0 +1,20 @@
+@model dynamic
+<fieldset>
+    <legend>@Model.Location <small>Record</small></legend>
+    <table>
+        @foreach(var property in Model)
+        {
+            <tr>
+                <th class="pull-left">
+                    @property.Key
+                </th>
+                <td>
+                    @property.Value                
+                </td>
+            </tr>
+        }
+    </table>
+</fieldset>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

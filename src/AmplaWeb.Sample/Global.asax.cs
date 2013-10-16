@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using AmplaWeb.Data;
 using AmplaWeb.Data.AmplaData2008;
+using AmplaWeb.Data.Binding.MetaData;
 using AmplaWeb.Sample.App_Start;
 using AmplaWeb.Sample.Controllers;
 using AmplaWeb.Sample.Models;
@@ -29,6 +30,8 @@ namespace AmplaWeb.Sample
         protected void Application_Start()
         {
             var builder = new ContainerBuilder();
+
+            ModelMetadataProviders.Current = new AmplaModelMetadataProvider();
 
             builder.RegisterModule<ControllerInjectionModule>();
             

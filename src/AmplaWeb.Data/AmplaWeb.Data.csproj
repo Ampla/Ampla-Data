@@ -59,6 +59,7 @@
     <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
     <Compile Include="Binding\AmplaNavigationBinding.cs" />
     <Compile Include="Binding\AmplaUpdateRecordStatusBinding.cs" />
+    <Compile Include="Binding\AmplaGetDataDynamicBinding.cs" />
     <Compile Include="Binding\Mapping\Modules\EnergyModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\MaintenanceModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\MetricsModuleMapping.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Binding\Mapping\Modules\ProductionModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\StandardModuleMapping.cs" />
     <Compile Include="Binding\Mapping\ValidatedModelFieldMapping.cs" />
+    <Compile Include="Binding\MetaData\AmplaModelMetadataProvider.cs" />
     <Compile Include="Binding\MetaData\Iso8601DateTimeConverter.cs" />
     <Compile Include="Binding\MetaData\TimeSpanIntConverter.cs" />
     <Compile Include="Binding\ModelData\IModelProperties.cs" />

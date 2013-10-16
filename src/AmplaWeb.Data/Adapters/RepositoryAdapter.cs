@@ -30,6 +30,12 @@ namespace AmplaWeb.Data.Adapters
             return repository.FindById(id);
         }
 
+        public dynamic FindRecord(int id)
+        {
+            Adapt();
+            return repository.FindRecord(id);
+        }
+
         public IList<TModel> FindByFilter(params FilterValue[] filters)
         {
             Adapt();

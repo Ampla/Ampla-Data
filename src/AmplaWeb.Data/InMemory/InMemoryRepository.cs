@@ -28,6 +28,11 @@ namespace AmplaWeb.Data.InMemory
             return models.Find(m => ModelIdentifier.GetValue<TModel, int>(m) == id);
         }
 
+        public dynamic FindRecord(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IList<TModel> FindByFilter(params FilterValue[] filters)
         {
             List<TModel> list = new List<TModel>(models);

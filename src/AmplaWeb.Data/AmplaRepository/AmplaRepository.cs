@@ -105,6 +105,31 @@ namespace AmplaWeb.Data.AmplaRepository
         }
 
         /// <summary>
+        /// Finds the record.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public dynamic FindRecord(int id)
+        {
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(null);
+            amplaViewProperties.Enforce.CanView();
+
+            FilterValue idFilter = new FilterValue("Id", Convert.ToString(id));
+            FilterValue deletedFilter = new FilterValue("Deleted", "");
+            var request = GetDataRequest(idFilter, deletedFilter);
+            GetDataResponse response = webServiceClient.GetData(request);
+
+            List<dynamic> records = new List<dynamic>();
+            IAmplaBinding binding = new AmplaGetDataDynamicBinding(response, records);
+            if (binding.Validate() && binding.Bind())
+            {
+                return records.Count == 1 ? records[0] : null;
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Finds the models that match the filters.
         /// </summary>
         /// <param name="filters">The filters.</param>

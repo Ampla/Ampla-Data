@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Dynamic;
+using System.Web.Mvc;
 
 namespace AmplaWeb.Data.Controllers
 {
@@ -34,6 +35,21 @@ namespace AmplaWeb.Data.Controllers
                 return HttpNotFound();
             }
             return View("Details", model);
+        }
+
+        /// <summary>
+        ///     GET /{Model}/Record/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Record(int id = 0)
+        {
+            ExpandoObject model = Repository.FindRecord(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Record", model);
         }
 
         /// <summary>

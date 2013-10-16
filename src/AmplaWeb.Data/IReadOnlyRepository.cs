@@ -23,6 +23,13 @@ namespace AmplaWeb.Data
         TModel FindById(int id);
 
         /// <summary>
+        /// Finds the record.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        dynamic FindRecord(int id);
+
+        /// <summary>
         ///     Find a list of models that match the specified filters
         /// </summary>
         /// <param name="filters"></param>

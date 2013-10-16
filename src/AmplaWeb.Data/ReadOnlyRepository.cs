@@ -26,6 +26,11 @@ namespace AmplaWeb.Data
             return repository.FindById(id);
         }
 
+        public dynamic FindRecord(int id)
+        {
+            return repository.FindRecord(id);
+        }
+
         public IList<TModel> FindByFilter(params FilterValue[] filters)
         {
             return repository.FindByFilter(filters);

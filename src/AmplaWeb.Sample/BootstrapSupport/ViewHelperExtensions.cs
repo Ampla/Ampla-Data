@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -23,12 +25,12 @@ namespace AmplaWeb.Sample.BootstrapSupport
             return ((MethodCallExpression)actionExpression.Body).Method.Name;
         }
 
-        public static PropertyInfo[] VisibleProperties(this IEnumerable Model)
+        public static PropertyInfo[] VisibleProperties(this IEnumerable model)
         {
-            var elementType = Model.GetType().GetElementType();
+            var elementType = model.GetType().GetElementType();
             if (elementType == null)
             {
-                elementType = Model.GetType().GetGenericArguments()[0];
+                elementType = model.GetType().GetGenericArguments()[0];
             }
             return elementType.GetProperties().Where(info => info.Name != elementType.IdentifierPropertyName()).ToArray();
         }
@@ -38,10 +40,22 @@ namespace AmplaWeb.Sample.BootstrapSupport
             return model.GetType().GetProperties().Where(info => info.Name != model.IdentifierPropertyName()).ToArray();
         }
 
+        public static IDictionary<string, object> DynamicProperties(this ExpandoObject model)
+        {
+            return model;
+            //return model.GetType().GetProperties().Where(info => info.Name != model.IdentifierPropertyName()).ToArray();
+        }
+
         public static RouteValueDictionary GetIdValue(this object model)
         {
             var v = new RouteValueDictionary();
-            v.Add(model.IdentifierPropertyName(), model.GetId());
+            string idProperty = model.IdentifierPropertyName();
+
+            if (!string.IsNullOrEmpty(idProperty))
+            {
+                object value = model.GetId();
+                v.Add(idProperty, value);
+            }
             return v;
         }
 

@@ -22,6 +22,13 @@ namespace AmplaWeb.Data.Controllers
         ActionResult Details(int id = 0);
 
         /// <summary>
+        ///     GET /{Model}/Record/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ActionResult Record(int id = 0);
+
+        /// <summary>
         ///     GET /{Model}/Create
         /// </summary>
         /// <returns></returns>
