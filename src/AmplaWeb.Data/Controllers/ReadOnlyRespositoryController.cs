@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.Controllers
 {
@@ -34,6 +35,21 @@ namespace AmplaWeb.Data.Controllers
                 return HttpNotFound();
             }
             return View(model);
+        }
+
+        /// <summary>
+        ///     GET /{Model}/Record/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Record(int id = 0)
+        {
+            AmplaRecord model = Repository.FindRecord(id);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Record", model);
         }
     }
 

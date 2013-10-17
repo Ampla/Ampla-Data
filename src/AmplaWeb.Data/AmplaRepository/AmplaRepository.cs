@@ -68,7 +68,7 @@ namespace AmplaWeb.Data.AmplaRepository
             IAmplaViewProperties amplaViewProperties = GetViewProperties(null);
             amplaViewProperties.Enforce.CanView();
 
-            var request = GetDataRequest();
+            var request = GetDataRequest(true);
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<TModel> records = new List<TModel>();
@@ -92,7 +92,7 @@ namespace AmplaWeb.Data.AmplaRepository
             amplaViewProperties.Enforce.CanView();
 
             FilterValue filter = new FilterValue("Id", Convert.ToString(id));
-            var request = GetDataRequest(filter);
+            var request = GetDataRequest(false, filter);
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<TModel> records = new List<TModel>();
@@ -117,14 +117,14 @@ namespace AmplaWeb.Data.AmplaRepository
 
             FilterValue idFilter = new FilterValue("Id", Convert.ToString(id));
             FilterValue deletedFilter = new FilterValue("Deleted", "");
-            var request = GetDataRequest(idFilter, deletedFilter);
+            var request = GetDataRequest(false, idFilter, deletedFilter);
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<AmplaRecord> records = new List<AmplaRecord>();
             IAmplaBinding binding = new AmplaGetDataRecordBinding<TModel>(response, records, modelProperties);
             if (binding.Validate() && binding.Bind())
             {
-                return records.Count == 1 ? records[0] : null;
+                return records.Count > 0 ? records[0] : null;
             }
 
             return null;
@@ -140,7 +140,7 @@ namespace AmplaWeb.Data.AmplaRepository
             IAmplaViewProperties amplaViewProperties = GetViewProperties(null);
             amplaViewProperties.Enforce.CanView();
             
-            var request = GetDataRequest(filters);
+            var request = GetDataRequest(true, filters);
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<TModel> records = new List<TModel>();
@@ -300,7 +300,7 @@ namespace AmplaWeb.Data.AmplaRepository
             }
         }
 
-        private GetDataRequest GetDataRequest(params FilterValue[] filters)
+        private GetDataRequest GetDataRequest(bool includeDefaultFilters, params FilterValue[] filters)
         {
             GetDataRequest request = new GetDataRequest
             {
@@ -310,7 +310,7 @@ namespace AmplaWeb.Data.AmplaRepository
                 {
                     ResolveIdentifiers = ModelProperties.ResolveIdentifiers,
                 },
-                Filter = GetDataFilter(filters),
+                Filter = GetDataFilter(includeDefaultFilters, filters),
                 View = new GetDataView
                 {
                     Context = NavigationContext.Plant,
@@ -321,14 +321,17 @@ namespace AmplaWeb.Data.AmplaRepository
             return request;
         }
 
-        private DataFilter GetDataFilter(IEnumerable<FilterValue> filters)
+        private DataFilter GetDataFilter(bool includeDefaultFilters, IEnumerable<FilterValue> filters)
         {
             DataFilter dataFilter = new DataFilter {Location = ModelProperties.LocationFilter.Filter};
 
             Dictionary<string, FilterEntry> filterDictionary = new Dictionary<string, FilterEntry>();
 
             List<FilterValue> mergedFilters = new List<FilterValue>();
-            mergedFilters.AddRange(ModelProperties.DefaultFilters);
+            if (includeDefaultFilters)
+            {
+                mergedFilters.AddRange(ModelProperties.DefaultFilters);
+            }
             mergedFilters.AddRange(filters ?? new FilterValue[0]);
 
             foreach (FilterValue filter in mergedFilters)

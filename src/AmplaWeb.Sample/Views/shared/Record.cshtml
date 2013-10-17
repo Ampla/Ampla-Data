@@ -10,7 +10,7 @@
                 <th class="pull-left">Module</th>
                 <td>@Model.Module</td>
             </tr>
-        @foreach(var field in Model.GetFieldNames)
+        @foreach(var field in Model.GetFieldNames())
         {
             <tr>
                 <th class="pull-left">

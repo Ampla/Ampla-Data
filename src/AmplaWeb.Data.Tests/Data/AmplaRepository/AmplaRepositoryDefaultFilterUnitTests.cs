@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AmplaWeb.Data.Attributes;
 using AmplaWeb.Data.Production;
+using AmplaWeb.Data.Records;
 using AmplaWeb.Data.Views;
 using NUnit.Framework;
 
@@ -70,7 +71,9 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(areaModel.Value, Is.EqualTo(100));
 
             areaModel = Repository.FindById(noMatchId);
-            Assert.That(areaModel, Is.Null);
+            Assert.That(areaModel, Is.Not.Null);
+            Assert.That(areaModel.Area, Is.EqualTo("Mining"));
+            Assert.That(areaModel.Value, Is.EqualTo(200));
         }
 
         [Test]
@@ -99,6 +102,31 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(models.Count, Is.EqualTo(1));
             Assert.That(models[0].Area, Is.EqualTo("ROM"));
             Assert.That(models[0].Value, Is.EqualTo(100));
+        }
+
+        [Test]
+        public void FindRecord()
+        {
+            AreaModel match = new AreaModel { Area = "ROM", Value = 200 };
+            AreaModel noMatch = new AreaModel { Area = "ROM", Value = 100 };
+            AreaModel extra = new AreaModel { Area = "Mining", Value = 100 };
+
+            Repository.Add(match);
+            Repository.Add(noMatch);
+            Repository.Add(extra);
+
+            Assert.That(Records.Count, Is.EqualTo(3));
+
+            AmplaRecord record = Repository.FindRecord(match.Id);
+
+            Assert.That(record, Is.Not.Null);
+            Assert.That(record.GetValue("Area"), Is.EqualTo("ROM"));
+
+            // find a record that doesn't match the default filter 
+            record = Repository.FindRecord(extra.Id);
+
+            Assert.That(record, Is.Not.Null);
+            Assert.That(record.GetValue("Area"), Is.EqualTo("Mining"));
         }
     }
 }
