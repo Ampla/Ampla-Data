@@ -105,13 +105,29 @@ namespace AmplaWeb.Data.AmplaData2008
                                     new RowSet
                                         {
                                             Rows = rows.ToArray(),
-                                            Columns = new FieldDefinition[0]
+                                            Columns = request.Metadata ? GetColumns() : null
                                         }
                                 }
                         };
 
                     return response;
                 });
+        }
+
+        private FieldDefinition[] GetColumns()
+        {
+            List<FieldDefinition> columns = new List<FieldDefinition>();
+            GetView view = GetViewFunc();
+            foreach (GetViewsField field in view.Fields)
+            {
+                columns.Add(new FieldDefinition
+                    {
+                        name = field.name,
+                        displayName = field.displayName,
+                        type = field.type
+                    });
+            }
+            return columns.ToArray();
         }
 
         /// <summary>

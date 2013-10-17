@@ -51,6 +51,7 @@
     <Compile Include="AmplaData2008\CredentialsProvider.cs" />
     <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\DataWebServiceFactory.cs" />
+    <Compile Include="Records\AmplaRecord.cs" />
     <Compile Include="AmplaRepository\AmplaRepository.cs" />
     <Compile Include="AmplaRepository\AmplaRepositorySet.cs" />
     <Compile Include="AmplaData2008\ICredentialsProvider.cs" />
@@ -59,7 +60,7 @@
     <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
     <Compile Include="Binding\AmplaNavigationBinding.cs" />
     <Compile Include="Binding\AmplaUpdateRecordStatusBinding.cs" />
-    <Compile Include="Binding\AmplaGetDataDynamicBinding.cs" />
+    <Compile Include="Binding\AmplaGetDataRecordBinding.cs" />
     <Compile Include="Binding\Mapping\Modules\EnergyModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\MaintenanceModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\MetricsModuleMapping.cs" />

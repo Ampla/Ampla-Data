@@ -1,20 +1,30 @@
-@model dynamic
+@model AmplaWeb.Data.Records.AmplaRecord
 <fieldset>
-    <legend>@Model.Location <small>Record</small></legend>
+    <legend>@Model.Location <small>@Model.Module Record</small></legend>
     <table>
-        @foreach(var property in Model)
+           <tr>
+                <th class="pull-left">Id</th>
+                <td>@Model.Id</td>
+            </tr>
+           <tr>
+                <th class="pull-left">Module</th>
+                <td>@Model.Module</td>
+            </tr>
+        @foreach(var field in Model.GetFieldNames)
         {
             <tr>
                 <th class="pull-left">
-                    @property.Key
+                    @field
                 </th>
                 <td>
-                    @property.Value                
+                    @Html.Raw(Model.GetValue(field))
                 </td>
             </tr>
         }
     </table>
 </fieldset>
 <p>
+    @Html.ActionLink("Details", "Details", new {Id = Model.Id}) |
+    @Html.ActionLink("Edit", "Edit", new {Id = Model.Id}) |
     @Html.ActionLink("Back to List", "Index")
 </p>

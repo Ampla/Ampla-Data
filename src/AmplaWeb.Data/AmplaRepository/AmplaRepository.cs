@@ -5,6 +5,7 @@ using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Binding;
 using AmplaWeb.Data.Binding.ModelData;
 using AmplaWeb.Data.Binding.ViewData;
+using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.AmplaRepository
 {
@@ -109,7 +110,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public dynamic FindRecord(int id)
+        public AmplaRecord FindRecord(int id)
         {
             IAmplaViewProperties amplaViewProperties = GetViewProperties(null);
             amplaViewProperties.Enforce.CanView();
@@ -119,8 +120,8 @@ namespace AmplaWeb.Data.AmplaRepository
             var request = GetDataRequest(idFilter, deletedFilter);
             GetDataResponse response = webServiceClient.GetData(request);
 
-            List<dynamic> records = new List<dynamic>();
-            IAmplaBinding binding = new AmplaGetDataDynamicBinding(response, records);
+            List<AmplaRecord> records = new List<AmplaRecord>();
+            IAmplaBinding binding = new AmplaGetDataRecordBinding<TModel>(response, records, modelProperties);
             if (binding.Validate() && binding.Bind())
             {
                 return records.Count == 1 ? records[0] : null;

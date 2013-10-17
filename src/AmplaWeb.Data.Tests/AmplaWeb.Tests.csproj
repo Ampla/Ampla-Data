@@ -116,6 +116,7 @@
     <Compile Include="Data\Knowledge\KnowledgeRecords.cs" />
     <Compile Include="Data\Knowledge\SimpleKnowledgeModel.cs" />
     <Compile Include="Data\Downtime\DowntimeRecords.cs" />
+    <Compile Include="Data\Records\AmplaRecordUnitTests.cs" />
     <Compile Include="Data\Records\FieldValueUnitTests.cs" />
     <Compile Include="Data\Records\Filters\FieldFilterMatcher.cs" />
     <Compile Include="Data\Records\Filters\FilterMatcher.cs" />

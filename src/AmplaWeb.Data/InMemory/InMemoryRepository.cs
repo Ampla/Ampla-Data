@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.Binding.ModelData;
+using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.InMemory
 {
@@ -28,7 +30,7 @@ namespace AmplaWeb.Data.InMemory
             return models.Find(m => ModelIdentifier.GetValue<TModel, int>(m) == id);
         }
 
-        public dynamic FindRecord(int id)
+        public AmplaRecord FindRecord(int id)
         {
             throw new NotImplementedException();
         }

@@ -15,8 +15,8 @@ namespace AmplaWeb.Data.AmplaData2008
             return new Credentials { Username = "User", Password = "password" };
         }
 
-        private string location = "Enterprise.Site.Area.Production";
-        private string module = "Production";
+        private const string location = "Enterprise.Site.Area.Production";
+        private const string module = "Production";
 
         [Test]
         public void Insert()
@@ -183,8 +183,8 @@ namespace AmplaWeb.Data.AmplaData2008
             record.SetFieldIdValue("Cause", "Shutdown", 100);
             record.SetFieldIdValue("Classification", "Unplanned Process", 200);
 
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(record.Module,
-                                                                                         record.Location);
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(record.Module, record.Location);
+                
             record.SaveTo(webServiceClient);
 
             Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
@@ -203,6 +203,48 @@ namespace AmplaWeb.Data.AmplaData2008
             GetDataResponse response = webServiceClient.GetData(request);
             AssertResponseContainsValue(response, "Cause", "100");
             AssertResponseContainsValue(response, "Classification", "200");
+        }
+
+        [Test]
+        public void GetDataWithMetaDataReturnsColumns()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            webServiceClient.GetViewFunc = ProductionViews.StandardView;
+
+            GetDataRequest request = new GetDataRequest
+            {
+                Credentials = CreateCredentials(),
+                Filter = new DataFilter { Location = location, Criteria = new FilterEntry[0]},
+                View = new GetDataView { Context = NavigationContext.Plant, Mode = NavigationMode.Location, Module = AmplaModules.Production },
+                Metadata = true,
+                OutputOptions = new GetDataOutputOptions { ResolveIdentifiers = false },
+            };
+
+          
+            GetDataResponse response = webServiceClient.GetData(request);
+            Assert.That(response.RowSets, Is.Not.Empty);
+            Assert.That(response.RowSets[0].Columns, Is.Not.Empty);
+        }
+
+        [Test]
+        public void GetDataWithNoMetaDataReturnsZeroColumns()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            webServiceClient.GetViewFunc = ProductionViews.StandardView;
+
+            GetDataRequest request = new GetDataRequest
+            {
+                Credentials = CreateCredentials(),
+                Filter = new DataFilter { Location = location, Criteria = new FilterEntry[0] },
+                View = new GetDataView { Context = NavigationContext.Plant, Mode = NavigationMode.Location, Module = AmplaModules.Production },
+                Metadata = false,
+                OutputOptions = new GetDataOutputOptions { ResolveIdentifiers = false },
+            };
+
+
+            GetDataResponse response = webServiceClient.GetData(request);
+            Assert.That(response.RowSets, Is.Not.Empty);
+            Assert.That(response.RowSets[0].Columns, Is.Null);
         }
 
         [Test]

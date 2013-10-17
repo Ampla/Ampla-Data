@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using AmplaWeb.Data.AmplaRepository;
+using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data
 {
@@ -27,7 +29,7 @@ namespace AmplaWeb.Data
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        dynamic FindRecord(int id);
+        AmplaRecord FindRecord(int id);
 
         /// <summary>
         ///     Find a list of models that match the specified filters

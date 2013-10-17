@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using AmplaWeb.Data.AmplaRepository;
+using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data
 {
@@ -26,7 +28,7 @@ namespace AmplaWeb.Data
             return repository.FindById(id);
         }
 
-        public dynamic FindRecord(int id)
+        public AmplaRecord FindRecord(int id)
         {
             return repository.FindRecord(id);
         }

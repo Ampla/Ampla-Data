@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using AmplaWeb.Data.Attributes;
 using AmplaWeb.Data.Production;
 using AmplaWeb.Data.Records;
-using AmplaWeb.Data.Views;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.AmplaRepository
@@ -309,6 +308,25 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record.RecordId, Is.EqualTo(model.Id));
             Assert.That(record.GetFieldValue("Area", ""), Is.EqualTo("ROM"));
             Assert.That(record.GetFieldValue<double>("Value", 0), Is.EqualTo(100.0d));
+        }
+
+        [Test]
+        public void FindRecord()
+        {
+            Assert.That(Records, Is.Empty);
+
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            Repository.Add(model);
+            Assert.That(Records.Count, Is.EqualTo(1));
+
+            AmplaRecord record = Repository.FindRecord(model.Id);
+            Assert.That(record, Is.Not.Null);
+
+            Assert.That(record.GetValue("Area"), Is.EqualTo(model.Area));
+            Assert.That(record.GetValue("Value"), Is.EqualTo(model.Value));
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.Id, Is.EqualTo(model.Id));
         }
     }
 }
