@@ -17,6 +17,8 @@ namespace AmplaWeb.Data.Planning
         [AmplaField(Field = "Planned End Time")]
         public DateTime PlannedEnd { get; set; }
 
+        public string ActivityId { get; set; }
+
         public string State { get; set; }
     }
 }

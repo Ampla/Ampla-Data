@@ -9,6 +9,7 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
         {
             AddSpecialMapping("PlannedStartDateTime", () => new DefaultValueFieldMapping("Planned Start Time", Iso8601UtcNow));
             AddSpecialMapping("PlannedEndDateTime", () => new DefaultValueFieldMapping("Planned End Time", Iso8601UtcNow));
+            AddSpecialMapping("ActivityId", () => new ValidatedModelFieldMapping("ActivityId", StringIsNotNullOrEmpty));
 
             AddRequiredMapping("PlannedStartDateTime", () => new DefaultValueFieldMapping("Planned Start Time", Iso8601UtcNow));
             AddRequiredMapping("PlannedEndDateTime", () => new DefaultValueFieldMapping("Planned End Time", Iso8601UtcNow));

@@ -25,6 +25,7 @@ namespace AmplaWeb.Data.Planning
                     PlannedStart = DateTime.Today,
                     PlannedEnd = DateTime.Today.AddDays(1),
                     State = "Available",
+                    ActivityId = "ABC-123"
                 };
             Repository.Add(model);
 
@@ -38,6 +39,7 @@ namespace AmplaWeb.Data.Planning
             Assert.That(record.GetFieldValue("Planned Start Time", DateTime.MinValue), Is.EqualTo(DateTime.Today.ToUniversalTime()));
             Assert.That(record.GetFieldValue("Planned End Time", DateTime.MinValue), Is.EqualTo(DateTime.Today.AddDays(1).ToUniversalTime()));
             Assert.That(record.Find("State"), Is.Null);
+            Assert.That(record.GetFieldValue("ActivityId", ""), Is.EqualTo("ABC-123"));
         }
 
         [Test]
@@ -74,6 +76,58 @@ namespace AmplaWeb.Data.Planning
             Assert.That(model.PlannedStart, Is.InRange(before, after));
             Assert.That(model.PlannedEnd, Is.InRange(before.AddHours(1), after.AddHours(1)));
 
+        }
+
+        [Test]
+        public void NullActivityId()
+        {
+            SimplePlanningModel model = new SimplePlanningModel { Location = location };
+            Repository.Add(model);
+
+            Assert.That(model.Id, Is.GreaterThan(0));
+
+            Assert.That(Records, Is.Not.Empty);
+
+            InMemoryRecord record = Records[0];
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.Find("ActivityId"), Is.Null);
+            Assert.That(record.GetFieldValue("Planned Start Time", DateTime.MinValue), Is.GreaterThan(DateTime.MinValue));
+            Assert.That(record.GetFieldValue("Planned End Time", DateTime.MinValue), Is.GreaterThan(DateTime.MinValue));
+        }
+
+
+        [Test]
+        public void WithActivityId()
+        {
+            SimplePlanningModel model = new SimplePlanningModel { Location = location, ActivityId = "New Activity"};
+            Repository.Add(model);
+
+            Assert.That(model.Id, Is.GreaterThan(0));
+
+            Assert.That(Records, Is.Not.Empty);
+
+            InMemoryRecord record = Records[0];
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.GetFieldValue("ActivityId", ""), Is.EqualTo("New Activity"));
+            Assert.That(record.GetFieldValue("Planned Start Time", DateTime.MinValue), Is.GreaterThan(DateTime.MinValue));
+            Assert.That(record.GetFieldValue("Planned End Time", DateTime.MinValue), Is.GreaterThan(DateTime.MinValue));
+        }
+
+        [Test]
+        public void WithEmptyActivityId()
+        {
+            SimplePlanningModel model = new SimplePlanningModel { Location = location, ActivityId = string.Empty };
+            Repository.Add(model);
+
+            Assert.That(model.Id, Is.GreaterThan(0));
+
+            Assert.That(Records, Is.Not.Empty);
+
+            InMemoryRecord record = Records[0];
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.Find("ActivityId"), Is.Null);
+            Assert.That(record.GetFieldValue("Planned Start Time", DateTime.MinValue), Is.GreaterThan(DateTime.MinValue));
+            Assert.That(record.GetFieldValue("Planned End Time", DateTime.MinValue), Is.GreaterThan(DateTime.MinValue));
         }
 
     }
