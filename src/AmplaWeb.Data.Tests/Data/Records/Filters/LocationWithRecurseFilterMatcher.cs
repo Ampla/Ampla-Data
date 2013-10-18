@@ -17,5 +17,10 @@ namespace AmplaWeb.Data.Records.Filters
         {
             return record.Location.StartsWith(location);
         }
+
+        public override bool Matches(InMemoryAuditRecord auditRecord)
+        {
+            return auditRecord.Location.StartsWith(location);
+        }
     }
 }

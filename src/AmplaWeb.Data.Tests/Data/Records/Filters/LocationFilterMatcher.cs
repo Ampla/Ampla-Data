@@ -13,5 +13,10 @@
         {
             return record.Location == location;
         }
+
+        public override bool Matches(InMemoryAuditRecord auditRecord)
+        {
+            return auditRecord.Location == location;
+        }
     }
 }

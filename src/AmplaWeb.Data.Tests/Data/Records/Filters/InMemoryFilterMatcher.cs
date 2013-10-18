@@ -31,7 +31,7 @@ namespace AmplaWeb.Data.Records.Filters
 
             if (!string.IsNullOrEmpty(dataFilter.SamplePeriod))
             {
-                filters.Add(new FieldFilterMatcher<DateTime>("Sample Period", dataFilter.SamplePeriod));
+                filters.Add(new SamplePeriodFilterMatcher("Sample Period", dataFilter.SamplePeriod));
             }
             if (dataFilter.Criteria != null)
             {
@@ -49,9 +49,44 @@ namespace AmplaWeb.Data.Records.Filters
             }
         }
 
+        public InMemoryFilterMatcher(GetAuditDataFilter dataFilter)
+        {
+            filters = new List<FilterMatcher>();
+            if (!string.IsNullOrEmpty(dataFilter.Location))
+            {
+                if (dataFilter.Location.EndsWith(" with recurse"))
+                {
+                    filters.Add(new LocationWithRecurseFilterMatcher(dataFilter.Location));
+                }
+                else
+                {
+                    filters.Add(new LocationFilterMatcher(dataFilter.Location));
+                }
+            }
+
+            if (!string.IsNullOrEmpty(dataFilter.EditedSamplePeriod))
+            {
+                filters.Add(new SamplePeriodFilterMatcher("Sample Period", dataFilter.EditedSamplePeriod));
+            }
+            if (!string.IsNullOrEmpty(dataFilter.SetId))
+            {
+                filters.Add(new IdFilterMatcher(dataFilter.SetId));
+            }
+        }
+
         public override bool Matches(InMemoryRecord record)
         {
             if (filters.Any(filter => !filter.Matches(record)))
+            {
+                return false;
+            }
+
+            return filters.Count > 0;
+        }
+
+        public override bool Matches(InMemoryAuditRecord auditRecord)
+        {
+            if (filters.Any(filter => !filter.Matches(auditRecord)))
             {
                 return false;
             }

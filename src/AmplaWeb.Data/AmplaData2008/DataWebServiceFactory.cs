@@ -9,6 +9,11 @@ namespace AmplaWeb.Data.AmplaData2008
             return Create().GetData(request);
         }
 
+        public GetAuditDataResponse GetAuditData(GetAuditDataRequest request)
+        {
+            return Create().GetAuditData(request);
+        }
+
         public GetNavigationHierarchyResponse GetNavigationHierarchy(GetNavigationHierarchyRequest request)
         {
             return Create().GetNavigationHierarchy(request);

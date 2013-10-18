@@ -19,6 +19,12 @@ namespace AmplaWeb.Data.AmplaData2008
             return implementation.GetData(request);
         }
 
+        public GetAuditDataResponse GetAuditData(GetAuditDataRequest request)
+        {
+            logger.Log("GetAuditData ({0})", request);
+            return implementation.GetAuditData(request);
+        }
+
         public GetNavigationHierarchyResponse GetNavigationHierarchy(GetNavigationHierarchyRequest request)
         {
             logger.Log("GetNavigationHierarchy ({0})", request);

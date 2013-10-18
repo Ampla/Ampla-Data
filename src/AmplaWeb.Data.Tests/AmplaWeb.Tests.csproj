@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\AmplaData2008\LoggingDataWebServiceClient.cs" />
+    <Compile Include="Data\Records\Filters\SamplePeriodFilterMatcher.cs" />
+    <Compile Include="Data\Records\InMemoryAuditRecord.cs" />
     <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClient.cs" />
     <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
     <Compile Include="Data\AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />

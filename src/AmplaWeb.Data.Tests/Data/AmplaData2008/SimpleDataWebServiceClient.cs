@@ -18,6 +18,7 @@ namespace AmplaWeb.Data.AmplaData2008
         private readonly AmplaModules amplaModule;
         private readonly string module;
         private readonly Dictionary<int, InMemoryRecord> database = new Dictionary<int, InMemoryRecord>();
+        private readonly List<InMemoryAuditRecord> auditDatabase = new List<InMemoryAuditRecord>();
         private readonly string[] reportingPoints;
 
         private const string userName = "User";
@@ -112,6 +113,61 @@ namespace AmplaWeb.Data.AmplaData2008
 
                     return response;
                 });
+        }
+
+        public GetAuditDataResponse GetAuditData(GetAuditDataRequest request)
+        {
+            CheckCredentials(request.Credentials);
+            CheckModule(request.Filter.Module);
+            
+            InMemoryFilterMatcher filterMatcher = new InMemoryFilterMatcher(request.Filter);
+
+            List<InMemoryAuditRecord> auditRecords = auditDatabase.Where(filterMatcher.Matches).ToList();
+
+            List<GetAuditDataRow> rows = new List<GetAuditDataRow>();
+            
+            foreach (InMemoryAuditRecord record in auditRecords)
+            {
+                GetAuditDataRow row = new GetAuditDataRow
+                    {
+                        EditedBy = record.EditedBy,
+                        EditedDateTime = record.EditedDateTime,
+                        EditedValue = record.EditedValue,
+                        Field = record.Field,
+                        Location = record.Location,
+                        OriginalValue = record.OriginalValue,
+                        RecordType = record.RecordType,
+                        SetId = record.SetId
+                    };
+
+                rows.Add(row);
+            }
+
+            GetAuditDataResponse response = new GetAuditDataResponse
+                {
+                    Context = new GetAuditDataResponseContext
+                        {
+                            Filter = new GetAuditDataResponseFilter
+                                {
+                                    Module = request.Filter.Module,
+                                    Location = request.Filter.Location,
+                                    RecordType = request.Filter.RecordType,
+                                    SetId = request.Filter.SetId,
+                                    EditedBy = request.Filter.EditedBy,
+                                    EditedSamplePeriod = null
+                                }
+                        },
+                    RowSets = new[]
+                        {
+                            new GetAuditDataRowSet()
+                                {
+                                    Rows = rows.ToArray(),
+                                }
+                        }
+
+                };
+            return response;
+
         }
 
         private FieldDefinition[] GetColumns()
@@ -343,9 +399,11 @@ namespace AmplaWeb.Data.AmplaData2008
             int recordId = (int)submitDataRecord.MergeCriteria.SetId;
 
             InMemoryRecord record = FindRecord(submitDataRecord.Location, submitDataRecord.Module, recordId);
-
+            DateTime editTime = DateTime.UtcNow;
             foreach (Field field in submitDataRecord.Fields)
             {
+                string oldValue = string.Empty;
+
                 FieldValue fieldValue = record.Find(field.Name);
                 if (fieldValue == null)
                 {
@@ -353,8 +411,10 @@ namespace AmplaWeb.Data.AmplaData2008
                 }
                 else
                 {
+                    oldValue = fieldValue.Value;
                     fieldValue.Value = field.Value;
                 }
+                AddAuditRecord(record, editTime, field.Name, oldValue, field.Value);
             }
 
             return new DataSubmissionResult
@@ -362,6 +422,23 @@ namespace AmplaWeb.Data.AmplaData2008
                 RecordAction = RecordAction.Update,
                 SetId = recordId
             };
+        }
+
+        private void AddAuditRecord(InMemoryRecord record, DateTime editedTime, string fieldName, string oldValue, string newValue)
+        {
+            InMemoryAuditRecord auditRecord = new InMemoryAuditRecord
+                {
+                    SetId = Convert.ToString(record.RecordId),
+                    Location = record.Location,
+                    RecordType = record.Module,
+                    EditedBy = "System Configuration.Users." + userName,
+                    EditedDateTime = PersistenceHelper.ConvertToString(editedTime),
+                    Field = fieldName,
+                    OriginalValue = oldValue,
+                    EditedValue = newValue
+                };
+
+            auditDatabase.Add(auditRecord);
         }
 
         private InMemoryRecord FindRecord(string searchLocation, AmplaModules searchModule, int searchRecordId)

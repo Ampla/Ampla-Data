@@ -287,6 +287,125 @@ namespace AmplaWeb.Data.AmplaData2008
             AssertResponseContainsValue(response, "Location", location);
         }
 
+        [Test]
+        public void GetAuditData()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+
+            GetAuditDataRequest request = new GetAuditDataRequest
+                {
+                    Credentials = CreateCredentials(),
+                    Filter = new GetAuditDataFilter {Location = location, Module = AmplaModules.Production}
+                };
+
+            GetAuditDataResponse response = webServiceClient.GetAuditData(request);
+            Assert.That(response.RowSets, Is.Not.Empty);
+            Assert.That(response.RowSets[0].Rows, Is.Empty);
+        }
+
+        [Test]
+        public void GetAuditDataWithARecordWithNoChanges()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+
+            InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
+
+            SubmitDataRequest submitRequest = new SubmitDataRequest
+            {
+                Credentials = CreateCredentials(),
+                SubmitDataRecords = new[]
+                    {
+                        record.ConvertToSubmitDataRecord()
+                    }
+            };
+
+            webServiceClient.SubmitData(submitRequest);
+            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+            int recordId = webServiceClient.DatabaseRecords[0].RecordId;
+
+            GetAuditDataRequest request = new GetAuditDataRequest
+            {
+                Credentials = CreateCredentials(),
+                Filter = new GetAuditDataFilter { Location = location, Module = AmplaModules.Production, SetId = Convert.ToString(recordId)}
+            };
+
+            GetAuditDataResponse response = webServiceClient.GetAuditData(request);
+            Assert.That(response.RowSets, Is.Not.Empty);
+            Assert.That(response.RowSets[0].Rows, Is.Empty);
+        }
+
+        [Test]
+        public void GetAuditDataWithARecordWithChanges()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+
+            InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
+            record.SetFieldValue("Field 1", 150);
+
+            SubmitDataRequest submitRequest = new SubmitDataRequest
+            {
+                Credentials = CreateCredentials(),
+                SubmitDataRecords = new[]
+                    {
+                        record.ConvertToSubmitDataRecord()
+                    }
+            };
+
+            webServiceClient.SubmitData(submitRequest);
+
+            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+            int recordId = webServiceClient.DatabaseRecords[0].RecordId;
+
+            InMemoryRecord updateRecord = new InMemoryRecord
+                {
+                    Location = record.Location,
+                    Module = record.Module,
+                    RecordId = recordId
+                };
+            updateRecord.SetFieldValue("Field 1", 200);
+
+            SubmitDataRequest update = new SubmitDataRequest
+                {
+                    Credentials = CreateCredentials(),
+                    SubmitDataRecords = new[]
+                        {
+                            updateRecord.ConvertToSubmitDataRecord()
+                        }
+                };
+
+            webServiceClient.SubmitData(update);
+
+            GetAuditDataRequest request = new GetAuditDataRequest
+            {
+                Credentials = CreateCredentials(),
+                Filter = new GetAuditDataFilter { Location = location, Module = AmplaModules.Production, SetId = Convert.ToString(recordId) }
+            };
+
+            GetAuditDataResponse response = webServiceClient.GetAuditData(request);
+
+            AssertAuditTableContains(response, location, recordId, "Field 1", "150", "200");
+        }
+        
+        private static void AssertAuditTableContains(GetAuditDataResponse response, string objectId, int id,
+                                              string field, string oldValue, string newValue)
+        {
+            Assert.That(response.RowSets, Is.Not.Empty);
+            Assert.That(response.RowSets[0].Rows, Is.Not.Empty);
+
+            int found = 0;
+            string setId = Convert.ToString(id);
+            foreach (GetAuditDataRow row in response.RowSets[0].Rows)
+            {
+                if (row.Field == field && row.Location == objectId && row.SetId == setId)
+                {
+                    Assert.That(row.EditedValue, Is.EqualTo(newValue));
+                    Assert.That(row.OriginalValue, Is.EqualTo(oldValue));
+                    found++;
+                }
+            }
+
+            Assert.That(found, Is.EqualTo(1), "Field: {0} not found", field);
+        }
         private void AssertResponseContainsValue(GetDataResponse response, string field, string value)
         {
             Assert.That(response.RowSets, Is.Not.Empty);
@@ -303,8 +422,7 @@ namespace AmplaWeb.Data.AmplaData2008
             }
             Assert.That(found, Is.EqualTo(1), "Field: {0} not found", field);
         }
-
-
+        
         private static void CheckViewPoints(ViewPoint[] points, string parent, params string[] names)
         {
             Assert.That(points, Is.Not.Empty, parent);
