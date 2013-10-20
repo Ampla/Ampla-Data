@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data
@@ -37,5 +36,12 @@ namespace AmplaWeb.Data
         /// <param name="filters"></param>
         /// <returns></returns>
         IList<TModel> FindByFilter(params FilterValue[] filters);
+
+        /// <summary>
+        /// Gets the history for the record
+        /// </summary>
+        /// <param name="id">The unique identifier.</param>
+        /// <returns></returns>
+        AmplaAuditRecord GetHistory(int id);
     }
 }

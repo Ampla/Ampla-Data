@@ -1,0 +1,16 @@
+﻿@model AmplaWeb.Data.Records.AmplaAuditRecord
+<fieldset>
+    <legend>@Model.Location <small>@Model.Module Record</small></legend>
+    <table class="table table-condensed table-striped">
+        @foreach(var session in Model.Changes)
+        {
+            Html.RenderPartial("_HistoryChanges", session);
+        }
+    </table>
+</fieldset>
+<p>
+    @Html.ActionLink("Record", "Record", new {id = Model.Id}) |
+    @Html.ActionLink("Details", "Details", new {id = Model.Id}) |
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

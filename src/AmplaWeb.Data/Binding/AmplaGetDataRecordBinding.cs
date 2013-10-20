@@ -5,6 +5,7 @@ using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.Binding.MetaData;
 using AmplaWeb.Data.Binding.ModelData;
+using AmplaWeb.Data.Binding.ViewData;
 using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.Binding
@@ -14,12 +15,14 @@ namespace AmplaWeb.Data.Binding
         private readonly GetDataResponse response;
         private readonly List<AmplaRecord> records;
         private readonly IModelProperties<TModel> modelProperties;
+        private readonly IAmplaViewProperties amplaViewProperties;
 
-        public AmplaGetDataRecordBinding(GetDataResponse response, List<AmplaRecord> records, IModelProperties<TModel> modelProperties)
+        public AmplaGetDataRecordBinding(GetDataResponse response, List<AmplaRecord> records, IModelProperties<TModel> modelProperties, IAmplaViewProperties amplaViewProperties)
         {
             this.response = response;
             this.records = records;
             this.modelProperties = modelProperties;
+            this.amplaViewProperties = amplaViewProperties;
         }
 
         public bool Bind()
@@ -46,6 +49,8 @@ namespace AmplaWeb.Data.Binding
                     string value = cell.InnerText;
                     model.SetValue(field, value);
                 }
+
+                model.SetMappedProperties(amplaViewProperties.GetFieldMappings());
                 records.Add(model);
             }
             return true;

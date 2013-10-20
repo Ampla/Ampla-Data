@@ -121,12 +121,43 @@ namespace AmplaWeb.Data.AmplaRepository
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<AmplaRecord> records = new List<AmplaRecord>();
-            IAmplaBinding binding = new AmplaGetDataRecordBinding<TModel>(response, records, modelProperties);
+            IAmplaBinding binding = new AmplaGetDataRecordBinding<TModel>(response, records, modelProperties, amplaViewProperties);
             if (binding.Validate() && binding.Bind())
             {
                 return records.Count > 0 ? records[0] : null;
             }
 
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the history for the record
+        /// </summary>
+        /// <param name="id">The unique identifier.</param>
+        /// <returns></returns>
+        public AmplaAuditRecord GetHistory(int id)
+        {
+            AmplaRecord record = FindRecord(id);
+            if (record != null)
+            {
+                GetAuditDataRequest request = new GetAuditDataRequest
+                    {
+                        Credentials = CreateCredentials(),
+                        Filter = new GetAuditDataFilter
+                            {
+                                Location = record.Location,
+                                Module = ModelProperties.Module,
+                                SetId = Convert.ToString(id)
+                            }
+                    };
+                GetAuditDataResponse response = webServiceClient.GetAuditData(request);
+                List<AmplaAuditRecord> auditRecords = new List<AmplaAuditRecord>();
+                IAmplaBinding binding = new AmplaGetAuditDataRecordBinding<TModel>(response, record, auditRecords, modelProperties);
+                if (binding.Validate() && binding.Bind())
+                {
+                    return auditRecords.Count > 0 ? auditRecords[0] : null;
+                }
+            }
             return null;
         }
 

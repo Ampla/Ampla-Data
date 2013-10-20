@@ -328,5 +328,92 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record.Location, Is.EqualTo(location));
             Assert.That(record.Id, Is.EqualTo(model.Id));
         }
+
+        [Test]
+        public void GetHistory_NoChanges()
+        {
+            Assert.That(Records, Is.Empty);
+
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            Repository.Add(model);
+            Assert.That(Records.Count, Is.EqualTo(1));
+
+            AmplaRecord record = Repository.FindRecord(model.Id);
+            Assert.That(record, Is.Not.Null);
+
+            Assert.That(record.GetValue("Area"), Is.EqualTo(model.Area));
+            Assert.That(record.GetValue("Value"), Is.EqualTo(model.Value));
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.Id, Is.EqualTo(model.Id));
+
+            AmplaAuditRecord auditRecord = Repository.GetHistory(model.Id);
+            Assert.That(auditRecord, Is.Not.Null);
+
+            Assert.That(auditRecord.Id, Is.EqualTo(model.Id));
+            Assert.That(auditRecord.Location, Is.EqualTo(location));
+            Assert.That(auditRecord.Module, Is.EqualTo(module));
+            Assert.That(auditRecord.Changes, Is.Empty);
+        }
+
+        [Test]
+        public void GetHistory_WithChanges()
+        {
+            Assert.That(Records, Is.Empty);
+
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            Repository.Add(model);
+            Assert.That(Records.Count, Is.EqualTo(1));
+
+            AmplaRecord record = Repository.FindRecord(model.Id);
+            Assert.That(record, Is.Not.Null);
+
+            Assert.That(record.GetValue("Area"), Is.EqualTo(model.Area));
+            Assert.That(record.GetValue("Value"), Is.EqualTo(model.Value));
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.Id, Is.EqualTo(model.Id));
+
+            AreaValueModel updated = new AreaValueModel {Id = model.Id, Area = "ROM", Value = 200};
+
+            DateTime before = DateTime.Now.AddMinutes(-1);
+            DateTime after = DateTime.Now.AddMinutes(+1);
+
+            Repository.Update(updated);
+            record = Repository.FindRecord(model.Id);
+            Assert.That(record, Is.Not.Null);
+
+            Assert.That(record.GetValue("Area"), Is.EqualTo(model.Area));
+            Assert.That(record.GetValue("Value"), Is.EqualTo(200));
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.Id, Is.EqualTo(model.Id));
+
+            AmplaAuditRecord auditRecord = Repository.GetHistory(model.Id);
+            Assert.That(auditRecord, Is.Not.Null);
+
+            Assert.That(auditRecord.Id, Is.EqualTo(model.Id));
+            Assert.That(auditRecord.Location, Is.EqualTo(location));
+            Assert.That(auditRecord.Module, Is.EqualTo(module));
+            Assert.That(auditRecord.Changes, Is.Not.Empty);
+            Assert.That(auditRecord.Changes.Count, Is.EqualTo(1));
+
+            AmplaAuditSession session = auditRecord.Changes[0];
+            Assert.That(session.User, Is.EqualTo("User"));
+            Assert.That(session.EditedTime, Is.InRange(before, after));
+            Assert.That(session.Fields, Is.Not.Empty);
+
+            AssertAuditField(session, "Value", "100", "200");
+           
+        }
+
+        private void AssertAuditField(AmplaAuditSession session, string field, string oldValue, string newValue)
+        {
+            AmplaAuditField value = session.Fields.Find(f => f.Name == field);
+
+            Assert.That(value, Is.Not.Null, "{0} not found", field);
+            Assert.That(value.Name, Is.EqualTo(field), "Name is not set");
+            Assert.That(value.OriginalValue, Is.EqualTo(oldValue), "{0} Original Value", field);
+            Assert.That(value.EditedValue, Is.EqualTo(newValue), "{0} Edited Value", field);
+        }
     }
 }

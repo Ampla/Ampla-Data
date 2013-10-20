@@ -3,17 +3,19 @@
 @model Object
 <fieldset>
     <legend>@Model.GetLabel() <small>Details</small></legend>
-    <dl> <!-- use this class on the dl if you want horizontal styling http://twitter.github.com/bootstrap/base-css.html#typography  class="dl-horizontal"-->     
+    <table class="table table-bordered table-striped table-condensed">
         @foreach(var property in Model.VisibleProperties())
         {
-            <dt>
-                @property.GetLabel().ToSeparatedWords()
-            </dt>
-            <dd>
-                @Html.Display(property.Name)                
-            </dd>
+            <tr>
+                <td class="text-info">
+                    @property.GetLabel().ToSeparatedWords()
+                </td>
+                <td>
+                    @Html.Display(property.Name)                
+                </td>
+            </tr>
         }
-    </dl>
+    </table>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", Model.GetIdValue()) |

@@ -244,6 +244,9 @@
     <Content Include="Views\Account\CurrentUser.cshtml" />
     <Content Include="Views\shared\Edit.cshtml" />
     <Content Include="Views\shared\Record.cshtml" />
+    <Content Include="Views\shared\History.cshtml" />
+    <Content Include="Views\shared\_HistoryChanges.cshtml" />
+    <Content Include="Views\shared\_HistoryFields.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AmplaWeb.Data\AmplaWeb.Data.csproj">

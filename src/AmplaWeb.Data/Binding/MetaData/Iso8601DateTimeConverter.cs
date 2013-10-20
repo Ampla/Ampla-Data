@@ -10,6 +10,8 @@ namespace AmplaWeb.Data.Binding.MetaData
     /// </summary>
     public class Iso8601DateTimeConverter : DateTimeConverter
     {
+        private static Iso8601DateTimeConverter _converter = new Iso8601DateTimeConverter();
+
         /// <summary>
         /// Converts the given value object to a <see cref="T:System.DateTime" /> using the arguments.
         /// </summary>
@@ -20,11 +22,12 @@ namespace AmplaWeb.Data.Binding.MetaData
         /// <returns>
         /// An <see cref="T:System.Object" /> that represents the converted <paramref name="value" />.
         /// </returns>
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
+                                         Type destinationType)
         {
             if (context == null && destinationType == typeof (string) && CultureInfo.InvariantCulture.Equals(culture))
             {
-                DateTime localTime = (DateTime)value;
+                DateTime localTime = (DateTime) value;
                 return localTime.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ");
             }
             return base.ConvertTo(context, culture, value, destinationType);
@@ -44,10 +47,27 @@ namespace AmplaWeb.Data.Binding.MetaData
             string stringValue = value as string;
             if (stringValue != null && CultureInfo.InvariantCulture.Equals(culture))
             {
-                DateTime utcTime = DateTime.ParseExact(stringValue, "yyyy-MM-ddTHH:mm:ssZ", null, DateTimeStyles.AdjustToUniversal);
+                DateTime utcTime = DateTime.ParseExact(stringValue, "yyyy-MM-ddTHH:mm:ssZ", null,
+                                                       DateTimeStyles.AdjustToUniversal);
                 return utcTime.ToLocalTime();
             }
             return base.ConvertFrom(context, culture, value);
+        }
+
+        /// <summary>
+        /// Converts the Isodate time.
+        /// </summary>
+        /// <param name="iso8601Date">The iso8601 date.</param>
+        /// <returns></returns>
+        public static DateTime ConvertToLocalDateTime(string iso8601Date)
+        {
+            object result = _converter.ConvertFromInvariantString(iso8601Date);
+
+            if (result != null)
+            {
+                return (DateTime) result;
+            }
+            return DateTime.MinValue;
         }
     }
 }

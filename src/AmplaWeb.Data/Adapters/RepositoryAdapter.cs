@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.Adapters
@@ -42,6 +41,12 @@ namespace AmplaWeb.Data.Adapters
         {
             Adapt();
             return repository.FindByFilter(filters);
+        }
+
+        public AmplaAuditRecord GetHistory(int id)
+        {
+            Adapt();
+            return repository.GetHistory(id);
         }
 
         public void Add(TModel model)

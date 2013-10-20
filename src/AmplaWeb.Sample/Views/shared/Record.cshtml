@@ -1,30 +1,53 @@
 @model AmplaWeb.Data.Records.AmplaRecord
-<fieldset>
-    <legend>@Model.Location <small>@Model.Module Record</small></legend>
-    <table>
-           <tr>
-                <th class="pull-left">Id</th>
+
+<div class="row-fluid">
+    <div class="span8">
+        <h2>@Model.Location <small>@Model.Module Record</small></h2>
+        <h4 >Mapped Fields</h4>
+        <table class="table table-bordered table-striped table-condensed">
+            <tr>
+                <td>Id</td>
                 <td>@Model.Id</td>
             </tr>
-           <tr>
-                <th class="pull-left">Module</th>
-                <td>@Model.Module</td>
-            </tr>
-        @foreach(var field in Model.GetFieldNames())
-        {
-            <tr>
-                <th class="pull-left">
-                    @field
-                </th>
-                <td>
-                    @Html.Raw(Model.GetValue(field))
-                </td>
-            </tr>
-        }
-    </table>
-</fieldset>
+            @foreach(var field in Model.GetFieldNames())
+            {
+                if (Model.IsMapped(field))
+                {
+                    <tr>
+                        <td> @Html.Raw(field)  </td>
+                        <td> @Html.Raw(Model.GetValue(field)) </td>
+                    </tr>
+                }
+            }
+        </table>
+        <hr />
+        <h4>Extra Fields</h4>
+        <table class="table table-bordered table-striped table-condensed">
+       
+            @foreach (var field in Model.GetFieldNames())
+            {
+                if (!Model.IsMapped(field))
+                {
+                    <tr>
+                        <td>
+                            <div class="muted">
+                                @Html.Raw(field)
+                            </div>
+                        </td>
+                        <td>
+                            <div class="muted">
+                                @Html.Raw(Model.GetValue(field))
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>
+
 <p>
-    @Html.ActionLink("Details", "Details", new {Id = Model.Id}) |
-    @Html.ActionLink("Edit", "Edit", new {Id = Model.Id}) |
+    @Html.ActionLink("Details", "Details", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

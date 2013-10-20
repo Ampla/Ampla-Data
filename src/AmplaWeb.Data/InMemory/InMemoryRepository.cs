@@ -51,6 +51,11 @@ namespace AmplaWeb.Data.InMemory
             return list;
         }
 
+        public AmplaAuditRecord GetHistory(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Add(TModel model)
         {
             int id = ModelIdentifier.GetValue<TModel, int>(model);

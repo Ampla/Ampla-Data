@@ -37,5 +37,10 @@ namespace AmplaWeb.Data
         {
             return repository.FindByFilter(filters);
         }
+
+        public AmplaAuditRecord GetHistory(int id)
+        {
+            return repository.GetHistory(id);
+        }
     }
 }

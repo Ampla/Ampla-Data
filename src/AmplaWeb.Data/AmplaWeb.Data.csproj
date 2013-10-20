@@ -51,6 +51,10 @@
     <Compile Include="AmplaData2008\CredentialsProvider.cs" />
     <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\DataWebServiceFactory.cs" />
+    <Compile Include="Binding\AmplaGetAuditDataRecordBinding.cs" />
+    <Compile Include="Records\AmplaAuditRecord.cs" />
+    <Compile Include="Records\AmplaAuditField.cs" />
+    <Compile Include="Records\AmplaAuditSession .cs" />
     <Compile Include="Records\AmplaRecord.cs" />
     <Compile Include="AmplaRepository\AmplaRepository.cs" />
     <Compile Include="AmplaRepository\AmplaRepositorySet.cs" />

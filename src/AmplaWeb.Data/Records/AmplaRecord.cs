@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using AmplaWeb.Data.Binding.Mapping;
 
 namespace AmplaWeb.Data.Records
 {
@@ -18,9 +20,10 @@ namespace AmplaWeb.Data.Records
         {
             Id = recordId;
             dataStore = new DataTable("Record");
-            AddColumn("Location", typeof(string));
+            AddColumn("Location", typeof (string));
             dataStore.Rows.Add();
         }
+
         /// <summary>
         /// The Record Id
         /// </summary>
@@ -31,14 +34,8 @@ namespace AmplaWeb.Data.Records
         /// </summary>
         public string Location
         {
-            get
-            {
-                return (string)GetValue("Location");
-            }
-            set
-            {
-                SetValue("Location", value);
-            }
+            get { return (string) GetValue("Location"); }
+            set { SetValue("Location", value); }
         }
 
         /// <summary>
@@ -47,6 +44,8 @@ namespace AmplaWeb.Data.Records
         public string Module { get; set; }
 
         private readonly DataTable dataStore;
+
+        private readonly List<string> mappedProperties = new List<string>();
 
         /// <summary>
         /// Adds the column.
@@ -64,7 +63,9 @@ namespace AmplaWeb.Data.Records
             {
                 if (column.DataType != dataType)
                 {
-                    string message = string.Format("The column: {0} already exists with DataType: {1}.  Unable to change DataType to {2}",
+                    string message =
+                        string.Format(
+                            "The column: {0} already exists with DataType: {1}.  Unable to change DataType to {2}",
                             fieldName, column.DataType, dataType);
                     throw new ArgumentException(message);
                 }
@@ -99,6 +100,26 @@ namespace AmplaWeb.Data.Records
         {
             object value = dataStore.Rows[0][field];
             return value == DBNull.Value ? null : value;
+        }
+
+        public bool IsMapped(string field)
+        {
+            return mappedProperties.Contains(field);
+        }
+
+        /// <summary>
+        ///     Set the Mapped properties
+        /// </summary>
+        /// <param name="getFieldMappings"></param>
+        public void SetMappedProperties(IEnumerable<FieldMapping> getFieldMappings)
+        {
+            foreach (var mapping in getFieldMappings)
+            {
+                //if (mapping.CanWrite)
+                {
+                    mappedProperties.Add(mapping.Name);
+                }
+            }
         }
     }
 }
