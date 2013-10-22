@@ -1,6 +1,5 @@
-﻿using System.Dynamic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.Controllers
@@ -67,6 +66,21 @@ namespace AmplaWeb.Data.Controllers
                 return HttpNotFound();
             }
             return View("History", record);
+        }
+
+        /// <summary>
+        ///     GET /{Model}/Versions/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Versions(int id = 0)
+        {
+            IList<ModelVersion> versions = Repository.GetVersions(id);
+            if (versions == null || versions.Count == 0)
+            {
+                return HttpNotFound();
+            }
+            return View("Versions", versions);
         }
 
         /// <summary>

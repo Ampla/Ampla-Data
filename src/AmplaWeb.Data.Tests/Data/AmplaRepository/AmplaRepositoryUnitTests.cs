@@ -330,6 +330,15 @@ namespace AmplaWeb.Data.AmplaRepository
         }
 
         [Test]
+        public void GetHistory_WrongId()
+        {
+            Assert.That(Records, Is.Empty);
+
+            AmplaAuditRecord auditRecord = Repository.GetHistory(101);
+            Assert.That(auditRecord, Is.Null);
+        }
+
+        [Test]
         public void GetHistory_NoChanges()
         {
             Assert.That(Records, Is.Empty);
@@ -405,10 +414,128 @@ namespace AmplaWeb.Data.AmplaRepository
             AssertAuditField(session, "Value", "100", "200");
            
         }
+        
+        [Test]
+        public void GetVersions_NoChanges()
+        {
+            Assert.That(Records, Is.Empty);
 
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            Repository.Add(model);
+            Assert.That(Records.Count, Is.EqualTo(1));
+
+            AmplaRecord record = Repository.FindRecord(model.Id);
+            Assert.That(record, Is.Not.Null);
+
+            Assert.That(record.GetValue("Area"), Is.EqualTo(model.Area));
+            Assert.That(record.GetValue("Value"), Is.EqualTo(model.Value));
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.Id, Is.EqualTo(model.Id));
+
+            IList<ModelVersion> versions = Repository.GetVersions(model.Id);
+            Assert.That(versions, Is.Not.Empty);
+
+            ModelVersion<AreaValueModel> version = (ModelVersion<AreaValueModel>) versions[0];
+
+            Assert.That(version.Model, Is.Not.Null);
+            Assert.That(version.Model.Id, Is.EqualTo(model.Id));
+            Assert.That(version.Model.Value, Is.EqualTo(model.Value));
+            Assert.That(version.Model.Area, Is.EqualTo(model.Area));
+
+            Assert.That(versions[0].IsCurrentVersion, Is.True);
+        }
+
+        [Test]
+        public void GetVersion_WithChanges()
+        {
+            Assert.That(Records, Is.Empty);
+
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            Repository.Add(model);
+            Assert.That(Records.Count, Is.EqualTo(1));
+
+            AmplaRecord record = Repository.FindRecord(model.Id);
+            Assert.That(record, Is.Not.Null);
+
+            AreaValueModel updated = new AreaValueModel { Id = model.Id, Area = "ROM", Value = 200 };
+
+            Repository.Update(updated);
+            record = Repository.FindRecord(model.Id);
+            Assert.That(record, Is.Not.Null);
+
+            Assert.That(record.GetValue("Area"), Is.EqualTo(model.Area));
+            Assert.That(record.GetValue("Value"), Is.EqualTo(200));
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.Id, Is.EqualTo(model.Id));
+
+            IList<ModelVersion> versions = Repository.GetVersions(model.Id);
+            Assert.That(versions, Is.Not.Empty);
+            Assert.That(versions.Count, Is.EqualTo(2));
+
+
+            ModelVersion<AreaValueModel> last = (ModelVersion<AreaValueModel>) versions[0];
+            ModelVersion<AreaValueModel> current = (ModelVersion<AreaValueModel>) versions[1];
+
+            Assert.That(last.Model, Is.Not.Null);
+            Assert.That(last.IsCurrentVersion, Is.False);
+            Assert.That(last.Model.Id, Is.EqualTo(model.Id));
+            Assert.That(last.Model.Value, Is.EqualTo(model.Value));
+            Assert.That(last.Model.Area, Is.EqualTo(model.Area));
+
+            Assert.That(current.Model, Is.Not.Null);
+            Assert.That(current.IsCurrentVersion, Is.True);
+            Assert.That(current.Model.Id, Is.EqualTo(updated.Id));
+            Assert.That(current.Model.Value, Is.EqualTo(updated.Value));
+            Assert.That(current.Model.Area, Is.EqualTo(updated.Area));
+        }
+
+        [Test]
+        public void GetVersion_NotRelevantChanges()
+        {
+            Assert.That(Records, Is.Empty);
+
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100 };
+
+            Repository.Add(model);
+            Assert.That(Records.Count, Is.EqualTo(1));
+
+            int recordId = Records[0].RecordId;
+
+            InMemoryRecord record = new InMemoryRecord {Module = module, Location = location, RecordId = recordId};
+            record.SetFieldValue("Sample Period", DateTime.Today);
+
+            UpdateRecord(record);
+
+            Assert.That(Records.Count, Is.EqualTo(1));
+            Assert.That(Records[0].GetFieldValue("Sample Period", DateTime.MinValue), Is.EqualTo(DateTime.Today.ToUniversalTime()));
+
+            IList<ModelVersion> versions = Repository.GetVersions(model.Id);
+            Assert.That(versions, Is.Not.Empty);
+            Assert.That(versions.Count, Is.EqualTo(1));  // one version change ('Sample Period') is not relevant
+
+            ModelVersion<AreaValueModel> current = (ModelVersion<AreaValueModel>) versions[0];
+
+            Assert.That(current.Model, Is.Not.Null);
+            Assert.That(current.IsCurrentVersion, Is.True);
+            Assert.That(current.Model.Id, Is.EqualTo(model.Id));
+            Assert.That(current.Model.Value, Is.EqualTo(model.Value));
+            Assert.That(current.Model.Area, Is.EqualTo(model.Area));
+        }
+
+        [Test]
+        public void GetVersions_WrongId()
+        {
+            Assert.That(Records, Is.Empty);
+
+            IList<ModelVersion> versions = Repository.GetVersions(101);
+            Assert.That(versions, Is.Empty);
+        }
+        
         private void AssertAuditField(AmplaAuditSession session, string field, string oldValue, string newValue)
         {
-            AmplaAuditField value = session.Fields.Find(f => f.Name == field);
+            AmplaAuditField value = new List<AmplaAuditField>(session.Fields).Find(f => f.Name == field);
 
             Assert.That(value, Is.Not.Null, "{0} not found", field);
             Assert.That(value.Name, Is.EqualTo(field), "Name is not set");

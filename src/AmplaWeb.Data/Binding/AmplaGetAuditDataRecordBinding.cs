@@ -58,6 +58,8 @@ namespace AmplaWeb.Data.Binding
                 }
             }
 
+            changes.Sort();
+
             model.Changes = changes;
             records.Add(model);
             return true;

@@ -1,0 +1,51 @@
+﻿@using AmplaWeb.Data.Records
+@using AmplaWeb.Sample.BootstrapSupport
+@model IList<ModelVersion>
+
+<fieldset>
+    <legend>@Model.GetLabel() <small>Versions</small></legend>
+    <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs">
+            @{
+                for (int i = Model.Count - 1; i >= 0; i--)
+                {
+                    ModelVersion version = Model[i];
+                    string active = version.IsCurrentVersion ? " active" : "";
+                    string href = string.Format("#ver{0}", i);
+                    string name = string.Format("Version {0}", i + 1);
+                    <li class="@active">
+                        <a data-toggle="tab" href = "@href">
+                            @if (version.IsCurrentVersion)
+                            {
+                                <span class="label label-success">@name</span>
+                            }
+                            else
+                            {
+                                <span class="label ">@name</span>
+                            }
+                        </a>
+                    </li>
+                }
+                <li>
+                    @Html.ActionLink("Record", "Record", new {id = Model.GetIdValue()})
+                </li>
+            }
+        </ul>
+        <div class="tab-content">
+            @{
+                for (int i = Model.Count - 1; i >= 0; i--)
+                {
+                    ModelVersion version = Model[i];
+                    string active = version.IsCurrentVersion ? " active" : "";
+                    string href = string.Format("ver{0}", i);
+                    <div class="tab-pane @active " id = "@href">
+                        @{
+                    Html.RenderPartial("_ModelDetails", version.Object);
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</fieldset>
+ 

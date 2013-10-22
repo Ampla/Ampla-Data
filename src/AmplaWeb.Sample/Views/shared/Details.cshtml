@@ -3,19 +3,9 @@
 @model Object
 <fieldset>
     <legend>@Model.GetLabel() <small>Details</small></legend>
-    <table class="table table-bordered table-striped table-condensed">
-        @foreach(var property in Model.VisibleProperties())
-        {
-            <tr>
-                <td class="text-info">
-                    @property.GetLabel().ToSeparatedWords()
-                </td>
-                <td>
-                    @Html.Display(property.Name)                
-                </td>
-            </tr>
-        }
-    </table>
+    @{
+        Html.RenderPartial("_ModelDetails", Model);
+    }
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", Model.GetIdValue()) |

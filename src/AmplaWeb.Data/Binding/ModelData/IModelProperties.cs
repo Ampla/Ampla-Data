@@ -8,7 +8,7 @@ namespace AmplaWeb.Data.Binding.ModelData
     ///     Interface that provides access against a generic model
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public interface IModelProperties<in TModel> where TModel : new()
+    public interface IModelProperties<TModel> where TModel : new()
     {
         /// <summary>
         /// Gets the location for the model
@@ -82,5 +82,12 @@ namespace AmplaWeb.Data.Binding.ModelData
         /// <param name="validationMessages"></param>
         /// <returns></returns>
         bool ValidateModel(TModel model, ValidationMessages validationMessages);
+
+        /// <summary>
+        /// Clones the model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        TModel CloneModel(TModel model);
     }
 }

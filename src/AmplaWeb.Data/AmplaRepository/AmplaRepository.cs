@@ -119,14 +119,26 @@ namespace AmplaWeb.Data.AmplaRepository
             FilterValue deletedFilter = new FilterValue("Deleted", "");
             var request = GetDataRequest(false, idFilter, deletedFilter);
             GetDataResponse response = webServiceClient.GetData(request);
+            TModel model;
+            return FindAmplaRecord(response, ModelProperties, amplaViewProperties, out model);
+        }
 
+        private AmplaRecord FindAmplaRecord(GetDataResponse response, IModelProperties<TModel> iModelProperties,  IAmplaViewProperties amplaViewProperties, out TModel model)
+        {
             List<AmplaRecord> records = new List<AmplaRecord>();
-            IAmplaBinding binding = new AmplaGetDataRecordBinding<TModel>(response, records, modelProperties, amplaViewProperties);
-            if (binding.Validate() && binding.Bind())
+            model = null;
+            IAmplaBinding amplaBinding = new AmplaGetDataRecordBinding<TModel>(response, records, modelProperties,
+                                                                          amplaViewProperties);
+            if (amplaBinding.Validate() && amplaBinding.Bind())
             {
+                List<TModel> models = new List<TModel>();
+                IAmplaBinding modelBinding = new AmplaGetDataBinding<TModel>(response, models, iModelProperties);
+                if (modelBinding.Validate() && modelBinding.Bind())
+                {
+                    model = models.Count > 0 ? models[0] : null;
+                }
                 return records.Count > 0 ? records[0] : null;
             }
-
             return null;
         }
 
@@ -137,28 +149,65 @@ namespace AmplaWeb.Data.AmplaRepository
         /// <returns></returns>
         public AmplaAuditRecord GetHistory(int id)
         {
-            AmplaRecord record = FindRecord(id);
-            if (record != null)
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(null);
+            amplaViewProperties.Enforce.CanView();
+
+            FilterValue idFilter = new FilterValue("Id", Convert.ToString(id));
+            FilterValue deletedFilter = new FilterValue("Deleted", "");
+            GetDataRequest dataRequest = GetDataRequest(false, idFilter, deletedFilter);
+            GetDataResponse dataResponse = webServiceClient.GetData(dataRequest);
+            TModel model;
+            AmplaRecord amplaRecord = FindAmplaRecord(dataResponse, ModelProperties, amplaViewProperties, out model);
+
+            if (amplaRecord != null)
             {
-                GetAuditDataRequest request = new GetAuditDataRequest
-                    {
-                        Credentials = CreateCredentials(),
-                        Filter = new GetAuditDataFilter
-                            {
-                                Location = record.Location,
-                                Module = ModelProperties.Module,
-                                SetId = Convert.ToString(id)
-                            }
-                    };
+                var request = GetAuditDataRequest(amplaRecord);
                 GetAuditDataResponse response = webServiceClient.GetAuditData(request);
                 List<AmplaAuditRecord> auditRecords = new List<AmplaAuditRecord>();
-                IAmplaBinding binding = new AmplaGetAuditDataRecordBinding<TModel>(response, record, auditRecords, modelProperties);
+                IAmplaBinding binding = new AmplaGetAuditDataRecordBinding<TModel>(response, amplaRecord, auditRecords, modelProperties);
                 if (binding.Validate() && binding.Bind())
                 {
                     return auditRecords.Count > 0 ? auditRecords[0] : null;
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Gets the versions of the model
+        /// </summary>
+        /// <param name="id">The unique identifier.</param>
+        /// <returns></returns>
+        public IList<ModelVersion> GetVersions(int id)
+        {
+            IAmplaViewProperties amplaViewProperties = GetViewProperties(null);
+            amplaViewProperties.Enforce.CanView();
+
+            FilterValue idFilter = new FilterValue("Id", Convert.ToString(id));
+            FilterValue deletedFilter = new FilterValue("Deleted", "");
+            GetDataRequest dataRequest = GetDataRequest(false, idFilter, deletedFilter);
+            GetDataResponse dataResponse = webServiceClient.GetData(dataRequest);
+            TModel model;
+            AmplaRecord amplaRecord = FindAmplaRecord(dataResponse, ModelProperties, amplaViewProperties, out model);
+
+            if (amplaRecord != null)
+            {
+                var request = GetAuditDataRequest(amplaRecord);
+                GetAuditDataResponse response = webServiceClient.GetAuditData(request);
+                List<AmplaAuditRecord> auditRecords = new List<AmplaAuditRecord>();
+                IAmplaBinding binding = new AmplaGetAuditDataRecordBinding<TModel>(response, amplaRecord, auditRecords, modelProperties);
+                if (binding.Validate() && binding.Bind())
+                {
+                    AmplaAuditRecord auditRecord = auditRecords.Count > 0 ? auditRecords[0] : null;
+                    List<ModelVersion> versions = new List<ModelVersion>();
+                    IAmplaBinding historyBinding = new AmplaGetDataVersionsBinding<TModel>(auditRecord, model, versions, modelProperties, amplaViewProperties);
+                    if (historyBinding.Validate() && historyBinding.Bind())
+                    {
+                        return versions;
+                    }
+                }
+            }
+            return new List<ModelVersion>();
         }
 
         /// <summary>
@@ -349,6 +398,21 @@ namespace AmplaWeb.Data.AmplaRepository
                     Module = ModelProperties.Module
                 }
             };
+            return request;
+        }
+
+        public GetAuditDataRequest GetAuditDataRequest(AmplaRecord record)
+        {
+            GetAuditDataRequest request = new GetAuditDataRequest
+                {
+                    Credentials = CreateCredentials(),
+                    Filter = new GetAuditDataFilter
+                        {
+                            Location = record.Location,
+                            Module = ModelProperties.Module,
+                            SetId = Convert.ToString(record.Id)
+                        }
+                };
             return request;
         }
 

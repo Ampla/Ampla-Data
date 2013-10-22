@@ -325,6 +325,54 @@ namespace AmplaWeb.Data.Binding.ModelData
             Assert.That(modelProperties.GetLocation(model), Is.EqualTo("Enterprise.Site.Area.Simple"));
         }
 
+        [Test]
+        public void CloneModel()
+        {
+            SimpleModel model = new SimpleModel();
+
+            ModelProperties<SimpleModel> modelProperties = new ModelProperties<SimpleModel>();
+
+            SimpleModel clone = modelProperties.CloneModel(model);
+
+            Assert.That(ReferenceEquals(model, clone), Is.False);
+
+            AssertPropertyGetValue(modelProperties, model, "Id", "0");
+            AssertPropertyGetValue(modelProperties, model, "Name", null);
+            AssertPropertyGetValue(modelProperties, model, "Value", "0");
+
+            AssertPropertyGetValue(modelProperties, clone, "Id", "0");
+            AssertPropertyGetValue(modelProperties, clone, "Name", null);
+            AssertPropertyGetValue(modelProperties, clone, "Value", "0");
+
+            model.Id++;
+
+            Assert.That(clone.Id, Is.Not.EqualTo(model.Id));
+        }
+
+
+        [Test]
+        public void CloneModelWithValues()
+        {
+            SimpleModel model = new SimpleModel { Id = 100, Name = "Ampla", Value = 1.234 }; 
+
+            ModelProperties<SimpleModel> modelProperties = new ModelProperties<SimpleModel>();
+
+            SimpleModel clone = modelProperties.CloneModel(model);
+
+            Assert.That(ReferenceEquals(model, clone), Is.False);
+
+            AssertPropertyGetValue(modelProperties, model, "Id", "100");
+            AssertPropertyGetValue(modelProperties, model, "Name", "Ampla");
+            AssertPropertyGetValue(modelProperties, model, "Value", "1.234");
+
+            AssertPropertyGetValue(modelProperties, clone, "Id", "100");
+            AssertPropertyGetValue(modelProperties, clone, "Name", "Ampla");
+            AssertPropertyGetValue(modelProperties, clone, "Value", "1.234");
+
+            model.Id++;
+
+            Assert.That(clone.Id, Is.Not.EqualTo(model.Id));
+        }
 
         private void AssertPropertyGetValue<TModel>(ModelProperties<TModel> modelProperties, TModel model, string property, string expected) where TModel : new()
         {

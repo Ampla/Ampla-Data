@@ -49,6 +49,12 @@ namespace AmplaWeb.Data.Adapters
             return repository.GetHistory(id);
         }
 
+        public IList<ModelVersion> GetVersions(int id)
+        {
+            Adapt();
+            return repository.GetVersions(id);
+        }
+
         public void Add(TModel model)
         {
             Adapt();

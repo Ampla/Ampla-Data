@@ -68,6 +68,18 @@ namespace AmplaWeb.Data.AmplaRepository
             return record.SaveTo(webServiceClient);
         }
 
+        protected int UpdateRecord(InMemoryRecord record)
+        {
+            SubmitDataRequest request = new SubmitDataRequest();
+            request.Credentials = webServiceClient.CreateCredentials();
+            request.SubmitDataRecords = new[] {record.ConvertToSubmitDataRecord()};
+
+            SubmitDataResponse response = webServiceClient.SubmitData(request);
+            Assert.That(response.DataSubmissionResults, Is.Not.Empty);
+            Assert.That(response.DataSubmissionResults[0].RecordAction, Is.EqualTo(RecordAction.Update), "Expected an Update to occur");
+            return (int) response.DataSubmissionResults[0].SetId;
+        }
+
         protected IList<string> Messages
         {
             get { return listLogger.Messages; }

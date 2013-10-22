@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.Binding.ModelData;
 using AmplaWeb.Data.Records;
 
@@ -52,6 +51,11 @@ namespace AmplaWeb.Data.InMemory
         }
 
         public AmplaAuditRecord GetHistory(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<ModelVersion> GetVersions(int id)
         {
             throw new NotImplementedException();
         }

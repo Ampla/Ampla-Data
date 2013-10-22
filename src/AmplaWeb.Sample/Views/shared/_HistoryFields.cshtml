@@ -1,8 +1,17 @@
 ﻿@model AmplaWeb.Data.Records.AmplaAuditField
 
 <tr>
-    <td class="text-info">@Html.DisplayFor(model => model.Name)</td>
-    <td>@Html.DisplayFor(model => model.EditedValue)</td>
+    <td rowspan="2" class="text-info">@Html.DisplayFor(model => model.Name)</td>
+    <td> <i class="icon-minus"> </i> </td>
+    <td>
+        @Html.DisplayFor(model => model.OriginalValue) 
+    </td>
+</tr>
+<tr>
+    <td> <i class="icon-plus"> </i> </td>
+    <td>
+        @Html.DisplayFor(model => model.EditedValue) 
+    </td>
 </tr>
 
 

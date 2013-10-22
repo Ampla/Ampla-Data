@@ -247,6 +247,8 @@
     <Content Include="Views\shared\History.cshtml" />
     <Content Include="Views\shared\_HistoryChanges.cshtml" />
     <Content Include="Views\shared\_HistoryFields.cshtml" />
+    <Content Include="Views\shared\Versions.cshtml" />
+    <Content Include="Views\shared\_ModelDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AmplaWeb.Data\AmplaWeb.Data.csproj">

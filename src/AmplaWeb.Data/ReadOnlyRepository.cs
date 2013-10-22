@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data
@@ -41,6 +40,11 @@ namespace AmplaWeb.Data
         public AmplaAuditRecord GetHistory(int id)
         {
             return repository.GetHistory(id);
+        }
+
+        public IList<ModelVersion> GetVersions(int id)
+        {
+            return repository.GetVersions(id);
         }
     }
 }

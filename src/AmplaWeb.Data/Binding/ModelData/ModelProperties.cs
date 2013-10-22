@@ -272,5 +272,24 @@ namespace AmplaWeb.Data.Binding.ModelData
         {
             return modelValidators.Aggregate(true, (current, validator) => current & validator.Validate(this, model, validationMessages));
         }
+
+        /// <summary>
+        /// Clones the model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
+        public TModel CloneModel(TModel model)
+        {
+            TModel clone = new TModel();
+            foreach (string propertyName in propertyNames)
+            {
+                string value;
+                if (TryGetPropertyValue(model, propertyName, out value))
+                {
+                    TrySetValueFromString(clone, propertyName, value);
+                }
+            }
+            return clone;
+        }
     }
 }
