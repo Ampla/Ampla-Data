@@ -1,14 +1,16 @@
-﻿namespace AmplaWeb.Data.Records
+﻿using System;
+
+namespace AmplaWeb.Data.Records
 {
     public class ModelVersion
     {
-        public ModelVersion(bool isCurrent, object model)
+        protected ModelVersion(bool isCurrent, object model)
         {
             IsCurrentVersion = isCurrent;
             Object = model;
         }
 
-        public object Object { get; set; }
+        public object Object { get; private set; }
         public bool IsCurrentVersion { get; private set; }
     }
 

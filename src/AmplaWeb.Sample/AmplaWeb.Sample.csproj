@@ -143,7 +143,6 @@
     <Compile Include="Controllers\QualityController.cs" />
     <Compile Include="Controllers\DowntimeController.cs" />
     <Compile Include="Controllers\IngotBundleController.cs" />
-    <Compile Include="Controllers\ExampleLayoutsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngotCastController.cs" />
     <Compile Include="Controllers\ProductionController.cs" />
@@ -231,12 +230,6 @@
     <Content Include="Views\shared\_BootstrapLayout.basic.cshtml" />
     <Content Include="Views\shared\_alerts.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\ExampleLayouts\TBD.cshtml" />
-    <Content Include="Views\ExampleLayouts\Starter.cshtml" />
-    <Content Include="Views\ExampleLayouts\SignIn.cshtml" />
-    <Content Include="Views\ExampleLayouts\Narrow.cshtml" />
-    <Content Include="Views\ExampleLayouts\Marketing.cshtml" />
-    <Content Include="Views\ExampleLayouts\Fluid.cshtml" />
     <Content Include="Views\IngotCast\Select.cshtml" />
     <Content Include="Views\shared\Delete.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />

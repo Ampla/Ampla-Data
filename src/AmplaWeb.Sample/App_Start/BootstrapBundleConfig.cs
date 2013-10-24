@@ -2,7 +2,7 @@
 
 namespace AmplaWeb.Sample.App_Start
 {
-    public class BootstrapBundleConfig
+    public static class BootstrapBundleConfig
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
