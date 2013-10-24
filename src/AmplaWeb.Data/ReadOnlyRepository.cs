@@ -42,7 +42,7 @@ namespace AmplaWeb.Data
             return repository.GetHistory(id);
         }
 
-        public IList<ModelVersion> GetVersions(int id)
+        public ModelVersions GetVersions(int id)
         {
             return repository.GetVersions(id);
         }

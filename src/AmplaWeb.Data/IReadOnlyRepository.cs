@@ -49,6 +49,6 @@ namespace AmplaWeb.Data
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        IList<ModelVersion> GetVersions(int id);
+        ModelVersions GetVersions(int id);
     }
 }

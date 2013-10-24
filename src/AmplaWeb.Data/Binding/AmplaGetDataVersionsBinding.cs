@@ -10,11 +10,11 @@ namespace AmplaWeb.Data.Binding
     {
         private readonly AmplaAuditRecord auditRecord;
         private readonly TModel currentModel;
-        private readonly List<ModelVersion> versions;
+        private readonly ModelVersions versions;
         private readonly IModelProperties<TModel> modelProperties;
         private IAmplaViewProperties viewProperties;
 
-        public AmplaGetDataVersionsBinding(AmplaAuditRecord auditRecord, TModel currentModel, List<ModelVersion> versions, IModelProperties<TModel> modelProperties, IAmplaViewProperties viewProperties)
+        public AmplaGetDataVersionsBinding(AmplaAuditRecord auditRecord, TModel currentModel, ModelVersions versions, IModelProperties<TModel> modelProperties, IAmplaViewProperties viewProperties)
         {
             this.auditRecord = auditRecord;
             this.currentModel = currentModel;
@@ -25,6 +25,8 @@ namespace AmplaWeb.Data.Binding
 
         public bool Bind()
         {
+            versions.ModelName = modelProperties.GetModelName();
+
             ModelVersion<TModel> current = new ModelVersion<TModel>(true, currentModel);
             TModel model = modelProperties.CloneModel(currentModel);
 
@@ -55,12 +57,12 @@ namespace AmplaWeb.Data.Binding
                 if (newVersion)
                 {
                     ModelVersion<TModel> modelVersion = new ModelVersion<TModel>(false, model);
-                    versions.Add(modelVersion);
+                    versions.Versions.Add(modelVersion);
                     model = modelProperties.CloneModel(model);
                 }
             }
 
-            versions.Add(current);
+            versions.Versions.Add(current);
             return true;
         }
 

@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
+using AmplaWeb.Data.Binding.MetaData;
 
 namespace AmplaWeb.Sample.BootstrapSupport
 {
@@ -94,26 +95,11 @@ namespace AmplaWeb.Sample.BootstrapSupport
             return meta.GetDisplayName();
         }
 
-        public static string ToSeparatedWords(this string value)
-        {
-            return Regex.Replace(value, "([A-Z][a-z])", " $1").Trim();
-        }
 
     }
 
     public static class PropertyInfoExtensions
     {
-        public static bool AttributeExists<T>(this PropertyInfo propertyInfo) where T : class
-        {
-            var attribute = propertyInfo.GetCustomAttributes(typeof(T), false)
-                                .FirstOrDefault() as T;
-            if (attribute == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
         public static bool AttributeExists<T>(this Type type) where T : class
         {
             var attribute = type.GetCustomAttributes(typeof(T), false).FirstOrDefault() as T;
@@ -141,18 +127,14 @@ namespace AmplaWeb.Sample.BootstrapSupport
                 : @type.Name.ToSeparatedWords();
         }
 		
-        public static string GetLabel(this Object Model)
+        public static string GetLabel(this Object model)
         {
-            return LabelFromType(Model.GetType());
+            return LabelFromType(model.GetType());
         }
 
-        public static string GetLabel(this IEnumerable Model)
+        public static string GetLabel(this IEnumerable model)
         {
-            var elementType = Model.GetType().GetElementType();
-            if (elementType == null)
-            {
-                elementType = Model.GetType().GetGenericArguments()[0];
-            }
+            var elementType = model.GetType().GetElementType() ?? model.GetType().GetGenericArguments()[0];
             return LabelFromType(elementType);
         }
     }

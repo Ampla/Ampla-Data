@@ -1,53 +1,75 @@
+@using AmplaWeb.Sample.BootstrapSupport
 @model AmplaWeb.Data.Records.AmplaRecord
 
-<div class="row-fluid">
-    <div class="span8">
-        <h2>@Model.Location <small>@Model.Module Record</small></h2>
-        <h4 >Mapped Fields</h4>
-        <table class="table table-bordered table-striped table-condensed">
-            <tr>
-                <td>Id</td>
-                <td>@Model.Id</td>
-            </tr>
-            @foreach(var field in Model.GetFieldNames())
-            {
-                if (Model.IsMapped(field))
-                {
-                    <tr>
-                        <td> @Html.Raw(field)  </td>
-                        <td> @Html.Raw(Model.GetValue(field)) </td>
-                    </tr>
-                }
-            }
-        </table>
-        <hr />
-        <h4>Extra Fields</h4>
-        <table class="table table-bordered table-striped table-condensed">
-       
-            @foreach (var field in Model.GetFieldNames())
-            {
-                if (!Model.IsMapped(field))
-                {
-                    <tr>
-                        <td>
-                            <div class="muted">
-                                @Html.Raw(field)
-                            </div>
-                        </td>
-                        <td>
-                            <div class="muted">
-                                @Html.Raw(Model.GetValue(field))
-                            </div>
-                        </td>
-                    </tr>
-                }
-            }
-        </table>
-    </div>
-</div>
+<fieldset>
+    <legend>@Model.ModelName <small>@Model.Module Record</small></legend>
+    <div class="container-fluid">
+        <div class="row-fluid ">
+            <div class="span2">
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="@Url.Action("Details", Model.GetIdValue())">
+                            <i class="icon-star"> </i> <span>Model</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Versions", Model.GetIdValue())">
+                            <i class="icon-chevron-right"> </i>  <span> Versions</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a  href="#"><i class="icon-list-alt"> </i> Record</a>
+                    </li>
 
-<p>
-    @Html.ActionLink("Details", "Details", new { id = Model.Id }) |
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                </ul>
+            </div>
+            <div class="span10 ">
+                <div class=" active " >
+                    <h4>Mapped fields</h4>
+                    <table class="table table-bordered table-striped table-condensed">
+                        <tr>
+                            <td>Id</td>
+                            <td>@Model.Id</td>
+                        </tr>
+                        @foreach(var field in Model.GetFieldNames())
+                        {
+                            if (Model.IsMapped(field))
+                            {
+                                <tr>
+                                    <td> @Html.Raw(field)  </td>
+                                    <td> @Html.Raw(Model.GetValue(field)) </td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                    
+                    <a href="#" data-toggle="collapse" data-target="#other">Show other fields</a>
+                    <br/>
+                    <div id="other" class="collapse">
+                        <table class="table table-bordered table-striped table-condensed ">
+       
+                            @foreach (var field in Model.GetFieldNames())
+                            {
+                                if (!Model.IsMapped(field))
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="muted">
+                                                @Html.Raw(field)
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="muted">
+                                                @Html.Raw(Model.GetValue(field))
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>

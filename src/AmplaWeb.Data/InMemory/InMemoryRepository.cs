@@ -55,7 +55,7 @@ namespace AmplaWeb.Data.InMemory
             throw new NotImplementedException();
         }
 
-        public IList<ModelVersion> GetVersions(int id)
+        public ModelVersions GetVersions(int id)
         {
             throw new NotImplementedException();
         }

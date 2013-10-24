@@ -433,17 +433,18 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record.Location, Is.EqualTo(location));
             Assert.That(record.Id, Is.EqualTo(model.Id));
 
-            IList<ModelVersion> versions = Repository.GetVersions(model.Id);
-            Assert.That(versions, Is.Not.Empty);
+            ModelVersions versions = Repository.GetVersions(model.Id);
+            Assert.That(versions, Is.Not.Null);
+            Assert.That(versions.Versions, Is.Not.Empty);
 
-            ModelVersion<AreaValueModel> version = (ModelVersion<AreaValueModel>) versions[0];
+            ModelVersion<AreaValueModel> version = (ModelVersion<AreaValueModel>) versions.Versions[0];
 
             Assert.That(version.Model, Is.Not.Null);
             Assert.That(version.Model.Id, Is.EqualTo(model.Id));
             Assert.That(version.Model.Value, Is.EqualTo(model.Value));
             Assert.That(version.Model.Area, Is.EqualTo(model.Area));
 
-            Assert.That(versions[0].IsCurrentVersion, Is.True);
+            Assert.That(version.IsCurrentVersion, Is.True);
         }
 
         [Test]
@@ -470,13 +471,14 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record.Location, Is.EqualTo(location));
             Assert.That(record.Id, Is.EqualTo(model.Id));
 
-            IList<ModelVersion> versions = Repository.GetVersions(model.Id);
-            Assert.That(versions, Is.Not.Empty);
-            Assert.That(versions.Count, Is.EqualTo(2));
+            ModelVersions versions = Repository.GetVersions(model.Id);
+            Assert.That(versions, Is.Not.Null);
+            Assert.That(versions.Versions, Is.Not.Empty);
+            Assert.That(versions.Versions.Count, Is.EqualTo(2));
 
 
-            ModelVersion<AreaValueModel> last = (ModelVersion<AreaValueModel>) versions[0];
-            ModelVersion<AreaValueModel> current = (ModelVersion<AreaValueModel>) versions[1];
+            ModelVersion<AreaValueModel> last = (ModelVersion<AreaValueModel>)versions.Versions[0];
+            ModelVersion<AreaValueModel> current = (ModelVersion<AreaValueModel>)versions.Versions[1];
 
             Assert.That(last.Model, Is.Not.Null);
             Assert.That(last.IsCurrentVersion, Is.False);
@@ -511,11 +513,12 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(Records.Count, Is.EqualTo(1));
             Assert.That(Records[0].GetFieldValue("Sample Period", DateTime.MinValue), Is.EqualTo(DateTime.Today.ToUniversalTime()));
 
-            IList<ModelVersion> versions = Repository.GetVersions(model.Id);
-            Assert.That(versions, Is.Not.Empty);
-            Assert.That(versions.Count, Is.EqualTo(1));  // one version change ('Sample Period') is not relevant
+            ModelVersions versions = Repository.GetVersions(model.Id);
+            Assert.That(versions, Is.Not.Null);
+            Assert.That(versions.Versions, Is.Not.Empty);
+            Assert.That(versions.Versions.Count, Is.EqualTo(1));  // one version change ('Sample Period') is not relevant
 
-            ModelVersion<AreaValueModel> current = (ModelVersion<AreaValueModel>) versions[0];
+            ModelVersion<AreaValueModel> current = (ModelVersion<AreaValueModel>) versions.Versions[0];
 
             Assert.That(current.Model, Is.Not.Null);
             Assert.That(current.IsCurrentVersion, Is.True);
@@ -529,8 +532,8 @@ namespace AmplaWeb.Data.AmplaRepository
         {
             Assert.That(Records, Is.Empty);
 
-            IList<ModelVersion> versions = Repository.GetVersions(101);
-            Assert.That(versions, Is.Empty);
+            ModelVersions versions = Repository.GetVersions(101);
+            Assert.That(versions, Is.Null);
         }
         
         private void AssertAuditField(AmplaAuditSession session, string field, string oldValue, string newValue)

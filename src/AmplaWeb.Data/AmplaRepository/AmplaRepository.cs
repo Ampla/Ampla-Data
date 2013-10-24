@@ -178,7 +178,7 @@ namespace AmplaWeb.Data.AmplaRepository
         /// </summary>
         /// <param name="id">The unique identifier.</param>
         /// <returns></returns>
-        public IList<ModelVersion> GetVersions(int id)
+        public ModelVersions GetVersions(int id)
         {
             IAmplaViewProperties amplaViewProperties = GetViewProperties(null);
             amplaViewProperties.Enforce.CanView();
@@ -199,7 +199,7 @@ namespace AmplaWeb.Data.AmplaRepository
                 if (binding.Validate() && binding.Bind())
                 {
                     AmplaAuditRecord auditRecord = auditRecords.Count > 0 ? auditRecords[0] : null;
-                    List<ModelVersion> versions = new List<ModelVersion>();
+                    ModelVersions versions = new ModelVersions(amplaRecord);
                     IAmplaBinding historyBinding = new AmplaGetDataVersionsBinding<TModel>(auditRecord, model, versions, modelProperties, amplaViewProperties);
                     if (historyBinding.Validate() && historyBinding.Bind())
                     {
@@ -207,7 +207,7 @@ namespace AmplaWeb.Data.AmplaRepository
                     }
                 }
             }
-            return new List<ModelVersion>();
+            return null;
         }
 
         /// <summary>

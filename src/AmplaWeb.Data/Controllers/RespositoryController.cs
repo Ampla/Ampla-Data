@@ -75,8 +75,8 @@ namespace AmplaWeb.Data.Controllers
         /// <returns></returns>
         public ActionResult Versions(int id = 0)
         {
-            IList<ModelVersion> versions = Repository.GetVersions(id);
-            if (versions == null || versions.Count == 0)
+            ModelVersions versions = Repository.GetVersions(id);
+            if (versions == null )
             {
                 return HttpNotFound();
             }

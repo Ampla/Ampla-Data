@@ -291,5 +291,16 @@ namespace AmplaWeb.Data.Binding.ModelData
             }
             return clone;
         }
+
+        public string GetModelName()
+        {
+            DisplayNameAttribute displayName;
+            string name = typeof (TModel).TryGetAttribute(out displayName) 
+                ? displayName.DisplayName 
+                : typeof (TModel).Name.ToSeparatedWords();
+            return name;
+        }
+
+        
     }
 }

@@ -72,7 +72,7 @@ namespace AmplaWeb.Data.Records
         [Test]
         public void GetValue_Location()
         {
-            AmplaRecord record = new AmplaRecord(100) {Location = "Plant.Area.Point"};
+            AmplaRecord record = new AmplaRecord(100) { Location = "Plant.Area.Point" };
 
             Assert.That(record.GetValue("Location"), Is.EqualTo("Plant.Area.Point"));
         }

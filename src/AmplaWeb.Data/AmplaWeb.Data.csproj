@@ -53,6 +53,7 @@
     <Compile Include="AmplaData2008\DataWebServiceFactory.cs" />
     <Compile Include="Binding\AmplaGetAuditDataRecordBinding.cs" />
     <Compile Include="Binding\AmplaGetDataVersionsBinding.cs" />
+    <Compile Include="Binding\MetaData\DisplayStringExtensions.cs" />
     <Compile Include="Records\AmplaAuditRecord.cs" />
     <Compile Include="Records\AmplaAuditField.cs" />
     <Compile Include="Records\AmplaAuditSession .cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadOnlyRepository.cs" />
     <Compile Include="Records\ModelVersion.cs" />
+    <Compile Include="Records\ModelVersions.cs" />
     <Compile Include="Service References\AmplaData2008\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

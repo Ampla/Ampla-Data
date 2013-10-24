@@ -49,7 +49,7 @@ namespace AmplaWeb.Data.Adapters
             return repository.GetHistory(id);
         }
 
-        public IList<ModelVersion> GetVersions(int id)
+        public ModelVersions GetVersions(int id)
         {
             Adapt();
             return repository.GetVersions(id);

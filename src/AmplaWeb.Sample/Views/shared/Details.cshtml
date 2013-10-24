@@ -1,12 +1,36 @@
 @using AmplaWeb.Sample.BootstrapSupport
 
-@model Object
+@model object
+
 <fieldset>
     <legend>@Model.GetLabel() <small>Details</small></legend>
-    @{
-        Html.RenderPartial("_ModelDetails", Model);
-    }
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span2">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active">
+                        <a href="@Url.Action("Details", Model.GetIdValue())">
+                            <i class="icon-star"> </i> Model
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Versions", Model.GetIdValue())"><i class="icon-chevron-right"> </i>  Versions</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Record", Model.GetIdValue())"><i class="icon-list-alt"> </i> Record</a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="span10">
+                @{
+                    Html.RenderPartial("_ModelDetails", Model);
+                }
+            </div>
+        </div>
+    </div>
 </fieldset>
+
 <p>
     @Html.ActionLink("Edit", "Edit", Model.GetIdValue()) |
     @Html.ActionLink("Back to List", "Index")

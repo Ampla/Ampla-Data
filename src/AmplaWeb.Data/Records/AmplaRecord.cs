@@ -30,6 +30,11 @@ namespace AmplaWeb.Data.Records
         public int Id { get; set; }
 
         /// <summary>
+        ///     The type of model
+        /// </summary>
+        public string ModelName { get; set; }
+
+        /// <summary>
         /// Gets or sets the location.
         /// </summary>
         public string Location

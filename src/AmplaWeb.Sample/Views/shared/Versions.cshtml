@@ -1,50 +1,61 @@
 ﻿@using AmplaWeb.Data.Records
 @using AmplaWeb.Sample.BootstrapSupport
-@model IList<ModelVersion>
+@model ModelVersions
 
 <fieldset>
-    <legend>@Model.GetLabel() <small>Versions</small></legend>
-    <div class="tabbable tabs-left">
-        <ul class="nav nav-tabs">
-            @{
-                for (int i = Model.Count - 1; i >= 0; i--)
-                {
-                    ModelVersion version = Model[i];
-                    string active = version.IsCurrentVersion ? " active" : "";
-                    string href = string.Format("#ver{0}", i);
-                    string name = string.Format("Version {0}", i + 1);
-                    <li class="@active">
-                        <a data-toggle="tab" href = "@href">
-                            @if (version.IsCurrentVersion)
-                            {
-                                <span class="label label-success">@name</span>
-                            }
-                            else
-                            {
-                                <span class="label ">@name</span>
-                            }
+    <legend>@Model.ModelName <small> Versions</small></legend>
+    <div class="container-fluid">
+        <div class="row-fluid ">
+            <div class="span2">
+                <ul class="nav nav-pills nav-stacked">
+                    <li>
+                        <a href="@Url.Action("Details", Model.GetIdValue())">
+                            <i class="icon-star"> </i> <span>Model</span>
                         </a>
                     </li>
-                }
-                <li>
-                    @Html.ActionLink("Record", "Record", new {id = Model.GetIdValue()})
-                </li>
-            }
-        </ul>
-        <div class="tab-content">
-            @{
-                for (int i = Model.Count - 1; i >= 0; i--)
-                {
-                    ModelVersion version = Model[i];
-                    string active = version.IsCurrentVersion ? " active" : "";
-                    string href = string.Format("ver{0}", i);
-                    <div class="tab-pane @active " id = "@href">
-                        @{
-                    Html.RenderPartial("_ModelDetails", version.Object);
+                    <li class="active">
+                        <a href="@Url.Action("Versions", Model.GetIdValue())">
+                            <i class="icon-chevron-right"> </i> <span>Versions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Record", Model.GetIdValue())"><i class="icon-list-alt"> </i> Record</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="span10">
+                <div class="pagination">
+                    <ul>
+                        <li class="disabled"><a href="#" >Version:</a></li>
+                        @{ bool first = true; }
+                        @for (int j = Model.Versions.Count - 1; j >= 0; j--)
+                        {
+                            string page = string.Format("#ver{0}", j);
+                            string activepage = first ? "active" : "";
+                            first = false;
+                            
+                            
+                            <li class="@activepage"><a data-toggle="tab" href = @page >@j</a></li>
                         }
-                    </div>
-                }
-            }
+                    </ul>
+                </div>
+                
+                <div class="tab-content">
+                    @{
+                        for (int i = Model.Versions.Count - 1; i >= 0; i--)
+                        {
+                            ModelVersion version = Model.Versions[i];
+                            string active = version.IsCurrentVersion ? " active" : "";
+                            string href = string.Format("ver{0}", i);
+                            <div class="tab-pane @active " id = "@href">
+                                @{
+                                    Html.RenderPartial("_ModelDetails", version.Object);
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </fieldset>

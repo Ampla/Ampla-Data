@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Xml;
 using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.AmplaRepository;
 using AmplaWeb.Data.Binding.MetaData;
 using AmplaWeb.Data.Binding.ModelData;
 using AmplaWeb.Data.Binding.ViewData;
@@ -35,7 +34,8 @@ namespace AmplaWeb.Data.Binding
             {
                 AmplaRecord model = new AmplaRecord(Convert.ToInt32(row.id))
                     {
-                        Module = modelProperties.Module.ToString()
+                        Module = modelProperties.Module.ToString(),
+                        ModelName = modelProperties.GetModelName()
                     };
 
                 foreach (var column in rowSet.Columns)

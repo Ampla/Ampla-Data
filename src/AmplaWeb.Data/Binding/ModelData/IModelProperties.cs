@@ -89,5 +89,11 @@ namespace AmplaWeb.Data.Binding.ModelData
         /// <param name="model">The model.</param>
         /// <returns></returns>
         TModel CloneModel(TModel model);
+
+        /// <summary>
+        /// Gets the model name
+        /// </summary>
+        /// <returns></returns>
+        string GetModelName();
     }
 }
