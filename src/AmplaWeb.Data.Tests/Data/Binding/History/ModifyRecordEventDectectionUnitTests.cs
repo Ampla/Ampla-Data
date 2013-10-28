@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AmplaWeb.Data.Binding.MetaData;
 using AmplaWeb.Data.Records;
 using NUnit.Framework;
 
@@ -27,7 +28,6 @@ namespace AmplaWeb.Data.Binding.History
                     Location = record.Location,
                     Module = record.Module
                 };
-
 
             ModifyRecordEventDectection recordEventDectection = new ModifyRecordEventDectection(record, auditRecord);
             List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
@@ -186,6 +186,35 @@ namespace AmplaWeb.Data.Binding.History
             Assert.That(changes[0].Changes[0].Name, Is.EqualTo("One"));
             Assert.That(changes[0].Changes[0].OriginalValue, Is.EqualTo("11"));
             Assert.That(changes[0].Changes[0].EditedValue, Is.EqualTo("111"));
+        }
+
+        [Test]
+        public void DetectChangesWithDeletedRecords()
+        {
+            AmplaRecord record = new AmplaRecord(100)
+            {
+                Location = location,
+                Module = module,
+                ModelName = "Production Model"
+            };
+            record.AddColumn("Sample Period", typeof(DateTime));
+            record.SetValue("Sample Period", Iso8601DateTimeConverter.ConvertFromLocalDateTime(DateTime.Today.AddDays(-1)));
+
+            AmplaAuditRecord auditRecord = new AmplaAuditRecord
+            {
+                Id = record.Id,
+                Location = record.Location,
+                Module = record.Module
+            };
+
+            auditRecord.Changes = new List<AmplaAuditSession>
+                {
+                    AddSession("User", DateTime.Today, "IsDeleted", "False", "True")
+                };
+
+            ModifyRecordEventDectection recordEventDectection = new ModifyRecordEventDectection(record, auditRecord);
+            List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
+            Assert.That(changes, Is.Empty);
         }
 
         private static AmplaAuditSession AddSession(string user, DateTime time, string[] fields, string[] oldValues,

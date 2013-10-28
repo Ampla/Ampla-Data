@@ -24,7 +24,7 @@ namespace AmplaWeb.Data.Binding.History
                     new ModifyRecordEventDectection(amplaRecord, auditRecord),
                     new ConfirmRecordEventDectection(),
                     new UnconfirmRecordEventDectection(),
-                    new DeleteRecordEventDectection(),
+                    new DeleteRecordEventDectection(amplaRecord, auditRecord),
                 };
 
             foreach (RecordEventDectection detector in detectors)

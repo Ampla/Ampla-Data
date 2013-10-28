@@ -9,7 +9,7 @@ namespace AmplaWeb.Data.Binding.History
         private readonly AmplaRecord amplaRecord;
         private readonly AmplaAuditRecord amplaAuditRecord;
 
-        private readonly List<string> ignoreFields = new List<string> {""}; 
+        private readonly List<string> ignoreFields = new List<string> {"IsDeleted"}; 
 
         public ModifyRecordEventDectection(AmplaRecord amplaRecord, AmplaAuditRecord amplaAuditRecord) : base("Modify Record")
         {
