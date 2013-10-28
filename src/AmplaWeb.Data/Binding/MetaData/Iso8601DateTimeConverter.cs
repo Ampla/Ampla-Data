@@ -10,7 +10,7 @@ namespace AmplaWeb.Data.Binding.MetaData
     /// </summary>
     public class Iso8601DateTimeConverter : DateTimeConverter
     {
-        private static Iso8601DateTimeConverter _converter = new Iso8601DateTimeConverter();
+        private static readonly Iso8601DateTimeConverter Converter = new Iso8601DateTimeConverter();
 
         /// <summary>
         /// Converts the given value object to a <see cref="T:System.DateTime" /> using the arguments.
@@ -61,13 +61,18 @@ namespace AmplaWeb.Data.Binding.MetaData
         /// <returns></returns>
         public static DateTime ConvertToLocalDateTime(string iso8601Date)
         {
-            object result = _converter.ConvertFromInvariantString(iso8601Date);
+            object result = Converter.ConvertFromInvariantString(iso8601Date);
 
             if (result != null)
             {
                 return (DateTime) result;
             }
             return DateTime.MinValue;
+        }
+
+        public static string ConvertFromLocalDateTime(DateTime value)
+        {
+            return Converter.ConvertToInvariantString(value);
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace AmplaWeb.Data.Binding.MetaData
+namespace AmplaWeb.Data.Display
 {
     [TestFixture]
     public class DisplayStringExtensionsUnitTests : TestFixture

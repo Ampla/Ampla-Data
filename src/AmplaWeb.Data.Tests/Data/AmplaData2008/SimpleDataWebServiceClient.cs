@@ -164,10 +164,8 @@ namespace AmplaWeb.Data.AmplaData2008
                                     Rows = rows.ToArray(),
                                 }
                         }
-
                 };
             return response;
-
         }
 
         private FieldDefinition[] GetColumns()
@@ -385,14 +383,30 @@ namespace AmplaWeb.Data.AmplaData2008
                 amplaRecord.Fields.Add(new FieldValue(field.Name, field.Value));
             }
 
+            AddDefaultFields(amplaRecord);
+
             database[setId] = amplaRecord;
             return new DataSubmissionResult
             {
                 RecordAction = RecordAction.Insert,
                 SetId = setId
             };
-
         }
+
+        private void AddDefaultFields(InMemoryRecord amplaRecord)
+        {
+            AddDefault(amplaRecord, "CreatedDateTime", DateTime.Now);
+            AddDefault(amplaRecord, "CreatedBy", userName);
+        }
+
+        private void AddDefault<T>(InMemoryRecord amplaRecord, string field, T defaultValue)
+        {
+            if (amplaRecord.Find(field) == null)
+            {
+                amplaRecord.SetFieldValue(field, defaultValue);
+            }
+        }
+
 
         private DataSubmissionResult UpdateDataRecord(SubmitDataRecord submitDataRecord)
         {

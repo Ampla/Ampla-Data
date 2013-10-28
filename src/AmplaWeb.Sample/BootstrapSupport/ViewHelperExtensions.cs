@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using AmplaWeb.Data.Binding.MetaData;
+using AmplaWeb.Data.Display;
 
 namespace AmplaWeb.Sample.BootstrapSupport
 {

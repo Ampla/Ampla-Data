@@ -53,7 +53,15 @@
     <Compile Include="AmplaData2008\DataWebServiceFactory.cs" />
     <Compile Include="Binding\AmplaGetAuditDataRecordBinding.cs" />
     <Compile Include="Binding\AmplaGetDataVersionsBinding.cs" />
-    <Compile Include="Binding\MetaData\DisplayStringExtensions.cs" />
+    <Compile Include="Binding\History\ConfirmRecordEventDectection.cs" />
+    <Compile Include="Binding\History\CreateRecordEventDectection.cs" />
+    <Compile Include="Binding\History\DeleteRecordEventDectection.cs" />
+    <Compile Include="Binding\History\ModifyRecordEventDectection.cs" />
+    <Compile Include="Binding\History\RecordEventDectection.cs" />
+    <Compile Include="Binding\History\UnconfirmRecordEventDectection.cs" />
+    <Compile Include="Display\DisplayStringExtensions.cs" />
+    <Compile Include="Binding\History\AmplaRecordHistory.cs" />
+    <Compile Include="Display\DateTimeDisplayExtensions.cs" />
     <Compile Include="Records\AmplaAuditRecord.cs" />
     <Compile Include="Records\AmplaAuditField.cs" />
     <Compile Include="Records\AmplaAuditSession .cs" />
@@ -137,6 +145,7 @@
     <Compile Include="Binding\ViewData\ViewFiltersCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadOnlyRepository.cs" />
+    <Compile Include="Records\AmplaRecordChanges.cs" />
     <Compile Include="Records\ModelVersion.cs" />
     <Compile Include="Records\ModelVersions.cs" />
     <Compile Include="Service References\AmplaData2008\Reference.cs">

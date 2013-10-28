@@ -10,18 +10,32 @@ namespace AmplaWeb.Data.Records
             Object = model;
         }
 
-        public object Object { get; private set; }
+        public object Object { get; protected set; }
         public bool IsCurrentVersion { get; private set; }
+
+        public string User { get; set; }
+
+        public DateTime VersionDate { get; set; }
+
+        public int Version { get; set; }
+
+        public string Display { get; set; }
+
+        public string Operation { get; set; }
     }
 
     public class ModelVersion<TModel> : ModelVersion
     {
-        public ModelVersion(bool isCurrent, TModel model) : base(isCurrent, model)
+        public ModelVersion(bool isCurrent, TModel model)
+            : base(isCurrent, model)
         {
         }
 
-        public TModel Model { 
+        public TModel Model
+        {
             get { return (TModel) Object; }
+            set { Object = value; }
         }
+
     }
 }

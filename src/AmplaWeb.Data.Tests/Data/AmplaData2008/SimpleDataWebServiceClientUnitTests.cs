@@ -43,6 +43,63 @@ namespace AmplaWeb.Data.AmplaData2008
         }
 
         [Test]
+        public void CreatedByDefault()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+
+            InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
+
+            SubmitDataRequest request = new SubmitDataRequest
+            {
+                Credentials = CreateCredentials(),
+                SubmitDataRecords = new[]
+                    {
+                        record.ConvertToSubmitDataRecord()
+                    }
+            };
+
+            DateTime before = DateTime.Now.AddSeconds(-10).ToUniversalTime();
+            DateTime after = before.AddSeconds(+20);
+
+            SubmitDataResponse response = webServiceClient.SubmitData(request);
+            Assert.That(response, Is.Not.Null);
+
+            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+            InMemoryRecord inserted = webServiceClient.DatabaseRecords[0];
+
+            Assert.That(inserted.GetFieldValue("CreatedBy", "null"), Is.EqualTo("User"));
+            Assert.That(inserted.GetFieldValue("CreatedDateTime", DateTime.MinValue), Is.InRange(before, after));
+        }
+
+        [Test]
+        public void CreatedBySetInRequest()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+
+            InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
+            record.SetFieldValue("CreatedBy", "UnitTests");
+            record.SetFieldValue("CreatedDateTime", DateTime.Today);
+
+            SubmitDataRequest request = new SubmitDataRequest
+            {
+                Credentials = CreateCredentials(),
+                SubmitDataRecords = new[]
+                    {
+                        record.ConvertToSubmitDataRecord()
+                    }
+            };
+
+            SubmitDataResponse response = webServiceClient.SubmitData(request);
+            Assert.That(response, Is.Not.Null);
+
+            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+            InMemoryRecord inserted = webServiceClient.DatabaseRecords[0];
+
+            Assert.That(inserted.GetFieldValue("CreatedBy", "null"), Is.EqualTo("UnitTests"));
+            Assert.That(inserted.GetFieldValue("CreatedDateTime", DateTime.MinValue), Is.EqualTo(DateTime.Today.ToUniversalTime()));
+        }
+
+        [Test]
         public void InsertInvalidLocation()
         {
             SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);

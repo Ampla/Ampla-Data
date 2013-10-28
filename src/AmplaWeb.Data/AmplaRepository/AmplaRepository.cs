@@ -199,11 +199,11 @@ namespace AmplaWeb.Data.AmplaRepository
                 if (binding.Validate() && binding.Bind())
                 {
                     AmplaAuditRecord auditRecord = auditRecords.Count > 0 ? auditRecords[0] : null;
-                    ModelVersions versions = new ModelVersions(amplaRecord);
-                    IAmplaBinding historyBinding = new AmplaGetDataVersionsBinding<TModel>(auditRecord, model, versions, modelProperties, amplaViewProperties);
+                    ModelVersions modelVersions = new ModelVersions(amplaRecord);
+                    IAmplaBinding historyBinding = new AmplaGetDataVersionsBinding<TModel>(amplaRecord, auditRecord, model, modelVersions, modelProperties, amplaViewProperties);
                     if (historyBinding.Validate() && historyBinding.Bind())
                     {
-                        return versions;
+                        return modelVersions;
                     }
                 }
             }

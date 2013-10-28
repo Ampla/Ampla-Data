@@ -1,4 +1,5 @@
-﻿@using AmplaWeb.Data.Records
+﻿@using AmplaWeb.Data.Display
+@using AmplaWeb.Data.Records
 @using AmplaWeb.Sample.BootstrapSupport
 @model ModelVersions
 
@@ -27,32 +28,37 @@
                 <div class="pagination">
                     <ul>
                         <li class="disabled"><a href="#" >Version:</a></li>
-                        @{ bool first = true; }
-                        @for (int j = Model.Versions.Count - 1; j >= 0; j--)
+                        @foreach (var version in Model.Versions)
                         {
-                            string page = string.Format("#ver{0}", j);
-                            string activepage = first ? "active" : "";
-                            first = false;
-                            
-                            
-                            <li class="@activepage"><a data-toggle="tab" href = @page >@j</a></li>
+                            string page = string.Format("#ver{0}", version.Version);
+                            string activepage = version.IsCurrentVersion ? "active" : "";
+                            <li class="@activepage"><a data-toggle="tab" href = "@page" >@version.Version</a></li>
                         }
                     </ul>
                 </div>
                 
                 <div class="tab-content">
-                    @{
-                        for (int i = Model.Versions.Count - 1; i >= 0; i--)
-                        {
-                            ModelVersion version = Model.Versions[i];
-                            string active = version.IsCurrentVersion ? " active" : "";
-                            string href = string.Format("ver{0}", i);
-                            <div class="tab-pane @active " id = "@href">
-                                @{
-                                    Html.RenderPartial("_ModelDetails", version.Object);
-                                }
+                    @foreach (var version in Model.Versions)
+                    {
+
+                        string active = version.IsCurrentVersion ? " active" : "";
+                        string href = string.Format("ver{0}", version.Version);
+                        <div class="tab-pane @active " id = "@href">
+                            <div class="well well-small">
+                                <span class="muted">Version @version.Version:</span> @version.Display
+                                <span class="pull-right">
+                                    @if (version.IsCurrentVersion)
+                                    {
+                                        <span class="label label-info"> Current </span>
+                                    }
+                                    <span class="muted" title="@version.VersionDate"> @version.VersionDate.ToRelativeTimeMini()</span>
+                                </span>
+                 
                             </div>
-                        }
+                            @{
+                                Html.RenderPartial("_ModelDetails", version.Object);
+                            }
+                        </div>
                     }
                 </div>
             </div>

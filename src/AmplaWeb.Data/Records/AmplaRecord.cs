@@ -126,5 +126,19 @@ namespace AmplaWeb.Data.Records
                 }
             }
         }
+
+        public T GetValueOrDefault<T>(string fieldName, T defaultValue)
+        {
+            object value = null;
+            if (dataStore.Columns.Contains(fieldName))
+            {
+                value = GetValue(fieldName);
+            }
+            if (value == null)
+            {
+                value = defaultValue;
+            }
+            return (T) Convert.ChangeType(value, typeof (T));
+        }
     }
 }

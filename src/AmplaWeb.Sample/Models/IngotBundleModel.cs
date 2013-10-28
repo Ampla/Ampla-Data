@@ -15,6 +15,7 @@ namespace AmplaWeb.Sample.Models
         public string CastNo { get; set; }
 
         [Required]
+        [AmplaField("Bundle No")]
         public string BundleNo { get; set; }
         public int Length { get; set; }
         public int Diameter { get; set; }

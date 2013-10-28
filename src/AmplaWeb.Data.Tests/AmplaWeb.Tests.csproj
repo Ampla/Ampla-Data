@@ -64,7 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\AmplaData2008\LoggingDataWebServiceClient.cs" />
-    <Compile Include="Data\Binding\MetaData\DisplayStringExtensionsUnitTests.cs" />
+    <Compile Include="Data\Binding\History\AmplaRecordHistoryUnitTests.cs" />
+    <Compile Include="Data\Binding\History\ModifyRecordEventDectectionUnitTests.cs" />
+    <Compile Include="Data\Binding\History\CreateRecordEventDectectionUnitTests.cs" />
+    <Compile Include="Data\Display\DisplayStringExtensionsUnitTests.cs" />
+    <Compile Include="Data\Display\DateTimeDisplayExtensionsUnitTests.cs" />
     <Compile Include="Data\Records\AmplaAuditSessionUnitTests.cs" />
     <Compile Include="Data\Records\Filters\SamplePeriodFilterMatcher.cs" />
     <Compile Include="Data\Records\InMemoryAuditRecord.cs" />
