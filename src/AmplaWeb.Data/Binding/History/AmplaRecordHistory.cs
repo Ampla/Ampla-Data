@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
+using AmplaWeb.Data.Binding.ViewData;
 using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.Binding.History
 {
-    public class AmplaRecordHistory
+    public class AmplaRecordHistory<TModel>
     {
         private readonly AmplaRecord amplaRecord;
         private readonly AmplaAuditRecord auditRecord;
+        private readonly IAmplaViewProperties<TModel> viewProperties;
 
-        public AmplaRecordHistory(AmplaRecord amplaRecord, AmplaAuditRecord auditRecord)
+        public AmplaRecordHistory(AmplaRecord amplaRecord, AmplaAuditRecord auditRecord, IAmplaViewProperties<TModel> viewProperties )
         {
             this.amplaRecord = amplaRecord;
             this.auditRecord = auditRecord;
+            this.viewProperties = viewProperties;
         }
 
         public List<AmplaRecordChanges> Reconstruct()
@@ -20,11 +23,11 @@ namespace AmplaWeb.Data.Binding.History
 
             List<RecordEventDectection> detectors = new List<RecordEventDectection>
                 {
-                    new CreateRecordEventDectection(amplaRecord, auditRecord),
-                    new ModifyRecordEventDectection(amplaRecord, auditRecord),
+                    new CreateRecordEventDectection<TModel>(amplaRecord, auditRecord, viewProperties),
+                    new ModifyRecordEventDectection<TModel>(amplaRecord, auditRecord, viewProperties),
                     new ConfirmRecordEventDectection(),
                     new UnconfirmRecordEventDectection(),
-                    new DeleteRecordEventDectection(amplaRecord, auditRecord),
+                    new DeleteRecordEventDectection<TModel>(amplaRecord, auditRecord, viewProperties),
                 };
 
             foreach (RecordEventDectection detector in detectors)

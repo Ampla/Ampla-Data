@@ -20,8 +20,6 @@ namespace AmplaWeb.Data.Records
         public int Version { get; set; }
 
         public string Display { get; set; }
-
-        public string Operation { get; set; }
     }
 
     public class ModelVersion<TModel> : ModelVersion

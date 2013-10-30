@@ -438,7 +438,7 @@ namespace AmplaWeb.Data.AmplaData2008
             };
         }
 
-        private void AddAuditRecord(InMemoryRecord record, DateTime editedTime, string fieldName, string oldValue, string newValue)
+        private void AddAuditRecord(InMemoryRecord record, DateTime editedTime, string displayName, string oldValue, string newValue)
         {
             InMemoryAuditRecord auditRecord = new InMemoryAuditRecord
                 {
@@ -447,12 +447,25 @@ namespace AmplaWeb.Data.AmplaData2008
                     RecordType = record.Module,
                     EditedBy = "System Configuration.Users." + userName,
                     EditedDateTime = PersistenceHelper.ConvertToString(editedTime),
-                    Field = fieldName,
+                    Field = GetFieldNameFromDisplayName(displayName),
                     OriginalValue = oldValue,
                     EditedValue = newValue
                 };
 
             auditDatabase.Add(auditRecord);
+        }
+
+        private string GetFieldNameFromDisplayName(string displayName)
+        {
+            GetView view = GetViewFunc();
+            foreach (GetViewsField field in view.Fields)
+            {
+                if (field.displayName == displayName)
+                {
+                    return field.name;
+                }
+            }
+            return displayName;
         }
 
         private InMemoryRecord FindRecord(string searchLocation, AmplaModules searchModule, int searchRecordId)
@@ -471,7 +484,6 @@ namespace AmplaWeb.Data.AmplaData2008
             }
             return record;
         }
-
 
         private static void CheckCredentials(Credentials credentials)
         {

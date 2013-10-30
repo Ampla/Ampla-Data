@@ -2,7 +2,6 @@
 using AmplaWeb.Data.Attributes;
 using AmplaWeb.Data.Production;
 using AmplaWeb.Data.Records;
-using AmplaWeb.Data.Views;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.AmplaRepository
@@ -113,6 +112,77 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record.GetValue("Area"), Is.EqualTo("ROM"));
             Assert.That(record.GetValue("Value"), Is.EqualTo(100.0d));
             Assert.That(record.GetValue("Sample Period"), Is.EqualTo(localHour));
+        }
+
+        [Test]
+        public void GetVersionsSingleRecord()
+        {
+            Assert.That(Records, Is.Empty);
+
+            DateTime localHour = DateTime.Now.TrimToHour();
+
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100, Sample = localHour };
+
+            Repository.Add(model);
+
+            ModelVersions versions = Repository.GetVersions(model.Id);
+            
+            Assert.That(versions, Is.Not.Null);
+            Assert.That(versions.Versions, Is.Not.Empty);
+            Assert.That(versions.Versions.Count, Is.EqualTo(1));
+
+            ModelVersion<AreaValueModel> version = (ModelVersion<AreaValueModel>) versions.Versions[0];
+
+            Assert.That(version.Display, Is.EqualTo("User created record"));
+            Assert.That(version.Model.Id, Is.EqualTo(model.Id));
+            Assert.That(version.Model.Area, Is.EqualTo(model.Area));
+            Assert.That(version.Model.Sample, Is.EqualTo(model.Sample));
+            Assert.That(version.Model.Value, Is.EqualTo(model.Value));
+
+            AmplaAuditRecord history = Repository.GetHistory(model.Id);
+
+            Assert.That(history.Changes, Is.Empty);
+        }
+
+        [Test]
+        public void GetVersionsWithEdit()
+        {
+            Assert.That(Records, Is.Empty);
+
+            DateTime localHour = DateTime.Now.TrimToHour();
+
+            AreaValueModel model = new AreaValueModel { Area = "ROM", Value = 100, Sample = localHour };
+
+            Repository.Add(model);
+
+            AreaValueModel update = new AreaValueModel {Id = model.Id, Area = "ROM", Value = 100, Sample = model.Sample.AddMinutes(1)};
+            Repository.Update(update);
+
+            ModelVersions versions = Repository.GetVersions(model.Id);
+
+            AmplaAuditRecord history = Repository.GetHistory(model.Id);
+
+            Assert.That(versions, Is.Not.Null);
+            Assert.That(versions.Versions, Is.Not.Empty);
+            Assert.That(versions.Versions.Count, Is.EqualTo(2));
+
+            ModelVersion<AreaValueModel> last = (ModelVersion<AreaValueModel>)versions.Versions[0];
+            ModelVersion<AreaValueModel> current = (ModelVersion<AreaValueModel>)versions.Versions[1];
+
+            Assert.That(last.Display, Is.EqualTo("User created record"));
+            Assert.That(last.Model.Id, Is.EqualTo(model.Id));
+            Assert.That(last.Model.Area, Is.EqualTo(model.Area));
+            Assert.That(last.Model.Sample, Is.EqualTo(model.Sample));
+            Assert.That(last.Model.Value, Is.EqualTo(model.Value));
+
+            Assert.That(current.Display, Is.EqualTo("User modified record (Sample Period)"));
+            Assert.That(current.Model.Id, Is.EqualTo(update.Id));
+            Assert.That(current.Model.Area, Is.EqualTo(update.Area));
+            Assert.That(current.Model.Sample, Is.EqualTo(update.Sample));
+            Assert.That(current.Model.Value, Is.EqualTo(update.Value));
+
+            Assert.That(history.Changes, Is.Not.Empty);
+            Assert.That(history.Changes[0].Fields[0].Name, Is.EqualTo("SampleDateTime"));
         }
     }
 }

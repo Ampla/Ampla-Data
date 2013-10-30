@@ -1,20 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using AmplaWeb.Data.Binding.ViewData;
 using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.Binding.History
 {
-    public class CreateRecordEventDectection : RecordEventDectection
+    public class CreateRecordEventDectection<TModel> : RecordEventDectection
     {
         private readonly AmplaRecord amplaRecord;
         private readonly AmplaAuditRecord auditRecord;
+        private readonly IAmplaViewProperties<TModel> viewProperties;
 
         private const string systemConfigurationUsers = "System Configuration.Users.";
 
-        public CreateRecordEventDectection(AmplaRecord amplaRecord, AmplaAuditRecord auditRecord) : base("Create Record")
+        public CreateRecordEventDectection(AmplaRecord amplaRecord, AmplaAuditRecord auditRecord, IAmplaViewProperties<TModel> viewProperties) : base("Create Record")
         {
             this.amplaRecord = amplaRecord;
             this.auditRecord = auditRecord;
+            this.viewProperties = viewProperties;
         }
 
         public override List<AmplaRecordChanges> DetectChanges()

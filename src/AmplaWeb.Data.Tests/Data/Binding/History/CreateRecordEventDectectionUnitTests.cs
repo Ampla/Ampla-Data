@@ -1,33 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using AmplaWeb.Data.Binding.MetaData;
+using AmplaWeb.Data.Binding.ViewData;
 using AmplaWeb.Data.Records;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.Binding.History
 {
     [TestFixture]
-    public class CreateRecordEventDectectionUnitTests : TestFixture
+    public class CreateRecordEventDectectionUnitTests : RecordEventDetectionTestFixture
     {
-        private const string location = "Enterprise.Site.Area.Production";
-        private const string module = "Production";
-
         [Test]
         public void GetRecordCreatedEvent()
         {
-            AmplaRecord record = new AmplaRecord(100)
-                {
-                    Location = location,
-                    Module = module,
-                    ModelName = "Production Model"
-                };
+            AmplaRecord record = CreateRecord(100);
+            AmplaAuditRecord auditRecord = CreateAuditRecord(record);
+            IAmplaViewProperties<ProductionModel> viewProperties = GetViewProperties();
 
-            AmplaAuditRecord auditRecord = new AmplaAuditRecord
-            {
-                Id = record.Id,
-                Location = record.Location,
-                Module = record.Module
-            };
             record.AddColumn("CreatedDateTime", typeof(DateTime));
             record.AddColumn("CreatedBy", typeof(string));
 
@@ -35,7 +24,7 @@ namespace AmplaWeb.Data.Binding.History
             DateTime created = DateTime.Today.AddHours(1);
             record.SetValue("CreatedDateTime", Iso8601DateTimeConverter.ConvertFromLocalDateTime(created));
 
-            CreateRecordEventDectection recordEventDectection = new CreateRecordEventDectection(record, auditRecord);
+            CreateRecordEventDectection<ProductionModel> recordEventDectection = new CreateRecordEventDectection<ProductionModel>(record, auditRecord, viewProperties);
             List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
             Assert.That(changes, Is.Not.Empty);
             Assert.That(changes[0].Operation, Is.EqualTo("Create Record"));
@@ -48,19 +37,9 @@ namespace AmplaWeb.Data.Binding.History
         [Test]
         public void GetRecordCreatedEventSystemRecord()
         {
-            AmplaRecord record = new AmplaRecord(100)
-            {
-                Location = location,
-                Module = module,
-                ModelName = "Production Model"
-            };
-
-            AmplaAuditRecord auditRecord = new AmplaAuditRecord
-            {
-                Id = record.Id,
-                Location = record.Location,
-                Module = record.Module
-            };
+            AmplaRecord record = CreateRecord(100);
+            AmplaAuditRecord auditRecord = CreateAuditRecord(record);
+            IAmplaViewProperties<ProductionModel> viewProperties = GetViewProperties();
             record.AddColumn("CreatedDateTime", typeof(DateTime));
             record.AddColumn("CreatedBy", typeof(string));
 
@@ -68,7 +47,7 @@ namespace AmplaWeb.Data.Binding.History
             DateTime created = DateTime.Today.AddHours(1);
             record.SetValue("CreatedDateTime", Iso8601DateTimeConverter.ConvertFromLocalDateTime(created));
 
-            CreateRecordEventDectection recordEventDectection = new CreateRecordEventDectection(record, auditRecord);
+            CreateRecordEventDectection<ProductionModel> recordEventDectection = new CreateRecordEventDectection<ProductionModel>(record, auditRecord, viewProperties);
             List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
             Assert.That(changes, Is.Not.Empty);
             Assert.That(changes[0].Operation, Is.EqualTo("Create Record"));
@@ -81,19 +60,9 @@ namespace AmplaWeb.Data.Binding.History
         [Test]
         public void ShowSimpleUsersName()
         {
-            AmplaRecord record = new AmplaRecord(100)
-            {
-                Location = location,
-                Module = module,
-                ModelName = "Production Model"
-            };
-
-            AmplaAuditRecord auditRecord = new AmplaAuditRecord
-            {
-                Id = record.Id,
-                Location = record.Location,
-                Module = record.Module
-            };
+            AmplaRecord record = CreateRecord(100);
+            AmplaAuditRecord auditRecord = CreateAuditRecord(record);
+            IAmplaViewProperties<ProductionModel> viewProperties = GetViewProperties();
             record.AddColumn("CreatedDateTime", typeof(DateTime));
             record.AddColumn("CreatedBy", typeof(string));
 
@@ -101,7 +70,7 @@ namespace AmplaWeb.Data.Binding.History
             DateTime created = DateTime.Today.AddHours(1);
             record.SetValue("CreatedDateTime", Iso8601DateTimeConverter.ConvertFromLocalDateTime(created));
 
-            CreateRecordEventDectection recordEventDectection = new CreateRecordEventDectection(record, auditRecord);
+            CreateRecordEventDectection<ProductionModel> recordEventDectection = new CreateRecordEventDectection<ProductionModel>(record, auditRecord, viewProperties);
             List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
             Assert.That(changes, Is.Not.Empty);
             Assert.That(changes[0].Operation, Is.EqualTo("Create Record"));

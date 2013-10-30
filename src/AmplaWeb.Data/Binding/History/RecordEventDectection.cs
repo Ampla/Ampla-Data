@@ -5,6 +5,7 @@ namespace AmplaWeb.Data.Binding.History
 {
     public abstract class RecordEventDectection
     {
+
         protected RecordEventDectection(string operation)
         {
             Operation = operation;

@@ -13,9 +13,14 @@ namespace AmplaWeb.Data.Binding.ViewData
             }
         }
 
-        public ViewField Find(string name)
+        public ViewField FindByName(string name)
         {
             return Find((vf) => vf.Name == name);
+        }
+
+        public ViewField FindByDisplayName(string displayName)
+        {
+            return Find((vf) => vf.DisplayName == displayName);
         }
     }
 }

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AmplaWeb.Data.AmplaData2008;
 using AmplaWeb.Data.Binding.Mapping;
 using AmplaWeb.Data.Binding.Mapping.Modules;
-using AmplaWeb.Data.Binding.MetaData;
 using AmplaWeb.Data.Binding.ModelData;
 
 namespace AmplaWeb.Data.Binding.ViewData
 {
-    public class AmplaViewProperties<TModel> : IAmplaViewProperties where TModel : new()
+    public class AmplaViewProperties<TModel> : IAmplaViewProperties<TModel> where TModel : new()
     {
         private readonly IModelProperties<TModel> modelProperties;
 
@@ -19,12 +17,14 @@ namespace AmplaWeb.Data.Binding.ViewData
         private List<FieldMapping> fieldResolvers = new List<FieldMapping>();
         private readonly IViewPermissions enforcePermissions;
 
-        public AmplaViewProperties( IModelProperties<TModel> modelProperties )
+        public AmplaViewProperties(IModelProperties<TModel> modelProperties)
         {
             this.modelProperties = modelProperties;
             permissions = new ViewPermissions();
-            IViewPermissions modulePermissions = ModuleMapping.GetModuleMapping(modelProperties.Module).GetSupportedOperations();
-            enforcePermissions = new EnforceViewPermissionsAdapter(modelProperties.Module.ToString(), permissions, modulePermissions);
+            IViewPermissions modulePermissions =
+                ModuleMapping.GetModuleMapping(modelProperties.Module).GetSupportedOperations();
+            enforcePermissions = new EnforceViewPermissionsAdapter(modelProperties.Module.ToString(), permissions,
+                                                                   modulePermissions);
         }
 
         public IViewPermissions Enforce
@@ -41,7 +41,7 @@ namespace AmplaWeb.Data.Binding.ViewData
         {
             GetView view = response.Views[0];
             permissions.Initialise(view.AllowedOperations);
-            
+
             viewFieldsCollection.Initialise(view);
             viewFiltersCollection.Initialise(view);
             viewPeriodsCollection.Initialise(view);
@@ -51,6 +51,33 @@ namespace AmplaWeb.Data.Binding.ViewData
         public IEnumerable<FieldMapping> GetFieldMappings()
         {
             return fieldResolvers;
+        }
+
+        /// <summary>
+        /// Updates the model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="useDisplayName">if set to <c>true</c> [use display name].</param>
+        public void UpdateModel(TModel model, string name, string value, bool useDisplayName)
+        {
+            ViewField field = useDisplayName ? viewFieldsCollection.FindByDisplayName(name) : viewFieldsCollection.FindByName(name);
+            if (field != null)
+            {
+                modelProperties.TrySetValueFromString(model, field.DisplayName, value);
+            }
+        }
+
+        /// <summary>
+        /// Gets the display name of the field.
+        /// </summary>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns></returns>
+        public string GetFieldDisplayName(string fieldName)
+        {
+            ViewField viewField = viewFieldsCollection.FindByName(fieldName);
+            return viewField != null ? viewField.DisplayName : fieldName;
         }
 
         private List<FieldMapping> BuildFieldResolvers()
@@ -65,88 +92,12 @@ namespace AmplaWeb.Data.Binding.ViewData
 
                 FieldMapping fieldMapping = moduleMapping.GetFieldMapping(field, isModelProperty);
 
-                
-                
-                //if (isModelProperty)
-                //{
-                //    fieldMapping = moduleMapping.GetFieldMapping(field);
-                //    if (fieldMapping == null)
-                //    {
-                //        if (field.ReadOnly)
-                //        {
-                //            fieldMapping = new ReadOnlyFieldMapping(field.DisplayName);
-                //        }
-                //        else
-                //        {
-                //            fieldMapping = new ModelFieldMapping(field.DisplayName);
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //    fieldMapping = moduleMapping.GetRequiredFieldMapping(field);
-                //}
                 if (fieldMapping != null)
                 {
                     fieldMappings.Add(fieldMapping);
                 }
             }
             return fieldMappings;
-        }
-
-        private FieldMapping GetRequiredFieldMapping(ViewField field)
-        {
-            if (field.Name == "SampleDateTime")
-            {
-                return new DefaultValueFieldMapping("Sample Period", Iso8601UtcNow);
-            }
-            return null;
-        }
-
-        private static string Iso8601UtcNow()
-        {
-            return new Iso8601DateTimeConverter().ConvertToInvariantString(DateTime.UtcNow);
-        }
-
-        private static bool IsValidId(string s)
-        {
-            int i;
-            return !string.IsNullOrEmpty(s) && int.TryParse(s, out i) && i > 0; 
-        }
-
-        private FieldMapping GetSpecialFieldMapping(ViewField field)
-        {
-            if (field.Name == "Id")
-            {
-                return new IdFieldMapping("Id");
-            }
-
-            if (field.Name == "ObjectId")
-            {
-                return new ReadOnlyFieldMapping("Location");
-            }
-
-            if (field.Name == "SampleDateTime")
-            {
-                return new DefaultValueFieldMapping("Sample Period", Iso8601UtcNow);
-            }
-
-            if (field.Name == "Cause Location")
-            {
-                return new ValidatedModelFieldMapping(field.Name, s => !string.IsNullOrEmpty(s));
-            }
-
-            if (field.Name == "Cause")
-            {
-                return new ValidatedModelFieldMapping(field.Name, IsValidId);
-            }
-
-            if (field.Name == "Classification")
-            {
-                return new ValidatedModelFieldMapping(field.Name, IsValidId);
-            }
-
-            return null;
         }
     }
 }

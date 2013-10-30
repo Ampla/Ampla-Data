@@ -67,6 +67,7 @@
     <Compile Include="Data\Binding\History\AmplaRecordHistoryUnitTests.cs" />
     <Compile Include="Data\Binding\History\ModifyRecordEventDectectionUnitTests.cs" />
     <Compile Include="Data\Binding\History\CreateRecordEventDectectionUnitTests.cs" />
+    <Compile Include="Data\Binding\History\RecordEventDetectionTestFixture.cs" />
     <Compile Include="Data\Display\DisplayStringExtensionsUnitTests.cs" />
     <Compile Include="Data\Display\DateTimeDisplayExtensionsUnitTests.cs" />
     <Compile Include="Data\Records\AmplaAuditSessionUnitTests.cs" />

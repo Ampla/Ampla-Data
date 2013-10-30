@@ -14,9 +14,9 @@ namespace AmplaWeb.Data.Binding
         private readonly GetDataResponse response;
         private readonly List<AmplaRecord> records;
         private readonly IModelProperties<TModel> modelProperties;
-        private readonly IAmplaViewProperties amplaViewProperties;
+        private readonly IAmplaViewProperties<TModel> amplaViewProperties;
 
-        public AmplaGetDataRecordBinding(GetDataResponse response, List<AmplaRecord> records, IModelProperties<TModel> modelProperties, IAmplaViewProperties amplaViewProperties)
+        public AmplaGetDataRecordBinding(GetDataResponse response, List<AmplaRecord> records, IModelProperties<TModel> modelProperties, IAmplaViewProperties<TModel> amplaViewProperties)
         {
             this.response = response;
             this.records = records;

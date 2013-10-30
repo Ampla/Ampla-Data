@@ -12,10 +12,10 @@ namespace AmplaWeb.Data.Binding
         private readonly TModel existing;
         private readonly TModel update;
         private readonly List<SubmitDataRecord> records;
-        private readonly IAmplaViewProperties amplaViewProperties;
+        private readonly IAmplaViewProperties<TModel> amplaViewProperties;
         private readonly IModelProperties<TModel> modelProperties;
 
-        public AmplaUpdateDataBinding(TModel existing, TModel update, List<SubmitDataRecord> records, IAmplaViewProperties amplaViewProperties, IModelProperties<TModel> modelProperties)
+        public AmplaUpdateDataBinding(TModel existing, TModel update, List<SubmitDataRecord> records, IAmplaViewProperties<TModel> amplaViewProperties, IModelProperties<TModel> modelProperties)
         {
             this.existing = existing;
             this.update = update;

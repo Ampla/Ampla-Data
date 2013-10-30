@@ -14,9 +14,9 @@ namespace AmplaWeb.Data.Binding
         private readonly TModel currentModel;
         private readonly ModelVersions versions;
         private readonly IModelProperties<TModel> modelProperties;
-        private IAmplaViewProperties viewProperties;
+        private readonly IAmplaViewProperties<TModel> viewProperties;
 
-        public AmplaGetDataVersionsBinding(AmplaRecord amplaRecord, AmplaAuditRecord auditRecord, TModel currentModel, ModelVersions versions, IModelProperties<TModel> modelProperties, IAmplaViewProperties viewProperties)
+        public AmplaGetDataVersionsBinding(AmplaRecord amplaRecord, AmplaAuditRecord auditRecord, TModel currentModel, ModelVersions versions, IModelProperties<TModel> modelProperties, IAmplaViewProperties<TModel> viewProperties)
         {
             this.amplaRecord = amplaRecord;
             this.auditRecord = auditRecord;
@@ -30,7 +30,7 @@ namespace AmplaWeb.Data.Binding
         {
             versions.ModelName = modelProperties.GetModelName();
 
-            AmplaRecordHistory history = new AmplaRecordHistory(amplaRecord, auditRecord);
+            AmplaRecordHistory<TModel> history = new AmplaRecordHistory<TModel>(amplaRecord, auditRecord, viewProperties);
             List<AmplaRecordChanges> recordChanges = history.Reconstruct();
 
             ModelVersion<TModel>[] modelVersions = new ModelVersion<TModel>[recordChanges.Count];
@@ -46,7 +46,6 @@ namespace AmplaWeb.Data.Binding
                         Version = i + 1,
                         User = recordChange.User,
                         VersionDate = recordChange.VersionDateTime,
-                        Operation = recordChange.Operation,
                         Display = recordChange.Display
                     };
             }
@@ -60,14 +59,8 @@ namespace AmplaWeb.Data.Binding
 
                 foreach (var field in recordChange.Changes)
                 {
-                    string currentValue;
-                    if (modelProperties.TryGetPropertyValue(current, field.Name, out currentValue))
-                    {
-                        if (StringComparer.InvariantCulture.Compare(currentValue, field.EditedValue) == 0)
-                        {
-                            modelProperties.TrySetValueFromString(current, field.Name, field.OriginalValue);
-                        }
-                    }
+                    viewProperties.UpdateModel(current, field.Name, field.OriginalValue, false);
+                    
                 }
             }
 

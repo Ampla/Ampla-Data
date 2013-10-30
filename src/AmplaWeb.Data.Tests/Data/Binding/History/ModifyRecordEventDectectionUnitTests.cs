@@ -1,35 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using AmplaWeb.Data.Binding.MetaData;
+using AmplaWeb.Data.Binding.ViewData;
 using AmplaWeb.Data.Records;
 using NUnit.Framework;
 
 namespace AmplaWeb.Data.Binding.History
 {
     [TestFixture]
-    public class ModifyRecordEventDectectionUnitTests : TestFixture
+    public class ModifyRecordEventDectectionUnitTests : RecordEventDetectionTestFixture
     {
-        private const string location = "Enterprise.Site.Area.Production";
-        private const string module = "Production";
 
         [Test]
         public void DetectChangesWithNoAuditTrail()
         {
-            AmplaRecord record = new AmplaRecord(100)
-                {
-                    Location = location,
-                    Module = module,
-                    ModelName = "Production Model"
-                };
+            AmplaRecord record = CreateRecord(100);
+            AmplaAuditRecord auditRecord = CreateAuditRecord(record);
+            IAmplaViewProperties<ProductionModel> viewProperties = GetViewProperties();
 
-            AmplaAuditRecord auditRecord = new AmplaAuditRecord
-                {
-                    Id = record.Id,
-                    Location = record.Location,
-                    Module = record.Module
-                };
-
-            ModifyRecordEventDectection recordEventDectection = new ModifyRecordEventDectection(record, auditRecord);
+            ModifyRecordEventDectection<ProductionModel> recordEventDectection = new ModifyRecordEventDectection<ProductionModel>(record, auditRecord, viewProperties);
             List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
             Assert.That(changes, Is.Empty);
         }
@@ -37,26 +26,19 @@ namespace AmplaWeb.Data.Binding.History
         [Test]
         public void DetectChangesWithOneFieldAuditTrail()
         {
-            AmplaRecord record = new AmplaRecord(100)
-            {
-                Location = location,
-                Module = module,
-                ModelName = "Production Model"
-            };
+            AmplaRecord record = CreateRecord(100);
+            AmplaAuditRecord auditRecord = CreateAuditRecord(record);
+            IAmplaViewProperties<ProductionModel> viewProperties = GetViewProperties();
 
-            AmplaAuditRecord auditRecord = new AmplaAuditRecord
-            {
-                Id = record.Id,
-                Location = record.Location,
-                Module = record.Module
-            };
             auditRecord.Changes = new List<AmplaAuditSession>
                 {
                     AddSession("User", DateTime.Today, "Value", "100", "200")
                 };
 
-            ModifyRecordEventDectection recordEventDectection = new ModifyRecordEventDectection(record, auditRecord);
+            ModifyRecordEventDectection<ProductionModel> recordEventDectection = new ModifyRecordEventDectection<ProductionModel>(record, auditRecord, viewProperties);
+            
             List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
+            
             Assert.That(changes, Is.Not.Empty);
             Assert.That(changes.Count, Is.EqualTo(1));
 
@@ -72,29 +54,20 @@ namespace AmplaWeb.Data.Binding.History
         [Test]
         public void DetectChangesWithMultipleFieldsAuditTrail()
         {
-            AmplaRecord record = new AmplaRecord(100)
-            {
-                Location = location,
-                Module = module,
-                ModelName = "Production Model"
-            };
+            AmplaRecord record = CreateRecord(100);
+            AmplaAuditRecord auditRecord = CreateAuditRecord(record);
+            IAmplaViewProperties<ProductionModel> viewProperties = GetViewProperties();
 
-            AmplaAuditRecord auditRecord = new AmplaAuditRecord
+            auditRecord.Changes = new List<AmplaAuditSession>
                 {
-                    Id = record.Id,
-                    Location = record.Location,
-                    Module = record.Module,
-                    Changes = new List<AmplaAuditSession>
-                        {
                             AddSession("User", DateTime.Today, "Value", "100", "200"),
                             AddSession("Admin", DateTime.Today.AddHours(1), 
                                         new[] {"One", "Two"}, 
                                         new[] {"11", "22"},
                                         new[] {"111", "222"})
-                        }
                 };
 
-            ModifyRecordEventDectection recordEventDectection = new ModifyRecordEventDectection(record, auditRecord);
+            ModifyRecordEventDectection<ProductionModel> recordEventDectection = new ModifyRecordEventDectection<ProductionModel>(record, auditRecord, viewProperties);
             List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
             Assert.That(changes, Is.Not.Empty);
             Assert.That(changes.Count, Is.EqualTo(2));
@@ -125,25 +98,16 @@ namespace AmplaWeb.Data.Binding.History
         [Test]
         public void DetectChangesWithAuditTrailWithNoChangeInValue()
         {
-            AmplaRecord record = new AmplaRecord(100)
-            {
-                Location = location,
-                Module = module,
-                ModelName = "Production Model"
-            };
+            AmplaRecord record = CreateRecord(100);
+            AmplaAuditRecord auditRecord = CreateAuditRecord(record);
+            IAmplaViewProperties<ProductionModel> viewProperties = GetViewProperties();
 
-            AmplaAuditRecord auditRecord = new AmplaAuditRecord
-            {
-                Id = record.Id,
-                Location = record.Location,
-                Module = record.Module
-            };
             auditRecord.Changes = new List<AmplaAuditSession>
                 {
                     AddSession("User", DateTime.Today, "Value", "100", "100")
                 };
 
-            ModifyRecordEventDectection recordEventDectection = new ModifyRecordEventDectection(record, auditRecord);
+            ModifyRecordEventDectection<ProductionModel> recordEventDectection = new ModifyRecordEventDectection<ProductionModel>(record, auditRecord, viewProperties);
             List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
             Assert.That(changes, Is.Empty);
         }
@@ -151,19 +115,9 @@ namespace AmplaWeb.Data.Binding.History
         [Test]
         public void DetectChangesWithAuditTrailWithNoChangesInValues()
         {
-            AmplaRecord record = new AmplaRecord(100)
-            {
-                Location = location,
-                Module = module,
-                ModelName = "Production Model"
-            };
-
-            AmplaAuditRecord auditRecord = new AmplaAuditRecord
-            {
-                Id = record.Id,
-                Location = record.Location,
-                Module = record.Module
-            };
+            AmplaRecord record = CreateRecord(100);
+            AmplaAuditRecord auditRecord = CreateAuditRecord(record);
+            IAmplaViewProperties<ProductionModel> viewProperties = GetViewProperties();
             auditRecord.Changes = new List<AmplaAuditSession>
                 {
                     AddSession("User", DateTime.Today, "Value", "100", "100"),
@@ -173,7 +127,7 @@ namespace AmplaWeb.Data.Binding.History
                                         new[] {"111", "222"})
                 };
 
-            ModifyRecordEventDectection recordEventDectection = new ModifyRecordEventDectection(record, auditRecord);
+            ModifyRecordEventDectection<ProductionModel> recordEventDectection = new ModifyRecordEventDectection<ProductionModel>(record, auditRecord, viewProperties);
             List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
             Assert.That(changes, Is.Not.Empty);
             Assert.That(changes.Count, Is.EqualTo(1));
@@ -191,58 +145,22 @@ namespace AmplaWeb.Data.Binding.History
         [Test]
         public void DetectChangesWithDeletedRecords()
         {
-            AmplaRecord record = new AmplaRecord(100)
-            {
-                Location = location,
-                Module = module,
-                ModelName = "Production Model"
-            };
+            AmplaRecord record = CreateRecord(100);
+            AmplaAuditRecord auditRecord = CreateAuditRecord(record);
+            IAmplaViewProperties<ProductionModel> viewProperties = GetViewProperties();
             record.AddColumn("Sample Period", typeof(DateTime));
             record.SetValue("Sample Period", Iso8601DateTimeConverter.ConvertFromLocalDateTime(DateTime.Today.AddDays(-1)));
-
-            AmplaAuditRecord auditRecord = new AmplaAuditRecord
-            {
-                Id = record.Id,
-                Location = record.Location,
-                Module = record.Module
-            };
-
             auditRecord.Changes = new List<AmplaAuditSession>
                 {
                     AddSession("User", DateTime.Today, "IsDeleted", "False", "True")
                 };
 
-            ModifyRecordEventDectection recordEventDectection = new ModifyRecordEventDectection(record, auditRecord);
+            ModifyRecordEventDectection<ProductionModel> recordEventDectection = new ModifyRecordEventDectection<ProductionModel>(record, auditRecord, viewProperties);
             List<AmplaRecordChanges> changes = recordEventDectection.DetectChanges();
             Assert.That(changes, Is.Empty);
         }
 
-        private static AmplaAuditSession AddSession(string user, DateTime time, string[] fields, string[] oldValues,
-                                             string[] newValues)
-        {
-            AmplaAuditSession session = new AmplaAuditSession(user, time);
-
-            Assert.That(fields.Length, Is.GreaterThan(0));
-            Assert.That(fields.Length, Is.EqualTo(oldValues.Length));
-            Assert.That(fields.Length, Is.EqualTo(newValues.Length));
-            for (int i = 0; i < fields.Length; i++)
-            {
-                AmplaAuditField field = new AmplaAuditField
-                    {
-                        Name = fields[i],
-                        OriginalValue = oldValues[i],
-                        EditedValue = newValues[i]
-                    };
-                session.Fields.Add(field);
-            }
-            return session;
-        }
-
-        private static AmplaAuditSession AddSession(string user, DateTime time, string field, string oldValue,
-                                             string newValue)
-        {
-            return AddSession(user, time, new [] {field},new [] {oldValue}, new[] {newValue} );
-        }
+ 
     }
 
 

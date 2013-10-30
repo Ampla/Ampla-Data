@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AmplaWeb.Data.Binding.ViewData;
 using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.Binding.History
 {
-    public class DeleteRecordEventDectection : RecordEventDectection
+    public class DeleteRecordEventDectection<TModel> : RecordEventDectection
     {
         private readonly AmplaRecord amplaRecord;
         private readonly AmplaAuditRecord amplaAuditRecord;
+        private readonly IAmplaViewProperties<TModel> viewProperties;
 
         private const string deletedDisplayName = "Deleted";
         private const string deletedName = "IsDeleted";
 
-        public DeleteRecordEventDectection(AmplaRecord amplaRecord, AmplaAuditRecord amplaAuditRecord) : base("Delete Record")
+        public DeleteRecordEventDectection(AmplaRecord amplaRecord, AmplaAuditRecord amplaAuditRecord, IAmplaViewProperties<TModel> viewProperties) : base("Delete Record")
         {
             this.amplaRecord = amplaRecord;
             this.amplaAuditRecord = amplaAuditRecord;
+            this.viewProperties = viewProperties;
         }
 
         public override List<AmplaRecordChanges> DetectChanges()

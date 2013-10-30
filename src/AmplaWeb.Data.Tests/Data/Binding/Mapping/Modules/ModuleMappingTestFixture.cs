@@ -18,8 +18,8 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
             this.moduleMappingFunc = moduleMappingFunc;
         }
 
-        protected IModuleMapping ModuleMapping { get; private set; }
-        protected ViewFieldsCollection ViewFields { get; private set; }
+        private IModuleMapping ModuleMapping { get; set; }
+        private ViewFieldsCollection ViewFields { get; set; }
 
         protected override void OnSetUp()
         {
@@ -33,7 +33,7 @@ namespace AmplaWeb.Data.Binding.Mapping.Modules
 
         protected void CheckField<T>(string name, string displayName, bool specialField, bool requiredField)
         {
-            ViewField field = ViewFields.Find(name);
+            ViewField field = ViewFields.FindByName(name);
             Assert.That(field, Is.Not.Null, "Unabled to find field: {0}", name);
 
             FieldMapping specialFieldMapping = ModuleMapping.GetFieldMapping(field, true);

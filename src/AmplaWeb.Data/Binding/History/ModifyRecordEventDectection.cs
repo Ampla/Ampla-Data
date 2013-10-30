@@ -1,20 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AmplaWeb.Data.Binding.ViewData;
 using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.Binding.History
 {
-    public class ModifyRecordEventDectection : RecordEventDectection
+    public class ModifyRecordEventDectection<TModel> : RecordEventDectection
     {
         private readonly AmplaRecord amplaRecord;
         private readonly AmplaAuditRecord amplaAuditRecord;
+        private readonly IAmplaViewProperties<TModel> viewProperties;
 
-        private readonly List<string> ignoreFields = new List<string> {"IsDeleted"}; 
+        private readonly List<string> ignoreFields = new List<string> {"IsDeleted"};
 
-        public ModifyRecordEventDectection(AmplaRecord amplaRecord, AmplaAuditRecord amplaAuditRecord) : base("Modify Record")
+        public ModifyRecordEventDectection(AmplaRecord amplaRecord, AmplaAuditRecord amplaAuditRecord, IAmplaViewProperties<TModel> viewProperties)
+            : base("Modify Record")
         {
             this.amplaRecord = amplaRecord;
             this.amplaAuditRecord = amplaAuditRecord;
+            this.viewProperties = viewProperties;
         }
 
         public override List<AmplaRecordChanges> DetectChanges()
@@ -24,10 +28,16 @@ namespace AmplaWeb.Data.Binding.History
             {
                 foreach (AmplaAuditSession session in amplaAuditRecord.Changes)
                 {
-                    List<AmplaAuditField> fields = session.Fields.Where(IncludeField).ToList();
+                    List<string> fieldList = new List<string>();
+                    List<AmplaAuditField> fields = new List<AmplaAuditField>();
+                    foreach (var auditField in session.Fields.Where(IncludeField))
+                    {
+                        fields.Add(auditField);
+                        fieldList.Add(viewProperties.GetFieldDisplayName(auditField.Name));
+                    }
                     if (fields.Count > 0)
                     {
-                        string fieldNames = string.Join(", ", fields.Select(field => field.Name));
+                        string fieldNames = string.Join(", ", fieldList);
                         AmplaRecordChanges changes = new AmplaRecordChanges
                             {
                                 VersionDateTime = session.EditedTime,
