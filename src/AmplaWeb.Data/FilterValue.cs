@@ -55,13 +55,13 @@ namespace AmplaWeb.Data
 
         private static FilterValue ParseSimpleFormat(string filterString)
         {
-            string[] parts = filterString.Split(new[] { "=" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = filterString.Split(new[] { "=" }, StringSplitOptions.None);
             if (parts.Length == 2)
             {
                 string filter = parts[0].Trim();
                 string value = parts[1].Trim();
 
-                if (!string.IsNullOrEmpty(filter) && !string.IsNullOrEmpty(value) && value != "{}")
+                if (!string.IsNullOrEmpty(filter))
                 {
                     return new FilterValue(filter, value);
                 }
@@ -71,7 +71,7 @@ namespace AmplaWeb.Data
 
         private static FilterValue ParseFullFormat(string filterString)
         {
-            string[] parts = filterString.Split(new []{"={"}, StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = filterString.Split(new []{"={"}, StringSplitOptions.None);
             if (parts.Length == 2)
             {
                 if (parts[1].EndsWith("}"))
@@ -79,7 +79,7 @@ namespace AmplaWeb.Data
                     string filter = parts[0].Trim();
                     string value = parts[1].Substring(0, parts[1].Length - 1).Trim();
 
-                    if (!string.IsNullOrEmpty(filter) && !string.IsNullOrEmpty(value))
+                    if (!string.IsNullOrEmpty(filter))
                     {
                         return new FilterValue(filter, value);
                     }

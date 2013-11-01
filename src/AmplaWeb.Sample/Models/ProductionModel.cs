@@ -5,6 +5,7 @@ namespace AmplaWeb.Sample.Models
 {
     [AmplaLocation(Location="Enterprise", WithRecurse = true)]
     [AmplaModule(Module = "Production")]
+    [AmplaDefaultFilters("Deleted={}")]
     public class ProductionModel
     {
         public int Id { get; set; }
@@ -18,5 +19,8 @@ namespace AmplaWeb.Sample.Models
 
         [AmplaField(Field = "Confirmed")]
         public bool Confirmed { get; set; }
+
+        [AmplaField(Field = "Deleted")]
+        public bool Deleted { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AmplaWeb.Data.Records;
 
 namespace AmplaWeb.Data.Controllers

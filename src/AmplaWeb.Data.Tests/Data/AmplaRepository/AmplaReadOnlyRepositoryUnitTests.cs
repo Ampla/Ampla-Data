@@ -13,7 +13,7 @@ namespace AmplaWeb.Data.AmplaRepository
     {
         [AmplaLocation(Location = "Plant.Area.Values")]
         [AmplaModule(Module = "Production")]
-        public class AreaValueModel
+        private class AreaValueModel
         {
             public int Id { get; set; }
             public double Value { get; set; }

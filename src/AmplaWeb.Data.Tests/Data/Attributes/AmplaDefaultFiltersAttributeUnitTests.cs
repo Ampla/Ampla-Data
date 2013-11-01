@@ -11,7 +11,7 @@ namespace AmplaWeb.Data.Attributes
         }
 
         [AmplaDefaultFilters("Sample Period ={Current Shift}")]
-        public class ModelWithAlternateFormat
+        private class ModelWithAlternateFormat
         {
         }
 
@@ -43,11 +43,35 @@ namespace AmplaWeb.Data.Attributes
         {
         }
 
+        [AmplaDefaultFilters("Deleted={}")]
+        public class ModelWithEmptyAlternateDeletedFilter
+        {
+        }
+
+        [AmplaDefaultFilters("Deleted=")]
+        public class ModelWithEmptyDeletedFilter
+        {
+        }
+
         [Test]
         public void TryGetWithDefaultFilter()
         {
             FilterValue[] filterValues;
             bool result = AmplaDefaultFiltersAttribute.TryGetFilter<ModelWithDefaultFilter>(out filterValues);
+
+            Assert.That(filterValues, Is.Not.Empty);
+            Assert.That(filterValues.Length, Is.EqualTo(1));
+            Assert.That(filterValues[0].Name, Is.EqualTo("Sample Period"));
+            Assert.That(filterValues[0].Value, Is.EqualTo("Current Shift"));
+
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void TryGetWithAlternateFilter()
+        {
+            FilterValue[] filterValues;
+            bool result = AmplaDefaultFiltersAttribute.TryGetFilter<ModelWithAlternateFormat>(out filterValues);
 
             Assert.That(filterValues, Is.Not.Empty);
             Assert.That(filterValues.Length, Is.EqualTo(1));
@@ -123,6 +147,30 @@ namespace AmplaWeb.Data.Attributes
 
             Assert.That(filterValues, Is.Empty);
             Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void TryGetWithEmptyDeletedAlternate()
+        {
+            FilterValue[] filterValues;
+            bool result = AmplaDefaultFiltersAttribute.TryGetFilter<ModelWithEmptyAlternateDeletedFilter>(out filterValues);
+
+            Assert.That(filterValues, Is.Not.Empty);
+            Assert.That(result, Is.True);
+            Assert.That(filterValues[0].Name, Is.EqualTo("Deleted"));
+            Assert.That(filterValues[0].Value, Is.EqualTo(""));
+        }
+
+        [Test]
+        public void TryGetWithEmptyDeleted()
+        {
+            FilterValue[] filterValues;
+            bool result = AmplaDefaultFiltersAttribute.TryGetFilter<ModelWithEmptyDeletedFilter>(out filterValues);
+
+            Assert.That(filterValues, Is.Not.Empty);
+            Assert.That(result, Is.True);
+            Assert.That(filterValues[0].Name, Is.EqualTo("Deleted"));
+            Assert.That(filterValues[0].Value, Is.EqualTo(""));
         }
     }
 }

@@ -128,5 +128,28 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(record, Is.Not.Null);
             Assert.That(record.GetValue("Area"), Is.EqualTo("Mining"));
         }
+
+        [Test]
+        public void GetAllIgnoresDeleted()
+        {
+            AreaModel match = new AreaModel { Area = "ROM", Value = 100 };
+            AreaModel noMatch = new AreaModel { Area = "Mining", Value = 200 };
+            AreaModel deleted = new AreaModel {Area = "ROM", Value = 300};
+
+            Repository.Add(match);
+            Repository.Add(noMatch);
+            Repository.Add(deleted);
+
+            Repository.Delete(deleted);
+
+            Assert.That(Records.Count, Is.EqualTo(3));
+
+            IList<AreaModel> models = Repository.GetAll();
+
+            Assert.That(models, Is.Not.Empty);
+            Assert.That(models.Count, Is.EqualTo(1));
+
+            Assert.That(models[0].Value, Is.EqualTo(100));
+        }
     }
 }
