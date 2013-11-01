@@ -4,17 +4,7 @@ namespace AmplaWeb.Data.Records
 {
     public class FieldValue : IComparable<FieldValue>
     {
-        public FieldValue()
-            : this("Field", "Value", null)
-        {
-        }
-
-        public FieldValue(string name, string value)
-            : this(name, value, null)
-        {
-        }
-
-        public FieldValue(string name, string value, int? id)
+        public FieldValue(string name, string value, int? id = null)
         {
             Name = name;
             Value = value;
@@ -35,14 +25,14 @@ namespace AmplaWeb.Data.Records
             set;
         }
 
-        public override bool Equals(object obj)
+        public sealed override bool Equals(object obj)
         {
             string thisValue = ToString();
             string otherValue = obj != null ? obj.ToString() : string.Empty;
             return thisValue == otherValue;
         }
 
-        public override int GetHashCode()
+        public sealed override int GetHashCode()
         {
             return ToString().GetHashCode();
         }
@@ -71,7 +61,7 @@ namespace AmplaWeb.Data.Records
             return string.Format("[{0}] = {1}", Name, Value);
         }
 
-        public virtual FieldValue Clone()
+        public FieldValue Clone()
         {
             return new FieldValue(Name, Value, Id) ;
         }

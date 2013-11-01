@@ -55,7 +55,7 @@ namespace AmplaWeb.Data.Production
                     Field<DateTime>("SampleDateTime", "Sample Period"),
                     Field<int>("Duration"),
                     Field<string>("ObjectId", "Location"),
-                    Field<bool>("EquipmentId", "Equipment Id", true)
+                    Field<string>("EquipmentId", "Equipment Id", true)
                 };
             fields.AddRange(extraFields);
             return fields.ToArray();

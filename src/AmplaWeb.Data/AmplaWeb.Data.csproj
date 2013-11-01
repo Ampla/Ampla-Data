@@ -59,6 +59,7 @@
     <Compile Include="Binding\History\ModifyRecordEventDectection.cs" />
     <Compile Include="Binding\History\RecordEventDectection.cs" />
     <Compile Include="Binding\History\UnconfirmRecordEventDectection.cs" />
+    <Compile Include="Binding\MetaData\AllowEmptyStringConverter.cs" />
     <Compile Include="Display\DisplayStringExtensions.cs" />
     <Compile Include="Binding\History\AmplaRecordHistory.cs" />
     <Compile Include="Display\DateTimeDisplayExtensions.cs" />

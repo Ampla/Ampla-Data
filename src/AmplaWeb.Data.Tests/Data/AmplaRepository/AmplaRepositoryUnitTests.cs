@@ -10,8 +10,8 @@ namespace AmplaWeb.Data.AmplaRepository
     [TestFixture]
     public class AmplaRepositoryUnitTests : AmplaRepositoryTestFixture<AmplaRepositoryUnitTests.AreaValueModel>
     {
-        [AmplaLocation(Location = "Plant.Area.Values")]
-        [AmplaModule(Module = "Production")]
+        [AmplaLocation(Location = location)]
+        [AmplaModule(Module = module)]
         public class AreaValueModel
         {
             public int Id { get; set; }
@@ -20,7 +20,7 @@ namespace AmplaWeb.Data.AmplaRepository
         }
 
         private const string module = "Production";
-        private const string location = "Plant.Area.Values";
+        private const string location = "Enterprise.Site.Area.Production";
 
         public AmplaRepositoryUnitTests() : base(module, location, ProductionViews.AreaValueModelView)
         {
@@ -559,7 +559,7 @@ namespace AmplaWeb.Data.AmplaRepository
             ModelVersions versions = Repository.GetVersions(101);
             Assert.That(versions, Is.Null);
         }
-        
+
         private void AssertAuditField(AmplaAuditSession session, string field, string oldValue, string newValue)
         {
             AmplaAuditField value = new List<AmplaAuditField>(session.Fields).Find(f => f.Name == field);

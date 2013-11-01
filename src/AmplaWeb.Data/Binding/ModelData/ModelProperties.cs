@@ -88,6 +88,32 @@ namespace AmplaWeb.Data.Binding.ModelData
             {
                 return new TimeSpanIntConverter();
             }
+
+            if (property.PropertyType == typeof (int))
+            {
+                return new AllowEmptyStringConverter<int>(0);
+            }
+
+            if (property.PropertyType == typeof (double))
+            {
+                return new AllowEmptyStringConverter<double>(0d);
+            }
+
+            if (property.PropertyType == typeof(float))
+            {
+                return new AllowEmptyStringConverter<float>(0f);
+            }
+
+            if (property.PropertyType == typeof(long))
+            {
+                return new AllowEmptyStringConverter<long>(0);
+            }
+
+            if (property.PropertyType == typeof(bool))
+            {
+                return new AllowEmptyStringConverter<bool>(false);
+            }
+
             return TypeDescriptor.GetConverter(property.PropertyType);
         }
 

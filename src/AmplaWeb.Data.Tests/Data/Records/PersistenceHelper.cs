@@ -22,7 +22,6 @@ namespace AmplaWeb.Data.Records
                 return (T)(object)DateTime.ParseExact(value, "yyyy-MM-ddTHH:mm:ssZ", null, DateTimeStyles.AdjustToUniversal);
             }
             return (T)Convert.ChangeType(value, typeof(T));
-
         }
     }
 }

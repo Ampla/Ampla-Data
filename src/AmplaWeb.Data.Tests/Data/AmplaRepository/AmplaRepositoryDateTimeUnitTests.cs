@@ -11,10 +11,10 @@ namespace AmplaWeb.Data.AmplaRepository
         AmplaRepositoryTestFixture<AmplaRepositoryDateTimeUnitTests.AreaValueModel>
     {
         private const string module = "Production";
-        private const string location = "Plant.Area.Values";
+        private const string location = "Enterprise.Site.Area.Production";
 
-        [AmplaLocation(Location = "Plant.Area.Values")]
-        [AmplaModule(Module = "Production")]
+        [AmplaLocation(Location = location)]
+        [AmplaModule(Module = module)]
         public class AreaValueModel
         {
             public int Id { get; set; }
@@ -184,5 +184,6 @@ namespace AmplaWeb.Data.AmplaRepository
             Assert.That(history.Changes, Is.Not.Empty);
             Assert.That(history.Changes[0].Fields[0].Name, Is.EqualTo("SampleDateTime"));
         }
+
     }
 }

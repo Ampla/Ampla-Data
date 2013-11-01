@@ -60,7 +60,10 @@ namespace AmplaWeb.Data.Binding
                 foreach (var field in recordChange.Changes)
                 {
                     viewProperties.UpdateModel(current, field.Name, field.OriginalValue, false);
-                    
+                }
+                if (i == 0)
+                {
+                    modelVersion.Model = modelProperties.CloneModel(current);
                 }
             }
 
