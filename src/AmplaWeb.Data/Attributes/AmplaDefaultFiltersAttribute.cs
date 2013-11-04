@@ -43,7 +43,7 @@ namespace AmplaWeb.Data.Attributes
         /// <value>
         /// The filters.
         /// </value>
-        public FilterValue[] Filters { get; private set; }
+        private FilterValue[] Filters { get; set; }
 
         /// <summary>
         /// Tries the get filter specified
