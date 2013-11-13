@@ -92,7 +92,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AmplaWeb.Data\AmplaData.Data.csproj">
+    <ProjectReference Include="..\AmplaData.Data\AmplaData.Data.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
       <Name>AmplaData.Data</Name>
     </ProjectReference>

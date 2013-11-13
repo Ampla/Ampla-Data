@@ -53,11 +53,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AmplaWeb.Data\AmplaData.Data.csproj">
+    <ProjectReference Include="..\AmplaData.Data\AmplaData.Data.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
       <Name>AmplaData.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AmplaWeb.Security\AmplaData.Security.csproj">
+    <ProjectReference Include="..\AmplaData.Security\AmplaData.Security.csproj">
       <Project>{89F8C9B1-4161-4F50-A96C-45C826E31856}</Project>
       <Name>AmplaData.Security</Name>
     </ProjectReference>
