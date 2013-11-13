@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.ModelData.Validation;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Binding.ModelData.Validation;
 
-namespace AmplaWeb.Data.Binding.ModelData
+namespace AmplaData.Data.Binding.ModelData
 {
     /// <summary>
     ///     Interface that provides access against a generic model

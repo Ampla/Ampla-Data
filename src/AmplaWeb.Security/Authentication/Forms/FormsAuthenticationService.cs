@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web;
 using System.Web.Security;
-using AmplaWeb.Data.Web.Interfaces;
+using AmplaData.Data.Web.Interfaces;
 
-namespace AmplaWeb.Security.Authentication.Forms
+namespace AmplaData.Security.Authentication.Forms
 {
     public class FormsAuthenticationService : IFormsAuthenticationService
     {

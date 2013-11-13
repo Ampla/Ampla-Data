@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Web;
-using AmplaWeb.Data.Web.Interfaces;
+using AmplaData.Data.Web.Interfaces;
 
-namespace AmplaWeb.Data.Web.Wrappers
+namespace AmplaData.Data.Web.Wrappers
 {
     /// <summary>
     /// Wrapper class for the HttpRequest

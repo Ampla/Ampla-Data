@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace AmplaWeb.Data.Display
+namespace AmplaData.Data.Display
 {
     public static class DisplayStringExtensions
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace AmplaWeb.Sample.NavigationRoutes
+namespace AmplaData.Web.Sample.NavigationRoutes
 {
     public class NamedRoute : Route
     {

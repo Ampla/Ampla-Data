@@ -8,8 +8,8 @@
     <ProjectGuid>{F262B484-F272-4514-BEE2-D630D1C997A6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AmplaWeb</RootNamespace>
-    <AssemblyName>AmplaWeb.Tests</AssemblyName>
+    <RootNamespace>AmplaData</RootNamespace>
+    <AssemblyName>AmplaData.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -53,13 +53,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AmplaWeb.Data\AmplaWeb.Data.csproj">
+    <ProjectReference Include="..\AmplaWeb.Data\AmplaData.Data.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
-      <Name>AmplaWeb.Data</Name>
+      <Name>AmplaData.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AmplaWeb.Security\AmplaWeb.Security.csproj">
+    <ProjectReference Include="..\AmplaWeb.Security\AmplaData.Security.csproj">
       <Project>{89F8C9B1-4161-4F50-A96C-45C826E31856}</Project>
-      <Name>AmplaWeb.Security</Name>
+      <Name>AmplaData.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

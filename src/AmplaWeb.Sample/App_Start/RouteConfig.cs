@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace AmplaWeb.Sample.App_Start
+namespace AmplaData.Web.Sample.App_Start
 {
     public static class RouteConfig
     {

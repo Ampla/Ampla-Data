@@ -1,11 +1,11 @@
 ﻿using System;
 
-using AmplaWeb.Data.Attributes;
-using AmplaWeb.Data.Binding.MetaData;
-using AmplaWeb.Data.Binding.ModelData;
+using AmplaData.Data.Attributes;
+using AmplaData.Data.Binding.MetaData;
+using AmplaData.Data.Binding.ModelData;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Binding.Mapping
+namespace AmplaData.Data.Binding.Mapping
 {
     [TestFixture]
     public class DefaultValueFieldMappingUnitTests : TestFixture

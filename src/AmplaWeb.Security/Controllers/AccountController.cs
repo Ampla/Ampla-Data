@@ -1,11 +1,11 @@
 ﻿using System.Web.Mvc;
-using AmplaWeb.Data.Controllers;
-using AmplaWeb.Data.Sessions;
-using AmplaWeb.Security.Authentication;
-using AmplaWeb.Security.Authentication.Forms;
-using AmplaWeb.Security.Models;
+using AmplaData.Data.Controllers;
+using AmplaData.Data.Sessions;
+using AmplaData.Security.Authentication;
+using AmplaData.Security.Authentication.Forms;
+using AmplaData.Security.Models;
 
-namespace AmplaWeb.Security.Controllers
+namespace AmplaData.Security.Controllers
 {
     /// <summary>
     /// Account Controller to provide access 

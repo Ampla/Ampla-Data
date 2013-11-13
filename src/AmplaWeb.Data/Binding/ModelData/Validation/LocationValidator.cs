@@ -1,6 +1,6 @@
 ﻿
 
-namespace AmplaWeb.Data.Binding.ModelData.Validation
+namespace AmplaData.Data.Binding.ModelData.Validation
 {
     /// <summary>
     ///     Location Validation to check that a Location is required if the model specifies it.

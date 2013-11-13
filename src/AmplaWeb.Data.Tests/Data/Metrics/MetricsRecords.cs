@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.Metrics
+namespace AmplaData.Data.Metrics
 {
     public static class MetricsRecords
     {

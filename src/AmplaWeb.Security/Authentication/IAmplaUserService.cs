@@ -1,5 +1,5 @@
 ﻿
-namespace AmplaWeb.Security.Authentication
+namespace AmplaData.Security.Authentication
 {
     /// <summary>
     ///     Interface to allow access to Ampla Users

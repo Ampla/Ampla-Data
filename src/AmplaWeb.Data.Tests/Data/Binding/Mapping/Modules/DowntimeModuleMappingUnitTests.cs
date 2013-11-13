@@ -1,9 +1,9 @@
-﻿using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.ViewData;
-using AmplaWeb.Data.Downtime;
+﻿using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Binding.ViewData;
+using AmplaData.Data.Downtime;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Binding.Mapping.Modules
+namespace AmplaData.Data.Binding.Mapping.Modules
 {
     [TestFixture]
     public class DowntimeModuleMappingUnitTests : ModuleMappingTestFixture

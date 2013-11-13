@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Attributes;
-using AmplaWeb.Data.Production;
-using AmplaWeb.Data.Records;
-using AmplaWeb.Data.Views;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Attributes;
+using AmplaData.Data.Production;
+using AmplaData.Data.Records;
+using AmplaData.Data.Views;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.AmplaRepository
+namespace AmplaData.Data.AmplaRepository
 {
     [TestFixture]
     public class AmplaReadOnlyRepositoryUnitTests : TestFixture

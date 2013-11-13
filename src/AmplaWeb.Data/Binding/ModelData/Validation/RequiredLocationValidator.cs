@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaWeb.Data.Binding.ModelData.Validation
+namespace AmplaData.Data.Binding.ModelData.Validation
 {
     /// <summary>
     ///     Model Validator that requires the location to be a specified value

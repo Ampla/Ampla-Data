@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace AmplaWeb.Sample.BootstrapSupport.HtmlHelpers
+namespace AmplaData.Web.Sample.BootstrapSupport.HtmlHelpers
 {
     public static class GlyphIcons
     {

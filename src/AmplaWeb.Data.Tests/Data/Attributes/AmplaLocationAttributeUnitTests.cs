@@ -1,7 +1,7 @@
-﻿using AmplaWeb.Data.Binding.ModelData;
+﻿using AmplaData.Data.Binding.ModelData;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Attributes
+namespace AmplaData.Data.Attributes
 {
     [TestFixture]
     public class AmplaLocationAttributeUnitTests : TestFixture

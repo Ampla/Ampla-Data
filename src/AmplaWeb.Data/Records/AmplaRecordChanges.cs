@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaWeb.Data.Records
+namespace AmplaData.Data.Records
 {
     public class AmplaRecordChanges : IComparable<AmplaRecordChanges>
     {

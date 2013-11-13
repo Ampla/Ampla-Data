@@ -1,4 +1,4 @@
-﻿namespace AmplaWeb.Security.Sessions
+﻿namespace AmplaData.Security.Sessions
 {
     /// <summary>
     ///     Interface for executing session commands

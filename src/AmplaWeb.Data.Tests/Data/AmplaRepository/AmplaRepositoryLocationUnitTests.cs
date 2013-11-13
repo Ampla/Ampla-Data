@@ -1,11 +1,11 @@
 ﻿using System;
-using AmplaWeb.Data.Attributes;
-using AmplaWeb.Data.Production;
-using AmplaWeb.Data.Records;
-using AmplaWeb.Data.Views;
+using AmplaData.Data.Attributes;
+using AmplaData.Data.Production;
+using AmplaData.Data.Records;
+using AmplaData.Data.Views;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.AmplaRepository
+namespace AmplaData.Data.AmplaRepository
 {
     [TestFixture]
     public class AmplaRepositoryLocationUnitTests : AmplaRepositoryTestFixture<AmplaRepositoryLocationUnitTests.LocationModel>

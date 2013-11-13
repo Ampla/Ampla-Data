@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaWeb.Sample", "AmplaWeb.Sample\AmplaWeb.Sample.csproj", "{D1952C3E-2A71-4947-8B32-D15FC69811C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Web.Sample", "AmplaWeb.Sample\AmplaData.Web.Sample.csproj", "{D1952C3E-2A71-4947-8B32-D15FC69811C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaWeb.Data", "AmplaWeb.Data\AmplaWeb.Data.csproj", "{EA920285-DB3C-46AB-97D9-17EA716B70AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Data", "AmplaWeb.Data\AmplaData.Data.csproj", "{EA920285-DB3C-46AB-97D9-17EA716B70AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaWeb.Tests", "AmplaWeb.Data.Tests\AmplaWeb.Tests.csproj", "{F262B484-F272-4514-BEE2-D630D1C997A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Tests", "AmplaWeb.Data.Tests\AmplaData.Tests.csproj", "{F262B484-F272-4514-BEE2-D630D1C997A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaWeb.Security", "AmplaWeb.Security\AmplaWeb.Security.csproj", "{89F8C9B1-4161-4F50-A96C-45C826E31856}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Security", "AmplaWeb.Security\AmplaData.Security.csproj", "{89F8C9B1-4161-4F50-A96C-45C826E31856}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Web", "AmplaData.Web\AmplaData.Web.csproj", "{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,16 @@ Global
 		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Release|x86.ActiveCfg = Release|Any CPU
+		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

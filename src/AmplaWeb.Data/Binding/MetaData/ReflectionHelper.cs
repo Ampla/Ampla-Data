@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace AmplaWeb.Data.Binding.MetaData
+namespace AmplaData.Data.Binding.MetaData
 {
     public static class ReflectionHelper
     {

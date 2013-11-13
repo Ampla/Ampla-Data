@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Web.Mvc;
 
-namespace AmplaWeb.Data.Binding.MetaData
+namespace AmplaData.Data.Binding.MetaData
 {
     public class AmplaModelMetadataProvider : DataAnnotationsModelMetadataProvider
     {

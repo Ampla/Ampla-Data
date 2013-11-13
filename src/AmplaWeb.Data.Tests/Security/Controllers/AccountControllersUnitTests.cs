@@ -1,13 +1,13 @@
 ﻿using System.Web.Mvc;
-using AmplaWeb.Data.Sessions;
-using AmplaWeb.Data.Web.Wrappers;
-using AmplaWeb.Security.AmplaSecurity2007;
-using AmplaWeb.Security.Authentication;
-using AmplaWeb.Security.Authentication.Forms;
-using AmplaWeb.Security.Models;
+using AmplaData.Data.Sessions;
+using AmplaData.Data.Web.Wrappers;
+using AmplaData.Security.AmplaSecurity2007;
+using AmplaData.Security.Authentication;
+using AmplaData.Security.Authentication.Forms;
+using AmplaData.Security.Models;
 using NUnit.Framework;
 
-namespace AmplaWeb.Security.Controllers
+namespace AmplaData.Security.Controllers
 {
     [TestFixture]
     public class AccountControllersUnitTests : TestFixture

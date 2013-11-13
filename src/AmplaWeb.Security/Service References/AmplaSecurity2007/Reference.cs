@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AmplaWeb.Security.AmplaSecurity2007 {
+namespace AmplaData.Security.AmplaSecurity2007 {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -19,19 +19,19 @@ namespace AmplaWeb.Security.AmplaSecurity2007 {
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Security/2007/06:createSessionIn", ReplyAction="http://www.citect.com/Ampla/Security/2007/06/ISecurityWebService/CreateSessionRes" +
             "ponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaWeb.Security.AmplaSecurity2007.CreateSessionResponse1 CreateSession(AmplaWeb.Security.AmplaSecurity2007.CreateSessionRequest1 request);
+        AmplaData.Security.AmplaSecurity2007.CreateSessionResponse1 CreateSession(AmplaData.Security.AmplaSecurity2007.CreateSessionRequest1 request);
         
         // CODEGEN: Generating message contract since the operation RenewSession is neither RPC nor document wrapped.
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Security/2007/06:renewSessionIn", ReplyAction="http://www.citect.com/Ampla/Security/2007/06/ISecurityWebService/RenewSessionResp" +
             "onse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaWeb.Security.AmplaSecurity2007.RenewSessionResponse1 RenewSession(AmplaWeb.Security.AmplaSecurity2007.RenewSessionRequest1 request);
+        AmplaData.Security.AmplaSecurity2007.RenewSessionResponse1 RenewSession(AmplaData.Security.AmplaSecurity2007.RenewSessionRequest1 request);
         
         // CODEGEN: Generating message contract since the operation ReleaseSession is neither RPC nor document wrapped.
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Security/2007/06:releaseSessionIn", ReplyAction="http://www.citect.com/Ampla/Security/2007/06/ISecurityWebService/ReleaseSessionRe" +
             "sponse")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionResponse1 ReleaseSession(AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionRequest1 request);
+        AmplaData.Security.AmplaSecurity2007.ReleaseSessionResponse1 ReleaseSession(AmplaData.Security.AmplaSecurity2007.ReleaseSessionRequest1 request);
     }
     
     /// <remarks/>
@@ -279,12 +279,12 @@ namespace AmplaWeb.Security.AmplaSecurity2007 {
     public partial class CreateSessionRequest1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Security/2007/06", Order=0)]
-        public AmplaWeb.Security.AmplaSecurity2007.CreateSessionRequest CreateSessionRequest;
+        public AmplaData.Security.AmplaSecurity2007.CreateSessionRequest CreateSessionRequest;
         
         public CreateSessionRequest1() {
         }
         
-        public CreateSessionRequest1(AmplaWeb.Security.AmplaSecurity2007.CreateSessionRequest CreateSessionRequest) {
+        public CreateSessionRequest1(AmplaData.Security.AmplaSecurity2007.CreateSessionRequest CreateSessionRequest) {
             this.CreateSessionRequest = CreateSessionRequest;
         }
     }
@@ -296,12 +296,12 @@ namespace AmplaWeb.Security.AmplaSecurity2007 {
     public partial class CreateSessionResponse1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Security/2007/06", Order=0)]
-        public AmplaWeb.Security.AmplaSecurity2007.CreateSessionResponse CreateSessionResponse;
+        public AmplaData.Security.AmplaSecurity2007.CreateSessionResponse CreateSessionResponse;
         
         public CreateSessionResponse1() {
         }
         
-        public CreateSessionResponse1(AmplaWeb.Security.AmplaSecurity2007.CreateSessionResponse CreateSessionResponse) {
+        public CreateSessionResponse1(AmplaData.Security.AmplaSecurity2007.CreateSessionResponse CreateSessionResponse) {
             this.CreateSessionResponse = CreateSessionResponse;
         }
     }
@@ -313,12 +313,12 @@ namespace AmplaWeb.Security.AmplaSecurity2007 {
     public partial class RenewSessionRequest1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Security/2007/06", Order=0)]
-        public AmplaWeb.Security.AmplaSecurity2007.RenewSessionRequest RenewSessionRequest;
+        public AmplaData.Security.AmplaSecurity2007.RenewSessionRequest RenewSessionRequest;
         
         public RenewSessionRequest1() {
         }
         
-        public RenewSessionRequest1(AmplaWeb.Security.AmplaSecurity2007.RenewSessionRequest RenewSessionRequest) {
+        public RenewSessionRequest1(AmplaData.Security.AmplaSecurity2007.RenewSessionRequest RenewSessionRequest) {
             this.RenewSessionRequest = RenewSessionRequest;
         }
     }
@@ -330,12 +330,12 @@ namespace AmplaWeb.Security.AmplaSecurity2007 {
     public partial class RenewSessionResponse1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Security/2007/06", Order=0)]
-        public AmplaWeb.Security.AmplaSecurity2007.RenewSessionResponse RenewSessionResponse;
+        public AmplaData.Security.AmplaSecurity2007.RenewSessionResponse RenewSessionResponse;
         
         public RenewSessionResponse1() {
         }
         
-        public RenewSessionResponse1(AmplaWeb.Security.AmplaSecurity2007.RenewSessionResponse RenewSessionResponse) {
+        public RenewSessionResponse1(AmplaData.Security.AmplaSecurity2007.RenewSessionResponse RenewSessionResponse) {
             this.RenewSessionResponse = RenewSessionResponse;
         }
     }
@@ -347,12 +347,12 @@ namespace AmplaWeb.Security.AmplaSecurity2007 {
     public partial class ReleaseSessionRequest1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Security/2007/06", Order=0)]
-        public AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionRequest ReleaseSessionRequest;
+        public AmplaData.Security.AmplaSecurity2007.ReleaseSessionRequest ReleaseSessionRequest;
         
         public ReleaseSessionRequest1() {
         }
         
-        public ReleaseSessionRequest1(AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionRequest ReleaseSessionRequest) {
+        public ReleaseSessionRequest1(AmplaData.Security.AmplaSecurity2007.ReleaseSessionRequest ReleaseSessionRequest) {
             this.ReleaseSessionRequest = ReleaseSessionRequest;
         }
     }
@@ -364,23 +364,23 @@ namespace AmplaWeb.Security.AmplaSecurity2007 {
     public partial class ReleaseSessionResponse1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Security/2007/06", Order=0)]
-        public AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionResponse ReleaseSessionResponse;
+        public AmplaData.Security.AmplaSecurity2007.ReleaseSessionResponse ReleaseSessionResponse;
         
         public ReleaseSessionResponse1() {
         }
         
-        public ReleaseSessionResponse1(AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionResponse ReleaseSessionResponse) {
+        public ReleaseSessionResponse1(AmplaData.Security.AmplaSecurity2007.ReleaseSessionResponse ReleaseSessionResponse) {
             this.ReleaseSessionResponse = ReleaseSessionResponse;
         }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ISecurityWebServiceChannel : AmplaWeb.Security.AmplaSecurity2007.ISecurityWebService, System.ServiceModel.IClientChannel {
+    public interface ISecurityWebServiceChannel : AmplaData.Security.AmplaSecurity2007.ISecurityWebService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class SecurityWebServiceClient : System.ServiceModel.ClientBase<AmplaWeb.Security.AmplaSecurity2007.ISecurityWebService>, AmplaWeb.Security.AmplaSecurity2007.ISecurityWebService {
+    public partial class SecurityWebServiceClient : System.ServiceModel.ClientBase<AmplaData.Security.AmplaSecurity2007.ISecurityWebService>, AmplaData.Security.AmplaSecurity2007.ISecurityWebService {
         
         public SecurityWebServiceClient() {
         }
@@ -402,38 +402,38 @@ namespace AmplaWeb.Security.AmplaSecurity2007 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaWeb.Security.AmplaSecurity2007.CreateSessionResponse1 AmplaWeb.Security.AmplaSecurity2007.ISecurityWebService.CreateSession(AmplaWeb.Security.AmplaSecurity2007.CreateSessionRequest1 request) {
+        AmplaData.Security.AmplaSecurity2007.CreateSessionResponse1 AmplaData.Security.AmplaSecurity2007.ISecurityWebService.CreateSession(AmplaData.Security.AmplaSecurity2007.CreateSessionRequest1 request) {
             return base.Channel.CreateSession(request);
         }
         
-        public AmplaWeb.Security.AmplaSecurity2007.CreateSessionResponse CreateSession(AmplaWeb.Security.AmplaSecurity2007.CreateSessionRequest CreateSessionRequest) {
-            AmplaWeb.Security.AmplaSecurity2007.CreateSessionRequest1 inValue = new AmplaWeb.Security.AmplaSecurity2007.CreateSessionRequest1();
+        public AmplaData.Security.AmplaSecurity2007.CreateSessionResponse CreateSession(AmplaData.Security.AmplaSecurity2007.CreateSessionRequest CreateSessionRequest) {
+            AmplaData.Security.AmplaSecurity2007.CreateSessionRequest1 inValue = new AmplaData.Security.AmplaSecurity2007.CreateSessionRequest1();
             inValue.CreateSessionRequest = CreateSessionRequest;
-            AmplaWeb.Security.AmplaSecurity2007.CreateSessionResponse1 retVal = ((AmplaWeb.Security.AmplaSecurity2007.ISecurityWebService)(this)).CreateSession(inValue);
+            AmplaData.Security.AmplaSecurity2007.CreateSessionResponse1 retVal = ((AmplaData.Security.AmplaSecurity2007.ISecurityWebService)(this)).CreateSession(inValue);
             return retVal.CreateSessionResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaWeb.Security.AmplaSecurity2007.RenewSessionResponse1 AmplaWeb.Security.AmplaSecurity2007.ISecurityWebService.RenewSession(AmplaWeb.Security.AmplaSecurity2007.RenewSessionRequest1 request) {
+        AmplaData.Security.AmplaSecurity2007.RenewSessionResponse1 AmplaData.Security.AmplaSecurity2007.ISecurityWebService.RenewSession(AmplaData.Security.AmplaSecurity2007.RenewSessionRequest1 request) {
             return base.Channel.RenewSession(request);
         }
         
-        public AmplaWeb.Security.AmplaSecurity2007.RenewSessionResponse RenewSession(AmplaWeb.Security.AmplaSecurity2007.RenewSessionRequest RenewSessionRequest) {
-            AmplaWeb.Security.AmplaSecurity2007.RenewSessionRequest1 inValue = new AmplaWeb.Security.AmplaSecurity2007.RenewSessionRequest1();
+        public AmplaData.Security.AmplaSecurity2007.RenewSessionResponse RenewSession(AmplaData.Security.AmplaSecurity2007.RenewSessionRequest RenewSessionRequest) {
+            AmplaData.Security.AmplaSecurity2007.RenewSessionRequest1 inValue = new AmplaData.Security.AmplaSecurity2007.RenewSessionRequest1();
             inValue.RenewSessionRequest = RenewSessionRequest;
-            AmplaWeb.Security.AmplaSecurity2007.RenewSessionResponse1 retVal = ((AmplaWeb.Security.AmplaSecurity2007.ISecurityWebService)(this)).RenewSession(inValue);
+            AmplaData.Security.AmplaSecurity2007.RenewSessionResponse1 retVal = ((AmplaData.Security.AmplaSecurity2007.ISecurityWebService)(this)).RenewSession(inValue);
             return retVal.RenewSessionResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionResponse1 AmplaWeb.Security.AmplaSecurity2007.ISecurityWebService.ReleaseSession(AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionRequest1 request) {
+        AmplaData.Security.AmplaSecurity2007.ReleaseSessionResponse1 AmplaData.Security.AmplaSecurity2007.ISecurityWebService.ReleaseSession(AmplaData.Security.AmplaSecurity2007.ReleaseSessionRequest1 request) {
             return base.Channel.ReleaseSession(request);
         }
         
-        public AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionResponse ReleaseSession(AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionRequest ReleaseSessionRequest) {
-            AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionRequest1 inValue = new AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionRequest1();
+        public AmplaData.Security.AmplaSecurity2007.ReleaseSessionResponse ReleaseSession(AmplaData.Security.AmplaSecurity2007.ReleaseSessionRequest ReleaseSessionRequest) {
+            AmplaData.Security.AmplaSecurity2007.ReleaseSessionRequest1 inValue = new AmplaData.Security.AmplaSecurity2007.ReleaseSessionRequest1();
             inValue.ReleaseSessionRequest = ReleaseSessionRequest;
-            AmplaWeb.Security.AmplaSecurity2007.ReleaseSessionResponse1 retVal = ((AmplaWeb.Security.AmplaSecurity2007.ISecurityWebService)(this)).ReleaseSession(inValue);
+            AmplaData.Security.AmplaSecurity2007.ReleaseSessionResponse1 retVal = ((AmplaData.Security.AmplaSecurity2007.ISecurityWebService)(this)).ReleaseSession(inValue);
             return retVal.ReleaseSessionResponse;
         }
     }

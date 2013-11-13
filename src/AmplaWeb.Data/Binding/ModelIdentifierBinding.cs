@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.Binding.ModelData;
+using AmplaData.Data.Binding.ModelData;
 
-namespace AmplaWeb.Data.Binding
+namespace AmplaData.Data.Binding
 {
     public class ModelIdentifierBinding<TModel> : IAmplaBinding where TModel : class, new()
     {

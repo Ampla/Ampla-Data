@@ -1,5 +1,5 @@
 ﻿
-namespace AmplaWeb.Data.AmplaRepository
+namespace AmplaData.Data.AmplaRepository
 {
     /// <summary>
     ///     The Ampla ReadOnly Repository allows the reading of Ampla models

@@ -1,8 +1,8 @@
 ﻿using System.Web.Routing;
-using AmplaWeb.Sample.Controllers;
-using AmplaWeb.Sample.NavigationRoutes;
+using AmplaData.Web.Sample.Controllers;
+using AmplaData.Web.Sample.NavigationRoutes;
 
-namespace AmplaWeb.Sample.App_Start
+namespace AmplaData.Web.Sample.App_Start
 {
     public static class NavigationRouteConfig
     {

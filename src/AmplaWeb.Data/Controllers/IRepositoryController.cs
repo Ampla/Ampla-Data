@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace AmplaWeb.Data.Controllers
+namespace AmplaData.Data.Controllers
 {
     /// <summary>
     ///     Interface for Repository operations for the model 

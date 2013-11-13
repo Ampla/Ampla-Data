@@ -1,6 +1,6 @@
 ﻿using System.Web.Routing;
 
-namespace AmplaWeb.Sample.NavigationRoutes
+namespace AmplaData.Web.Sample.NavigationRoutes
 {
     public interface INavigationRouteFilter
     {

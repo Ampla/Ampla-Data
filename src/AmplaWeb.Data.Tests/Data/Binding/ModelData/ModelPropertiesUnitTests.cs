@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Attributes;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Attributes;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Binding.ModelData
+namespace AmplaData.Data.Binding.ModelData
 {
     [TestFixture]
     public class ModelPropertiesUnitTests : TestFixture

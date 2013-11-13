@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.MetaData;
-using AmplaWeb.Data.Binding.ViewData;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Binding.MetaData;
+using AmplaData.Data.Binding.ViewData;
 
-namespace AmplaWeb.Data.Binding.Mapping.Modules
+namespace AmplaData.Data.Binding.Mapping.Modules
 {
     public class StandardModuleMapping : IModuleMapping
     {

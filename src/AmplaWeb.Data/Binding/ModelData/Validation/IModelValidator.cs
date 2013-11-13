@@ -1,4 +1,4 @@
-﻿namespace AmplaWeb.Data.Binding.ModelData.Validation
+﻿namespace AmplaData.Data.Binding.ModelData.Validation
 {
     public interface IModelValidator<TModel> where TModel : new()
     {

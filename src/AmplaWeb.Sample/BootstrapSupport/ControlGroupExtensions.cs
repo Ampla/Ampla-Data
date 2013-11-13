@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AmplaWeb.Sample.BootstrapSupport
+namespace AmplaData.Web.Sample.BootstrapSupport
 {
     public class ControlGroup : IDisposable
     {

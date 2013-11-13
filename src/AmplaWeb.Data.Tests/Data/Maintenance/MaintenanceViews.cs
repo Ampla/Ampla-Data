@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Views;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Views;
 
-namespace AmplaWeb.Data.Maintenance
+namespace AmplaData.Data.Maintenance
 {
     public class MaintenanceViews : StandardViews
     {

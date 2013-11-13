@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Display
+namespace AmplaData.Data.Display
 {
     [TestFixture]
     public class DateTimeDisplayExtensionsUnitTests : TestFixture

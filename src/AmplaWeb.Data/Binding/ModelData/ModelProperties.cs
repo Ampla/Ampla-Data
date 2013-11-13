@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Attributes;
-using AmplaWeb.Data.Binding.MetaData;
-using AmplaWeb.Data.Binding.ModelData.Validation;
-using AmplaWeb.Data.Display;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Attributes;
+using AmplaData.Data.Binding.MetaData;
+using AmplaData.Data.Binding.ModelData.Validation;
+using AmplaData.Data.Display;
 
-namespace AmplaWeb.Data.Binding.ModelData
+namespace AmplaData.Data.Binding.ModelData
 {
     /// <summary>
     /// Model Properties provides access to the TModel object and the properties. 

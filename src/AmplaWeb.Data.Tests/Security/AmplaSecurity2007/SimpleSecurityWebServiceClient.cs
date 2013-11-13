@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AmplaWeb.Security.AmplaSecurity2007
+namespace AmplaData.Security.AmplaSecurity2007
 {
     public class SimpleSecurityWebServiceClient : ISecurityWebServiceClient
     {

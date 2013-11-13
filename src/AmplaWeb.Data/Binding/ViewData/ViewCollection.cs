@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AmplaWeb.Data.Binding.ViewData
+namespace AmplaData.Data.Binding.ViewData
 {
     public class ViewCollection<T>
     {

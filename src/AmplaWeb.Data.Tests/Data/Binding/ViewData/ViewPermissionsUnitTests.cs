@@ -1,8 +1,8 @@
 ﻿using System;
-using AmplaWeb.Data.AmplaData2008;
+using AmplaData.Data.AmplaData2008;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Binding.ViewData
+namespace AmplaData.Data.Binding.ViewData
 {
     [TestFixture]
     public class ViewPermissionsUnitTests : ViewPermissionsBaseUnitTests

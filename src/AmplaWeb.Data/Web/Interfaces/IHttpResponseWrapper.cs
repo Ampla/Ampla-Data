@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace AmplaWeb.Data.Web.Interfaces
+namespace AmplaData.Data.Web.Interfaces
 {
     /// <summary>
     ///     Interface that wraps the HttpResponse object to simplify testing

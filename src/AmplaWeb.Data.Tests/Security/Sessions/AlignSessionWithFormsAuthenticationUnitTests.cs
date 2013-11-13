@@ -1,11 +1,11 @@
-﻿using AmplaWeb.Data.Sessions;
-using AmplaWeb.Data.Web.Wrappers;
-using AmplaWeb.Security.AmplaSecurity2007;
-using AmplaWeb.Security.Authentication;
-using AmplaWeb.Security.Authentication.Forms;
+﻿using AmplaData.Data.Sessions;
+using AmplaData.Data.Web.Wrappers;
+using AmplaData.Security.AmplaSecurity2007;
+using AmplaData.Security.Authentication;
+using AmplaData.Security.Authentication.Forms;
 using NUnit.Framework;
 
-namespace AmplaWeb.Security.Sessions
+namespace AmplaData.Security.Sessions
 {
     [TestFixture]
     public class AlignSessionWithFormsAuthenticationUnitTests : TestFixture

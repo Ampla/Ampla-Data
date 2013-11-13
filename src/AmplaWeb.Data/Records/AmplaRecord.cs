@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using AmplaWeb.Data.Binding.Mapping;
+using AmplaData.Data.Binding.Mapping;
 
-namespace AmplaWeb.Data.Records
+namespace AmplaData.Data.Records
 {
     /// <summary>
     /// Represents an Ampla Record from the GetData web-service

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AmplaWeb.Data.AmplaData2008;
+using AmplaData.Data.AmplaData2008;
 
-namespace AmplaWeb.Data.Binding.ViewData
+namespace AmplaData.Data.Binding.ViewData
 {
     /// <summary>
     ///     Represents whether the View can support the record operations

@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.Downtime
+namespace AmplaData.Data.Downtime
 {
     public static class DowntimeRecords
     {

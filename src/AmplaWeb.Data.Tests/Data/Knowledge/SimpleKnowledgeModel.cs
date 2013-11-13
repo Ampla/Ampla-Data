@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaWeb.Data.Attributes;
+using AmplaData.Data.Attributes;
 
-namespace AmplaWeb.Data.Knowledge
+namespace AmplaData.Data.Knowledge
 {
     [AmplaLocation(Location = "Enterprise.Site.Area.Knowledge")]
     [AmplaModule(Module = "Knowledge")]

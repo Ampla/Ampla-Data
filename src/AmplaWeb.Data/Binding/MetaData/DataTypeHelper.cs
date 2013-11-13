@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AmplaWeb.Data.Binding.MetaData
+namespace AmplaData.Data.Binding.MetaData
 {
     public static class DataTypeHelper
     {

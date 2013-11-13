@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaWeb.Data.Web.Interfaces;
+using AmplaData.Data.Web.Interfaces;
 
-namespace AmplaWeb.Data.Sessions
+namespace AmplaData.Data.Sessions
 {
     /// <summary>
     ///     AmplaSessionStorage in the HttpSession

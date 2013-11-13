@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.Binding.ModelData;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Binding.ModelData;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.InMemory
+namespace AmplaData.Data.InMemory
 {
     public class InMemoryRepository<TModel> : IRepository<TModel> where TModel : new()
     {

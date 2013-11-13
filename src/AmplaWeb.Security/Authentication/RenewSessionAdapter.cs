@@ -1,8 +1,8 @@
-﻿using AmplaWeb.Data;
-using AmplaWeb.Data.Sessions;
-using AmplaWeb.Security.Authentication.Forms;
+﻿using AmplaData.Data;
+using AmplaData.Data.Sessions;
+using AmplaData.Security.Authentication.Forms;
 
-namespace AmplaWeb.Security.Authentication
+namespace AmplaData.Security.Authentication
 {
     public class RenewSessionAdapter<TModel> : Data.Adapters.RepositoryAdapter<TModel>
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using AmplaWeb.Data.Attributes;
+using AmplaData.Data.Attributes;
 
-namespace AmplaWeb.Sample.Models
+namespace AmplaData.Web.Sample.Models
 {
     [DisplayName("Shift Log")]
     [AmplaLocation(Location = "Enterprise.Site.Area.Knowledge")]

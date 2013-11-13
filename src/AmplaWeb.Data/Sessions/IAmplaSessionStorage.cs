@@ -1,5 +1,5 @@
 ﻿
-namespace AmplaWeb.Data.Sessions
+namespace AmplaData.Data.Sessions
 {
     /// <summary>
     /// Interface for storing the session

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AmplaWeb.Data.Records
+namespace AmplaData.Data.Records
 {
     public class AmplaAuditSession : IComparable<AmplaAuditSession>
     {

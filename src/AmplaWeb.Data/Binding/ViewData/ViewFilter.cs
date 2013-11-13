@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.MetaData;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Binding.MetaData;
 
-namespace AmplaWeb.Data.Binding.ViewData
+namespace AmplaData.Data.Binding.ViewData
 {
     public class ViewFilter
     {

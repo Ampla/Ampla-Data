@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Security.Principal;
-using AmplaWeb.Security.AmplaSecurity2007;
+using AmplaData.Security.AmplaSecurity2007;
 
-namespace AmplaWeb.Security.Authentication
+namespace AmplaData.Security.Authentication
 {
     /// <summary>
     ///     Ampla User Service that provides access to Ampla logins

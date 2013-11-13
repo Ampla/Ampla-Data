@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.Adapters
+namespace AmplaData.Data.Adapters
 {
     public abstract class RepositoryAdapter<TModel> : IRepository<TModel>
     {

@@ -23,7 +23,7 @@ public ActionResult Index(int page = 1)
 }
 */
 
-namespace AmplaWeb.Sample.BootstrapSupport.HtmlHelpers
+namespace AmplaData.Web.Sample.BootstrapSupport.HtmlHelpers
 {
     public static class PaginiationHelperExtensions
     {

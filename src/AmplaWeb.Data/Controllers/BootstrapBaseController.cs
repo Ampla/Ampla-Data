@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using AmplaWeb.Data.BootstrapSupport;
+using AmplaData.Data.BootstrapSupport;
 
-namespace AmplaWeb.Data.Controllers
+namespace AmplaData.Data.Controllers
 {
     public class BootstrapBaseController : Controller
     {

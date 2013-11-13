@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AmplaWeb.Sample")]
+[assembly: AssemblyTitle("AmplaData.Web.Sample")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("http://github.com/Ampla")]
-[assembly: AssemblyProduct("AmplaWeb.Sample")]
+[assembly: AssemblyProduct("AmplaData.Web.Sample")]
 [assembly: AssemblyCopyright("Copyright © http://github.com/Ampla 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

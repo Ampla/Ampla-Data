@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AmplaWeb.Data.InMemory
+namespace AmplaData.Data.InMemory
 {
     public class InMemoryRepositorySet : IRepositorySet
     {

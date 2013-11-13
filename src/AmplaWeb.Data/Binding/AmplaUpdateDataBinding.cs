@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.Mapping;
-using AmplaWeb.Data.Binding.ModelData;
-using AmplaWeb.Data.Binding.ModelData.Validation;
-using AmplaWeb.Data.Binding.ViewData;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Binding.Mapping;
+using AmplaData.Data.Binding.ModelData;
+using AmplaData.Data.Binding.ModelData.Validation;
+using AmplaData.Data.Binding.ViewData;
 
-namespace AmplaWeb.Data.Binding
+namespace AmplaData.Data.Binding
 {
     public class AmplaUpdateDataBinding<TModel> : IAmplaBinding where TModel : class, new()
     {

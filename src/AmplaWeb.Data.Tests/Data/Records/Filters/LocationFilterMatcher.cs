@@ -1,4 +1,4 @@
-﻿namespace AmplaWeb.Data.Records.Filters
+﻿namespace AmplaData.Data.Records.Filters
 {
     public class LocationFilterMatcher : FilterMatcher
     {

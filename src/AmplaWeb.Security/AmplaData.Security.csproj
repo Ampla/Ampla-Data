@@ -8,8 +8,8 @@
     <ProjectGuid>{89F8C9B1-4161-4F50-A96C-45C826E31856}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AmplaWeb.Security</RootNamespace>
-    <AssemblyName>AmplaWeb.Security</AssemblyName>
+    <RootNamespace>AmplaData.Security</RootNamespace>
+    <AssemblyName>AmplaData.Security</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -92,9 +92,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AmplaWeb.Data\AmplaWeb.Data.csproj">
+    <ProjectReference Include="..\AmplaWeb.Data\AmplaData.Data.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
-      <Name>AmplaWeb.Data</Name>
+      <Name>AmplaData.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

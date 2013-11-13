@@ -1,8 +1,8 @@
 ﻿using System;
-using AmplaWeb.Data.Attributes;
+using AmplaData.Data.Attributes;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Binding.ModelData
+namespace AmplaData.Data.Binding.ModelData
 {
     [TestFixture]
     public class DowntimeModelPropertiesUnitTests : TestFixture

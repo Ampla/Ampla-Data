@@ -1,6 +1,6 @@
-﻿using AmplaWeb.Data.AmplaData2008;
+﻿using AmplaData.Data.AmplaData2008;
 
-namespace AmplaWeb.Data.Sessions
+namespace AmplaData.Data.Sessions
 {
     /// <summary>
     ///     Credentials Provider that extracts the session from HttpSession or the backup credentials provider

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.ModelData;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Binding.ModelData;
 
-namespace AmplaWeb.Data.Binding
+namespace AmplaData.Data.Binding
 {
     public class AmplaDataSubmissionResultBinding<TModel> : IAmplaBinding where TModel : new()
     {

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace AmplaWeb.Data.Binding.ModelData
+namespace AmplaData.Data.Binding.ModelData
 {
     [TestFixture]
     public class LocationFilterUnitTests : TestFixture

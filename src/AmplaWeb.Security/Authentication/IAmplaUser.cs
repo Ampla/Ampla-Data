@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaWeb.Security.Authentication
+namespace AmplaData.Security.Authentication
 {
     public interface IAmplaUser
     {

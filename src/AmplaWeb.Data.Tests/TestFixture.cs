@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using NUnit.Framework;
 
-namespace AmplaWeb
+namespace AmplaData
 {
     /// <summary>
     ///		Base class for TestFixtures with provision for specializing other base classes

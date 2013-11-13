@@ -1,13 +1,13 @@
-﻿using AmplaWeb.Data;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.AmplaRepository;
-using AmplaWeb.Data.InMemory;
-using AmplaWeb.Sample.Models;
-using AmplaWeb.Security.AmplaSecurity2007;
+﻿using AmplaData.Data;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.AmplaRepository;
+using AmplaData.Data.InMemory;
+using AmplaData.Web.Sample.Models;
+using AmplaData.Security.AmplaSecurity2007;
 using Autofac;
 using Autofac.Integration.Mvc;
 
-namespace AmplaWeb.Sample.Modules
+namespace AmplaData.Web.Sample.Modules
 {
     public class ControllerInjectionModule : Module
     {

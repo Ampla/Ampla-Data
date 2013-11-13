@@ -1,6 +1,6 @@
-﻿using AmplaWeb.Data.AmplaData2008;
+﻿using AmplaData.Data.AmplaData2008;
 
-namespace AmplaWeb.Data.Binding.ViewData
+namespace AmplaData.Data.Binding.ViewData
 {
     public class ViewFieldsCollection : ViewCollection<ViewField>
     {

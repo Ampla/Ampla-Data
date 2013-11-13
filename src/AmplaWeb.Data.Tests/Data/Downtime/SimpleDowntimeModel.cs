@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaWeb.Data.Attributes;
+using AmplaData.Data.Attributes;
 
-namespace AmplaWeb.Data.Downtime
+namespace AmplaData.Data.Downtime
 {
     [AmplaLocation(Location = "Enterprise.Site.Area.Downtime")]
     [AmplaModule(Module = "Downtime")]

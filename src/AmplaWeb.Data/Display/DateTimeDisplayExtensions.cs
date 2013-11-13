@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaWeb.Data.Display
+namespace AmplaData.Data.Display
 {
     public static class DateTimeDisplayExtensions
     {

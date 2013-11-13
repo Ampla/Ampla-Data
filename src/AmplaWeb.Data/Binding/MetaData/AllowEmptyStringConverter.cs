@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace AmplaWeb.Data.Binding.MetaData
+namespace AmplaData.Data.Binding.MetaData
 {
     public class AllowEmptyStringConverter<T> : TypeConverter
     {

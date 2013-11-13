@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 //nuget:mvc4futures
 
-namespace AmplaWeb.Sample.NavigationRoutes
+namespace AmplaData.Web.Sample.NavigationRoutes
 {
     public static class NavigationRouteConfigurationExtensions
     {

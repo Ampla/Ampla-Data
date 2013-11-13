@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaWeb.Data.Attributes;
+using AmplaData.Data.Attributes;
 
-namespace AmplaWeb.Data.Quality
+namespace AmplaData.Data.Quality
 {
     [AmplaLocation(Location = "Enterprise.Site.Area.Quality")]
     [AmplaModule(Module = "Quality")]

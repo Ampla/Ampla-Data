@@ -1,4 +1,4 @@
-﻿namespace AmplaWeb.Data.Logging
+﻿namespace AmplaData.Data.Logging
 {
     public interface ILogger
     {

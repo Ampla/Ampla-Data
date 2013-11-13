@@ -1,4 +1,4 @@
-﻿namespace AmplaWeb.Data.Binding.ViewData
+﻿namespace AmplaData.Data.Binding.ViewData
 {
     public interface IViewPermissions
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.MetaData;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Binding.MetaData;
 
-namespace AmplaWeb.Data.Attributes
+namespace AmplaData.Data.Attributes
 {
     /// <summary>
     ///     Attribute used to denote the module that is used for Ampla Model

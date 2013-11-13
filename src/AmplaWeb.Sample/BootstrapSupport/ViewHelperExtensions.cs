@@ -10,10 +10,10 @@ using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using AmplaWeb.Data.Binding.MetaData;
-using AmplaWeb.Data.Display;
+using AmplaData.Data.Binding.MetaData;
+using AmplaData.Data.Display;
 
-namespace AmplaWeb.Sample.BootstrapSupport
+namespace AmplaData.Web.Sample.BootstrapSupport
 {
     public static class DefaultScaffoldingExtensions
     {

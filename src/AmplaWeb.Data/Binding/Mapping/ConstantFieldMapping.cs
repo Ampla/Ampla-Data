@@ -1,6 +1,6 @@
-﻿using AmplaWeb.Data.Binding.ModelData;
+﻿using AmplaData.Data.Binding.ModelData;
 
-namespace AmplaWeb.Data.Binding.Mapping
+namespace AmplaData.Data.Binding.Mapping
 {
     /// <summary>
     /// Field Mapping for a constant value field

@@ -1,7 +1,7 @@
-﻿using AmplaWeb.Data.Records;
+﻿using AmplaData.Data.Records;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Production
+namespace AmplaData.Data.Production
 {
     public class ProductionRecordUnitTests : TestFixture
     {

@@ -1,6 +1,6 @@
-﻿using AmplaWeb.Data.Binding.ViewData;
+﻿using AmplaData.Data.Binding.ViewData;
 
-namespace AmplaWeb.Data.Binding.Mapping.Modules
+namespace AmplaData.Data.Binding.Mapping.Modules
 {
     public interface IModuleMapping
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.Binding.History;
-using AmplaWeb.Data.Binding.ModelData;
-using AmplaWeb.Data.Binding.ViewData;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Binding.History;
+using AmplaData.Data.Binding.ModelData;
+using AmplaData.Data.Binding.ViewData;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.Binding
+namespace AmplaData.Data.Binding
 {
     public class AmplaGetDataVersionsBinding<TModel> : IAmplaBinding where TModel : class, new()
     {

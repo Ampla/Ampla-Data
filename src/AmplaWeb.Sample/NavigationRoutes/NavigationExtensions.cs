@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 
-namespace AmplaWeb.Sample.NavigationRoutes
+namespace AmplaData.Web.Sample.NavigationRoutes
 {
     public class CompositeMvcHtmlString : IHtmlString
     {

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace AmplaWeb.Sample.App_Start
+namespace AmplaData.Web.Sample.App_Start
 {
     public static class FilterConfig
     {

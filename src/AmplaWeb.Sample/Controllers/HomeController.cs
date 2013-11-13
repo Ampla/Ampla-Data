@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AmplaWeb.Data.Controllers;
-using AmplaWeb.Sample.Models;
+using AmplaData.Data.Controllers;
+using AmplaData.Web.Sample.Models;
 
-namespace AmplaWeb.Sample.Controllers
+namespace AmplaData.Web.Sample.Controllers
 {
     public class HomeController : BootstrapBaseController
     {

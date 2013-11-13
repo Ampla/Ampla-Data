@@ -1,20 +1,16 @@
-﻿using System;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using AmplaWeb.Data;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.MetaData;
-using AmplaWeb.Sample.App_Start;
-using AmplaWeb.Sample.Controllers;
-using AmplaWeb.Sample.Models;
-using AmplaWeb.Sample.Modules;
-using AmplaWeb.Security.AmplaSecurity2007;
-using AmplaWeb.Security.Authentication;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Binding.MetaData;
+using AmplaData.Web.Sample.Modules;
+using AmplaData.Web.Sample.App_Start;
+using AmplaData.Security.AmplaSecurity2007;
+using AmplaData.Security.Authentication;
 using Autofac;
 using Autofac.Integration.Mvc;
 
-namespace AmplaWeb.Sample
+namespace AmplaData.Web.Sample
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801

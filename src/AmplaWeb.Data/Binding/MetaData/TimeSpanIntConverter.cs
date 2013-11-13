@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 
-namespace AmplaWeb.Data.Binding.MetaData
+namespace AmplaData.Data.Binding.MetaData
 {
     /// <summary>
     ///     TimeSpan to integer converter used to convert TimeSpan values to and from integer values for use in Duration properties

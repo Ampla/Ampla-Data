@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace AmplaWeb.Sample.Models
+namespace AmplaData.Web.Sample.Models
 {
     public class HomeInputModel
     {

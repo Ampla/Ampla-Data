@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using AmplaWeb.Data.Attributes;
+using AmplaData.Data.Attributes;
 
-namespace AmplaWeb.Sample.Models
+namespace AmplaData.Web.Sample.Models
 {
     [DisplayName("Ingot Cast")]
     [AmplaLocation(Location = "Enterprise.Site.Area.Production")]

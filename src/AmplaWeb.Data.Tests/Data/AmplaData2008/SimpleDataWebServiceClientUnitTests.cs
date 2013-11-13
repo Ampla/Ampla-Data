@@ -1,12 +1,12 @@
 ﻿
 using System;
 using System.ServiceModel;
-using AmplaWeb.Data.Downtime;
-using AmplaWeb.Data.Production;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Downtime;
+using AmplaData.Data.Production;
+using AmplaData.Data.Records;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.AmplaData2008
+namespace AmplaData.Data.AmplaData2008
 {
     public class SimpleDataWebServiceClientUnitTest : TestFixture
     {

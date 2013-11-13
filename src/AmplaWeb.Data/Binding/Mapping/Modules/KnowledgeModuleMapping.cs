@@ -1,7 +1,7 @@
 ﻿
-using AmplaWeb.Data.AmplaData2008;
+using AmplaData.Data.AmplaData2008;
 
-namespace AmplaWeb.Data.Binding.Mapping.Modules
+namespace AmplaData.Data.Binding.Mapping.Modules
 {
     public class KnowledgeModuleMapping : StandardModuleMapping
     {

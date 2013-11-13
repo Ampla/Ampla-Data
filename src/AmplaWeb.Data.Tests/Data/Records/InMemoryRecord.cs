@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AmplaWeb.Data.AmplaData2008;
+using AmplaData.Data.AmplaData2008;
 
-namespace AmplaWeb.Data.Records
+namespace AmplaData.Data.Records
 {
     public class InMemoryRecord
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding.MetaData;
-using AmplaWeb.Data.Binding.ModelData;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Binding.MetaData;
+using AmplaData.Data.Binding.ModelData;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.Binding
+namespace AmplaData.Data.Binding
 {
     public class AmplaGetAuditDataRecordBinding<TModel> : IAmplaBinding where TModel : new()
     {

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace AmplaWeb.Data.Attributes
+namespace AmplaData.Data.Attributes
 {
     [TestFixture]
     public class AmplaDefaultFiltersAttributeUnitTests : TestFixture

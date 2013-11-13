@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data
+namespace AmplaData.Data
 {
     [TestFixture]
     public class FilterValueUnitTests : TestFixture

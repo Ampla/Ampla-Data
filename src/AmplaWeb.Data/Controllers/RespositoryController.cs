@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.Controllers
+namespace AmplaData.Data.Controllers
 {
     [Authorize]
     public class RepositoryController<TModel> : BootstrapBaseController, IRepositoryController<TModel> where TModel : class, new()

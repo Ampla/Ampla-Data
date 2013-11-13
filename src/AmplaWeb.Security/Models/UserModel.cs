@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaWeb.Security.Models
+namespace AmplaData.Security.Models
 {
     public class UserModel
     {

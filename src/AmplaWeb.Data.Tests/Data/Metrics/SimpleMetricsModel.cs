@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaWeb.Data.Attributes;
+using AmplaData.Data.Attributes;
 
-namespace AmplaWeb.Data.Metrics
+namespace AmplaData.Data.Metrics
 {
     [AmplaLocation(Location = "Enterprise.Site.Area.Metrics")]
     [AmplaModule(Module = "Metrics")]

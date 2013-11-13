@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.Quality
+namespace AmplaData.Data.Quality
 {
     public static class QualityRecords
     {

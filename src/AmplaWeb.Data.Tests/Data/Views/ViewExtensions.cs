@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AmplaWeb.Data.AmplaData2008;
+using AmplaData.Data.AmplaData2008;
 
-namespace AmplaWeb.Data.Views
+namespace AmplaData.Data.Views
 {
     public static class ViewExtensions
     {

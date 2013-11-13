@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.Binding.History
+namespace AmplaData.Data.Binding.History
 {
     public abstract class RecordEventDectection
     {

@@ -2,7 +2,7 @@
 using System.Collections.Specialized;
 using System.Web;
 
-namespace AmplaWeb.Data.Web.Interfaces
+namespace AmplaData.Data.Web.Interfaces
 {
     /// <summary>
     /// Interface that wraps the HttpRequest object to simplify testing

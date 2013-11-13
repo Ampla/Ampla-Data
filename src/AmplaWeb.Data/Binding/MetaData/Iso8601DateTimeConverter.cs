@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace AmplaWeb.Data.Binding.MetaData
+namespace AmplaData.Data.Binding.MetaData
 {
     /// <summary>
     /// DateTime Type Converter to store DateTime values as Iso8601 formatted strings. 

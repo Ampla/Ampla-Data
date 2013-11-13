@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Binding;
-using AmplaWeb.Data.Binding.ModelData;
-using AmplaWeb.Data.Binding.ViewData;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Binding;
+using AmplaData.Data.Binding.ModelData;
+using AmplaData.Data.Binding.ViewData;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.AmplaRepository
+namespace AmplaData.Data.AmplaRepository
 {
     /// <summary>
     ///     Ampla Repository that allows the manipulation of Ampla models

@@ -1,16 +1,16 @@
 ﻿using System.Web;
-using AmplaWeb.Data;
-using AmplaWeb.Data.AmplaData2008;
-using AmplaWeb.Data.Sessions;
-using AmplaWeb.Data.Web.Interfaces;
-using AmplaWeb.Data.Web.Wrappers;
-using AmplaWeb.Security.Authentication;
-using AmplaWeb.Security.Authentication.Forms;
-using AmplaWeb.Security.Sessions;
+using AmplaData.Data;
+using AmplaData.Data.AmplaData2008;
+using AmplaData.Data.Sessions;
+using AmplaData.Data.Web.Interfaces;
+using AmplaData.Data.Web.Wrappers;
+using AmplaData.Security.Authentication;
+using AmplaData.Security.Authentication.Forms;
+using AmplaData.Security.Sessions;
 using Autofac;
 using Autofac.Integration.Mvc;
 
-namespace AmplaWeb.Sample.Modules
+namespace AmplaData.Web.Sample.Modules
 {
     public class AmplaSecurityInjectionModule : Module
     {

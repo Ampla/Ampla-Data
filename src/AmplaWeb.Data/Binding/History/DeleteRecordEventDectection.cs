@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AmplaWeb.Data.Binding.ViewData;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Binding.ViewData;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data.Binding.History
+namespace AmplaData.Data.Binding.History
 {
     public class DeleteRecordEventDectection<TModel> : RecordEventDectection
     {

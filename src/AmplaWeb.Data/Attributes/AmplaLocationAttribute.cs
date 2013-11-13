@@ -1,8 +1,8 @@
 ﻿using System;
-using AmplaWeb.Data.Binding.MetaData;
-using AmplaWeb.Data.Binding.ModelData;
+using AmplaData.Data.Binding.MetaData;
+using AmplaData.Data.Binding.ModelData;
 
-namespace AmplaWeb.Data.Attributes
+namespace AmplaData.Data.Attributes
 {
     /// <summary>
     ///     Attribute used to mark an class as an Ampla Model

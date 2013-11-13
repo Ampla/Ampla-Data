@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AmplaWeb.Data.Binding.ModelData.Validation
+namespace AmplaData.Data.Binding.ModelData.Validation
 {
     /// <summary>
     ///     Validation Messages class for storing messages

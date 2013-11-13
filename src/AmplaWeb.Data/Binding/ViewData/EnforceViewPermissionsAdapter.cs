@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaWeb.Data.Binding.ViewData
+namespace AmplaData.Data.Binding.ViewData
 {
     public class EnforceViewPermissionsAdapter : IViewPermissions
     {

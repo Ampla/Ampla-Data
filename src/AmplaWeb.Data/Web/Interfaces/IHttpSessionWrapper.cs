@@ -1,4 +1,4 @@
-﻿namespace AmplaWeb.Data.Web.Interfaces
+﻿namespace AmplaData.Data.Web.Interfaces
 {
     /// <summary>
     /// Interface that wraps the HttpSession object to simplify testing

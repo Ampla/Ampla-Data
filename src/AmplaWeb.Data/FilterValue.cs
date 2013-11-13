@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaWeb.Data
+namespace AmplaData.Data
 {
     public class FilterValue
     {

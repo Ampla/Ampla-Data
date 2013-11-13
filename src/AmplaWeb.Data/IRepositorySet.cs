@@ -1,4 +1,4 @@
-﻿namespace AmplaWeb.Data
+﻿namespace AmplaData.Data
 {
     /// <summary>
     /// Interface that provides access to generic models

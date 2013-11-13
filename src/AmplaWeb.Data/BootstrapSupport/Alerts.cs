@@ -1,4 +1,4 @@
-﻿namespace AmplaWeb.Data.BootstrapSupport
+﻿namespace AmplaData.Data.BootstrapSupport
 {
     public static class Alerts
     {

@@ -1,9 +1,9 @@
 ﻿using System;
-using AmplaWeb.Data.AmplaRepository;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.AmplaRepository;
+using AmplaData.Data.Records;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Maintenance
+namespace AmplaData.Data.Maintenance
 {
     [TestFixture]
     public class MaintenanceAmplaRepositoryUnitTests : AmplaRepositoryTestFixture<SimpleMaintenanceModel>

@@ -1,7 +1,7 @@
-﻿using AmplaWeb.Data.Web.Wrappers;
+﻿using AmplaData.Data.Web.Wrappers;
 using NUnit.Framework;
 
-namespace AmplaWeb.Data.Sessions
+namespace AmplaData.Data.Sessions
 {
     [TestFixture]
     public class AmplaSessionStorageUnitTests : TestFixture

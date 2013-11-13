@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaWeb.Data.Records;
+using AmplaData.Data.Records;
 
-namespace AmplaWeb.Data
+namespace AmplaData.Data
 {
     /// <summary>
     /// Interface that provides read only access to the repository

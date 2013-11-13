@@ -1,8 +1,8 @@
-﻿using AmplaWeb.Data;
-using AmplaWeb.Data.Controllers;
-using AmplaWeb.Sample.Models;
+﻿using AmplaData.Data;
+using AmplaData.Data.Controllers;
+using AmplaData.Web.Sample.Models;
 
-namespace AmplaWeb.Sample.Controllers
+namespace AmplaData.Web.Sample.Controllers
 {
     public class DowntimeController : RepositoryController<DowntimeModel>
     {

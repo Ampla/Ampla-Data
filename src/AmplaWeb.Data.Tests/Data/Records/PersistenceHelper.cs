@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace AmplaWeb.Data.Records
+namespace AmplaData.Data.Records
 {
     public static class PersistenceHelper
     {

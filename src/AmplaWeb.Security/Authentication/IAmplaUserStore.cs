@@ -1,4 +1,4 @@
-﻿namespace AmplaWeb.Security.Authentication
+﻿namespace AmplaData.Security.Authentication
 {
     /// <summary>
     /// Ampla user store that will manage Ampla user logins
