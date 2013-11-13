@@ -1,15 +1,12 @@
 ﻿using System;
-using AmplaData.Data.Sessions;
-using AmplaData.Data.Web.Wrappers;
+using AmplaData.Data.AmplaSecurity2007;
 using AmplaData.Security.AmplaSecurity2007;
-using AmplaData.Security.Authentication;
-using AmplaData.Security.Authentication.Forms;
 using AmplaData.Web.Authentication;
 using AmplaData.Web.Authentication.Forms;
-using AmplaData.Web.Sessions;
+using AmplaData.Web.Wrappers;
 using NUnit.Framework;
 
-namespace AmplaData.Security.Sessions
+namespace AmplaData.Web.Sessions
 {
     [TestFixture]
     public class LoginAmplaSessionUsingQueryStringUnitTests : TestFixture

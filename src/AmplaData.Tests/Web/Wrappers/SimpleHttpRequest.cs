@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Web;
-using AmplaData.Web.Wrappers;
 
-namespace AmplaData.Data.Web.Wrappers
+namespace AmplaData.Web.Wrappers
 {
     public class SimpleHttpRequest : IHttpRequestWrapper, IDisposable
     {

@@ -1,5 +1,4 @@
 ﻿using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Binding.ViewData;
 using AmplaData.Data.Energy;
 using NUnit.Framework;
 

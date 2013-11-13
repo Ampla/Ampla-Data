@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using AmplaData.Data.Binding.MetaData;
-using AmplaData.Data.Binding.ModelData;
 using AmplaData.Data.Binding.ViewData;
 using AmplaData.Data.Records;
 using NUnit.Framework;

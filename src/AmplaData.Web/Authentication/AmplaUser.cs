@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaData.Security.Authentication
+namespace AmplaData.Web.Authentication
 {
     /// <summary>
     ///     Logged on Ampla User that represents the Ampla User

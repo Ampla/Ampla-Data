@@ -2,7 +2,6 @@
 using AmplaData.Data.Attributes;
 using AmplaData.Data.Production;
 using AmplaData.Data.Records;
-using AmplaData.Data.Views;
 using NUnit.Framework;
 
 namespace AmplaData.Data.AmplaRepository

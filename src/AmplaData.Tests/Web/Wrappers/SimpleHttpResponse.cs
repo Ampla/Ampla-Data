@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Web;
-using AmplaData.Web.Wrappers;
 
-namespace AmplaData.Data.Web.Wrappers
+namespace AmplaData.Web.Wrappers
 {
     public class SimpleHttpResponse : IHttpResponseWrapper, IDisposable
     {

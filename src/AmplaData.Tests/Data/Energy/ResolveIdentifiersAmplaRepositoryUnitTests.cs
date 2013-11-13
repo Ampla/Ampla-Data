@@ -1,7 +1,6 @@
 ﻿using System;
 using AmplaData.Data.AmplaRepository;
 using AmplaData.Data.Records;
-using AmplaData.Data.Views;
 using NUnit.Framework;
 
 namespace AmplaData.Data.Energy
@@ -19,7 +18,7 @@ namespace AmplaData.Data.Energy
         [Test]
         public void SubmitWithNullFields()
         {
-            IdentifierEnergyModel model = new IdentifierEnergyModel()
+            IdentifierEnergyModel model = new IdentifierEnergyModel
                 {
                     Location = location,
                     StartTime = DateTime.Now,

@@ -1,9 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Web;
-using AmplaData.Web.Wrappers;
 
-namespace AmplaData.Data.Web.Wrappers
+namespace AmplaData.Web.Wrappers
 {
     /// <summary>
     ///     HttpContext that will support the HttpRequest, HttpResponse, HttpSession wrappers.

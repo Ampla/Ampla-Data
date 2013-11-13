@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Web;
 using System.Web.Security;
-using AmplaData.Security.Authentication;
-using AmplaData.Security.Authentication.Forms;
 using AmplaData.Web.Wrappers;
 
 namespace AmplaData.Web.Authentication.Forms

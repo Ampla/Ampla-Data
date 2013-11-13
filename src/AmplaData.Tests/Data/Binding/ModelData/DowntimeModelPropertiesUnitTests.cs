@@ -1,5 +1,4 @@
-﻿using System;
-using AmplaData.Data.Attributes;
+﻿using AmplaData.Data.Attributes;
 using NUnit.Framework;
 
 namespace AmplaData.Data.Binding.ModelData

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AmplaData.Security.Models
+namespace AmplaData.Web.Models
 {
     public class SimpleLoginModel
     {

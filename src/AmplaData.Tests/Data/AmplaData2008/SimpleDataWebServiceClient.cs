@@ -159,7 +159,7 @@ namespace AmplaData.Data.AmplaData2008
                         },
                     RowSets = new[]
                         {
-                            new GetAuditDataRowSet()
+                            new GetAuditDataRowSet
                                 {
                                     Rows = rows.ToArray(),
                                 }

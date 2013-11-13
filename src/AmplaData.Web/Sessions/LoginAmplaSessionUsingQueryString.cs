@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Web;
-using AmplaData.Security.Authentication;
-using AmplaData.Security.Authentication.Forms;
-using AmplaData.Web.Sessions;
+using AmplaData.Web.Authentication;
+using AmplaData.Web.Authentication.Forms;
 using AmplaData.Web.Wrappers;
 
-namespace AmplaData.Security.Sessions
+namespace AmplaData.Web.Sessions
 {
     /// <summary>
     ///     Session Mapper class for automatic logging in sessions from the query string using http://localhost/?amplaSession={session}

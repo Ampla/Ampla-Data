@@ -1,8 +1,7 @@
-﻿using AmplaData.Security.Authentication.Forms;
-using AmplaData.Web.Sessions;
+﻿using AmplaData.Web.Authentication.Forms;
 using AmplaData.Web.Wrappers;
 
-namespace AmplaData.Security.Sessions
+namespace AmplaData.Web.Sessions
 {
     /// <summary>
     /// Align the Ampla session stored in the HttpSession with the Forms Authentication Ticket

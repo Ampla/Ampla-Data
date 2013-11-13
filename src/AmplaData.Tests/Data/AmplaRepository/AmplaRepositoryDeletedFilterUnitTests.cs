@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using AmplaData.Data.Attributes;
 using AmplaData.Data.Production;
 using AmplaData.Data.Records;

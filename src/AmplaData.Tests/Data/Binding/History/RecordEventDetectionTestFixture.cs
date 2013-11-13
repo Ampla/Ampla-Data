@@ -21,7 +21,7 @@ namespace AmplaData.Data.Binding.History
         [AmplaModule(Module = module)]
         protected class ProductionModel
         {
-            int Id { get; set; }
+            public int Id { get; set; }
         }
 
         protected override void OnFixtureSetUp()

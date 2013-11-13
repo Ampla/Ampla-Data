@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using AmplaData.Web.Wrappers;
 
-namespace AmplaData.Data.Web.Wrappers
+namespace AmplaData.Web.Wrappers
 {
     public class SimpleHttpSession : IHttpSessionWrapper
     {

@@ -1,8 +1,8 @@
 ﻿using System.Web.Security;
 using AmplaData.Data.AmplaData2008;
-using AmplaData.Security.Authentication.Forms;
+using AmplaData.Web.Authentication.Forms;
 
-namespace AmplaData.Security.Authentication
+namespace AmplaData.Web.Authentication
 {
     public class FormsAuthenticationCredentialsProvider : ICredentialsProvider
     {

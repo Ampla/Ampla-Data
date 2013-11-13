@@ -4,11 +4,11 @@ using System.Web.Routing;
 using AmplaData.Data.AmplaData2008;
 using AmplaData.Data.AmplaSecurity2007;
 using AmplaData.Data.Binding.MetaData;
+using AmplaData.Web.Authentication;
 using AmplaData.Web.MetaData;
 using AmplaData.Web.Sample.Modules;
 using AmplaData.Web.Sample.App_Start;
 using AmplaData.Security.AmplaSecurity2007;
-using AmplaData.Security.Authentication;
 using Autofac;
 using Autofac.Integration.Mvc;
 

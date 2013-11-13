@@ -1,6 +1,5 @@
 ﻿using AmplaData.Data;
-using AmplaData.Security.Authentication;
-using AmplaData.Security.Authentication.Forms;
+using AmplaData.Web.Authentication.Forms;
 using AmplaData.Web.Sessions;
 
 namespace AmplaData.Web.Authentication

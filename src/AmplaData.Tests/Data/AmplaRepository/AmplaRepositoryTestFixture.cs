@@ -70,9 +70,11 @@ namespace AmplaData.Data.AmplaRepository
 
         protected int UpdateRecord(InMemoryRecord record)
         {
-            SubmitDataRequest request = new SubmitDataRequest();
-            request.Credentials = webServiceClient.CreateCredentials();
-            request.SubmitDataRecords = new[] {record.ConvertToSubmitDataRecord()};
+            SubmitDataRequest request = new SubmitDataRequest
+                {
+                    Credentials = webServiceClient.CreateCredentials(),
+                    SubmitDataRecords = new[] {record.ConvertToSubmitDataRecord()}
+                };
 
             SubmitDataResponse response = webServiceClient.SubmitData(request);
             Assert.That(response.DataSubmissionResults, Is.Not.Empty);

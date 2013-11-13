@@ -160,48 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.DeleteCalendarValueResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.DeleteRecordsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.GetAllowedValuesResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.GetAuditDataResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.GetCalendarValuesResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.GetDataResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.GetNavigationHierarchyResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.GetRelationshipMatrixResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.GetViewsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.SplitRecordsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.SubmitCalendarValuesResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.SubmitDataResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\AmplaData2008\AmplaData.Data.AmplaData2008.UpdateRecordStatusResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\AmplaData2008\DataWebService.wsdl" />
     <None Include="Service References\AmplaSecurity2007\SecurityWebService.wsdl" />
   </ItemGroup>

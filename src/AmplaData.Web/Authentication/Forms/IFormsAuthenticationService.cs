@@ -1,6 +1,6 @@
 ﻿using System.Web.Security;
 
-namespace AmplaData.Security.Authentication.Forms
+namespace AmplaData.Web.Authentication.Forms
 {
     public interface IFormsAuthenticationService
     {

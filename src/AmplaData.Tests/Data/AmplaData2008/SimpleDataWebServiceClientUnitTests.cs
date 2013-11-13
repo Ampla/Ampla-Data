@@ -265,8 +265,10 @@ namespace AmplaData.Data.AmplaData2008
         [Test]
         public void GetDataWithMetaDataReturnsColumns()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
-            webServiceClient.GetViewFunc = ProductionViews.StandardView;
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location)
+                {
+                    GetViewFunc = ProductionViews.StandardView
+                };
 
             GetDataRequest request = new GetDataRequest
             {
@@ -286,8 +288,10 @@ namespace AmplaData.Data.AmplaData2008
         [Test]
         public void GetDataWithNoMetaDataReturnsZeroColumns()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
-            webServiceClient.GetViewFunc = ProductionViews.StandardView;
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location)
+                {
+                    GetViewFunc = ProductionViews.StandardView
+                };
 
             GetDataRequest request = new GetDataRequest
             {

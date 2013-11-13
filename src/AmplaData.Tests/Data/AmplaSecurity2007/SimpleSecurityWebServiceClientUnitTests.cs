@@ -1,8 +1,8 @@
 ﻿using System;
-using AmplaData.Data.AmplaSecurity2007;
+using AmplaData.Security.AmplaSecurity2007;
 using NUnit.Framework;
 
-namespace AmplaData.Security.AmplaSecurity2007
+namespace AmplaData.Data.AmplaSecurity2007
 {
     [TestFixture]
     public class SimpleSecurityWebServiceClientUnitTests : TestFixture

@@ -2,7 +2,7 @@
 using System.Web;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Web.Wrappers
+namespace AmplaData.Web.Wrappers
 {
     [TestFixture]
     public class SimpleHttpContextUnitTests : TestFixture

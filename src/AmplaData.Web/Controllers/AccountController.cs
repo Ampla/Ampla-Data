@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
-using AmplaData.Security.Authentication;
-using AmplaData.Security.Authentication.Forms;
-using AmplaData.Security.Models;
+using AmplaData.Web.Authentication;
+using AmplaData.Web.Authentication.Forms;
 using AmplaData.Web.Models;
 using AmplaData.Web.Sessions;
 

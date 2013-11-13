@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AmplaData.Security.Authentication
+namespace AmplaData.Web.Authentication
 {
     public class AmplaUserStore : IAmplaUserStore
     {

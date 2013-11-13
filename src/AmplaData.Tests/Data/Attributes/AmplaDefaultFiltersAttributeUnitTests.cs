@@ -11,7 +11,7 @@ namespace AmplaData.Data.Attributes
         }
 
         [AmplaDefaultFilters("Sample Period ={Current Shift}")]
-        private class ModelWithAlternateFormat
+        public class ModelWithAlternateFormat
         {
         }
 

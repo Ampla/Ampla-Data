@@ -1,7 +1,6 @@
 ﻿using System;
 using AmplaData.Data.AmplaRepository;
 using AmplaData.Data.Records;
-using AmplaData.Data.Views;
 using NUnit.Framework;
 
 namespace AmplaData.Data.Downtime
@@ -19,7 +18,7 @@ namespace AmplaData.Data.Downtime
         [Test]
         public void SubmitWithNullFields()
         {
-            IdentifierDowntimeModel model = new IdentifierDowntimeModel()
+            IdentifierDowntimeModel model = new IdentifierDowntimeModel
                 {
                     Location = location,
                     StartTime = DateTime.Now,

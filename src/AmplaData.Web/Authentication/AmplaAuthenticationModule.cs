@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web;
 using System.Web.Mvc;
-using AmplaData.Security.Sessions;
+using AmplaData.Web.Sessions;
 
-namespace AmplaData.Security.Authentication
+namespace AmplaData.Web.Authentication
 {
     public class AmplaAuthenticationModule
     {

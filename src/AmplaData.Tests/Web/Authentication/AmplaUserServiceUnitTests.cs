@@ -1,8 +1,8 @@
-﻿using AmplaData.Security.AmplaSecurity2007;
-using AmplaData.Web.Authentication;
+﻿using AmplaData.Data.AmplaSecurity2007;
+using AmplaData.Security.AmplaSecurity2007;
 using NUnit.Framework;
 
-namespace AmplaData.Security.Authentication
+namespace AmplaData.Web.Authentication
 {
     [TestFixture]
     public class AmplaUserServiceUnitTests : TestFixture
