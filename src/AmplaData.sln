@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Data", "AmplaData
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Tests", "AmplaData.Tests\AmplaData.Tests.csproj", "{F262B484-F272-4514-BEE2-D630D1C997A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Security", "AmplaData.Security\AmplaData.Security.csproj", "{89F8C9B1-4161-4F50-A96C-45C826E31856}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Web", "AmplaData.Web\AmplaData.Web.csproj", "{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}"
 EndProject
 Global
@@ -51,16 +49,6 @@ Global
 		{F262B484-F272-4514-BEE2-D630D1C997A6}.Release|Mixed Platforms.Build.0 = Release|x86
 		{F262B484-F272-4514-BEE2-D630D1C997A6}.Release|x86.ActiveCfg = Release|x86
 		{F262B484-F272-4514-BEE2-D630D1C997A6}.Release|x86.Build.0 = Release|x86
-		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Release|Any CPU.Build.0 = Release|Any CPU
-		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{89F8C9B1-4161-4F50-A96C-45C826E31856}.Release|x86.ActiveCfg = Release|Any CPU
 		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

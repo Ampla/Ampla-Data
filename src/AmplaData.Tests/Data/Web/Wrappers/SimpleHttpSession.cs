@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AmplaData.Data.Web.Interfaces;
+using AmplaData.Web.Wrappers;
 
 namespace AmplaData.Data.Web.Wrappers
 {

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.citect.com/Ampla/Security/2007/06" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SecurityWebService" targetNamespace="http://www.citect.com/Ampla/Security/2007/06" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://www.citect.com/Ampla/Security/2007/06">
+      <xsd:element name="CreateSessionRequest" type="tns:CreateSessionRequest" />
+      <xsd:complexType name="CreateSessionRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Username" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="Password" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="CreateSessionResponse" type="tns:CreateSessionResponse" />
+      <xsd:complexType name="CreateSessionResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Session" type="tns:Session" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Session">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="SessionID" type="xsd:string" />
+          <xsd:element minOccurs="0" maxOccurs="1" name="User" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="RenewSessionRequest" type="tns:RenewSessionRequest" />
+      <xsd:complexType name="RenewSessionRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Session" type="tns:Session" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="RenewSessionResponse" type="tns:RenewSessionResponse" />
+      <xsd:complexType name="RenewSessionResponse">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Session" type="tns:Session" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ReleaseSessionRequest" type="tns:ReleaseSessionRequest" />
+      <xsd:complexType name="ReleaseSessionRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="1" name="Session" type="tns:Session" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ReleaseSessionResponse" type="tns:ReleaseSessionResponse" />
+      <xsd:complexType name="ReleaseSessionResponse" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateSessionRequest1">
+    <wsdl:part name="CreateSessionRequest" element="tns:CreateSessionRequest" />
+  </wsdl:message>
+  <wsdl:message name="CreateSessionResponse1">
+    <wsdl:part name="CreateSessionResponse" element="tns:CreateSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RenewSessionRequest1">
+    <wsdl:part name="RenewSessionRequest" element="tns:RenewSessionRequest" />
+  </wsdl:message>
+  <wsdl:message name="RenewSessionResponse1">
+    <wsdl:part name="RenewSessionResponse" element="tns:RenewSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReleaseSessionRequest1">
+    <wsdl:part name="ReleaseSessionRequest" element="tns:ReleaseSessionRequest" />
+  </wsdl:message>
+  <wsdl:message name="ReleaseSessionResponse1">
+    <wsdl:part name="ReleaseSessionResponse" element="tns:ReleaseSessionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISecurityWebService">
+    <wsdl:operation name="CreateSession">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Security/2007/06:createSessionIn" name="CreateSessionRequest1" message="tns:CreateSessionRequest1" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Security/2007/06/ISecurityWebService/CreateSessionResponse" name="CreateSessionResponse1" message="tns:CreateSessionResponse1" />
+    </wsdl:operation>
+    <wsdl:operation name="RenewSession">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Security/2007/06:renewSessionIn" name="RenewSessionRequest1" message="tns:RenewSessionRequest1" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Security/2007/06/ISecurityWebService/RenewSessionResponse" name="RenewSessionResponse1" message="tns:RenewSessionResponse1" />
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseSession">
+      <wsdl:input wsaw:Action="http://www.citect.com/Ampla/Security/2007/06:releaseSessionIn" name="ReleaseSessionRequest1" message="tns:ReleaseSessionRequest1" />
+      <wsdl:output wsaw:Action="http://www.citect.com/Ampla/Security/2007/06/ISecurityWebService/ReleaseSessionResponse" name="ReleaseSessionResponse1" message="tns:ReleaseSessionResponse1" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ISecurityWebService" type="tns:ISecurityWebService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateSession">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Security/2007/06:createSessionIn" style="document" />
+      <wsdl:input name="CreateSessionRequest1">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateSessionResponse1">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RenewSession">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Security/2007/06:renewSessionIn" style="document" />
+      <wsdl:input name="RenewSessionRequest1">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RenewSessionResponse1">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseSession">
+      <soap:operation soapAction="http://www.citect.com/Ampla/Security/2007/06:releaseSessionIn" style="document" />
+      <wsdl:input name="ReleaseSessionRequest1">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ReleaseSessionResponse1">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SecurityWebService">
+    <wsdl:port name="BasicHttpBinding_ISecurityWebService" binding="tns:BasicHttpBinding_ISecurityWebService">
+      <soap:address location="http://L-19S2CW1:8889/Ampla/WebService/Security/2007/06" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AmplaData.Data.Controllers;
+using AmplaData.Web.Controllers;
 using AmplaData.Web.Sample.Models;
 
 namespace AmplaData.Web.Sample.Controllers

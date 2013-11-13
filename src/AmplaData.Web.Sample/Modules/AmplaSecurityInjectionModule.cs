@@ -1,12 +1,13 @@
 ﻿using System.Web;
 using AmplaData.Data;
 using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Sessions;
-using AmplaData.Data.Web.Interfaces;
-using AmplaData.Data.Web.Wrappers;
 using AmplaData.Security.Authentication;
 using AmplaData.Security.Authentication.Forms;
 using AmplaData.Security.Sessions;
+using AmplaData.Web.Authentication;
+using AmplaData.Web.Authentication.Forms;
+using AmplaData.Web.Sessions;
+using AmplaData.Web.Wrappers;
 using Autofac;
 using Autofac.Integration.Mvc;
 
@@ -28,7 +29,7 @@ namespace AmplaData.Web.Sample.Modules
             builder.RegisterType<AmplaUserStore>().As<IAmplaUserStore>().SingleInstance();
             builder.RegisterType<AmplaUserService>().As<IAmplaUserService>();
 
-            builder.RegisterControllers(typeof(Security.Controllers.AccountController).Assembly);
+            builder.RegisterControllers(typeof(Web.Controllers.AccountController).Assembly);
             builder.RegisterType<LoginAmplaSessionUsingQueryString>();
 
             // ensure the HttpSessions are aligned with Forms Authentication sessions

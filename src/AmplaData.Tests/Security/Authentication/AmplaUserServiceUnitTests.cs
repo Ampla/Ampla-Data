@@ -1,4 +1,5 @@
 ﻿using AmplaData.Security.AmplaSecurity2007;
+using AmplaData.Web.Authentication;
 using NUnit.Framework;
 
 namespace AmplaData.Security.Authentication

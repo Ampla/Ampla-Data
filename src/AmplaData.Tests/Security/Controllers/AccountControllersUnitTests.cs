@@ -5,6 +5,10 @@ using AmplaData.Security.AmplaSecurity2007;
 using AmplaData.Security.Authentication;
 using AmplaData.Security.Authentication.Forms;
 using AmplaData.Security.Models;
+using AmplaData.Web.Authentication;
+using AmplaData.Web.Authentication.Forms;
+using AmplaData.Web.Controllers;
+using AmplaData.Web.Sessions;
 using NUnit.Framework;
 
 namespace AmplaData.Security.Controllers

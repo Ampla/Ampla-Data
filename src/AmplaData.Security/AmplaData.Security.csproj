@@ -48,27 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AmplaSecurity2007\ISecurityWebServiceClient.cs" />
-    <Compile Include="AmplaSecurity2007\SecurityWebServiceClient.cs" />
-    <Compile Include="AmplaSecurity2007\SecurityWebServiceFactory.cs" />
-    <Compile Include="Authentication\AmplaAuthenticationModule.cs" />
-    <Compile Include="Authentication\AmplaUserStore.cs" />
-    <Compile Include="Authentication\FormsAuthenticationCredentialsProvider.cs" />
-    <Compile Include="Authentication\IAmplaUser.cs" />
-    <Compile Include="Authentication\IAmplaUserStore.cs" />
-    <Compile Include="Sessions\AlignSessionWithFormsAuthentication.cs" />
-    <Compile Include="Sessions\ISessionCommand.cs" />
-    <Compile Include="Authentication\RenewSessionAdapter.cs" />
-    <Compile Include="Sessions\LoginAmplaSessionUsingQueryString.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Authentication\AmplaUser.cs" />
-    <Compile Include="Authentication\Forms\FormsAuthenticationService.cs" />
-    <Compile Include="Authentication\Forms\IFormsAuthenticationService.cs" />
-    <Compile Include="Authentication\AmplaUserService.cs" />
-    <Compile Include="Authentication\IAmplaUserService.cs" />
-    <Compile Include="Models\IntegratedLoginModel.cs" />
-    <Compile Include="Models\SimpleLoginModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\AmplaSecurity2007\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -95,6 +74,10 @@
     <ProjectReference Include="..\AmplaData.Data\AmplaData.Data.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
       <Name>AmplaData.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AmplaData.Web\AmplaData.Web.csproj">
+      <Project>{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}</Project>
+      <Name>AmplaData.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

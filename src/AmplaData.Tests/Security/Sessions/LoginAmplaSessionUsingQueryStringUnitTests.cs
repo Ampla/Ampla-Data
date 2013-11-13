@@ -4,6 +4,9 @@ using AmplaData.Data.Web.Wrappers;
 using AmplaData.Security.AmplaSecurity2007;
 using AmplaData.Security.Authentication;
 using AmplaData.Security.Authentication.Forms;
+using AmplaData.Web.Authentication;
+using AmplaData.Web.Authentication.Forms;
+using AmplaData.Web.Sessions;
 using NUnit.Framework;
 
 namespace AmplaData.Security.Sessions

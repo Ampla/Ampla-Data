@@ -1,4 +1,5 @@
 ﻿using AmplaData.Data.Web.Wrappers;
+using AmplaData.Web.Sessions;
 using NUnit.Framework;
 
 namespace AmplaData.Data.Sessions

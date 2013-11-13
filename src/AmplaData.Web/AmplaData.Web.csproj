@@ -32,7 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,8 +43,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Authentication\AmplaAuthenticationModule.cs" />
+    <Compile Include="Authentication\AmplaUser.cs" />
+    <Compile Include="Authentication\AmplaUserService.cs" />
+    <Compile Include="Authentication\AmplaUserStore.cs" />
+    <Compile Include="Authentication\FormsAuthenticationCredentialsProvider.cs" />
+    <Compile Include="Authentication\Forms\FormsAuthenticationService.cs" />
+    <Compile Include="Authentication\Forms\IFormsAuthenticationService.cs" />
+    <Compile Include="Authentication\IAmplaUser.cs" />
+    <Compile Include="Authentication\IAmplaUserService.cs" />
+    <Compile Include="Authentication\IAmplaUserStore.cs" />
+    <Compile Include="Authentication\RenewSessionAdapter.cs" />
+    <Compile Include="BootstrapSupport\Alerts.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BootstrapBaseController.cs" />
+    <Compile Include="Controllers\IRepositoryController.cs" />
+    <Compile Include="Controllers\ReadOnlyRespositoryController.cs" />
+    <Compile Include="Controllers\RespositoryController.cs" />
+    <Compile Include="MetaData\AmplaModelMetadataProvider.cs" />
+    <Compile Include="Models\IntegratedLoginModel.cs" />
+    <Compile Include="Models\SimpleLoginModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sessions\AlignSessionWithFormsAuthentication.cs" />
+    <Compile Include="Sessions\AmplaSessionStorage.cs" />
+    <Compile Include="Sessions\IAmplaSessionStorage.cs" />
+    <Compile Include="Sessions\ISessionCommand.cs" />
+    <Compile Include="Sessions\LoginAmplaSessionUsingQueryString.cs" />
+    <Compile Include="Sessions\SessionStateCredentialsProvider.cs" />
+    <Compile Include="Wrappers\IHttpRequestWrapper.cs" />
+    <Compile Include="Wrappers\IHttpResponseWrapper.cs" />
+    <Compile Include="Wrappers\IHttpSessionWrapper.cs" />
+    <Compile Include="Wrappers\AmplaHttpRequestWrapper.cs" />
+    <Compile Include="Wrappers\AmplaHttpResponseWrapper.cs" />
+    <Compile Include="Wrappers\AmplaHttpSessionWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AmplaData.Data\AmplaData.Data.csproj">
+      <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
+      <Name>AmplaData.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

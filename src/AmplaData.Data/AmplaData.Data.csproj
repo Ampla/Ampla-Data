@@ -37,9 +37,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +48,9 @@
     <Compile Include="AmplaData2008\CredentialsProvider.cs" />
     <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\DataWebServiceFactory.cs" />
+    <Compile Include="AmplaSecurity2007\ISecurityWebServiceClient.cs" />
+    <Compile Include="AmplaSecurity2007\SecurityWebServiceClient.cs" />
+    <Compile Include="AmplaSecurity2007\SecurityWebServiceFactory.cs" />
     <Compile Include="Binding\AmplaGetAuditDataRecordBinding.cs" />
     <Compile Include="Binding\AmplaGetDataVersionsBinding.cs" />
     <Compile Include="Binding\History\ConfirmRecordEventDectection.cs" />
@@ -88,7 +88,6 @@
     <Compile Include="Binding\Mapping\Modules\ProductionModuleMapping.cs" />
     <Compile Include="Binding\Mapping\Modules\StandardModuleMapping.cs" />
     <Compile Include="Binding\Mapping\ValidatedModelFieldMapping.cs" />
-    <Compile Include="Binding\MetaData\AmplaModelMetadataProvider.cs" />
     <Compile Include="Binding\MetaData\Iso8601DateTimeConverter.cs" />
     <Compile Include="Binding\MetaData\TimeSpanIntConverter.cs" />
     <Compile Include="Binding\ModelData\IModelProperties.cs" />
@@ -102,7 +101,6 @@
     <Compile Include="Binding\ViewData\IAmplaViewProperties.cs" />
     <Compile Include="Binding\ViewData\IViewPermissions.cs" />
     <Compile Include="Binding\ViewData\EnforceViewPermissionsAdapter.cs" />
-    <Compile Include="Controllers\IRepositoryController.cs" />
     <Compile Include="FilterValue.cs" />
     <Compile Include="Binding\AmplaUnconfirmDataBinding.cs" />
     <Compile Include="Binding\AmplaConfirmDataBinding.cs" />
@@ -118,10 +116,6 @@
     <Compile Include="Binding\ViewData\ViewField.cs" />
     <Compile Include="Binding\ViewData\ViewFilter.cs" />
     <Compile Include="Binding\ViewData\ViewPeriod.cs" />
-    <Compile Include="BootstrapSupport\Alerts.cs" />
-    <Compile Include="Controllers\BootstrapBaseController.cs" />
-    <Compile Include="Controllers\ReadOnlyRespositoryController.cs" />
-    <Compile Include="Controllers\RespositoryController.cs" />
     <Compile Include="InMemory\InMemoryRepository.cs" />
     <Compile Include="InMemory\InMemoryRepositorySet.cs" />
     <Compile Include="IRepository.cs" />
@@ -154,16 +148,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Sessions\AmplaSessionStorage.cs" />
-    <Compile Include="Sessions\IAmplaSessionStorage.cs" />
-    <Compile Include="Sessions\SessionStateCredentialsProvider.cs" />
+    <Compile Include="Service References\AmplaSecurity2007\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="WebService\WebServiceFactory.cs" />
-    <Compile Include="Web\Interfaces\IHttpRequestWrapper.cs" />
-    <Compile Include="Web\Interfaces\IHttpResponseWrapper.cs" />
-    <Compile Include="Web\Interfaces\IHttpSessionWrapper.cs" />
-    <Compile Include="Web\Wrappers\AmplaHttpRequestWrapper.cs" />
-    <Compile Include="Web\Wrappers\AmplaHttpResponseWrapper.cs" />
-    <Compile Include="Web\Wrappers\AmplaHttpSessionWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -213,9 +203,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\AmplaData2008\DataWebService.wsdl" />
+    <None Include="Service References\AmplaSecurity2007\SecurityWebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\AmplaData2008\" />
+    <WCFMetadataStorage Include="Service References\AmplaSecurity2007\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\AmplaData2008\Reference.svcmap">
@@ -223,7 +215,12 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Service References\AmplaSecurity2007\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

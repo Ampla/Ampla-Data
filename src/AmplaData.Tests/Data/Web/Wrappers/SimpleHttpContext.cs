@@ -1,7 +1,7 @@
 ﻿
 using System;
 using System.Web;
-using AmplaData.Data.Web.Interfaces;
+using AmplaData.Web.Wrappers;
 
 namespace AmplaData.Data.Web.Wrappers
 {

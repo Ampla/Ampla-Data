@@ -1,4 +1,5 @@
 ﻿using System;
+using AmplaData.Data.AmplaSecurity2007;
 
 namespace AmplaData.Security.AmplaSecurity2007
 {
