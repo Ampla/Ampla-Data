@@ -1,5 +1,4 @@
 ﻿using System;
-using AmplaData.Security.AmplaSecurity2007;
 using NUnit.Framework;
 
 namespace AmplaData.Data.AmplaSecurity2007

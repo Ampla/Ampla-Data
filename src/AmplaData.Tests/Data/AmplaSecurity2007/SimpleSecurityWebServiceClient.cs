@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaData.Security.AmplaSecurity2007;
 
 namespace AmplaData.Data.AmplaSecurity2007
 {

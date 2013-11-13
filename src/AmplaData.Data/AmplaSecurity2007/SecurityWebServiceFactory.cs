@@ -1,7 +1,6 @@
-﻿using AmplaData.Data.AmplaSecurity2007;
-using AmplaData.Data.WebService;
+﻿using AmplaData.Data.WebService;
 
-namespace AmplaData.Security.AmplaSecurity2007
+namespace AmplaData.Data.AmplaSecurity2007
 {
     public class SecurityWebServiceFactory : WebServiceFactory<ISecurityWebServiceClient>, ISecurityWebServiceClient
     {

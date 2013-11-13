@@ -15,12 +15,12 @@ namespace AmplaData.Data.Binding.ViewData
 
         public ViewField FindByName(string name)
         {
-            return Find((vf) => vf.Name == name);
+            return Find(vf => vf.Name == name);
         }
 
         public ViewField FindByDisplayName(string displayName)
         {
-            return Find((vf) => vf.DisplayName == displayName);
+            return Find(vf => vf.DisplayName == displayName);
         }
     }
 }

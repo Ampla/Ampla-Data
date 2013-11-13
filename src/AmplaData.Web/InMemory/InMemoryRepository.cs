@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using AmplaData.Data;
 using AmplaData.Data.Binding.ModelData;
 using AmplaData.Data.Records;
 
-namespace AmplaData.Data.InMemory
+namespace AmplaData.Web.InMemory
 {
     public class InMemoryRepository<TModel> : IRepository<TModel> where TModel : new()
     {

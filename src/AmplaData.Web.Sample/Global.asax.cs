@@ -8,7 +8,6 @@ using AmplaData.Web.Authentication;
 using AmplaData.Web.MetaData;
 using AmplaData.Web.Sample.Modules;
 using AmplaData.Web.Sample.App_Start;
-using AmplaData.Security.AmplaSecurity2007;
 using Autofac;
 using Autofac.Integration.Mvc;
 

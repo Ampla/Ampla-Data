@@ -33,7 +33,7 @@ namespace AmplaData.Data.Display
             {
                 return days + "d" + (includeAgo ? " ago" : "");
             }
-            else if (days <= 330)
+            if (days <= 330)
             {
                 return dt.ToString(includeTimeForOldDates ? "MMM %d 'at' %H:mmm" : "MMM %d").ToLowerInvariant();
             }

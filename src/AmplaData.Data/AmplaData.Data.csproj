@@ -116,8 +116,6 @@
     <Compile Include="Binding\ViewData\ViewField.cs" />
     <Compile Include="Binding\ViewData\ViewFilter.cs" />
     <Compile Include="Binding\ViewData\ViewPeriod.cs" />
-    <Compile Include="InMemory\InMemoryRepository.cs" />
-    <Compile Include="InMemory\InMemoryRepositorySet.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IRepositorySet.cs" />
     <Compile Include="Attributes\AmplaLocationAttribute.cs" />
