@@ -1,8 +1,8 @@
 ﻿using System;
-using AmplaData.Data.Attributes;
+using AmplaData.Attributes;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding.ModelData
+namespace AmplaData.Binding.ModelData
 {
     [TestFixture]
     public class ModelPropertyTimeSpanUnitTests : TestFixture

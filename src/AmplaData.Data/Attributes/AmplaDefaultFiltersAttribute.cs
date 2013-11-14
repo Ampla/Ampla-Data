@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaData.Data.Binding.MetaData;
+using AmplaData.Binding.MetaData;
 
-namespace AmplaData.Data.Attributes
+namespace AmplaData.Attributes
 {
     /// <summary>
     ///     Default Filters Attribute used to define the default filters

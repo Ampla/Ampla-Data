@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaData.Data.Binding.MetaData;
-using AmplaData.Data.Binding.ViewData;
-using AmplaData.Data.Records;
+using AmplaData.Binding.MetaData;
+using AmplaData.Binding.ViewData;
+using AmplaData.Records;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding.History
+namespace AmplaData.Binding.History
 {
     [TestFixture]
     public class CreateRecordEventDectectionUnitTests : RecordEventDetectionTestFixture

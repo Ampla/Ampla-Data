@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
-using AmplaData.Data;
-using AmplaData.Data.Records;
+
+using AmplaData.Records;
 
 namespace AmplaData.Web.Controllers
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaData.Data.Records.Filters
+namespace AmplaData.Records.Filters
 {
     public class LocationWithRecurseFilterMatcher : FilterMatcher
     {

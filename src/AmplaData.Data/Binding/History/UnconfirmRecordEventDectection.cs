@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AmplaData.Data.Records;
+using AmplaData.Records;
 
-namespace AmplaData.Data.Binding.History
+namespace AmplaData.Binding.History
 {
     public class UnconfirmRecordEventDectection : RecordEventDectection
     {

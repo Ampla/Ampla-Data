@@ -1,6 +1,6 @@
-﻿using AmplaData.Data.Binding.ModelData;
+﻿using AmplaData.Binding.ModelData;
 
-namespace AmplaData.Data.Binding.Mapping
+namespace AmplaData.Binding.Mapping
 {
     /// <summary>
     /// Model Field Mapping that will represent the field to be mapped

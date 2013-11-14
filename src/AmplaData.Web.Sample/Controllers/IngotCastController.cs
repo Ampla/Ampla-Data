@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using AmplaData.Data;
 using AmplaData.Web.Controllers;
 using AmplaData.Web.Sample.Models;
 

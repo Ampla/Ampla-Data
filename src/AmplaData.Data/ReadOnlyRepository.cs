@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AmplaData.Data.Records;
+using AmplaData.Records;
 
-namespace AmplaData.Data
+namespace AmplaData
 {
     public class ReadOnlyRepository<TModel> : IReadOnlyRepository<TModel>
     {

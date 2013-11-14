@@ -1,4 +1,4 @@
-﻿namespace AmplaData.Data.Binding.Mapping.Modules
+﻿namespace AmplaData.Binding.Mapping.Modules
 {
     public class MetricsModuleMapping: StandardModuleMapping
     {

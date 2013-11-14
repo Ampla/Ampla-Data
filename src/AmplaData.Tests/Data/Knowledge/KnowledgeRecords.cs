@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaData.Data.Records;
+using AmplaData.Records;
 
-namespace AmplaData.Data.Knowledge
+namespace AmplaData.Knowledge
 {
     public static class KnowledgeRecords
     {

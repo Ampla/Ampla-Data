@@ -1,9 +1,9 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.AmplaSecurity2007;
-using AmplaData.Data.Binding.MetaData;
+using AmplaData.AmplaData2008;
+using AmplaData.AmplaSecurity2007;
+using AmplaData.Binding.MetaData;
 using AmplaData.Web.Authentication;
 using AmplaData.Web.MetaData;
 using AmplaData.Web.Sample.Modules;

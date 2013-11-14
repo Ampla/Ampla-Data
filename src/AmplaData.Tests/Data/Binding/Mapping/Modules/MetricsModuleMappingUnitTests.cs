@@ -1,8 +1,8 @@
-﻿using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Metrics;
+﻿using AmplaData.AmplaData2008;
+using AmplaData.Metrics;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding.Mapping.Modules
+namespace AmplaData.Binding.Mapping.Modules
 {
     [TestFixture]
     public class MetricsModuleMappingUnitTests : ModuleMappingTestFixture

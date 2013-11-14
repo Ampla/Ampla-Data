@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Binding.Mapping;
-using AmplaData.Data.Binding.Mapping.Modules;
-using AmplaData.Data.Binding.ModelData;
+using AmplaData.AmplaData2008;
+using AmplaData.Binding.Mapping;
+using AmplaData.Binding.Mapping.Modules;
+using AmplaData.Binding.ModelData;
 
-namespace AmplaData.Data.Binding.ViewData
+namespace AmplaData.Binding.ViewData
 {
     public class AmplaViewProperties<TModel> : IAmplaViewProperties<TModel> where TModel : new()
     {

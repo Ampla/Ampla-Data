@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaData.Data.Records
+namespace AmplaData.Records
 {
     public class FieldValue : IComparable<FieldValue>
     {

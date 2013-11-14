@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaData.Data.Records;
+using AmplaData.Records;
 
-namespace AmplaData.Data.Production
+namespace AmplaData.Production
 {
     public static class ProductionRecords
     {

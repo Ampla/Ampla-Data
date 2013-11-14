@@ -1,5 +1,5 @@
 ﻿using System.Web.Security;
-using AmplaData.Data.AmplaData2008;
+using AmplaData.AmplaData2008;
 using AmplaData.Web.Authentication.Forms;
 
 namespace AmplaData.Web.Authentication

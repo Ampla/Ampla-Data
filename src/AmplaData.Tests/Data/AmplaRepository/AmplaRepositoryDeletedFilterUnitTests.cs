@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using AmplaData.Data.Attributes;
-using AmplaData.Data.Production;
-using AmplaData.Data.Records;
+using AmplaData.Attributes;
+using AmplaData.Production;
+using AmplaData.Records;
 using NUnit.Framework;
 
-namespace AmplaData.Data.AmplaRepository
+namespace AmplaData.AmplaRepository
 {
     [TestFixture]
     public class AmplaRepositoryDeletedFilterUnitTests :

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace AmplaData.Data.Records
+namespace AmplaData.Records
 {
     [TestFixture]
     public class FieldValueUnitTests : TestFixture

@@ -1,7 +1,7 @@
-﻿using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Binding.MetaData;
+﻿using AmplaData.AmplaData2008;
+using AmplaData.Binding.MetaData;
 
-namespace AmplaData.Data.Views
+namespace AmplaData.Views
 {
     public class StandardViews
     {

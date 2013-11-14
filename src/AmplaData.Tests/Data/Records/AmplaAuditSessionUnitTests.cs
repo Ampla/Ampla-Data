@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Records
+namespace AmplaData.Records
 {
     [TestFixture]
     public class AmplaAuditSessionUnitTests : TestFixture

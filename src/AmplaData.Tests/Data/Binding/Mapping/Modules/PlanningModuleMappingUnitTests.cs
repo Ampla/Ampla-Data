@@ -1,8 +1,8 @@
-﻿using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Planning;
+﻿using AmplaData.AmplaData2008;
+using AmplaData.Planning;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding.Mapping.Modules
+namespace AmplaData.Binding.Mapping.Modules
 {
     [TestFixture]
     public class PlanningModuleMappingUnitTests : ModuleMappingTestFixture

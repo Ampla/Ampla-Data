@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace AmplaData.Data.Display
+namespace AmplaData.Display
 {
     [TestFixture]
     public class DisplayStringExtensionsUnitTests : TestFixture

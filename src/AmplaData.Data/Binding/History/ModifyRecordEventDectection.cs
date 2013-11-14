@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AmplaData.Data.Binding.ViewData;
-using AmplaData.Data.Records;
+using AmplaData.Binding.ViewData;
+using AmplaData.Records;
 
-namespace AmplaData.Data.Binding.History
+namespace AmplaData.Binding.History
 {
     public class ModifyRecordEventDectection<TModel> : RecordEventDectection
     {

@@ -4,11 +4,11 @@ using System.Linq;
 using System.ServiceModel;
 using System.Xml;
 
-using AmplaData.Data.Records;
-using AmplaData.Data.Records.Filters;
-using AmplaData.Data.Views;
+using AmplaData.Records;
+using AmplaData.Records.Filters;
+using AmplaData.Views;
 
-namespace AmplaData.Data.AmplaData2008
+namespace AmplaData.AmplaData2008
 {
     /// <summary>
     /// Simple implementation of the DataWebServiceClient

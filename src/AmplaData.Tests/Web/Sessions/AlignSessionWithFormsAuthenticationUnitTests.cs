@@ -1,4 +1,4 @@
-﻿using AmplaData.Data.AmplaSecurity2007;
+﻿using AmplaData.AmplaSecurity2007;
 using AmplaData.Web.Authentication;
 using AmplaData.Web.Authentication.Forms;
 using AmplaData.Web.Wrappers;

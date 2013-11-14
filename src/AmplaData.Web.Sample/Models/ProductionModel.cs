@@ -1,5 +1,5 @@
 ﻿using System;
-using AmplaData.Data.Attributes;
+using AmplaData.Attributes;
 
 namespace AmplaData.Web.Sample.Models
 {

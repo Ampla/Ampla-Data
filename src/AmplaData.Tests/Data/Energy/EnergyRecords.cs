@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaData.Data.Records;
+using AmplaData.Records;
 
-namespace AmplaData.Data.Energy
+namespace AmplaData.Energy
 {
     public static class EnergyRecords
     {

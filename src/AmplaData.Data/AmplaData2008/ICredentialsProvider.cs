@@ -1,4 +1,4 @@
-﻿namespace AmplaData.Data.AmplaData2008
+﻿namespace AmplaData.AmplaData2008
 {
     /// <summary>
     /// Interface to provide credentials for the user

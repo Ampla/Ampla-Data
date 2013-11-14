@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-namespace AmplaData.Data
+namespace AmplaData
 {
     /// <summary>
     ///     Repository interface that provides access to the underlying models

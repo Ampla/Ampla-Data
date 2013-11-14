@@ -1,6 +1,6 @@
-﻿using AmplaData.Data.Binding.ModelData;
+﻿using AmplaData.Binding.ModelData;
 
-namespace AmplaData.Data.Binding.Mapping
+namespace AmplaData.Binding.Mapping
 {
     /// <summary>
     ///     Base class that provides a way for mapping values from objects to Ampla webservice fields

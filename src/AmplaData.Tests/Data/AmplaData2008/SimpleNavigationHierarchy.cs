@@ -2,7 +2,7 @@
 using System.Linq;
 
 
-namespace AmplaData.Data.AmplaData2008
+namespace AmplaData.AmplaData2008
 {
     public class SimpleNavigationHierarchy
     {

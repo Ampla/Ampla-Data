@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Views;
+using AmplaData.AmplaData2008;
+using AmplaData.Views;
 
-namespace AmplaData.Data.Knowledge
+namespace AmplaData.Knowledge
 {
     public class KnowledgeViews : StandardViews
     {

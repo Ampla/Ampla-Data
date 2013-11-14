@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml;
-using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Binding.MetaData;
-using AmplaData.Data.Binding.ModelData;
-using AmplaData.Data.Binding.ViewData;
-using AmplaData.Data.Records;
+using AmplaData.AmplaData2008;
+using AmplaData.Binding.MetaData;
+using AmplaData.Binding.ModelData;
+using AmplaData.Binding.ViewData;
+using AmplaData.Records;
 
-namespace AmplaData.Data.Binding
+namespace AmplaData.Binding
 {
     public class AmplaGetDataRecordBinding<TModel> : IAmplaBinding where TModel : new()
     {

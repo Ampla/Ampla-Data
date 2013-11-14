@@ -1,7 +1,6 @@
-﻿using AmplaData.Data;
-using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.AmplaRepository;
-using AmplaData.Data.AmplaSecurity2007;
+﻿using AmplaData.AmplaData2008;
+using AmplaData.AmplaRepository;
+using AmplaData.AmplaSecurity2007;
 using AmplaData.Web.InMemory;
 using AmplaData.Web.Sample.Models;
 using Autofac;

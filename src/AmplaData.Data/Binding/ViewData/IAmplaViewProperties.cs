@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AmplaData.Data.Binding.Mapping;
+using AmplaData.Binding.Mapping;
 
-namespace AmplaData.Data.Binding.ViewData
+namespace AmplaData.Binding.ViewData
 {
     public interface IAmplaViewProperties<in TModel>
     {

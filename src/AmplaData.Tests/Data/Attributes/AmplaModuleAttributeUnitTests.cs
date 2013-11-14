@@ -1,7 +1,7 @@
-﻿using AmplaData.Data.AmplaData2008;
+﻿using AmplaData.AmplaData2008;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Attributes
+namespace AmplaData.Attributes
 {
     [TestFixture]
     public class AmplaModuleAttributeUnitTests : TestFixture

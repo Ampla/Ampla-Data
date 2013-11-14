@@ -10,8 +10,8 @@ using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using AmplaData.Data.Binding.MetaData;
-using AmplaData.Data.Display;
+using AmplaData.Binding.MetaData;
+using AmplaData.Display;
 
 namespace AmplaData.Web.Sample.BootstrapSupport
 {

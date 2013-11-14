@@ -1,5 +1,5 @@
 ﻿
-namespace AmplaData.Data.Binding
+namespace AmplaData.Binding
 {
     /// <summary>
     ///     Interface for Binding Models to Ampla Webservice operations

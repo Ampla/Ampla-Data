@@ -1,10 +1,11 @@
-﻿using AmplaData.Data;
+﻿
+using AmplaData.Adapters;
 using AmplaData.Web.Authentication.Forms;
 using AmplaData.Web.Sessions;
 
 namespace AmplaData.Web.Authentication
 {
-    public class RenewSessionAdapter<TModel> : Data.Adapters.RepositoryAdapter<TModel>
+    public class RenewSessionAdapter<TModel> : RepositoryAdapter<TModel>
     {
         private readonly IAmplaUserService userService;
         private readonly IFormsAuthenticationService formsAuthenticationService;

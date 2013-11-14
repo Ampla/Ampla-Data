@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
-using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Binding.MetaData;
+using AmplaData.AmplaData2008;
+using AmplaData.Binding.MetaData;
 
-namespace AmplaData.Data.Binding.ViewData
+namespace AmplaData.Binding.ViewData
 {
     public class ViewField
     {

@@ -1,6 +1,5 @@
 ﻿using System.Web;
-using AmplaData.Data;
-using AmplaData.Data.AmplaData2008;
+using AmplaData.AmplaData2008;
 using AmplaData.Web.Authentication;
 using AmplaData.Web.Authentication.Forms;
 using AmplaData.Web.Sessions;

@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaData.Data.Attributes;
+using AmplaData.Attributes;
 
-namespace AmplaData.Data.Energy
+namespace AmplaData.Energy
 {
     [AmplaLocation(Location = "Enterprise.Site.Area.Energy")]
     [AmplaModule(Module = "Energy")]

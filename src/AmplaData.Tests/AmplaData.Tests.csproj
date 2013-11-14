@@ -53,9 +53,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AmplaData.Data\AmplaData.Data.csproj">
+    <ProjectReference Include="..\AmplaData.Data\AmplaData.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
-      <Name>AmplaData.Data</Name>
+      <Name>AmplaData</Name>
     </ProjectReference>
     <ProjectReference Include="..\AmplaData.Web\AmplaData.Web.csproj">
       <Project>{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}</Project>

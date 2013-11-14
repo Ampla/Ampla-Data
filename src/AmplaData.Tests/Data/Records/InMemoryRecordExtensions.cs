@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaData.Data.AmplaData2008;
+using AmplaData.AmplaData2008;
 
-namespace AmplaData.Data.Records
+namespace AmplaData.Records
 {
     public static class InMemoryRecordExtensions
     {

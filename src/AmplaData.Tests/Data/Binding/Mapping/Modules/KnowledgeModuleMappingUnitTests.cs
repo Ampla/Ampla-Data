@@ -1,8 +1,8 @@
-﻿using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Knowledge;
+﻿using AmplaData.AmplaData2008;
+using AmplaData.Knowledge;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding.Mapping.Modules
+namespace AmplaData.Binding.Mapping.Modules
 {
     [TestFixture]
     public class KnowledgeModuleMappingUnitTests : ModuleMappingTestFixture

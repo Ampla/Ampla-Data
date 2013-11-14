@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Logging;
-using AmplaData.Data.Records;
+using AmplaData.AmplaData2008;
+using AmplaData.Logging;
+using AmplaData.Records;
 using NUnit.Framework;
 
-namespace AmplaData.Data.AmplaRepository
+namespace AmplaData.AmplaRepository
 {
     [TestFixture]
     public abstract class AmplaRepositoryTestFixture<TModel> : TestFixture where TModel : class, new()

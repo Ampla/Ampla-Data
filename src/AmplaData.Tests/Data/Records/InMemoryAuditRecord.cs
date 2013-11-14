@@ -1,4 +1,4 @@
-﻿namespace AmplaData.Data.Records
+﻿namespace AmplaData.Records
 {
     public class InMemoryAuditRecord
     {

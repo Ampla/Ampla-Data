@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Principal;
-using AmplaData.Data.AmplaSecurity2007;
+using AmplaData.AmplaSecurity2007;
 
 namespace AmplaData.Web.Authentication
 {

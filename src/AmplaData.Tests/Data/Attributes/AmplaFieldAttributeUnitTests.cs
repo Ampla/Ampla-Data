@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Attributes
+namespace AmplaData.Attributes
 {
     [TestFixture]
     public class AmplaFieldAttributeUnitTests : TestFixture

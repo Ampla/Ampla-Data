@@ -1,6 +1,6 @@
-﻿using AmplaData.Data.AmplaData2008;
+﻿using AmplaData.AmplaData2008;
 
-namespace AmplaData.Data.AmplaRepository
+namespace AmplaData.AmplaRepository
 {
     /// <summary>
     ///     Ampla Repository Set are used to create Ampla Repositories 

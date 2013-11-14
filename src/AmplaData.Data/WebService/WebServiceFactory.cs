@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AmplaData.Data.WebService
+namespace AmplaData.WebService
 {
     public class WebServiceFactory<T>
     {

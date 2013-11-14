@@ -1,4 +1,4 @@
-﻿namespace AmplaData.Data.Binding.ModelData.Validation
+﻿namespace AmplaData.Binding.ModelData.Validation
 {
     /// <summary>
     ///     Validates if the model is ever null

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using AmplaData.Data.Binding.MetaData;
+using AmplaData.Binding.MetaData;
 
-namespace AmplaData.Data.Attributes
+namespace AmplaData.Attributes
 {
     /// <summary>
     ///     Attribute used to mark a property as an Ampla Model

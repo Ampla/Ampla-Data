@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Attributes;
-using AmplaData.Data.Binding.ModelData;
-using AmplaData.Data.Binding.ViewData;
-using AmplaData.Data.Production;
-using AmplaData.Data.Records;
+using AmplaData.AmplaData2008;
+using AmplaData.Attributes;
+using AmplaData.Binding.ModelData;
+using AmplaData.Binding.ViewData;
+using AmplaData.Production;
+using AmplaData.Records;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding
+namespace AmplaData.Binding
 {
     [TestFixture]
     public class AmplaGetDataVersionsBindingUnitTests : TestFixture

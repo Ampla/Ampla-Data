@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using AmplaData.Data.Binding.MetaData;
+using AmplaData.Binding.MetaData;
 
-namespace AmplaData.Data.Binding.ModelData
+namespace AmplaData.Binding.ModelData
 {
     public static class ModelIdentifier
     {

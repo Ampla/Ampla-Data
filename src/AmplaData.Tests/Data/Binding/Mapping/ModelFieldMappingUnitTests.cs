@@ -1,10 +1,10 @@
 ﻿using System;
-using AmplaData.Data.Attributes;
-using AmplaData.Data.Binding.ModelData;
-using AmplaData.Data.Records;
+using AmplaData.Attributes;
+using AmplaData.Binding.ModelData;
+using AmplaData.Records;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding.Mapping
+namespace AmplaData.Binding.Mapping
 {
     [TestFixture]
     public class ModelFieldMappingUnitTests : TestFixture

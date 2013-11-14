@@ -1,4 +1,4 @@
-﻿namespace AmplaData.Data.Binding.ModelData
+﻿namespace AmplaData.Binding.ModelData
 {
     /// <summary>
     ///     Location Filter 

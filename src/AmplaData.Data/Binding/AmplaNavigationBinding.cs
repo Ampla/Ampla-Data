@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using AmplaData.Data.AmplaData2008;
+using AmplaData.AmplaData2008;
 
 
-namespace AmplaData.Data.Binding
+namespace AmplaData.Binding
 {
     public class AmplaNavigationBinding : IAmplaBinding
     {

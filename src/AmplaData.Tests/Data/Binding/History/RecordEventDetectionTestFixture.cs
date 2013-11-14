@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaData.Data.Attributes;
-using AmplaData.Data.Binding.ModelData;
-using AmplaData.Data.Binding.ViewData;
-using AmplaData.Data.Records;
+using AmplaData.Attributes;
+using AmplaData.Binding.ModelData;
+using AmplaData.Binding.ViewData;
+using AmplaData.Records;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding.History
+namespace AmplaData.Binding.History
 {
     [TestFixture]
     public class RecordEventDetectionTestFixture : TestFixture

@@ -1,9 +1,9 @@
 ﻿using System;
-using AmplaData.Data.AmplaRepository;
-using AmplaData.Data.Records;
+using AmplaData.AmplaRepository;
+using AmplaData.Records;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Planning
+namespace AmplaData.Planning
 {
     [TestFixture]
     public class PlanningAmplaRepositoryUnitTests : AmplaRepositoryTestFixture<SimplePlanningModel>

@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaData.Data.Records;
+using AmplaData.Records;
 
-namespace AmplaData.Data.Quality
+namespace AmplaData.Quality
 {
     public static class QualityRecords
     {

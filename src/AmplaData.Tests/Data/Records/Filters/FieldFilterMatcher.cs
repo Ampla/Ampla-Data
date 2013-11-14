@@ -1,4 +1,4 @@
-﻿namespace AmplaData.Data.Records.Filters
+﻿namespace AmplaData.Records.Filters
 {
     public class FieldFilterMatcher<T> : FilterMatcher
     {

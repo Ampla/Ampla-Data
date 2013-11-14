@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using AmplaData.Data.AmplaData2008;
+using AmplaData.AmplaData2008;
 
-namespace AmplaData.Data.Binding.Mapping.Modules
+namespace AmplaData.Binding.Mapping.Modules
 {
     /// <summary>
     ///     Mapping lookup for specific Field Mappings per module

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Web.Sample", "AmplaData.Web.Sample\AmplaData.Web.Sample.csproj", "{D1952C3E-2A71-4947-8B32-D15FC69811C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Data", "AmplaData.Data\AmplaData.Data.csproj", "{EA920285-DB3C-46AB-97D9-17EA716B70AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData", "AmplaData.Data\AmplaData.csproj", "{EA920285-DB3C-46AB-97D9-17EA716B70AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmplaData.Tests", "AmplaData.Tests\AmplaData.Tests.csproj", "{F262B484-F272-4514-BEE2-D630D1C997A6}"
 EndProject

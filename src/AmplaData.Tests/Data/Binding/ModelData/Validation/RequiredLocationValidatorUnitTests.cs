@@ -1,7 +1,7 @@
-﻿using AmplaData.Data.Attributes;
+﻿using AmplaData.Attributes;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding.ModelData.Validation
+namespace AmplaData.Binding.ModelData.Validation
 {
     [TestFixture]
     public class RequiredLocationValidatorUnitTests : TestFixture

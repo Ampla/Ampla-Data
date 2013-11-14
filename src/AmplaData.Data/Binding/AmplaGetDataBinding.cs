@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
-using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Binding.ModelData;
+using AmplaData.AmplaData2008;
+using AmplaData.Binding.ModelData;
 
-namespace AmplaData.Data.Binding
+namespace AmplaData.Binding
 {
     public class AmplaGetDataBinding<TModel> : IAmplaBinding where TModel : new()
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using AmplaData.Data.Records;
+using AmplaData.Records;
 
-namespace AmplaData.Data.Metrics
+namespace AmplaData.Metrics
 {
     public static class MetricsRecords
     {

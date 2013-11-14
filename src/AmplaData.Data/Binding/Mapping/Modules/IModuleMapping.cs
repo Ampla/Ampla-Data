@@ -1,6 +1,6 @@
-﻿using AmplaData.Data.Binding.ViewData;
+﻿using AmplaData.Binding.ViewData;
 
-namespace AmplaData.Data.Binding.Mapping.Modules
+namespace AmplaData.Binding.Mapping.Modules
 {
     public interface IModuleMapping
     {

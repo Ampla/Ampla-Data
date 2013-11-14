@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AmplaData.Data.AmplaData2008 {
+namespace AmplaData.AmplaData2008 {
     
     
     /// <remarks/>
@@ -1656,156 +1656,156 @@ namespace AmplaData.Data.AmplaData2008 {
         
         // CODEGEN: Generating message contract since the wrapper name (GetDataRequestMessage) of message GetDataRequestMessage does not match the default value (GetData)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataSystemErro" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataSystemErro" +
             "rsFault", Name="SystemErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataBusinessEr" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetDataBusinessEr" +
             "rorsFault", Name="BusinessErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.GetDataResponseMessage GetData(AmplaData.Data.AmplaData2008.GetDataRequestMessage request);
+        AmplaData.AmplaData2008.GetDataResponseMessage GetData(AmplaData.AmplaData2008.GetDataRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (SubmitDataRequestMessage) of message SubmitDataRequestMessage does not match the default value (SubmitData)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataBusines" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataBusines" +
             "sErrorsFault", Name="BusinessErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataSystemE" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitDataSystemE" +
             "rrorsFault", Name="SystemErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.SubmitDataResponseMessage SubmitData(AmplaData.Data.AmplaData2008.SubmitDataRequestMessage request);
+        AmplaData.AmplaData2008.SubmitDataResponseMessage SubmitData(AmplaData.AmplaData2008.SubmitDataRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (GetNavigationHierarchyRequestMessage) of message GetNavigationHierarchyRequestMessage does not match the default value (GetNavigationHierarchy)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHier" +
             "archyIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHier" +
             "archyOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHier" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHier" +
             "archyBusinessErrorsFault", Name="BusinessErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHier" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetNavigationHier" +
             "archySystemErrorsFault", Name="SystemErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.GetNavigationHierarchyResponseMessage GetNavigationHierarchy(AmplaData.Data.AmplaData2008.GetNavigationHierarchyRequestMessage request);
+        AmplaData.AmplaData2008.GetNavigationHierarchyResponseMessage GetNavigationHierarchy(AmplaData.AmplaData2008.GetNavigationHierarchyRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (GetViewsRequestMessage) of message GetViewsRequestMessage does not match the default value (GetViews)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsBusinessE" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsBusinessE" +
             "rrorsFault", Name="BusinessErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsSystemErr" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetViewsSystemErr" +
             "orsFault", Name="SystemErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.GetViewsResponseMessage GetViews(AmplaData.Data.AmplaData2008.GetViewsRequestMessage request);
+        AmplaData.AmplaData2008.GetViewsResponseMessage GetViews(AmplaData.AmplaData2008.GetViewsRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (GetAuditDataRequestMessage) of message GetAuditDataRequestMessage does not match the default value (GetAuditData)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataBusin" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataBusin" +
             "essErrorsFault", Name="BusinessErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataSyste" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAuditDataSyste" +
             "mErrorsFault", Name="SystemErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.GetAuditDataResponseMessage GetAuditData(AmplaData.Data.AmplaData2008.GetAuditDataRequestMessage request);
+        AmplaData.AmplaData2008.GetAuditDataResponseMessage GetAuditData(AmplaData.AmplaData2008.GetAuditDataRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (UpdateRecordStatusRequestMessage) of message UpdateRecordStatusRequestMessage does not match the default value (UpdateRecordStatus)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatu" +
             "sIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatu" +
             "sOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatu" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatu" +
             "sBusinessErrorsFault", Name="BusinessErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatu" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/UpdateRecordStatu" +
             "sSystemErrorsFault", Name="SystemErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.UpdateRecordStatusResponseMessage UpdateRecordStatus(AmplaData.Data.AmplaData2008.UpdateRecordStatusRequestMessage request);
+        AmplaData.AmplaData2008.UpdateRecordStatusResponseMessage UpdateRecordStatus(AmplaData.AmplaData2008.UpdateRecordStatusRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (DeleteRecordsRequestMessage) of message DeleteRecordsRequestMessage does not match the default value (DeleteRecords)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsBusi" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsBusi" +
             "nessErrorsFault", Name="BusinessErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsSyst" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteRecordsSyst" +
             "emErrorsFault", Name="SystemErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.DeleteRecordsResponseMessage DeleteRecords(AmplaData.Data.AmplaData2008.DeleteRecordsRequestMessage request);
+        AmplaData.AmplaData2008.DeleteRecordsResponseMessage DeleteRecords(AmplaData.AmplaData2008.DeleteRecordsRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (GetAllowedValuesRequestMessage) of message GetAllowedValuesRequestMessage does not match the default value (GetAllowedValues)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesI" +
             "n", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesO" +
             "ut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesB" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesB" +
             "usinessErrorsFault", Name="BusinessErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesS" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetAllowedValuesS" +
             "ystemErrorsFault", Name="SystemErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.GetAllowedValuesResponseMessage GetAllowedValues(AmplaData.Data.AmplaData2008.GetAllowedValuesRequestMessage request);
+        AmplaData.AmplaData2008.GetAllowedValuesResponseMessage GetAllowedValues(AmplaData.AmplaData2008.GetAllowedValuesRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (GetRelationshipMatrixValuesRequestMessage) of message GetRelationshipMatrixValuesRequestMessage does not match the default value (GetRelationshipMatrixValues)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
             "trixValuesIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
             "trixValuesOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
             "trixValuesBusinessErrorsFault", Name="BusinessErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
             "trixValuesSystemErrorsFault", Name="SystemErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesResponseMessage GetRelationshipMatrixValues(AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesRequestMessage request);
+        AmplaData.AmplaData2008.GetRelationshipMatrixValuesResponseMessage GetRelationshipMatrixValues(AmplaData.AmplaData2008.GetRelationshipMatrixValuesRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (GetRelationshipMatrixRequestMessage) of message GetRelationshipMatrixRequestMessage does not match the default value (GetRelationshipMatrix)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
             "trixIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
             "trixOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
             "trixSystemErrorsFault", Name="SystemErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetRelationshipMa" +
             "trixBusinessErrorsFault", Name="BusinessErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.GetRelationshipMatrixResponseMessage GetRelationshipMatrix(AmplaData.Data.AmplaData2008.GetRelationshipMatrixRequestMessage request);
+        AmplaData.AmplaData2008.GetRelationshipMatrixResponseMessage GetRelationshipMatrix(AmplaData.AmplaData2008.GetRelationshipMatrixRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (SplitRecordsRequestMessage) of message SplitRecordsRequestMessage does not match the default value (SplitRecords)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsBusin" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsBusin" +
             "essErrorsFault", Name="BusinessErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsSyste" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SplitRecordsSyste" +
             "mErrorsFault", Name="SystemErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.SplitRecordsResponseMessage SplitRecords(AmplaData.Data.AmplaData2008.SplitRecordsRequestMessage request);
+        AmplaData.AmplaData2008.SplitRecordsResponseMessage SplitRecords(AmplaData.AmplaData2008.SplitRecordsRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (SubmitCalendarValuesRequestMessage) of message SubmitCalendarValuesRequestMessage does not match the default value (SubmitCalendarValues)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarVal" +
             "uesIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarVal" +
             "uesOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarVal" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarVal" +
             "uesSystemErrorsFault", Name="SystemErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarVal" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/SubmitCalendarVal" +
             "uesBusinessErrorsFault", Name="BusinessErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.SubmitCalendarValuesResponseMessage SubmitCalendarValues(AmplaData.Data.AmplaData2008.SubmitCalendarValuesRequestMessage request);
+        AmplaData.AmplaData2008.SubmitCalendarValuesResponseMessage SubmitCalendarValues(AmplaData.AmplaData2008.SubmitCalendarValuesRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (GetCalendarValuesRequestMessage) of message GetCalendarValuesRequestMessage does not match the default value (GetCalendarValues)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValues" +
             "In", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValues" +
             "Out")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValues" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValues" +
             "BusinessErrorsFault", Name="BusinessErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValues" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarValues" +
             "SystemErrorsFault", Name="SystemErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.GetCalendarValuesResponseMessage GetCalendarValues(AmplaData.Data.AmplaData2008.GetCalendarValuesRequestMessage request);
+        AmplaData.AmplaData2008.GetCalendarValuesResponseMessage GetCalendarValues(AmplaData.AmplaData2008.GetCalendarValuesRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (DeleteCalendarValueRequestMessage) of message DeleteCalendarValueRequestMessage does not match the default value (DeleteCalendarValue)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarVal" +
             "ueIn", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarVal" +
             "ueOut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarVal" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarVal" +
             "ueSystemErrorsFault", Name="SystemErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarVal" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/DeleteCalendarVal" +
             "ueBusinessErrorsFault", Name="BusinessErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.DeleteCalendarValueResponseMessage DeleteCalendarValue(AmplaData.Data.AmplaData2008.DeleteCalendarValueRequestMessage request);
+        AmplaData.AmplaData2008.DeleteCalendarValueResponseMessage DeleteCalendarValue(AmplaData.AmplaData2008.DeleteCalendarValueRequestMessage request);
         
         // CODEGEN: Generating message contract since the wrapper name (GetCalendarNamesRequestMessage) of message GetCalendarNamesRequestMessage does not match the default value (GetCalendarNames)
         [System.ServiceModel.OperationContractAttribute(Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesI" +
             "n", ReplyAction="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesO" +
             "ut")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesS" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.SystemErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesS" +
             "ystemErrorsFault", Name="SystemErrors")]
-        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.Data.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesB" +
+        [System.ServiceModel.FaultContractAttribute(typeof(AmplaData.AmplaData2008.BusinessErrors), Action="http://www.citect.com/Ampla/Data/2008/06/DataWebServiceContract/GetCalendarNamesB" +
             "usinessErrorsFault", Name="BusinessErrors")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        AmplaData.Data.AmplaData2008.GetCalendarNamesResponseMessage GetCalendarNames(AmplaData.Data.AmplaData2008.GetCalendarNamesRequestMessage request);
+        AmplaData.AmplaData2008.GetCalendarNamesResponseMessage GetCalendarNames(AmplaData.AmplaData2008.GetCalendarNamesRequestMessage request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1815,12 +1815,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetDataRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetDataRequest GetDataRequest;
+        public AmplaData.AmplaData2008.GetDataRequest GetDataRequest;
         
         public GetDataRequestMessage() {
         }
         
-        public GetDataRequestMessage(AmplaData.Data.AmplaData2008.GetDataRequest GetDataRequest) {
+        public GetDataRequestMessage(AmplaData.AmplaData2008.GetDataRequest GetDataRequest) {
             this.GetDataRequest = GetDataRequest;
         }
     }
@@ -1832,12 +1832,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetDataResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetDataResponse GetDataResponse;
+        public AmplaData.AmplaData2008.GetDataResponse GetDataResponse;
         
         public GetDataResponseMessage() {
         }
         
-        public GetDataResponseMessage(AmplaData.Data.AmplaData2008.GetDataResponse GetDataResponse) {
+        public GetDataResponseMessage(AmplaData.AmplaData2008.GetDataResponse GetDataResponse) {
             this.GetDataResponse = GetDataResponse;
         }
     }
@@ -2156,12 +2156,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class SubmitDataRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.SubmitDataRequest SubmitDataRequest;
+        public AmplaData.AmplaData2008.SubmitDataRequest SubmitDataRequest;
         
         public SubmitDataRequestMessage() {
         }
         
-        public SubmitDataRequestMessage(AmplaData.Data.AmplaData2008.SubmitDataRequest SubmitDataRequest) {
+        public SubmitDataRequestMessage(AmplaData.AmplaData2008.SubmitDataRequest SubmitDataRequest) {
             this.SubmitDataRequest = SubmitDataRequest;
         }
     }
@@ -2173,12 +2173,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class SubmitDataResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.SubmitDataResponse SubmitDataResponse;
+        public AmplaData.AmplaData2008.SubmitDataResponse SubmitDataResponse;
         
         public SubmitDataResponseMessage() {
         }
         
-        public SubmitDataResponseMessage(AmplaData.Data.AmplaData2008.SubmitDataResponse SubmitDataResponse) {
+        public SubmitDataResponseMessage(AmplaData.AmplaData2008.SubmitDataResponse SubmitDataResponse) {
             this.SubmitDataResponse = SubmitDataResponse;
         }
     }
@@ -2665,12 +2665,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetNavigationHierarchyRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetNavigationHierarchyRequest GetNavigationHierarchyRequest;
+        public AmplaData.AmplaData2008.GetNavigationHierarchyRequest GetNavigationHierarchyRequest;
         
         public GetNavigationHierarchyRequestMessage() {
         }
         
-        public GetNavigationHierarchyRequestMessage(AmplaData.Data.AmplaData2008.GetNavigationHierarchyRequest GetNavigationHierarchyRequest) {
+        public GetNavigationHierarchyRequestMessage(AmplaData.AmplaData2008.GetNavigationHierarchyRequest GetNavigationHierarchyRequest) {
             this.GetNavigationHierarchyRequest = GetNavigationHierarchyRequest;
         }
     }
@@ -2682,12 +2682,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetNavigationHierarchyResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetNavigationHierarchyResponse GetNavigationHierarchyResponse;
+        public AmplaData.AmplaData2008.GetNavigationHierarchyResponse GetNavigationHierarchyResponse;
         
         public GetNavigationHierarchyResponseMessage() {
         }
         
-        public GetNavigationHierarchyResponseMessage(AmplaData.Data.AmplaData2008.GetNavigationHierarchyResponse GetNavigationHierarchyResponse) {
+        public GetNavigationHierarchyResponseMessage(AmplaData.AmplaData2008.GetNavigationHierarchyResponse GetNavigationHierarchyResponse) {
             this.GetNavigationHierarchyResponse = GetNavigationHierarchyResponse;
         }
     }
@@ -3405,12 +3405,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetViewsRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetViewsRequest GetViewsRequest;
+        public AmplaData.AmplaData2008.GetViewsRequest GetViewsRequest;
         
         public GetViewsRequestMessage() {
         }
         
-        public GetViewsRequestMessage(AmplaData.Data.AmplaData2008.GetViewsRequest GetViewsRequest) {
+        public GetViewsRequestMessage(AmplaData.AmplaData2008.GetViewsRequest GetViewsRequest) {
             this.GetViewsRequest = GetViewsRequest;
         }
     }
@@ -3422,12 +3422,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetViewsResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetViewsResponse GetViewsResponse;
+        public AmplaData.AmplaData2008.GetViewsResponse GetViewsResponse;
         
         public GetViewsResponseMessage() {
         }
         
-        public GetViewsResponseMessage(AmplaData.Data.AmplaData2008.GetViewsResponse GetViewsResponse) {
+        public GetViewsResponseMessage(AmplaData.AmplaData2008.GetViewsResponse GetViewsResponse) {
             this.GetViewsResponse = GetViewsResponse;
         }
     }
@@ -3959,12 +3959,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetAuditDataRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetAuditDataRequest GetAuditDataRequest;
+        public AmplaData.AmplaData2008.GetAuditDataRequest GetAuditDataRequest;
         
         public GetAuditDataRequestMessage() {
         }
         
-        public GetAuditDataRequestMessage(AmplaData.Data.AmplaData2008.GetAuditDataRequest GetAuditDataRequest) {
+        public GetAuditDataRequestMessage(AmplaData.AmplaData2008.GetAuditDataRequest GetAuditDataRequest) {
             this.GetAuditDataRequest = GetAuditDataRequest;
         }
     }
@@ -3976,12 +3976,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetAuditDataResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetAuditDataResponse GetAuditDataResponse;
+        public AmplaData.AmplaData2008.GetAuditDataResponse GetAuditDataResponse;
         
         public GetAuditDataResponseMessage() {
         }
         
-        public GetAuditDataResponseMessage(AmplaData.Data.AmplaData2008.GetAuditDataResponse GetAuditDataResponse) {
+        public GetAuditDataResponseMessage(AmplaData.AmplaData2008.GetAuditDataResponse GetAuditDataResponse) {
             this.GetAuditDataResponse = GetAuditDataResponse;
         }
     }
@@ -4265,12 +4265,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class UpdateRecordStatusRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.UpdateRecordStatusRequest UpdateRecordStatusRequest;
+        public AmplaData.AmplaData2008.UpdateRecordStatusRequest UpdateRecordStatusRequest;
         
         public UpdateRecordStatusRequestMessage() {
         }
         
-        public UpdateRecordStatusRequestMessage(AmplaData.Data.AmplaData2008.UpdateRecordStatusRequest UpdateRecordStatusRequest) {
+        public UpdateRecordStatusRequestMessage(AmplaData.AmplaData2008.UpdateRecordStatusRequest UpdateRecordStatusRequest) {
             this.UpdateRecordStatusRequest = UpdateRecordStatusRequest;
         }
     }
@@ -4282,12 +4282,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class UpdateRecordStatusResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.UpdateRecordStatusResponse UpdateRecordStatusResponse;
+        public AmplaData.AmplaData2008.UpdateRecordStatusResponse UpdateRecordStatusResponse;
         
         public UpdateRecordStatusResponseMessage() {
         }
         
-        public UpdateRecordStatusResponseMessage(AmplaData.Data.AmplaData2008.UpdateRecordStatusResponse UpdateRecordStatusResponse) {
+        public UpdateRecordStatusResponseMessage(AmplaData.AmplaData2008.UpdateRecordStatusResponse UpdateRecordStatusResponse) {
             this.UpdateRecordStatusResponse = UpdateRecordStatusResponse;
         }
     }
@@ -4557,12 +4557,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class DeleteRecordsRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.DeleteRecordsRequest DeleteRecordsRequest;
+        public AmplaData.AmplaData2008.DeleteRecordsRequest DeleteRecordsRequest;
         
         public DeleteRecordsRequestMessage() {
         }
         
-        public DeleteRecordsRequestMessage(AmplaData.Data.AmplaData2008.DeleteRecordsRequest DeleteRecordsRequest) {
+        public DeleteRecordsRequestMessage(AmplaData.AmplaData2008.DeleteRecordsRequest DeleteRecordsRequest) {
             this.DeleteRecordsRequest = DeleteRecordsRequest;
         }
     }
@@ -4574,12 +4574,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class DeleteRecordsResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.DeleteRecordsResponse DeleteRecordsResponse;
+        public AmplaData.AmplaData2008.DeleteRecordsResponse DeleteRecordsResponse;
         
         public DeleteRecordsResponseMessage() {
         }
         
-        public DeleteRecordsResponseMessage(AmplaData.Data.AmplaData2008.DeleteRecordsResponse DeleteRecordsResponse) {
+        public DeleteRecordsResponseMessage(AmplaData.AmplaData2008.DeleteRecordsResponse DeleteRecordsResponse) {
             this.DeleteRecordsResponse = DeleteRecordsResponse;
         }
     }
@@ -4821,12 +4821,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetAllowedValuesRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetAllowedValuesRequest GetAllowedValuesRequest;
+        public AmplaData.AmplaData2008.GetAllowedValuesRequest GetAllowedValuesRequest;
         
         public GetAllowedValuesRequestMessage() {
         }
         
-        public GetAllowedValuesRequestMessage(AmplaData.Data.AmplaData2008.GetAllowedValuesRequest GetAllowedValuesRequest) {
+        public GetAllowedValuesRequestMessage(AmplaData.AmplaData2008.GetAllowedValuesRequest GetAllowedValuesRequest) {
             this.GetAllowedValuesRequest = GetAllowedValuesRequest;
         }
     }
@@ -4838,12 +4838,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetAllowedValuesResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetAllowedValuesResponse GetAllowedValuesResponse;
+        public AmplaData.AmplaData2008.GetAllowedValuesResponse GetAllowedValuesResponse;
         
         public GetAllowedValuesResponseMessage() {
         }
         
-        public GetAllowedValuesResponseMessage(AmplaData.Data.AmplaData2008.GetAllowedValuesResponse GetAllowedValuesResponse) {
+        public GetAllowedValuesResponseMessage(AmplaData.AmplaData2008.GetAllowedValuesResponse GetAllowedValuesResponse) {
             this.GetAllowedValuesResponse = GetAllowedValuesResponse;
         }
     }
@@ -5177,12 +5177,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetRelationshipMatrixValuesRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesRequest GetRelationshipMatrixValuesRequest;
+        public AmplaData.AmplaData2008.GetRelationshipMatrixValuesRequest GetRelationshipMatrixValuesRequest;
         
         public GetRelationshipMatrixValuesRequestMessage() {
         }
         
-        public GetRelationshipMatrixValuesRequestMessage(AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesRequest GetRelationshipMatrixValuesRequest) {
+        public GetRelationshipMatrixValuesRequestMessage(AmplaData.AmplaData2008.GetRelationshipMatrixValuesRequest GetRelationshipMatrixValuesRequest) {
             this.GetRelationshipMatrixValuesRequest = GetRelationshipMatrixValuesRequest;
         }
     }
@@ -5194,12 +5194,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetRelationshipMatrixValuesResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesResponse GetRelationshipMatrixValuesResponse;
+        public AmplaData.AmplaData2008.GetRelationshipMatrixValuesResponse GetRelationshipMatrixValuesResponse;
         
         public GetRelationshipMatrixValuesResponseMessage() {
         }
         
-        public GetRelationshipMatrixValuesResponseMessage(AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesResponse GetRelationshipMatrixValuesResponse) {
+        public GetRelationshipMatrixValuesResponseMessage(AmplaData.AmplaData2008.GetRelationshipMatrixValuesResponse GetRelationshipMatrixValuesResponse) {
             this.GetRelationshipMatrixValuesResponse = GetRelationshipMatrixValuesResponse;
         }
     }
@@ -5429,12 +5429,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetRelationshipMatrixRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetRelationshipMatrixRequest GetRelationshipMatrixRequest;
+        public AmplaData.AmplaData2008.GetRelationshipMatrixRequest GetRelationshipMatrixRequest;
         
         public GetRelationshipMatrixRequestMessage() {
         }
         
-        public GetRelationshipMatrixRequestMessage(AmplaData.Data.AmplaData2008.GetRelationshipMatrixRequest GetRelationshipMatrixRequest) {
+        public GetRelationshipMatrixRequestMessage(AmplaData.AmplaData2008.GetRelationshipMatrixRequest GetRelationshipMatrixRequest) {
             this.GetRelationshipMatrixRequest = GetRelationshipMatrixRequest;
         }
     }
@@ -5446,12 +5446,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetRelationshipMatrixResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetRelationshipMatrixResponse GetRelationshipMatrixResponse;
+        public AmplaData.AmplaData2008.GetRelationshipMatrixResponse GetRelationshipMatrixResponse;
         
         public GetRelationshipMatrixResponseMessage() {
         }
         
-        public GetRelationshipMatrixResponseMessage(AmplaData.Data.AmplaData2008.GetRelationshipMatrixResponse GetRelationshipMatrixResponse) {
+        public GetRelationshipMatrixResponseMessage(AmplaData.AmplaData2008.GetRelationshipMatrixResponse GetRelationshipMatrixResponse) {
             this.GetRelationshipMatrixResponse = GetRelationshipMatrixResponse;
         }
     }
@@ -5813,12 +5813,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class SplitRecordsRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.SplitRecordsRequest SplitRecordsRequest;
+        public AmplaData.AmplaData2008.SplitRecordsRequest SplitRecordsRequest;
         
         public SplitRecordsRequestMessage() {
         }
         
-        public SplitRecordsRequestMessage(AmplaData.Data.AmplaData2008.SplitRecordsRequest SplitRecordsRequest) {
+        public SplitRecordsRequestMessage(AmplaData.AmplaData2008.SplitRecordsRequest SplitRecordsRequest) {
             this.SplitRecordsRequest = SplitRecordsRequest;
         }
     }
@@ -5830,12 +5830,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class SplitRecordsResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.SplitRecordsResponse SplitRecordsResponse;
+        public AmplaData.AmplaData2008.SplitRecordsResponse SplitRecordsResponse;
         
         public SplitRecordsResponseMessage() {
         }
         
-        public SplitRecordsResponseMessage(AmplaData.Data.AmplaData2008.SplitRecordsResponse SplitRecordsResponse) {
+        public SplitRecordsResponseMessage(AmplaData.AmplaData2008.SplitRecordsResponse SplitRecordsResponse) {
             this.SplitRecordsResponse = SplitRecordsResponse;
         }
     }
@@ -6071,12 +6071,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class SubmitCalendarValuesRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.SubmitCalendarValuesRequest SubmitCalendarValuesRequest;
+        public AmplaData.AmplaData2008.SubmitCalendarValuesRequest SubmitCalendarValuesRequest;
         
         public SubmitCalendarValuesRequestMessage() {
         }
         
-        public SubmitCalendarValuesRequestMessage(AmplaData.Data.AmplaData2008.SubmitCalendarValuesRequest SubmitCalendarValuesRequest) {
+        public SubmitCalendarValuesRequestMessage(AmplaData.AmplaData2008.SubmitCalendarValuesRequest SubmitCalendarValuesRequest) {
             this.SubmitCalendarValuesRequest = SubmitCalendarValuesRequest;
         }
     }
@@ -6088,12 +6088,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class SubmitCalendarValuesResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.SubmitCalendarValuesResponse SubmitCalendarValuesResponse;
+        public AmplaData.AmplaData2008.SubmitCalendarValuesResponse SubmitCalendarValuesResponse;
         
         public SubmitCalendarValuesResponseMessage() {
         }
         
-        public SubmitCalendarValuesResponseMessage(AmplaData.Data.AmplaData2008.SubmitCalendarValuesResponse SubmitCalendarValuesResponse) {
+        public SubmitCalendarValuesResponseMessage(AmplaData.AmplaData2008.SubmitCalendarValuesResponse SubmitCalendarValuesResponse) {
             this.SubmitCalendarValuesResponse = SubmitCalendarValuesResponse;
         }
     }
@@ -6346,12 +6346,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetCalendarValuesRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetCalendarValuesRequest GetCalendarValuesRequest;
+        public AmplaData.AmplaData2008.GetCalendarValuesRequest GetCalendarValuesRequest;
         
         public GetCalendarValuesRequestMessage() {
         }
         
-        public GetCalendarValuesRequestMessage(AmplaData.Data.AmplaData2008.GetCalendarValuesRequest GetCalendarValuesRequest) {
+        public GetCalendarValuesRequestMessage(AmplaData.AmplaData2008.GetCalendarValuesRequest GetCalendarValuesRequest) {
             this.GetCalendarValuesRequest = GetCalendarValuesRequest;
         }
     }
@@ -6363,12 +6363,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetCalendarValuesResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetCalendarValuesResponse GetCalendarValuesResponse;
+        public AmplaData.AmplaData2008.GetCalendarValuesResponse GetCalendarValuesResponse;
         
         public GetCalendarValuesResponseMessage() {
         }
         
-        public GetCalendarValuesResponseMessage(AmplaData.Data.AmplaData2008.GetCalendarValuesResponse GetCalendarValuesResponse) {
+        public GetCalendarValuesResponseMessage(AmplaData.AmplaData2008.GetCalendarValuesResponse GetCalendarValuesResponse) {
             this.GetCalendarValuesResponse = GetCalendarValuesResponse;
         }
     }
@@ -6504,12 +6504,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class DeleteCalendarValueRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.DeleteCalendarValueRequest DeleteCalendarValueRequest;
+        public AmplaData.AmplaData2008.DeleteCalendarValueRequest DeleteCalendarValueRequest;
         
         public DeleteCalendarValueRequestMessage() {
         }
         
-        public DeleteCalendarValueRequestMessage(AmplaData.Data.AmplaData2008.DeleteCalendarValueRequest DeleteCalendarValueRequest) {
+        public DeleteCalendarValueRequestMessage(AmplaData.AmplaData2008.DeleteCalendarValueRequest DeleteCalendarValueRequest) {
             this.DeleteCalendarValueRequest = DeleteCalendarValueRequest;
         }
     }
@@ -6521,12 +6521,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class DeleteCalendarValueResponseMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.DeleteCalendarValueResponse DeleteCalendarValueResponse;
+        public AmplaData.AmplaData2008.DeleteCalendarValueResponse DeleteCalendarValueResponse;
         
         public DeleteCalendarValueResponseMessage() {
         }
         
-        public DeleteCalendarValueResponseMessage(AmplaData.Data.AmplaData2008.DeleteCalendarValueResponse DeleteCalendarValueResponse) {
+        public DeleteCalendarValueResponseMessage(AmplaData.AmplaData2008.DeleteCalendarValueResponse DeleteCalendarValueResponse) {
             this.DeleteCalendarValueResponse = DeleteCalendarValueResponse;
         }
     }
@@ -6570,12 +6570,12 @@ namespace AmplaData.Data.AmplaData2008 {
     public partial class GetCalendarNamesRequestMessage {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.citect.com/Ampla/Data/2008/06", Order=0)]
-        public AmplaData.Data.AmplaData2008.GetCalendarNamesRequest GetCalendarNamesRequest;
+        public AmplaData.AmplaData2008.GetCalendarNamesRequest GetCalendarNamesRequest;
         
         public GetCalendarNamesRequestMessage() {
         }
         
-        public GetCalendarNamesRequestMessage(AmplaData.Data.AmplaData2008.GetCalendarNamesRequest GetCalendarNamesRequest) {
+        public GetCalendarNamesRequestMessage(AmplaData.AmplaData2008.GetCalendarNamesRequest GetCalendarNamesRequest) {
             this.GetCalendarNamesRequest = GetCalendarNamesRequest;
         }
     }
@@ -6599,12 +6599,12 @@ namespace AmplaData.Data.AmplaData2008 {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IDataWebServiceChannel : AmplaData.Data.AmplaData2008.IDataWebService, System.ServiceModel.IClientChannel {
+    public interface IDataWebServiceChannel : AmplaData.AmplaData2008.IDataWebService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class DataWebServiceClient : System.ServiceModel.ClientBase<AmplaData.Data.AmplaData2008.IDataWebService>, AmplaData.Data.AmplaData2008.IDataWebService {
+    public partial class DataWebServiceClient : System.ServiceModel.ClientBase<AmplaData.AmplaData2008.IDataWebService>, AmplaData.AmplaData2008.IDataWebService {
         
         public DataWebServiceClient() {
         }
@@ -6626,182 +6626,182 @@ namespace AmplaData.Data.AmplaData2008 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.GetDataResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.GetData(AmplaData.Data.AmplaData2008.GetDataRequestMessage request) {
+        AmplaData.AmplaData2008.GetDataResponseMessage AmplaData.AmplaData2008.IDataWebService.GetData(AmplaData.AmplaData2008.GetDataRequestMessage request) {
             return base.Channel.GetData(request);
         }
         
-        public AmplaData.Data.AmplaData2008.GetDataResponse GetData(AmplaData.Data.AmplaData2008.GetDataRequest GetDataRequest) {
-            AmplaData.Data.AmplaData2008.GetDataRequestMessage inValue = new AmplaData.Data.AmplaData2008.GetDataRequestMessage();
+        public AmplaData.AmplaData2008.GetDataResponse GetData(AmplaData.AmplaData2008.GetDataRequest GetDataRequest) {
+            AmplaData.AmplaData2008.GetDataRequestMessage inValue = new AmplaData.AmplaData2008.GetDataRequestMessage();
             inValue.GetDataRequest = GetDataRequest;
-            AmplaData.Data.AmplaData2008.GetDataResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).GetData(inValue);
+            AmplaData.AmplaData2008.GetDataResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).GetData(inValue);
             return retVal.GetDataResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.SubmitDataResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.SubmitData(AmplaData.Data.AmplaData2008.SubmitDataRequestMessage request) {
+        AmplaData.AmplaData2008.SubmitDataResponseMessage AmplaData.AmplaData2008.IDataWebService.SubmitData(AmplaData.AmplaData2008.SubmitDataRequestMessage request) {
             return base.Channel.SubmitData(request);
         }
         
-        public AmplaData.Data.AmplaData2008.SubmitDataResponse SubmitData(AmplaData.Data.AmplaData2008.SubmitDataRequest SubmitDataRequest) {
-            AmplaData.Data.AmplaData2008.SubmitDataRequestMessage inValue = new AmplaData.Data.AmplaData2008.SubmitDataRequestMessage();
+        public AmplaData.AmplaData2008.SubmitDataResponse SubmitData(AmplaData.AmplaData2008.SubmitDataRequest SubmitDataRequest) {
+            AmplaData.AmplaData2008.SubmitDataRequestMessage inValue = new AmplaData.AmplaData2008.SubmitDataRequestMessage();
             inValue.SubmitDataRequest = SubmitDataRequest;
-            AmplaData.Data.AmplaData2008.SubmitDataResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).SubmitData(inValue);
+            AmplaData.AmplaData2008.SubmitDataResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).SubmitData(inValue);
             return retVal.SubmitDataResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.GetNavigationHierarchyResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.GetNavigationHierarchy(AmplaData.Data.AmplaData2008.GetNavigationHierarchyRequestMessage request) {
+        AmplaData.AmplaData2008.GetNavigationHierarchyResponseMessage AmplaData.AmplaData2008.IDataWebService.GetNavigationHierarchy(AmplaData.AmplaData2008.GetNavigationHierarchyRequestMessage request) {
             return base.Channel.GetNavigationHierarchy(request);
         }
         
-        public AmplaData.Data.AmplaData2008.GetNavigationHierarchyResponse GetNavigationHierarchy(AmplaData.Data.AmplaData2008.GetNavigationHierarchyRequest GetNavigationHierarchyRequest) {
-            AmplaData.Data.AmplaData2008.GetNavigationHierarchyRequestMessage inValue = new AmplaData.Data.AmplaData2008.GetNavigationHierarchyRequestMessage();
+        public AmplaData.AmplaData2008.GetNavigationHierarchyResponse GetNavigationHierarchy(AmplaData.AmplaData2008.GetNavigationHierarchyRequest GetNavigationHierarchyRequest) {
+            AmplaData.AmplaData2008.GetNavigationHierarchyRequestMessage inValue = new AmplaData.AmplaData2008.GetNavigationHierarchyRequestMessage();
             inValue.GetNavigationHierarchyRequest = GetNavigationHierarchyRequest;
-            AmplaData.Data.AmplaData2008.GetNavigationHierarchyResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).GetNavigationHierarchy(inValue);
+            AmplaData.AmplaData2008.GetNavigationHierarchyResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).GetNavigationHierarchy(inValue);
             return retVal.GetNavigationHierarchyResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.GetViewsResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.GetViews(AmplaData.Data.AmplaData2008.GetViewsRequestMessage request) {
+        AmplaData.AmplaData2008.GetViewsResponseMessage AmplaData.AmplaData2008.IDataWebService.GetViews(AmplaData.AmplaData2008.GetViewsRequestMessage request) {
             return base.Channel.GetViews(request);
         }
         
-        public AmplaData.Data.AmplaData2008.GetViewsResponse GetViews(AmplaData.Data.AmplaData2008.GetViewsRequest GetViewsRequest) {
-            AmplaData.Data.AmplaData2008.GetViewsRequestMessage inValue = new AmplaData.Data.AmplaData2008.GetViewsRequestMessage();
+        public AmplaData.AmplaData2008.GetViewsResponse GetViews(AmplaData.AmplaData2008.GetViewsRequest GetViewsRequest) {
+            AmplaData.AmplaData2008.GetViewsRequestMessage inValue = new AmplaData.AmplaData2008.GetViewsRequestMessage();
             inValue.GetViewsRequest = GetViewsRequest;
-            AmplaData.Data.AmplaData2008.GetViewsResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).GetViews(inValue);
+            AmplaData.AmplaData2008.GetViewsResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).GetViews(inValue);
             return retVal.GetViewsResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.GetAuditDataResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.GetAuditData(AmplaData.Data.AmplaData2008.GetAuditDataRequestMessage request) {
+        AmplaData.AmplaData2008.GetAuditDataResponseMessage AmplaData.AmplaData2008.IDataWebService.GetAuditData(AmplaData.AmplaData2008.GetAuditDataRequestMessage request) {
             return base.Channel.GetAuditData(request);
         }
         
-        public AmplaData.Data.AmplaData2008.GetAuditDataResponse GetAuditData(AmplaData.Data.AmplaData2008.GetAuditDataRequest GetAuditDataRequest) {
-            AmplaData.Data.AmplaData2008.GetAuditDataRequestMessage inValue = new AmplaData.Data.AmplaData2008.GetAuditDataRequestMessage();
+        public AmplaData.AmplaData2008.GetAuditDataResponse GetAuditData(AmplaData.AmplaData2008.GetAuditDataRequest GetAuditDataRequest) {
+            AmplaData.AmplaData2008.GetAuditDataRequestMessage inValue = new AmplaData.AmplaData2008.GetAuditDataRequestMessage();
             inValue.GetAuditDataRequest = GetAuditDataRequest;
-            AmplaData.Data.AmplaData2008.GetAuditDataResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).GetAuditData(inValue);
+            AmplaData.AmplaData2008.GetAuditDataResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).GetAuditData(inValue);
             return retVal.GetAuditDataResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.UpdateRecordStatusResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.UpdateRecordStatus(AmplaData.Data.AmplaData2008.UpdateRecordStatusRequestMessage request) {
+        AmplaData.AmplaData2008.UpdateRecordStatusResponseMessage AmplaData.AmplaData2008.IDataWebService.UpdateRecordStatus(AmplaData.AmplaData2008.UpdateRecordStatusRequestMessage request) {
             return base.Channel.UpdateRecordStatus(request);
         }
         
-        public AmplaData.Data.AmplaData2008.UpdateRecordStatusResponse UpdateRecordStatus(AmplaData.Data.AmplaData2008.UpdateRecordStatusRequest UpdateRecordStatusRequest) {
-            AmplaData.Data.AmplaData2008.UpdateRecordStatusRequestMessage inValue = new AmplaData.Data.AmplaData2008.UpdateRecordStatusRequestMessage();
+        public AmplaData.AmplaData2008.UpdateRecordStatusResponse UpdateRecordStatus(AmplaData.AmplaData2008.UpdateRecordStatusRequest UpdateRecordStatusRequest) {
+            AmplaData.AmplaData2008.UpdateRecordStatusRequestMessage inValue = new AmplaData.AmplaData2008.UpdateRecordStatusRequestMessage();
             inValue.UpdateRecordStatusRequest = UpdateRecordStatusRequest;
-            AmplaData.Data.AmplaData2008.UpdateRecordStatusResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).UpdateRecordStatus(inValue);
+            AmplaData.AmplaData2008.UpdateRecordStatusResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).UpdateRecordStatus(inValue);
             return retVal.UpdateRecordStatusResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.DeleteRecordsResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.DeleteRecords(AmplaData.Data.AmplaData2008.DeleteRecordsRequestMessage request) {
+        AmplaData.AmplaData2008.DeleteRecordsResponseMessage AmplaData.AmplaData2008.IDataWebService.DeleteRecords(AmplaData.AmplaData2008.DeleteRecordsRequestMessage request) {
             return base.Channel.DeleteRecords(request);
         }
         
-        public AmplaData.Data.AmplaData2008.DeleteRecordsResponse DeleteRecords(AmplaData.Data.AmplaData2008.DeleteRecordsRequest DeleteRecordsRequest) {
-            AmplaData.Data.AmplaData2008.DeleteRecordsRequestMessage inValue = new AmplaData.Data.AmplaData2008.DeleteRecordsRequestMessage();
+        public AmplaData.AmplaData2008.DeleteRecordsResponse DeleteRecords(AmplaData.AmplaData2008.DeleteRecordsRequest DeleteRecordsRequest) {
+            AmplaData.AmplaData2008.DeleteRecordsRequestMessage inValue = new AmplaData.AmplaData2008.DeleteRecordsRequestMessage();
             inValue.DeleteRecordsRequest = DeleteRecordsRequest;
-            AmplaData.Data.AmplaData2008.DeleteRecordsResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).DeleteRecords(inValue);
+            AmplaData.AmplaData2008.DeleteRecordsResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).DeleteRecords(inValue);
             return retVal.DeleteRecordsResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.GetAllowedValuesResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.GetAllowedValues(AmplaData.Data.AmplaData2008.GetAllowedValuesRequestMessage request) {
+        AmplaData.AmplaData2008.GetAllowedValuesResponseMessage AmplaData.AmplaData2008.IDataWebService.GetAllowedValues(AmplaData.AmplaData2008.GetAllowedValuesRequestMessage request) {
             return base.Channel.GetAllowedValues(request);
         }
         
-        public AmplaData.Data.AmplaData2008.GetAllowedValuesResponse GetAllowedValues(AmplaData.Data.AmplaData2008.GetAllowedValuesRequest GetAllowedValuesRequest) {
-            AmplaData.Data.AmplaData2008.GetAllowedValuesRequestMessage inValue = new AmplaData.Data.AmplaData2008.GetAllowedValuesRequestMessage();
+        public AmplaData.AmplaData2008.GetAllowedValuesResponse GetAllowedValues(AmplaData.AmplaData2008.GetAllowedValuesRequest GetAllowedValuesRequest) {
+            AmplaData.AmplaData2008.GetAllowedValuesRequestMessage inValue = new AmplaData.AmplaData2008.GetAllowedValuesRequestMessage();
             inValue.GetAllowedValuesRequest = GetAllowedValuesRequest;
-            AmplaData.Data.AmplaData2008.GetAllowedValuesResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).GetAllowedValues(inValue);
+            AmplaData.AmplaData2008.GetAllowedValuesResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).GetAllowedValues(inValue);
             return retVal.GetAllowedValuesResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.GetRelationshipMatrixValues(AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesRequestMessage request) {
+        AmplaData.AmplaData2008.GetRelationshipMatrixValuesResponseMessage AmplaData.AmplaData2008.IDataWebService.GetRelationshipMatrixValues(AmplaData.AmplaData2008.GetRelationshipMatrixValuesRequestMessage request) {
             return base.Channel.GetRelationshipMatrixValues(request);
         }
         
-        public AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesResponse GetRelationshipMatrixValues(AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesRequest GetRelationshipMatrixValuesRequest) {
-            AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesRequestMessage inValue = new AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesRequestMessage();
+        public AmplaData.AmplaData2008.GetRelationshipMatrixValuesResponse GetRelationshipMatrixValues(AmplaData.AmplaData2008.GetRelationshipMatrixValuesRequest GetRelationshipMatrixValuesRequest) {
+            AmplaData.AmplaData2008.GetRelationshipMatrixValuesRequestMessage inValue = new AmplaData.AmplaData2008.GetRelationshipMatrixValuesRequestMessage();
             inValue.GetRelationshipMatrixValuesRequest = GetRelationshipMatrixValuesRequest;
-            AmplaData.Data.AmplaData2008.GetRelationshipMatrixValuesResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).GetRelationshipMatrixValues(inValue);
+            AmplaData.AmplaData2008.GetRelationshipMatrixValuesResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).GetRelationshipMatrixValues(inValue);
             return retVal.GetRelationshipMatrixValuesResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.GetRelationshipMatrixResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.GetRelationshipMatrix(AmplaData.Data.AmplaData2008.GetRelationshipMatrixRequestMessage request) {
+        AmplaData.AmplaData2008.GetRelationshipMatrixResponseMessage AmplaData.AmplaData2008.IDataWebService.GetRelationshipMatrix(AmplaData.AmplaData2008.GetRelationshipMatrixRequestMessage request) {
             return base.Channel.GetRelationshipMatrix(request);
         }
         
-        public AmplaData.Data.AmplaData2008.GetRelationshipMatrixResponse GetRelationshipMatrix(AmplaData.Data.AmplaData2008.GetRelationshipMatrixRequest GetRelationshipMatrixRequest) {
-            AmplaData.Data.AmplaData2008.GetRelationshipMatrixRequestMessage inValue = new AmplaData.Data.AmplaData2008.GetRelationshipMatrixRequestMessage();
+        public AmplaData.AmplaData2008.GetRelationshipMatrixResponse GetRelationshipMatrix(AmplaData.AmplaData2008.GetRelationshipMatrixRequest GetRelationshipMatrixRequest) {
+            AmplaData.AmplaData2008.GetRelationshipMatrixRequestMessage inValue = new AmplaData.AmplaData2008.GetRelationshipMatrixRequestMessage();
             inValue.GetRelationshipMatrixRequest = GetRelationshipMatrixRequest;
-            AmplaData.Data.AmplaData2008.GetRelationshipMatrixResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).GetRelationshipMatrix(inValue);
+            AmplaData.AmplaData2008.GetRelationshipMatrixResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).GetRelationshipMatrix(inValue);
             return retVal.GetRelationshipMatrixResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.SplitRecordsResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.SplitRecords(AmplaData.Data.AmplaData2008.SplitRecordsRequestMessage request) {
+        AmplaData.AmplaData2008.SplitRecordsResponseMessage AmplaData.AmplaData2008.IDataWebService.SplitRecords(AmplaData.AmplaData2008.SplitRecordsRequestMessage request) {
             return base.Channel.SplitRecords(request);
         }
         
-        public AmplaData.Data.AmplaData2008.SplitRecordsResponse SplitRecords(AmplaData.Data.AmplaData2008.SplitRecordsRequest SplitRecordsRequest) {
-            AmplaData.Data.AmplaData2008.SplitRecordsRequestMessage inValue = new AmplaData.Data.AmplaData2008.SplitRecordsRequestMessage();
+        public AmplaData.AmplaData2008.SplitRecordsResponse SplitRecords(AmplaData.AmplaData2008.SplitRecordsRequest SplitRecordsRequest) {
+            AmplaData.AmplaData2008.SplitRecordsRequestMessage inValue = new AmplaData.AmplaData2008.SplitRecordsRequestMessage();
             inValue.SplitRecordsRequest = SplitRecordsRequest;
-            AmplaData.Data.AmplaData2008.SplitRecordsResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).SplitRecords(inValue);
+            AmplaData.AmplaData2008.SplitRecordsResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).SplitRecords(inValue);
             return retVal.SplitRecordsResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.SubmitCalendarValuesResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.SubmitCalendarValues(AmplaData.Data.AmplaData2008.SubmitCalendarValuesRequestMessage request) {
+        AmplaData.AmplaData2008.SubmitCalendarValuesResponseMessage AmplaData.AmplaData2008.IDataWebService.SubmitCalendarValues(AmplaData.AmplaData2008.SubmitCalendarValuesRequestMessage request) {
             return base.Channel.SubmitCalendarValues(request);
         }
         
-        public AmplaData.Data.AmplaData2008.SubmitCalendarValuesResponse SubmitCalendarValues(AmplaData.Data.AmplaData2008.SubmitCalendarValuesRequest SubmitCalendarValuesRequest) {
-            AmplaData.Data.AmplaData2008.SubmitCalendarValuesRequestMessage inValue = new AmplaData.Data.AmplaData2008.SubmitCalendarValuesRequestMessage();
+        public AmplaData.AmplaData2008.SubmitCalendarValuesResponse SubmitCalendarValues(AmplaData.AmplaData2008.SubmitCalendarValuesRequest SubmitCalendarValuesRequest) {
+            AmplaData.AmplaData2008.SubmitCalendarValuesRequestMessage inValue = new AmplaData.AmplaData2008.SubmitCalendarValuesRequestMessage();
             inValue.SubmitCalendarValuesRequest = SubmitCalendarValuesRequest;
-            AmplaData.Data.AmplaData2008.SubmitCalendarValuesResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).SubmitCalendarValues(inValue);
+            AmplaData.AmplaData2008.SubmitCalendarValuesResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).SubmitCalendarValues(inValue);
             return retVal.SubmitCalendarValuesResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.GetCalendarValuesResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.GetCalendarValues(AmplaData.Data.AmplaData2008.GetCalendarValuesRequestMessage request) {
+        AmplaData.AmplaData2008.GetCalendarValuesResponseMessage AmplaData.AmplaData2008.IDataWebService.GetCalendarValues(AmplaData.AmplaData2008.GetCalendarValuesRequestMessage request) {
             return base.Channel.GetCalendarValues(request);
         }
         
-        public AmplaData.Data.AmplaData2008.GetCalendarValuesResponse GetCalendarValues(AmplaData.Data.AmplaData2008.GetCalendarValuesRequest GetCalendarValuesRequest) {
-            AmplaData.Data.AmplaData2008.GetCalendarValuesRequestMessage inValue = new AmplaData.Data.AmplaData2008.GetCalendarValuesRequestMessage();
+        public AmplaData.AmplaData2008.GetCalendarValuesResponse GetCalendarValues(AmplaData.AmplaData2008.GetCalendarValuesRequest GetCalendarValuesRequest) {
+            AmplaData.AmplaData2008.GetCalendarValuesRequestMessage inValue = new AmplaData.AmplaData2008.GetCalendarValuesRequestMessage();
             inValue.GetCalendarValuesRequest = GetCalendarValuesRequest;
-            AmplaData.Data.AmplaData2008.GetCalendarValuesResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).GetCalendarValues(inValue);
+            AmplaData.AmplaData2008.GetCalendarValuesResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).GetCalendarValues(inValue);
             return retVal.GetCalendarValuesResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.DeleteCalendarValueResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.DeleteCalendarValue(AmplaData.Data.AmplaData2008.DeleteCalendarValueRequestMessage request) {
+        AmplaData.AmplaData2008.DeleteCalendarValueResponseMessage AmplaData.AmplaData2008.IDataWebService.DeleteCalendarValue(AmplaData.AmplaData2008.DeleteCalendarValueRequestMessage request) {
             return base.Channel.DeleteCalendarValue(request);
         }
         
-        public AmplaData.Data.AmplaData2008.DeleteCalendarValueResponse DeleteCalendarValue(AmplaData.Data.AmplaData2008.DeleteCalendarValueRequest DeleteCalendarValueRequest) {
-            AmplaData.Data.AmplaData2008.DeleteCalendarValueRequestMessage inValue = new AmplaData.Data.AmplaData2008.DeleteCalendarValueRequestMessage();
+        public AmplaData.AmplaData2008.DeleteCalendarValueResponse DeleteCalendarValue(AmplaData.AmplaData2008.DeleteCalendarValueRequest DeleteCalendarValueRequest) {
+            AmplaData.AmplaData2008.DeleteCalendarValueRequestMessage inValue = new AmplaData.AmplaData2008.DeleteCalendarValueRequestMessage();
             inValue.DeleteCalendarValueRequest = DeleteCalendarValueRequest;
-            AmplaData.Data.AmplaData2008.DeleteCalendarValueResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).DeleteCalendarValue(inValue);
+            AmplaData.AmplaData2008.DeleteCalendarValueResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).DeleteCalendarValue(inValue);
             return retVal.DeleteCalendarValueResponse;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        AmplaData.Data.AmplaData2008.GetCalendarNamesResponseMessage AmplaData.Data.AmplaData2008.IDataWebService.GetCalendarNames(AmplaData.Data.AmplaData2008.GetCalendarNamesRequestMessage request) {
+        AmplaData.AmplaData2008.GetCalendarNamesResponseMessage AmplaData.AmplaData2008.IDataWebService.GetCalendarNames(AmplaData.AmplaData2008.GetCalendarNamesRequestMessage request) {
             return base.Channel.GetCalendarNames(request);
         }
         
-        public string[] GetCalendarNames(AmplaData.Data.AmplaData2008.GetCalendarNamesRequest GetCalendarNamesRequest) {
-            AmplaData.Data.AmplaData2008.GetCalendarNamesRequestMessage inValue = new AmplaData.Data.AmplaData2008.GetCalendarNamesRequestMessage();
+        public string[] GetCalendarNames(AmplaData.AmplaData2008.GetCalendarNamesRequest GetCalendarNamesRequest) {
+            AmplaData.AmplaData2008.GetCalendarNamesRequestMessage inValue = new AmplaData.AmplaData2008.GetCalendarNamesRequestMessage();
             inValue.GetCalendarNamesRequest = GetCalendarNamesRequest;
-            AmplaData.Data.AmplaData2008.GetCalendarNamesResponseMessage retVal = ((AmplaData.Data.AmplaData2008.IDataWebService)(this)).GetCalendarNames(inValue);
+            AmplaData.AmplaData2008.GetCalendarNamesResponseMessage retVal = ((AmplaData.AmplaData2008.IDataWebService)(this)).GetCalendarNames(inValue);
             return retVal.GetCalendarNamesResponse;
         }
     }

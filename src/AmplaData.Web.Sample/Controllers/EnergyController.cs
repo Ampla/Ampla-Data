@@ -1,5 +1,4 @@
-﻿using AmplaData.Data;
-using AmplaData.Web.Controllers;
+﻿using AmplaData.Web.Controllers;
 using AmplaData.Web.Sample.Models;
 
 namespace AmplaData.Web.Sample.Controllers

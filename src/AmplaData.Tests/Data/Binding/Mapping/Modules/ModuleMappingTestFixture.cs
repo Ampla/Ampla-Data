@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaData.Data.AmplaData2008;
-using AmplaData.Data.Binding.ViewData;
+using AmplaData.AmplaData2008;
+using AmplaData.Binding.ViewData;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding.Mapping.Modules
+namespace AmplaData.Binding.Mapping.Modules
 {
     [TestFixture]
     public abstract class ModuleMappingTestFixture : TestFixture

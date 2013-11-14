@@ -1,4 +1,4 @@
-﻿using AmplaData.Data.AmplaData2008;
+﻿using AmplaData.AmplaData2008;
 using Autofac;
 
 namespace AmplaData.Web.Sample.Modules

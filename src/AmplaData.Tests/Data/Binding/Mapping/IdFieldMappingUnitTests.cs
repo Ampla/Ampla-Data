@@ -1,8 +1,8 @@
-﻿using AmplaData.Data.Attributes;
-using AmplaData.Data.Binding.ModelData;
+﻿using AmplaData.Attributes;
+using AmplaData.Binding.ModelData;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Binding.Mapping
+namespace AmplaData.Binding.Mapping
 {
     [TestFixture]
     public class IdFieldMappingUnitTests : TestFixture

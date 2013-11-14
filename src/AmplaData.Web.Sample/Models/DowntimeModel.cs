@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using AmplaData.Data.Attributes;
+using AmplaData.Attributes;
 
 namespace AmplaData.Web.Sample.Models
 {

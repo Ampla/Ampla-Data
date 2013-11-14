@@ -1,6 +1,6 @@
-﻿using AmplaData.Data.Logging;
+﻿using AmplaData.Logging;
 
-namespace AmplaData.Data.AmplaData2008
+namespace AmplaData.AmplaData2008
 {
     public class LoggingDataWebServiceClient : IDataWebServiceClient
     {

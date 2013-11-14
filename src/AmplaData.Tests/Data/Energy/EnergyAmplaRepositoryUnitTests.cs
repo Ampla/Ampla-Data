@@ -1,9 +1,9 @@
 ﻿using System;
-using AmplaData.Data.AmplaRepository;
-using AmplaData.Data.Records;
+using AmplaData.AmplaRepository;
+using AmplaData.Records;
 using NUnit.Framework;
 
-namespace AmplaData.Data.Energy
+namespace AmplaData.Energy
 {
     [TestFixture]
     public class EnergyAmplaRepositoryUnitTests : AmplaRepositoryTestFixture<SimpleEnergyModel>

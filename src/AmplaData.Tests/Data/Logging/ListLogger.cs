@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AmplaData.Data.Logging
+namespace AmplaData.Logging
 {
     public class ListLogger : ILogger
     {

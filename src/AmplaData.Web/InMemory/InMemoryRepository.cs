@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmplaData.Data;
-using AmplaData.Data.Binding.ModelData;
-using AmplaData.Data.Records;
+
+using AmplaData.Binding.ModelData;
+using AmplaData.Records;
 
 namespace AmplaData.Web.InMemory
 {
