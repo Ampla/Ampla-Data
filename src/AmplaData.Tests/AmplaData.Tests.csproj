@@ -53,7 +53,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AmplaData.Data\AmplaData.csproj">
+    <ProjectReference Include="..\AmplaData\AmplaData.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
       <Name>AmplaData</Name>
     </ProjectReference>
@@ -63,139 +63,139 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\AmplaData2008\LoggingDataWebServiceClient.cs" />
-    <Compile Include="Data\AmplaRepository\AmplaRepositoryDeletedFilterUnitTests.cs" />
-    <Compile Include="Data\Binding\AmplaGetDataVersionsBindingUnitTests.cs" />
-    <Compile Include="Data\Binding\History\AmplaRecordHistoryUnitTests.cs" />
-    <Compile Include="Data\Binding\History\ModifyRecordEventDectectionUnitTests.cs" />
-    <Compile Include="Data\Binding\History\CreateRecordEventDectectionUnitTests.cs" />
-    <Compile Include="Data\Binding\History\RecordEventDetectionTestFixture.cs" />
-    <Compile Include="Data\Display\DisplayStringExtensionsUnitTests.cs" />
-    <Compile Include="Data\Display\DateTimeDisplayExtensionsUnitTests.cs" />
-    <Compile Include="Data\Records\AmplaAuditSessionUnitTests.cs" />
-    <Compile Include="Data\Records\Filters\SamplePeriodFilterMatcher.cs" />
-    <Compile Include="Data\Records\InMemoryAuditRecord.cs" />
-    <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClient.cs" />
-    <Compile Include="Data\AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
-    <Compile Include="Data\AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />
-    <Compile Include="Data\AmplaRepository\TimeSpanDurationUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\Modules\EnergyModuleMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\Modules\PlanningModuleMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\Modules\KnowledgeModuleMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\Modules\QualityModuleMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\Modules\MaintenanceModuleMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\Modules\MetricsModuleMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\Modules\DowntimeModuleMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\Modules\ModuleMappingTestFixture.cs" />
-    <Compile Include="Data\Binding\Mapping\Modules\ProductionModuleMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\ModelData\ModelPropertyTimeSpanUnitTests.cs" />
-    <Compile Include="Data\Binding\ModelData\DowntimeModelPropertiesUnitTests.cs" />
-    <Compile Include="Data\Energy\EnergyAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Data\Energy\EnergyRecords.cs" />
-    <Compile Include="Data\Energy\EnergyViews.cs" />
-    <Compile Include="Data\Energy\IdentifierEnergyModel.cs" />
-    <Compile Include="Data\Energy\ResolveIdentifiersAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Data\Energy\SimpleEnergyModel.cs" />
-    <Compile Include="Data\Maintenance\MaintenanceAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Data\Maintenance\MaintenanceRecords.cs" />
-    <Compile Include="Data\Maintenance\MaintenanceViews.cs" />
-    <Compile Include="Data\Maintenance\SimpleMaintenanceModel.cs" />
-    <Compile Include="Data\Metrics\MetricsAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Data\Metrics\MetricsRecords.cs" />
-    <Compile Include="Data\Metrics\MetricsViews.cs" />
-    <Compile Include="Data\Metrics\SimpleMetricsModel.cs" />
-    <Compile Include="Data\Planning\PlanningAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Data\Planning\PlanningRecords.cs" />
-    <Compile Include="Data\Planning\PlanningViews.cs" />
-    <Compile Include="Data\Planning\SimplePlanningModel.cs" />
-    <Compile Include="Data\Quality\QualityViews.cs" />
-    <Compile Include="Data\Quality\QualityAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Data\Quality\QualityRecords.cs" />
-    <Compile Include="Data\Quality\SimpleQualityModel.cs" />
-    <Compile Include="Data\Downtime\IdentifierDowntimeModel.cs" />
-    <Compile Include="Data\Downtime\ResolveIdentifiersAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Data\Downtime\DowntimeAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Data\Attributes\AmplaDefaultFiltersAttributeUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\ValidatedModelFieldMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\ModelData\ModelPropertyDefaultFilterUnitTests.cs" />
-    <Compile Include="Data\Binding\ModelData\LocationFilterUnitTests.cs" />
-    <Compile Include="Data\Binding\ModelData\Validation\RequiredLocationValidatorUnitTests.cs" />
-    <Compile Include="Data\Binding\ModelData\Validation\LocationValidatorUnitTests.cs" />
-    <Compile Include="Data\Downtime\SimpleDowntimeModel.cs" />
-    <Compile Include="Data\FilterValueUnitTests.cs" />
-    <Compile Include="Data\Knowledge\KnowledgeAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Data\Knowledge\KnowledgeRecords.cs" />
-    <Compile Include="Data\Knowledge\SimpleKnowledgeModel.cs" />
-    <Compile Include="Data\Downtime\DowntimeRecords.cs" />
-    <Compile Include="Data\Records\AmplaRecordUnitTests.cs" />
-    <Compile Include="Data\Records\FieldValueUnitTests.cs" />
-    <Compile Include="Data\Records\Filters\FieldFilterMatcher.cs" />
-    <Compile Include="Data\Records\Filters\FilterMatcher.cs" />
-    <Compile Include="Data\Records\Filters\IdFilterMatcher.cs" />
-    <Compile Include="Data\Records\Filters\LocationFilterMatcher.cs" />
-    <Compile Include="Data\Records\Filters\LocationWithRecurseFilterMatcher.cs" />
-    <Compile Include="Data\Records\Filters\InMemoryFilterMatcher.cs" />
-    <Compile Include="Data\AmplaData2008\SimpleNavigationHierarchy.cs" />
-    <Compile Include="Data\AmplaRepository\AmplaReadOnlyRepositoryUnitTests.cs" />
-    <Compile Include="Data\AmplaRepository\AmplaRepositoryDateTimeUnitTests.cs" />
-    <Compile Include="Data\AmplaRepository\AmplaRepositoryLocationUnitTests.cs" />
-    <Compile Include="Data\AmplaRepository\AmplaRepositoryTestFixture.cs" />
-    <Compile Include="Data\AmplaRepository\AmplaRepositoryUnitTests.cs" />
-    <Compile Include="Data\Attributes\AmplaLocationAttributeUnitTests.cs" />
-    <Compile Include="Data\Attributes\AmplaModuleAttributeUnitTests.cs" />
-    <Compile Include="Data\Attributes\AmplaFieldAttributeUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\ConstantFieldMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\DefaultValueFieldMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\IdFieldMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\ModelFieldMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\Mapping\ReadOnlyFieldMappingUnitTests.cs" />
-    <Compile Include="Data\Binding\ModelData\ModelPropertyLocationUnitTests.cs" />
-    <Compile Include="Data\Binding\ModelData\ModelPropertiesUnitTests.cs" />
-    <Compile Include="Data\Binding\ModelData\ModelPropertyNonDefaultUnitTests.cs" />
-    <Compile Include="Data\Binding\ViewData\ViewFiltersCollectionUnitTests.cs" />
-    <Compile Include="Data\Binding\ViewData\ViewPermissionsUnitTests.cs" />
-    <Compile Include="Data\Logging\ILogger.cs" />
-    <Compile Include="Data\Logging\ListLogger.cs" />
-    <Compile Include="Data\Records\DateTimeExtensions.cs">
+    <Compile Include="AmplaData2008\LoggingDataWebServiceClient.cs" />
+    <Compile Include="AmplaRepository\AmplaRepositoryDeletedFilterUnitTests.cs" />
+    <Compile Include="Binding\AmplaGetDataVersionsBindingUnitTests.cs" />
+    <Compile Include="Binding\History\AmplaRecordHistoryUnitTests.cs" />
+    <Compile Include="Binding\History\ModifyRecordEventDectectionUnitTests.cs" />
+    <Compile Include="Binding\History\CreateRecordEventDectectionUnitTests.cs" />
+    <Compile Include="Binding\History\RecordEventDetectionTestFixture.cs" />
+    <Compile Include="Display\DisplayStringExtensionsUnitTests.cs" />
+    <Compile Include="Display\DateTimeDisplayExtensionsUnitTests.cs" />
+    <Compile Include="Records\AmplaAuditSessionUnitTests.cs" />
+    <Compile Include="Records\Filters\SamplePeriodFilterMatcher.cs" />
+    <Compile Include="Records\InMemoryAuditRecord.cs" />
+    <Compile Include="AmplaData2008\SimpleDataWebServiceClient.cs" />
+    <Compile Include="AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
+    <Compile Include="AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />
+    <Compile Include="AmplaRepository\TimeSpanDurationUnitTests.cs" />
+    <Compile Include="Binding\Mapping\Modules\EnergyModuleMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\Modules\PlanningModuleMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\Modules\KnowledgeModuleMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\Modules\QualityModuleMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\Modules\MaintenanceModuleMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\Modules\MetricsModuleMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\Modules\DowntimeModuleMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\Modules\ModuleMappingTestFixture.cs" />
+    <Compile Include="Binding\Mapping\Modules\ProductionModuleMappingUnitTests.cs" />
+    <Compile Include="Binding\ModelData\ModelPropertyTimeSpanUnitTests.cs" />
+    <Compile Include="Binding\ModelData\DowntimeModelPropertiesUnitTests.cs" />
+    <Compile Include="Modules\Energy\EnergyAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Modules\Energy\EnergyRecords.cs" />
+    <Compile Include="Modules\Energy\EnergyViews.cs" />
+    <Compile Include="Modules\Energy\IdentifierEnergyModel.cs" />
+    <Compile Include="Modules\Energy\ResolveIdentifiersAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Modules\Energy\SimpleEnergyModel.cs" />
+    <Compile Include="Modules\Maintenance\MaintenanceAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Modules\Maintenance\MaintenanceRecords.cs" />
+    <Compile Include="Modules\Maintenance\MaintenanceViews.cs" />
+    <Compile Include="Modules\Maintenance\SimpleMaintenanceModel.cs" />
+    <Compile Include="Modules\Metrics\MetricsAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Modules\Metrics\MetricsRecords.cs" />
+    <Compile Include="Modules\Metrics\MetricsViews.cs" />
+    <Compile Include="Modules\Metrics\SimpleMetricsModel.cs" />
+    <Compile Include="Modules\Planning\PlanningAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Modules\Planning\PlanningRecords.cs" />
+    <Compile Include="Modules\Planning\PlanningViews.cs" />
+    <Compile Include="Modules\Planning\SimplePlanningModel.cs" />
+    <Compile Include="Modules\Quality\QualityViews.cs" />
+    <Compile Include="Modules\Quality\QualityAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Modules\Quality\QualityRecords.cs" />
+    <Compile Include="Modules\Quality\SimpleQualityModel.cs" />
+    <Compile Include="Modules\Downtime\IdentifierDowntimeModel.cs" />
+    <Compile Include="Modules\Downtime\ResolveIdentifiersAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Modules\Downtime\DowntimeAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Attributes\AmplaDefaultFiltersAttributeUnitTests.cs" />
+    <Compile Include="Binding\Mapping\ValidatedModelFieldMappingUnitTests.cs" />
+    <Compile Include="Binding\ModelData\ModelPropertyDefaultFilterUnitTests.cs" />
+    <Compile Include="Binding\ModelData\LocationFilterUnitTests.cs" />
+    <Compile Include="Binding\ModelData\Validation\RequiredLocationValidatorUnitTests.cs" />
+    <Compile Include="Binding\ModelData\Validation\LocationValidatorUnitTests.cs" />
+    <Compile Include="Modules\Downtime\SimpleDowntimeModel.cs" />
+    <Compile Include="FilterValueUnitTests.cs" />
+    <Compile Include="Modules\Knowledge\KnowledgeAmplaRepositoryUnitTests.cs" />
+    <Compile Include="Modules\Knowledge\KnowledgeRecords.cs" />
+    <Compile Include="Modules\Knowledge\SimpleKnowledgeModel.cs" />
+    <Compile Include="Modules\Downtime\DowntimeRecords.cs" />
+    <Compile Include="Records\AmplaRecordUnitTests.cs" />
+    <Compile Include="Records\FieldValueUnitTests.cs" />
+    <Compile Include="Records\Filters\FieldFilterMatcher.cs" />
+    <Compile Include="Records\Filters\FilterMatcher.cs" />
+    <Compile Include="Records\Filters\IdFilterMatcher.cs" />
+    <Compile Include="Records\Filters\LocationFilterMatcher.cs" />
+    <Compile Include="Records\Filters\LocationWithRecurseFilterMatcher.cs" />
+    <Compile Include="Records\Filters\InMemoryFilterMatcher.cs" />
+    <Compile Include="AmplaData2008\SimpleNavigationHierarchy.cs" />
+    <Compile Include="AmplaRepository\AmplaReadOnlyRepositoryUnitTests.cs" />
+    <Compile Include="AmplaRepository\AmplaRepositoryDateTimeUnitTests.cs" />
+    <Compile Include="AmplaRepository\AmplaRepositoryLocationUnitTests.cs" />
+    <Compile Include="AmplaRepository\AmplaRepositoryTestFixture.cs" />
+    <Compile Include="AmplaRepository\AmplaRepositoryUnitTests.cs" />
+    <Compile Include="Attributes\AmplaLocationAttributeUnitTests.cs" />
+    <Compile Include="Attributes\AmplaModuleAttributeUnitTests.cs" />
+    <Compile Include="Attributes\AmplaFieldAttributeUnitTests.cs" />
+    <Compile Include="Binding\Mapping\ConstantFieldMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\DefaultValueFieldMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\IdFieldMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\ModelFieldMappingUnitTests.cs" />
+    <Compile Include="Binding\Mapping\ReadOnlyFieldMappingUnitTests.cs" />
+    <Compile Include="Binding\ModelData\ModelPropertyLocationUnitTests.cs" />
+    <Compile Include="Binding\ModelData\ModelPropertiesUnitTests.cs" />
+    <Compile Include="Binding\ModelData\ModelPropertyNonDefaultUnitTests.cs" />
+    <Compile Include="Binding\ViewData\ViewFiltersCollectionUnitTests.cs" />
+    <Compile Include="Binding\ViewData\ViewPermissionsUnitTests.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\ListLogger.cs" />
+    <Compile Include="Records\DateTimeExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Records\FieldValue.cs">
+    <Compile Include="Records\FieldValue.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Records\InMemoryRecord.cs">
+    <Compile Include="Records\InMemoryRecord.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Records\InMemoryRecordExtensions.cs">
+    <Compile Include="Records\InMemoryRecordExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Records\PersistenceHelper.cs">
+    <Compile Include="Records\PersistenceHelper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Production\ProductionRecords.cs">
+    <Compile Include="Modules\Production\ProductionRecords.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Production\ProductionRecordsUnitTests.cs">
+    <Compile Include="Modules\Production\ProductionRecordsUnitTests.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data\Sessions\AmplaSessionStorageUnitTests.cs" />
-    <Compile Include="Data\Knowledge\KnowledgeViews.cs" />
-    <Compile Include="Data\Downtime\DowntimeViews.cs" />
-    <Compile Include="Data\Views\StandardViews.cs" />
-    <Compile Include="Data\Views\ViewExtensions.cs" />
+    <Compile Include="Sessions\AmplaSessionStorageUnitTests.cs" />
+    <Compile Include="Modules\Knowledge\KnowledgeViews.cs" />
+    <Compile Include="Modules\Downtime\DowntimeViews.cs" />
+    <Compile Include="Views\StandardViews.cs" />
+    <Compile Include="Views\ViewExtensions.cs" />
     <Compile Include="Web\Wrappers\SimpleHttpContextUnitTests.cs" />
     <Compile Include="Web\Wrappers\SimpleHttpRequest.cs" />
     <Compile Include="Web\Wrappers\SimpleHttpResponse.cs" />
     <Compile Include="Web\Wrappers\SimpleHttpSession.cs" />
     <Compile Include="Web\Controllers\AccountControllersUnitTests.cs" />
-    <Compile Include="Data\AmplaSecurity2007\SimpleSecurityWebServiceClient.cs" />
-    <Compile Include="Data\AmplaSecurity2007\SimpleSecurityWebServiceClientUnitTests.cs" />
-    <Compile Include="Data\AmplaSecurity2007\SimpleSession.cs" />
+    <Compile Include="AmplaSecurity2007\SimpleSecurityWebServiceClient.cs" />
+    <Compile Include="AmplaSecurity2007\SimpleSecurityWebServiceClientUnitTests.cs" />
+    <Compile Include="AmplaSecurity2007\SimpleSession.cs" />
     <Compile Include="Web\Sessions\AlignSessionWithFormsAuthenticationUnitTests.cs" />
     <Compile Include="Web\Sessions\LoginAmplaSessionUsingQueryStringUnitTests.cs" />
     <Compile Include="Web\Authentication\AmplaUserServiceUnitTests.cs" />
     <Compile Include="Web\Wrappers\SimpleHttpContext.cs" />
     <Compile Include="TestFixture.cs" />
-    <Compile Include="Data\Production\ProductionViews.cs" />
+    <Compile Include="Modules\Production\ProductionViews.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
