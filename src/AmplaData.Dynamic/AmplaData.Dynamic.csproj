@@ -40,6 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Assembly.Common.cs">
+      <Link>Properties\Assembly.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\Assembly.Version.cs">
+      <Link>Properties\Assembly.Version.cs</Link>
+    </Compile>
     <Compile Include="Binding\AmplaGetDataDynamicBinding.cs" />
     <Compile Include="DynamicRecord.cs" />
     <Compile Include="DynamicViewPoint.cs" />

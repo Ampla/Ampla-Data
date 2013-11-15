@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Assembly.Common.cs">
+      <Link>Properties\Assembly.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\Assembly.Version.cs">
+      <Link>Properties\Assembly.Version.cs</Link>
+    </Compile>
     <Compile Include="Adapters\RepositoryAdapter.cs" />
     <Compile Include="AmplaData2008\CredentialsProvider.cs" />
     <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
