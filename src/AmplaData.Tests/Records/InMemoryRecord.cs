@@ -35,7 +35,7 @@ namespace AmplaData.Records
 
         public InMemoryRecord Clone()
         {
-            InMemoryRecord record = new InMemoryRecord { Location = Location, Module = Module, RecordId = RecordId };
+            InMemoryRecord record = new InMemoryRecord { Module = Module, RecordId = RecordId };
 
             foreach (FieldValue value in Fields)
             {

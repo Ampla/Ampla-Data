@@ -38,6 +38,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -53,6 +54,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AmplaData.Dynamic\AmplaData.Dynamic.csproj">
+      <Project>{7BD8A9A4-8FB4-45E8-82B4-5450CC846132}</Project>
+      <Name>AmplaData.Dynamic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AmplaData\AmplaData.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
       <Name>AmplaData</Name>
@@ -72,6 +77,10 @@
     <Compile Include="Binding\History\RecordEventDetectionTestFixture.cs" />
     <Compile Include="Display\DisplayStringExtensionsUnitTests.cs" />
     <Compile Include="Display\DateTimeDisplayExtensionsUnitTests.cs" />
+    <Compile Include="Dynamic\DynamicViewPointUnitTests.cs" />
+    <Compile Include="Dynamic\Methods\Strategies\ArgumentUnitTests.cs" />
+    <Compile Include="Dynamic\Methods\Strategies\FindByIdStrategyUnitTests.cs" />
+    <Compile Include="Dynamic\Methods\Strategies\TestInvokeMemberBinder.cs" />
     <Compile Include="Records\AmplaAuditSessionUnitTests.cs" />
     <Compile Include="Records\Filters\SamplePeriodFilterMatcher.cs" />
     <Compile Include="Records\InMemoryAuditRecord.cs" />

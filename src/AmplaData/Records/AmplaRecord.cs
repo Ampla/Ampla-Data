@@ -107,6 +107,11 @@ namespace AmplaData.Records
             return value == DBNull.Value ? null : value;
         }
 
+        /// <summary>
+        /// Determines whether the specified field is mapped to the model
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <returns></returns>
         public bool IsMapped(string field)
         {
             return mappedProperties.Contains(field);
@@ -120,13 +125,17 @@ namespace AmplaData.Records
         {
             foreach (var mapping in getFieldMappings)
             {
-                //if (mapping.CanWrite)
-                {
-                    mappedProperties.Add(mapping.Name);
-                }
+                mappedProperties.Add(mapping.Name);
             }
         }
 
+        /// <summary>
+        /// Gets the value if specified or default.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns></returns>
         public T GetValueOrDefault<T>(string fieldName, T defaultValue)
         {
             object value = null;

@@ -1,4 +1,6 @@
-﻿using AmplaData.Records;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AmplaData.Records;
 using NUnit.Framework;
 
 namespace AmplaData.Modules.Production
@@ -18,9 +20,19 @@ namespace AmplaData.Modules.Production
 
             InMemoryRecord newRecord = ProductionRecords.NewRecord();
             Assert.That(record.RecordId, Is.Not.EqualTo(newRecord.RecordId));
-            Assert.That(record.GetFieldValue("Unique", ""), Is.Not.EqualTo(newRecord.GetFieldValue("Unique", "")));
         }
 
+        [Test]
+        public void DuplicateLocationBug()
+        {
+            InMemoryRecord record = ProductionRecords.NewRecord();
 
+            Assert.That(record.Location, Is.EqualTo(location));
+            Assert.That(record.Fields.Count(field => field.Name == "Location"), Is.EqualTo(1));
+            InMemoryRecord clone = record.Clone();
+
+            Assert.That(clone.Location, Is.EqualTo(location));
+            Assert.That(clone.Fields.Count(field => field.Name == "Location"), Is.EqualTo(1));
+        }
     }
 }
