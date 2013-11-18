@@ -31,7 +31,7 @@ namespace AmplaData.Dynamic.Binding
 
             foreach (Row row in rowSet.Rows)
             {
-                DynamicRecord record = new DynamicRecord(module);
+                IRecordLoad record = new DynamicRecord(module);
 
                 foreach (var column in rowSet.Columns)
                 {

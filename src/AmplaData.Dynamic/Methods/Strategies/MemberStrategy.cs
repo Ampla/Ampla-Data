@@ -3,7 +3,7 @@ using AmplaData.Dynamic.Methods.Binders;
 
 namespace AmplaData.Dynamic.Methods.Strategies
 {
-    public abstract class Strategy : IStrategy
+    public abstract class MemberStrategy : IMemberStrategy
     {
         public abstract IDynamicBinder GetBinder(InvokeMemberBinder binder, object[] args);
 

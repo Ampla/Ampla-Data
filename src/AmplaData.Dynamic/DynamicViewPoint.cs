@@ -37,7 +37,7 @@ namespace AmplaData.Dynamic
         /// <returns></returns>
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
         {
-            List<IStrategy> strategies = GetStrategies(this);
+            List<IMemberStrategy> strategies = GetStrategies(this);
 
             foreach (var strategy in strategies)
             {
@@ -53,9 +53,9 @@ namespace AmplaData.Dynamic
         }
 
 
-        protected static List<IStrategy> GetStrategies(DynamicViewPoint point)
+        protected static List<IMemberStrategy> GetStrategies(DynamicViewPoint point)
         {
-            return new List<IStrategy> { new FindByIdStrategy() };
+            return new List<IMemberStrategy> { new FindByIdStrategy() };
         }
     }
 }

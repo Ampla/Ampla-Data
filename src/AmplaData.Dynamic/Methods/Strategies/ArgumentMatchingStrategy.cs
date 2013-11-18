@@ -13,7 +13,8 @@ namespace AmplaData.Dynamic.Methods.Strategies
 
         public bool Matches(InvokeMemberBinder binder, object[] args)
         {
-            return args.Length == arguments.Length && arguments.All(argument => argument.Matches(binder, args));
+            CallInfo callInfo = binder.CallInfo;
+            return args.Length == arguments.Length && arguments.All(argument => argument.Matches(callInfo, args));
         }
     }
 }

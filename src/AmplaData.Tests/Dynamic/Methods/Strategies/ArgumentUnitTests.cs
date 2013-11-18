@@ -12,8 +12,7 @@ namespace AmplaData.Dynamic.Methods.Strategies
             Argument argument = Argument.Named<int>("Id");
 
             InvokeMemberBinder binder = Binder.GetMemberBinder("Find", 1, "Id");
-            
-            Assert.That(argument.Matches(binder, new object[] {100}), Is.True);
+            Assert.That(argument.Matches(binder.CallInfo, new object[] {100}), Is.True);
         }
 
         [Test]
@@ -21,7 +20,7 @@ namespace AmplaData.Dynamic.Methods.Strategies
         {
             Argument argument = Argument.Named<int>("id").IgnoreCase;
             InvokeMemberBinder binder = Binder.GetMemberBinder("Find", 1, "Id");
-            Assert.That(argument.Matches(binder, new object[] { 100 }), Is.True);
+            Assert.That(argument.Matches(binder.CallInfo, new object[] { 100 }), Is.True);
         }
 
         [Test]
@@ -29,7 +28,7 @@ namespace AmplaData.Dynamic.Methods.Strategies
         {
             Argument argument = Argument.Position<int>(0);
             InvokeMemberBinder binder = Binder.GetMemberBinder("Find", 1);
-            Assert.That(argument.Matches(binder, new object[] { 100 }), Is.True);
+            Assert.That(argument.Matches(binder.CallInfo, new object[] { 100 }), Is.True);
         }
 
         [Test]
@@ -37,7 +36,7 @@ namespace AmplaData.Dynamic.Methods.Strategies
         {
             Argument argument = Argument.Named<int>("SetId");
             InvokeMemberBinder binder = Binder.GetMemberBinder("Find", 1, "Id");
-            Assert.That(argument.Matches(binder, new object[] { 100 }), Is.False);
+            Assert.That(argument.Matches(binder.CallInfo, new object[] { 100 }), Is.False);
         }
     }
 }

@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace AmplaData.Binding.History
 {
     [TestFixture]
-    public class RecordEventDetectionTestFixture : TestFixture
+    public abstract class RecordEventDetectionTestFixture : TestFixture
     {
         private const string location = "Enterprise.Site.Area.Production";
         private const string module = "Production";

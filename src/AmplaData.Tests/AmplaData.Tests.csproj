@@ -83,10 +83,12 @@
     <Compile Include="Binding\History\RecordEventDetectionTestFixture.cs" />
     <Compile Include="Display\DisplayStringExtensionsUnitTests.cs" />
     <Compile Include="Display\DateTimeDisplayExtensionsUnitTests.cs" />
-    <Compile Include="Dynamic\DynamicViewPointUnitTests.cs" />
+    <Compile Include="Dynamic\DynamicRecordUnitTests.cs" />
+    <Compile Include="Dynamic\DynamicViewPointFindByIdUnitTests.cs" />
     <Compile Include="Dynamic\Methods\Strategies\ArgumentUnitTests.cs" />
     <Compile Include="Dynamic\Methods\Strategies\FindByIdStrategyUnitTests.cs" />
-    <Compile Include="Dynamic\Methods\Strategies\TestInvokeMemberBinder.cs" />
+    <Compile Include="Dynamic\Methods\Strategies\IndexStrategyUnitTests.cs" />
+    <Compile Include="Dynamic\Methods\Strategies\Binder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Records\AmplaAuditSessionUnitTests.cs" />
     <Compile Include="Records\Filters\SamplePeriodFilterMatcher.cs" />

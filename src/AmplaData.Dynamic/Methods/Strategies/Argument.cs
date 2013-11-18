@@ -14,12 +14,12 @@ namespace AmplaData.Dynamic.Methods.Strategies
                 this.position = position;
             }
 
-            public override bool Matches(InvokeMemberBinder binder, object[] args)
+            public override bool Matches(CallInfo callInfo, object[] args)
             {
-                if (binder.CallInfo.ArgumentCount > position)
+                if (callInfo.ArgumentCount > position)
                 {
-                    string argName = binder.CallInfo.ArgumentNames.Count > position
-                                         ? binder.CallInfo.ArgumentNames[position]
+                    string argName = callInfo.ArgumentNames.Count > position
+                                         ? callInfo.ArgumentNames[position]
                                          : null;
 
                     if (string.IsNullOrEmpty(argName))
@@ -56,15 +56,15 @@ namespace AmplaData.Dynamic.Methods.Strategies
                 }
             }
 
-            public override bool Matches(InvokeMemberBinder binder, object[] args)
+            public override bool Matches(CallInfo callInfo, object[] args)
             {
                 StringComparer comparer = ignoreCase
                                               ? StringComparer.InvariantCultureIgnoreCase
                                               : StringComparer.InvariantCulture;
 
-                for (int i = 0; i < binder.CallInfo.ArgumentNames.Count; i++)
+                for (int i = 0; i < callInfo.ArgumentNames.Count; i++)
                 {
-                    string argName = binder.CallInfo.ArgumentNames[i];
+                    string argName = callInfo.ArgumentNames[i];
                     if (comparer.Compare(argName, name) == 0)
                     {
                         if (i <= args.Length)
@@ -96,6 +96,6 @@ namespace AmplaData.Dynamic.Methods.Strategies
             return new PositionalArgument(position, typeof (T));
         }
 
-        public abstract bool Matches(InvokeMemberBinder binder, object[] args);
+        public abstract bool Matches(CallInfo callInfo, object[] args);
     }
 }

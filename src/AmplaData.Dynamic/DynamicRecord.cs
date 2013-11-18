@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using AmplaData.Binding.MetaData;
+using AmplaData.Dynamic.Methods.Strategies;
 
 namespace AmplaData.Dynamic
 {
-    public class DynamicRecord : DynamicObject
+    public class DynamicRecord : DynamicObject, IRecordLoad
     {
         private readonly Dictionary<string, Type> columns = new Dictionary<string, Type>();
+        
         private readonly Dictionary<string, object> values = new Dictionary<string, object>(); 
 
         public DynamicRecord(string module)
@@ -18,6 +21,12 @@ namespace AmplaData.Dynamic
 
         public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
         {
+            IndexStrategy indexMatchingStrategy = IndexStrategy.ForStringIndex();
+            if (indexMatchingStrategy.Matches(binder, indexes))
+            {
+                string field = (string)indexes[0];
+                return values.TryGetValue(field, out result);
+            }
             return base.TryGetIndex(binder, indexes, out result);
         }
 
@@ -38,14 +47,14 @@ namespace AmplaData.Dynamic
         {
             return base.TrySetMember(binder, value);
         }
-
-
-        public void AddColumn(string field, Type dataType)
+        
+        void IRecordLoad.AddColumn(string field, Type dataType)
         {
             columns.Add(field, dataType);
+            values.Add(field, DataTypeHelper.GetDefaultValue(dataType));
         }
 
-        public void SetValue(string field, string invariantValue)
+        void IRecordLoad.SetValue(string field, string invariantValue)
         {
             Type dataType;
 

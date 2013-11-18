@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace AmplaData.Dynamic
 {
     [TestFixture]
-    public class DynamicViewPointUnitTests : TestFixture
+    public class DynamicViewPointFindByIdUnitTests : TestFixture
     {
         private const string location = "Enterprise.Site.Area.Production";
         private const string module = "Production";
@@ -58,6 +58,27 @@ namespace AmplaData.Dynamic
         }
 
         [Test]
+        public void FindIgnoreArgCase()
+        {
+            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
+
+            dynamic point = viewPoint;
+            dynamic result = point.Find(id: id);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Id, Is.EqualTo(id));
+            Assert.That(result.Location, Is.EqualTo(location));
+        }
+
+        [Test]
+        public void LowercaseFind()
+        {
+            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
+            dynamic point = viewPoint;
+            Assert.Throws<RuntimeBinderException>(() => point.find(id));
+        }
+
+        [Test]
         public void Find()
         {
             DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
@@ -88,6 +109,16 @@ namespace AmplaData.Dynamic
             dynamic point = viewPoint;
 
             Assert.Throws<RuntimeBinderException>(() => point.Find(id, Id: 200));
+        }
+
+        [Test]
+        public void FindWithStringArg()
+        {
+            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
+
+            dynamic point = viewPoint;
+
+            Assert.Throws<RuntimeBinderException>(() => point.Find("200"));
         }
     }
 }

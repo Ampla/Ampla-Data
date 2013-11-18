@@ -49,14 +49,16 @@
     <Compile Include="Binding\AmplaGetDataDynamicBinding.cs" />
     <Compile Include="DynamicRecord.cs" />
     <Compile Include="DynamicViewPoint.cs" />
+    <Compile Include="IRecordLoad.cs" />
     <Compile Include="Methods\Binders\DynamicBinder.cs" />
     <Compile Include="Methods\Binders\FindByIdDynamicBinder.cs" />
     <Compile Include="Methods\Binders\IDynamicBinder.cs" />
     <Compile Include="Methods\Strategies\Argument.cs" />
     <Compile Include="Methods\Strategies\ArgumentMatchingStrategy.cs" />
     <Compile Include="Methods\Strategies\FindByIdStrategy.cs" />
-    <Compile Include="Methods\Strategies\IStrategy.cs" />
-    <Compile Include="Methods\Strategies\Strategy.cs" />
+    <Compile Include="Methods\Strategies\IndexStrategy.cs" />
+    <Compile Include="Methods\Strategies\IMemberStrategy.cs" />
+    <Compile Include="Methods\Strategies\MemberStrategy.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

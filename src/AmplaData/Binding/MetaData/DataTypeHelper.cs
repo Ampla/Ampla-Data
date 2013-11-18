@@ -9,39 +9,45 @@ namespace AmplaData.Binding.MetaData
         {
             List<DataTypeMap> maps = new List<DataTypeMap>
             {
-                new DataTypeMap(typeof (int), "xs:Int"),
-                new DataTypeMap(typeof (string), "xs:String"),
-                new DataTypeMap(typeof (bool), "xs:Boolean"),
-                new DataTypeMap(typeof (DateTime), "xs:DateTime"),
-                new DataTypeMap(typeof (Double), "xs:Double"),
-                new DataTypeMap(typeof (Single), "xs:Single"),
-                new DataTypeMap(typeof(byte), "xs:Byte"),
+                new DataTypeMap(typeof (int), "xs:Int", 0),
+                new DataTypeMap(typeof (string), "xs:String", null),
+                new DataTypeMap(typeof (bool), "xs:Boolean", false),
+                new DataTypeMap(typeof (DateTime), "xs:DateTime", DateTime.MinValue),
+                new DataTypeMap(typeof (double), "xs:Double", 0D),
+                new DataTypeMap(typeof (float), "xs:Single", 0F),
+                new DataTypeMap(typeof(byte), "xs:Byte", (byte)0),
             };
 
             AmplaToTypeDictionary = new Dictionary<string, Type>();
             TypeToAmplaDictionary = new Dictionary<Type, string>();
+            DefaultValueDictionary =new Dictionary<Type, object>();
 
             foreach (DataTypeMap map in maps)
             {
                 AmplaToTypeDictionary[map.AmplaType] = map.DataType;
                 TypeToAmplaDictionary[map.DataType] = map.AmplaType;
+                DefaultValueDictionary[map.DataType] = map.DefaultValue;
             }
         }
 
-        public class DataTypeMap
+        private class DataTypeMap
         {
-            public DataTypeMap(Type type, string amplaType)
+            public DataTypeMap(Type type, string amplaType, object defaultValue)
             {
                 DataType = type;
                 AmplaType = amplaType;
+                DefaultValue = defaultValue;
             }
 
             public Type DataType { get; private set; }
             public string AmplaType { get; private set; }
+            public object DefaultValue { get; private set; }
         }
 
         private static readonly Dictionary<string, Type> AmplaToTypeDictionary ;
         private static readonly Dictionary<Type, string> TypeToAmplaDictionary ;
+
+        private static readonly Dictionary<Type, object> DefaultValueDictionary; 
 
         public static Type GetDataType(string amplaDataType)
         {
@@ -66,6 +72,16 @@ namespace AmplaData.Binding.MetaData
         public static string GetAmplaDataType<T>()
         {
             return GetAmplaDataType(typeof (T));
+        }
+
+        public static object GetDefaultValue(Type dataType)
+        {
+            object defaultValue;
+            if (DefaultValueDictionary.TryGetValue(dataType, out defaultValue))
+            {
+                return defaultValue;
+            }
+            return null;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace AmplaData.Dynamic.Methods.Strategies
     /// <summary>
     ///     Interface for finding Dynamic Binders using the method names and arguments
     /// </summary>
-    public interface IStrategy
+    public interface IMemberStrategy
     {
         /// <summary>
         /// Gets the dynamic binder.
