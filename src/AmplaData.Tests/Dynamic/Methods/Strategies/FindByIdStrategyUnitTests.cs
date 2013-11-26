@@ -1,82 +1,55 @@
-﻿using System.Dynamic;
-using AmplaData.AmplaData2008;
-using AmplaData.Dynamic.Methods.Binders;
-using AmplaData.Modules.Production;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace AmplaData.Dynamic.Methods.Strategies
 {
     [TestFixture]
-    public class FindByIdStrategyUnitTests : TestFixture
+    public class FindByIdStrategyUnitTests : StrategyTestFixture<FindByIdStrategy>
     {
-        private const string location = "Enterprise.Site.Area.Production";
-        private const string module = "Production";
 
-        protected override void OnSetUp()
+        [Test]
+        public void FindWithNamedIdInt()
         {
-            base.OnSetUp();
-            SimpleDataWebServiceClient client = new SimpleDataWebServiceClient(module, location)
-            {
-                GetViewFunc = ProductionViews.StandardView
-            };
+            var binder = Binder.Member.Named("Find").WithArguments(1, "Id").Passed(100);
 
-            DataWebServiceFactory.Factory = () => client;
-        }
-
-        protected override void OnTearDown()
-        {
-            base.OnTearDown();
-            DataWebServiceFactory.Factory = null;
+            AssertBinder(binder, Is.Not.Null);
         }
 
         [Test]
-        public void GetBinder()
+        public void FindWithNoId()
         {
-            FindByIdStrategy strategy = new FindByIdStrategy();
-            InvokeMemberBinder memberBinder = Binder.GetMemberBinder("Find", 1, "Id");
-            IDynamicBinder dynamicBinder = strategy.GetBinder(memberBinder, new object[] {100});
-
-            Assert.That(dynamicBinder, Is.Not.Null);
+            var binder = Binder.Member.Named("Find").WithArguments(0).Passed();
+            AssertBinder(binder, Is.Null);
         }
 
         [Test]
-        public void GetBinderWithOutId()
+        public void FindByIdWithArg()
         {
-            FindByIdStrategy strategy = new FindByIdStrategy();
-            InvokeMemberBinder memberBinder = Binder.GetMemberBinder("Find", 0);
-            IDynamicBinder dynamicBinder = strategy.GetBinder(memberBinder, new object[] { });
+            var binder = Binder.Member.Named("FindById").WithArguments(1).Passed(100);
 
-            Assert.That(dynamicBinder, Is.Null);
+            AssertBinder(binder, Is.Not.Null);
         }
 
         [Test]
-        public void GetBinderWithFindById()
+        public void FindByIdWithNamedArg()
         {
-            FindByIdStrategy strategy = new FindByIdStrategy();
-            InvokeMemberBinder memberBinder = Binder.GetMemberBinder("FindById", 1);
-            IDynamicBinder dynamicBinder = strategy.GetBinder(memberBinder, new object[] { 100 });
+            var binder = Binder.Member.Named("FindById").WithArguments(1, "Id").Passed(100);
 
-            Assert.That(dynamicBinder, Is.Not.Null);
+            AssertBinder(binder, Is.Not.Null);
         }
 
         [Test]
-        public void GetBinderForWrongMethod()
+        public void DeleteWithNamedId()
         {
-            FindByIdStrategy strategy = new FindByIdStrategy();
-            InvokeMemberBinder memberBinder = Binder.GetMemberBinder("Delete", 1, "Id");
-            IDynamicBinder dynamicBinder = strategy.GetBinder(memberBinder, new object[] { 100 });
+            var binder = Binder.Member.Named("Delete").WithArguments(1, "Id").Passed(100);
 
-            Assert.That(dynamicBinder, Is.Null);
+            AssertBinder(binder, Is.Null);
         }
 
         [Test]
-        public void GetBinderForLowercase()
+        public void LowercaseFind()
         {
-            FindByIdStrategy strategy = new FindByIdStrategy();
-            InvokeMemberBinder memberBinder = Binder.GetMemberBinder("", 1, "Id");
-            IDynamicBinder dynamicBinder = strategy.GetBinder(memberBinder, new object[] { 100 });
-
-            Assert.That(dynamicBinder, Is.Null);
+            var binder = Binder.Member.Named("find").WithArguments(1, "Id").Passed(100);
+            AssertBinder(binder, Is.Null);
         }
     }
 }

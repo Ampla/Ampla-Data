@@ -1,43 +1,31 @@
-﻿using AmplaData.AmplaData2008;
-using AmplaData.Modules.Production;
+﻿using AmplaData.Modules.Production;
 using Microsoft.CSharp.RuntimeBinder;
 using NUnit.Framework;
 
 namespace AmplaData.Dynamic
 {
     [TestFixture]
-    public class DynamicViewPointFindByIdUnitTests : TestFixture
+    public class DynamicViewPointFindByIdUnitTests : DynamicViewPointTestFixture
     {
         private const string location = "Enterprise.Site.Area.Production";
         private const string module = "Production";
 
         private int id;
 
+        public DynamicViewPointFindByIdUnitTests() : base(location, module)
+        {
+        }
+
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            SimpleDataWebServiceClient client = new SimpleDataWebServiceClient(module, location)
-            {
-                GetViewFunc = ProductionViews.StandardView
-            };
-
-            id = client.AddExistingRecord(ProductionRecords.NewRecord());
-            DataWebServiceFactory.Factory = () => client;
-        }
-
-        protected override void OnTearDown()
-        {
-            base.OnTearDown();
-            DataWebServiceFactory.Factory = null;
+            id = AddExisingRecord(ProductionRecords.NewRecord());
         }
 
         [Test]
         public void FindNamedArgument()
         {
-            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
-
-            dynamic point = viewPoint;
-            dynamic result = point.Find(Id: id);
+            dynamic result = DynamicViewPoint.Find(Id: id);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(id));
@@ -47,10 +35,7 @@ namespace AmplaData.Dynamic
         [Test]
         public void FindById()
         {
-            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
-
-            dynamic point = viewPoint;
-            dynamic result = point.FindById(id);
+            dynamic result = DynamicViewPoint.FindById(id);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(id));
@@ -60,10 +45,7 @@ namespace AmplaData.Dynamic
         [Test]
         public void FindIgnoreArgCase()
         {
-            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
-
-            dynamic point = viewPoint;
-            dynamic result = point.Find(id: id);
+            dynamic result = DynamicViewPoint.Find(id: id);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(id));
@@ -73,18 +55,13 @@ namespace AmplaData.Dynamic
         [Test]
         public void LowercaseFind()
         {
-            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
-            dynamic point = viewPoint;
-            Assert.Throws<RuntimeBinderException>(() => point.find(id));
+            Assert.Throws<RuntimeBinderException>(() => DynamicViewPoint.find(id));
         }
 
         [Test]
         public void Find()
         {
-            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
-
-            dynamic point = viewPoint;
-            dynamic result = point.Find(id);
+            dynamic result = DynamicViewPoint.Find(id);
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo(id));
@@ -94,31 +71,19 @@ namespace AmplaData.Dynamic
         [Test]
         public void FindWithSetId()
         {
-            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
-
-            dynamic point = viewPoint;
-
-            Assert.Throws<RuntimeBinderException>(() => point.Find(SetId: id));
+            Assert.Throws<RuntimeBinderException>(() => DynamicViewPoint.Find(SetId: id));
         }
 
         [Test]
         public void FindByWithNamedAndPositional()
         {
-            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
-
-            dynamic point = viewPoint;
-
-            Assert.Throws<RuntimeBinderException>(() => point.Find(id, Id: 200));
+            Assert.Throws<RuntimeBinderException>(() => DynamicViewPoint.Find(id, Id: 200));
         }
 
         [Test]
         public void FindWithStringArg()
         {
-            DynamicViewPoint viewPoint = new DynamicViewPoint(location, module);
-
-            dynamic point = viewPoint;
-
-            Assert.Throws<RuntimeBinderException>(() => point.Find("200"));
+            Assert.Throws<RuntimeBinderException>(() => DynamicViewPoint.Find("200"));
         }
     }
 }

@@ -46,15 +46,25 @@
     <Compile Include="..\Assembly.Version.cs">
       <Link>Properties\Assembly.Version.cs</Link>
     </Compile>
+    <Compile Include="Binding\AmplaAddDataDynamicBinding.cs" />
+    <Compile Include="Binding\AmplaDataSubmissionResultBinding.cs" />
     <Compile Include="Binding\AmplaGetDataDynamicBinding.cs" />
+    <Compile Include="Binding\ModelData\DynamicModelProperties.cs" />
+    <Compile Include="Binding\ModelData\IDynamicModelProperties.cs" />
+    <Compile Include="Binding\ViewData\DynamicAmplaViewProperties.cs" />
+    <Compile Include="Binding\ViewData\IDynamicAmplaViewProperties.cs" />
     <Compile Include="DynamicRecord.cs" />
     <Compile Include="DynamicViewPoint.cs" />
+    <Compile Include="DynamicViewPointOperations.cs" />
+    <Compile Include="IDynamicViewPoint.cs" />
+    <Compile Include="IDynamicViewPointOperations.cs" />
     <Compile Include="IRecordLoad.cs" />
     <Compile Include="Methods\Binders\DynamicBinder.cs" />
     <Compile Include="Methods\Binders\FindByIdDynamicBinder.cs" />
     <Compile Include="Methods\Binders\IDynamicBinder.cs" />
     <Compile Include="Methods\Strategies\Argument.cs" />
     <Compile Include="Methods\Strategies\ArgumentMatchingStrategy.cs" />
+    <Compile Include="Methods\Strategies\IIndexStrategy.cs" />
     <Compile Include="Methods\Strategies\FindByIdStrategy.cs" />
     <Compile Include="Methods\Strategies\IndexStrategy.cs" />
     <Compile Include="Methods\Strategies\IMemberStrategy.cs" />

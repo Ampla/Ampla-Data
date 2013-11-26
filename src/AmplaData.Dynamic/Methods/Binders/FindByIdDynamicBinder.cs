@@ -5,6 +5,7 @@ using System.Linq;
 using AmplaData.AmplaData2008;
 using AmplaData.Binding;
 using AmplaData.Dynamic.Binding;
+using AmplaData.Dynamic.Binding.ModelData;
 
 namespace AmplaData.Dynamic.Methods.Binders
 {
@@ -40,7 +41,8 @@ namespace AmplaData.Dynamic.Methods.Binders
             GetDataResponse response = WebServiceClient.GetData(request);
         
             List<dynamic> records = new List<dynamic>();
-            IAmplaBinding binding = new AmplaGetDataDynamicBinding(response, records);
+            DynamicModelProperties modelProperties = new DynamicModelProperties(point);
+            IAmplaBinding binding = new AmplaGetDataDynamicBinding(response, records, modelProperties);
             if (binding.Validate() && binding.Bind())
             {
                 return records.FirstOrDefault();

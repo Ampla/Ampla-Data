@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Dynamic;
 using AmplaData.AmplaData2008;
 using AmplaData.Dynamic.Methods.Binders;
@@ -7,7 +8,7 @@ using AmplaData.Dynamic.Methods.Strategies;
 
 namespace AmplaData.Dynamic
 {
-    public class DynamicViewPoint : DynamicObject
+    public class DynamicViewPoint : DynamicObject, IDynamicViewPoint
     {
         public DynamicViewPoint(string location = "", string module = "")
         {
@@ -16,6 +17,7 @@ namespace AmplaData.Dynamic
         }
 
         public string Module { get; set; }
+
         public string Location { get; set; }
 
         public AmplaModules AmplaModule
@@ -56,6 +58,29 @@ namespace AmplaData.Dynamic
         protected static List<IMemberStrategy> GetStrategies(DynamicViewPoint point)
         {
             return new List<IMemberStrategy> { new FindByIdStrategy() };
+        }
+
+        public dynamic CreateFrom(NameValueCollection collection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public dynamic Save(object model)
+        {
+            IDynamicViewPointOperations operations = new DynamicViewPointOperations(this);
+            return operations.Save(model);
+        }
+
+        public dynamic Insert(object model)
+        {
+            IDynamicViewPointOperations operations = new DynamicViewPointOperations(this);
+            return operations.Insert(model);
+        }
+
+        public dynamic Update(object model)
+        {
+            IDynamicViewPointOperations operations = new DynamicViewPointOperations(this);
+            return operations.Update(model);
         }
     }
 }

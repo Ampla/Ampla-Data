@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
 using AmplaData.AmplaData2008;
 using AmplaData.Binding;
 using AmplaData.Binding.MetaData;
+using AmplaData.Dynamic.Binding.ModelData;
 
 namespace AmplaData.Dynamic.Binding
 {
@@ -14,11 +14,13 @@ namespace AmplaData.Dynamic.Binding
     {
         private readonly GetDataResponse response;
         private readonly List<object> records;
+        private readonly IDynamicModelProperties modelProperties;
 
-        public AmplaGetDataDynamicBinding(GetDataResponse response, List<dynamic> records)
+        public AmplaGetDataDynamicBinding(GetDataResponse response, List<dynamic> records, IDynamicModelProperties modelProperties)
         {
             this.response = response;
             this.records = records;
+            this.modelProperties = modelProperties;
         }
 
         public bool Bind()
@@ -38,11 +40,15 @@ namespace AmplaData.Dynamic.Binding
                     record.AddColumn(column.displayName, DataTypeHelper.GetDataType(column.type));
                 }
 
+                modelProperties.TrySetValueFromString(record, "Id", row.id);
+
                 record.SetValue("Id", row.id);
                 foreach (XmlElement cell in row.Any)
                 {
                     string field = XmlConvert.DecodeName(cell.Name);
                     string value = cell.InnerText;
+                    modelProperties.TrySetValueFromString(record, field, value);
+
                     record.SetValue(field, value);
                 }
 

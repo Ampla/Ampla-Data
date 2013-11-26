@@ -27,13 +27,17 @@ namespace AmplaData.Dynamic.Methods.Strategies
                         if (args.Length > position)
                         {
                             object arg = args[position];
-                            return arg != null && arg.GetType() == Type;
+                            return arg != null && CompareType(arg.GetType(), Type);
                         }
                     }
                 }
                 return false;
             }
 
+            protected override string ToStringExtra()
+            {
+                return "Position: " + position;
+            }
         }
 
         public class NamedArgument : Argument
@@ -70,11 +74,16 @@ namespace AmplaData.Dynamic.Methods.Strategies
                         if (i <= args.Length)
                         {
                             object arg = args[i];
-                            return (arg != null) && (arg.GetType() == Type);
+                            return (arg != null) && (CompareType(arg.GetType(), Type));
                         }
                     }
                 }
                 return false;
+            }
+
+            protected override string ToStringExtra()
+            {
+                return "Named: " + name;
             }
         }
         
@@ -96,6 +105,19 @@ namespace AmplaData.Dynamic.Methods.Strategies
             return new PositionalArgument(position, typeof (T));
         }
 
+        protected bool CompareType(Type argType, Type requiredType)
+        {
+            return argType == requiredType || requiredType.IsAssignableFrom(argType);
+        }
+
         public abstract bool Matches(CallInfo callInfo, object[] args);
+
+        protected abstract string ToStringExtra();
+
+        public override string ToString()
+        {
+            string toString = string.Format("Argument (Type: {0}, {1})", Type.FullName, ToStringExtra());
+            return toString;
+        }
     }
 }

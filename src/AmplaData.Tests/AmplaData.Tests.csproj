@@ -85,7 +85,10 @@
     <Compile Include="Display\DateTimeDisplayExtensionsUnitTests.cs" />
     <Compile Include="Dynamic\DynamicRecordUnitTests.cs" />
     <Compile Include="Dynamic\DynamicViewPointFindByIdUnitTests.cs" />
+    <Compile Include="Dynamic\DynamicViewPointSaveUnitTests.cs" />
+    <Compile Include="Dynamic\DynamicViewPointTestFixture.cs" />
     <Compile Include="Dynamic\Methods\Strategies\ArgumentUnitTests.cs" />
+    <Compile Include="Dynamic\Methods\Strategies\StrategyTestFixture.cs" />
     <Compile Include="Dynamic\Methods\Strategies\FindByIdStrategyUnitTests.cs" />
     <Compile Include="Dynamic\Methods\Strategies\IndexStrategyUnitTests.cs" />
     <Compile Include="Dynamic\Methods\Strategies\Binder.cs" />

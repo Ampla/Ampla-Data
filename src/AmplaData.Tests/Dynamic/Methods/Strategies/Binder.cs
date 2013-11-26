@@ -5,6 +5,21 @@ namespace AmplaData.Dynamic.Methods.Strategies
 {
     public class Binder
     {
+        private string Name { get; set; }
+        private Type BinderType { get; set; }
+
+        private string[] NamedArgs { get; set; }
+
+        private int ArgumentCount { get; set; }
+
+        public object[] Args { get; set; }
+
+        public InvokeMemberBinder GetMemberBinder()
+        {
+            CallInfo callInfo = new CallInfo(ArgumentCount, NamedArgs);
+            return new TestInvokeMemberBinder(Name, callInfo);
+        }
+
         public static InvokeMemberBinder GetMemberBinder(string name, int argCount, params string[] namedArgs)
         {
             CallInfo callInfo = new CallInfo(argCount, namedArgs);
@@ -48,5 +63,36 @@ namespace AmplaData.Dynamic.Methods.Strategies
                 throw new NotImplementedException();
             }
         }
+
+        public static Binder Member
+        {
+            get
+            {
+                Binder binder = new Binder {BinderType = typeof (InvokeMemberBinder), Name = "Method"};
+                return binder;
+            }
+        }
+
+        public Binder Named(string binderName)
+        {
+            Name = binderName;
+            return this;
+        }
+
+        public Binder WithArguments(int argumentCount, params string[] namedArgs)
+        {
+            ArgumentCount = argumentCount;
+            NamedArgs = namedArgs;
+
+            return this;
+        }
+
+
+        public Binder Passed(params object[] args)
+        {
+            Args = args;
+            return this;
+        }
+
     }
 }

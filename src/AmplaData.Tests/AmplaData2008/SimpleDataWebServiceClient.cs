@@ -489,7 +489,9 @@ namespace AmplaData.AmplaData2008
         {
             if ((credentials.Username != "User") || (credentials.Password != "password"))
             {
-                throw new ArgumentException("Invalid Credentials", "credentials");
+                string message = string.Format("Invalid Credentials (User:'{0}', Password:'{1}', Session:'{2}')",
+                                               credentials.Username, credentials.Password, credentials.Session);
+                throw new ArgumentException(message, "credentials");
             }
         }
         
