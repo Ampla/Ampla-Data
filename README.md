@@ -226,3 +226,7 @@ How to pass the AmplaSession using the Ampla Document item.
 * Specify the Url ```http://localhost/production/index```
 * Ensure that the ```AppendSessionId``` property is ```True```
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Ampla/ampla-data/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
