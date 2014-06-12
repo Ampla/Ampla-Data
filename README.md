@@ -3,6 +3,8 @@ Ampla-Data-MVC
 
 Ampla Webservice Data Access and classes that supports a model based repository pattern
 
+[![Build status](https://ci.appveyor.com/api/projects/status/f5l4gpclqoumxv5d)](https://ci.appveyor.com/project/JoePlant/ampla-data)
+
 Key Concepts
 ===
 * Repository pattern for data access 
