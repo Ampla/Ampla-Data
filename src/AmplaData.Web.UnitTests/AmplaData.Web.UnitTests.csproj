@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C65EA2E6-D154-47FA-A447-DDFF04B381AA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AmplaData.Web</RootNamespace>
+    <AssemblyName>AmplaData.Web.UnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Assembly.Common.cs">
+      <Link>Properties\Assembly.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\Assembly.Version.cs">
+      <Link>Properties\Assembly.Version.cs</Link>
+    </Compile>
+    <Compile Include="Authentication\AmplaUserServiceUnitTests.cs" />
+    <Compile Include="Controllers\AccountControllersUnitTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sessions\AlignSessionWithFormsAuthenticationUnitTests.cs" />
+    <Compile Include="Sessions\AmplaSessionStorageUnitTests.cs" />
+    <Compile Include="Sessions\LoginAmplaSessionUsingQueryStringUnitTests.cs" />
+    <Compile Include="Wrappers\SimpleHttpContext.cs" />
+    <Compile Include="Wrappers\SimpleHttpContextUnitTests.cs" />
+    <Compile Include="Wrappers\SimpleHttpRequest.cs" />
+    <Compile Include="Wrappers\SimpleHttpResponse.cs" />
+    <Compile Include="Wrappers\SimpleHttpSession.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AmplaData.Tests\AmplaData.Tests.csproj">
+      <Project>{F262B484-F272-4514-BEE2-D630D1C997A6}</Project>
+      <Name>AmplaData.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AmplaData.Web\AmplaData.Web.csproj">
+      <Project>{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}</Project>
+      <Name>AmplaData.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AmplaData\AmplaData.csproj">
+      <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
+      <Name>AmplaData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

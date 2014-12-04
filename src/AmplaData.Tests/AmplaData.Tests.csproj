@@ -39,14 +39,42 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.40804.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -54,17 +82,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AmplaData.Dynamic\AmplaData.Dynamic.csproj">
-      <Project>{7BD8A9A4-8FB4-45E8-82B4-5450CC846132}</Project>
-      <Name>AmplaData.Dynamic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AmplaData\AmplaData.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
       <Name>AmplaData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AmplaData.Web\AmplaData.Web.csproj">
-      <Project>{C66B42CD-9D04-49E1-97BA-DAC61F9641A4}</Project>
-      <Name>AmplaData.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -83,15 +103,6 @@
     <Compile Include="Binding\History\RecordEventDetectionTestFixture.cs" />
     <Compile Include="Display\DisplayStringExtensionsUnitTests.cs" />
     <Compile Include="Display\DateTimeDisplayExtensionsUnitTests.cs" />
-    <Compile Include="Dynamic\DynamicRecordUnitTests.cs" />
-    <Compile Include="Dynamic\DynamicViewPointFindByIdUnitTests.cs" />
-    <Compile Include="Dynamic\DynamicViewPointSaveUnitTests.cs" />
-    <Compile Include="Dynamic\DynamicViewPointTestFixture.cs" />
-    <Compile Include="Dynamic\Methods\Strategies\ArgumentUnitTests.cs" />
-    <Compile Include="Dynamic\Methods\Strategies\StrategyTestFixture.cs" />
-    <Compile Include="Dynamic\Methods\Strategies\FindByIdStrategyUnitTests.cs" />
-    <Compile Include="Dynamic\Methods\Strategies\IndexStrategyUnitTests.cs" />
-    <Compile Include="Dynamic\Methods\Strategies\Binder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Records\AmplaAuditSessionUnitTests.cs" />
     <Compile Include="Records\Filters\SamplePeriodFilterMatcher.cs" />
@@ -198,27 +209,19 @@
     <Compile Include="Modules\Production\ProductionRecordsUnitTests.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Sessions\AmplaSessionStorageUnitTests.cs" />
     <Compile Include="Modules\Knowledge\KnowledgeViews.cs" />
     <Compile Include="Modules\Downtime\DowntimeViews.cs" />
     <Compile Include="Views\StandardViews.cs" />
     <Compile Include="Views\ViewExtensions.cs" />
-    <Compile Include="Web\Wrappers\SimpleHttpContextUnitTests.cs" />
-    <Compile Include="Web\Wrappers\SimpleHttpRequest.cs" />
-    <Compile Include="Web\Wrappers\SimpleHttpResponse.cs" />
-    <Compile Include="Web\Wrappers\SimpleHttpSession.cs" />
-    <Compile Include="Web\Controllers\AccountControllersUnitTests.cs" />
     <Compile Include="AmplaSecurity2007\SimpleSecurityWebServiceClient.cs" />
     <Compile Include="AmplaSecurity2007\SimpleSecurityWebServiceClientUnitTests.cs" />
     <Compile Include="AmplaSecurity2007\SimpleSession.cs" />
-    <Compile Include="Web\Sessions\AlignSessionWithFormsAuthenticationUnitTests.cs" />
-    <Compile Include="Web\Sessions\LoginAmplaSessionUsingQueryStringUnitTests.cs" />
-    <Compile Include="Web\Authentication\AmplaUserServiceUnitTests.cs" />
-    <Compile Include="Web\Wrappers\SimpleHttpContext.cs" />
     <Compile Include="TestFixture.cs" />
     <Compile Include="Modules\Production\ProductionViews.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Dynamic\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

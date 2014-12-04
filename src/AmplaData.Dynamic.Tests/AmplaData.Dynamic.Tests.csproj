@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AEC0AA07-0BED-49AE-9280-8508BE2AFDAA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AmplaData.Dynamic</RootNamespace>
+    <AssemblyName>AmplaData.Dynamic.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Assembly.Common.cs">
+      <Link>Properties\Assembly.Common.cs</Link>
+    </Compile>
+    <Compile Include="..\Assembly.Version.cs">
+      <Link>Properties\Assembly.Version.cs</Link>
+    </Compile>
+    <Compile Include="DynamicRecordUnitTests.cs" />
+    <Compile Include="DynamicViewPointFindByIdUnitTests.cs" />
+    <Compile Include="DynamicViewPointSaveUnitTests.cs" />
+    <Compile Include="DynamicViewPointTestFixture.cs" />
+    <Compile Include="Methods\Strategies\ArgumentUnitTests.cs" />
+    <Compile Include="Methods\Strategies\Binder.cs" />
+    <Compile Include="Methods\Strategies\FindByIdStrategyUnitTests.cs" />
+    <Compile Include="Methods\Strategies\IndexStrategyUnitTests.cs" />
+    <Compile Include="Methods\Strategies\StrategyTestFixture.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AmplaData.Dynamic\AmplaData.Dynamic.csproj">
+      <Project>{7BD8A9A4-8FB4-45E8-82B4-5450CC846132}</Project>
+      <Name>AmplaData.Dynamic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AmplaData.Tests\AmplaData.Tests.csproj">
+      <Project>{F262B484-F272-4514-BEE2-D630D1C997A6}</Project>
+      <Name>AmplaData.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AmplaData\AmplaData.csproj">
+      <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
+      <Name>AmplaData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
