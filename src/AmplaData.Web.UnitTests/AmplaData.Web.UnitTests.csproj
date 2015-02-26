@@ -65,6 +65,10 @@
     <Compile Include="Wrappers\SimpleHttpSession.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AmplaData.Simple\AmplaData.Simple.csproj">
+      <Project>{B3E658CF-5F5A-492A-87E0-9D8E200E22C0}</Project>
+      <Name>AmplaData.Simple</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AmplaData.Tests\AmplaData.Tests.csproj">
       <Project>{F262B484-F272-4514-BEE2-D630D1C997A6}</Project>
       <Name>AmplaData.Tests</Name>

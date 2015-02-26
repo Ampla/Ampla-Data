@@ -82,6 +82,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AmplaData.Simple\AmplaData.Simple.csproj">
+      <Project>{B3E658CF-5F5A-492A-87E0-9D8E200E22C0}</Project>
+      <Name>AmplaData.Simple</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AmplaData\AmplaData.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
       <Name>AmplaData</Name>
@@ -105,9 +109,6 @@
     <Compile Include="Display\DateTimeDisplayExtensionsUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Records\AmplaAuditSessionUnitTests.cs" />
-    <Compile Include="Records\Filters\SamplePeriodFilterMatcher.cs" />
-    <Compile Include="Records\InMemoryAuditRecord.cs" />
-    <Compile Include="AmplaData2008\SimpleDataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\SimpleDataWebServiceClientUnitTests.cs" />
     <Compile Include="AmplaRepository\AmplaRepositoryDefaultFilterUnitTests.cs" />
     <Compile Include="AmplaRepository\TimeSpanDurationUnitTests.cs" />
@@ -161,13 +162,6 @@
     <Compile Include="Modules\Downtime\DowntimeRecords.cs" />
     <Compile Include="Records\AmplaRecordUnitTests.cs" />
     <Compile Include="Records\FieldValueUnitTests.cs" />
-    <Compile Include="Records\Filters\FieldFilterMatcher.cs" />
-    <Compile Include="Records\Filters\FilterMatcher.cs" />
-    <Compile Include="Records\Filters\IdFilterMatcher.cs" />
-    <Compile Include="Records\Filters\LocationFilterMatcher.cs" />
-    <Compile Include="Records\Filters\LocationWithRecurseFilterMatcher.cs" />
-    <Compile Include="Records\Filters\InMemoryFilterMatcher.cs" />
-    <Compile Include="AmplaData2008\SimpleNavigationHierarchy.cs" />
     <Compile Include="AmplaRepository\AmplaReadOnlyRepositoryUnitTests.cs" />
     <Compile Include="AmplaRepository\AmplaRepositoryDateTimeUnitTests.cs" />
     <Compile Include="AmplaRepository\AmplaRepositoryLocationUnitTests.cs" />
@@ -191,18 +185,6 @@
     <Compile Include="Records\DateTimeExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Records\FieldValue.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Records\InMemoryRecord.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Records\InMemoryRecordExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Records\PersistenceHelper.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Modules\Production\ProductionRecords.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -211,11 +193,7 @@
     </Compile>
     <Compile Include="Modules\Knowledge\KnowledgeViews.cs" />
     <Compile Include="Modules\Downtime\DowntimeViews.cs" />
-    <Compile Include="Views\StandardViews.cs" />
-    <Compile Include="Views\ViewExtensions.cs" />
-    <Compile Include="AmplaSecurity2007\SimpleSecurityWebServiceClient.cs" />
     <Compile Include="AmplaSecurity2007\SimpleSecurityWebServiceClientUnitTests.cs" />
-    <Compile Include="AmplaSecurity2007\SimpleSession.cs" />
     <Compile Include="TestFixture.cs" />
     <Compile Include="Modules\Production\ProductionViews.cs" />
   </ItemGroup>

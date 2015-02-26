@@ -75,7 +75,6 @@
     <Compile Include="Records\AmplaAuditSession .cs" />
     <Compile Include="Records\AmplaRecord.cs" />
     <Compile Include="AmplaRepository\AmplaRepository.cs" />
-    <Compile Include="AmplaRepository\AmplaRepositorySet.cs" />
     <Compile Include="AmplaData2008\ICredentialsProvider.cs" />
     <Compile Include="Attributes\AmplaFieldAttribute.cs" />
     <Compile Include="Attributes\AmplaDefaultFiltersAttribute.cs" />
@@ -148,6 +147,7 @@
     <Compile Include="Records\AmplaRecordChanges.cs" />
     <Compile Include="Records\ModelVersion.cs" />
     <Compile Include="Records\ModelVersions.cs" />
+    <Compile Include="Records\PersistenceHelper.cs" />
     <Compile Include="Service References\AmplaData2008\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
