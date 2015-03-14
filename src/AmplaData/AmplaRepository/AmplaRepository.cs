@@ -92,7 +92,7 @@ namespace AmplaData.AmplaRepository
             amplaViewProperties.Enforce.CanView();
 
             FilterValue filter = new FilterValue("Id", Convert.ToString(id));
-            var request = GetDataRequest(false, filter);
+            var request = GetDataRequest(true, filter);
             GetDataResponse response = webServiceClient.GetData(request);
 
             List<TModel> records = new List<TModel>();
@@ -117,7 +117,7 @@ namespace AmplaData.AmplaRepository
 
             FilterValue idFilter = new FilterValue("Id", Convert.ToString(id));
             FilterValue deletedFilter = new FilterValue("Deleted", "");
-            var request = GetDataRequest(false, idFilter, deletedFilter);
+            var request = GetDataRequest(true, idFilter, deletedFilter);
             GetDataResponse response = webServiceClient.GetData(request);
             TModel model;
             return FindAmplaRecord(response, ModelProperties, amplaViewProperties, out model);

@@ -11,7 +11,8 @@
     <RootNamespace>AmplaData</RootNamespace>
     <AssemblyName>AmplaData.Simple</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -47,6 +48,23 @@
     <Compile Include="AmplaData2008\SimpleNavigationHierarchy.cs" />
     <Compile Include="AmplaSecurity2007\SimpleSecurityWebServiceClient.cs" />
     <Compile Include="AmplaSecurity2007\SimpleSession.cs" />
+    <Compile Include="Modules\Downtime\DowntimeRecords.cs" />
+    <Compile Include="Modules\Downtime\DowntimeViews.cs" />
+    <Compile Include="Modules\Energy\EnergyRecords.cs" />
+    <Compile Include="Modules\Energy\EnergyViews.cs" />
+    <Compile Include="Modules\Knowledge\KnowledgeRecords.cs" />
+    <Compile Include="Modules\Knowledge\KnowledgeViews.cs" />
+    <Compile Include="Modules\Maintenance\MaintenanceRecords.cs" />
+    <Compile Include="Modules\Maintenance\MaintenanceViews.cs" />
+    <Compile Include="Modules\Metrics\MetricsRecords.cs" />
+    <Compile Include="Modules\Metrics\MetricsViews.cs" />
+    <Compile Include="Modules\Planning\PlanningRecords.cs" />
+    <Compile Include="Modules\Planning\PlanningViews.cs" />
+    <Compile Include="Modules\Production\ProductionRecords.cs" />
+    <Compile Include="Modules\Production\ProductionViews.cs" />
+    <Compile Include="Modules\Quality\QualityRecords.cs" />
+    <Compile Include="Modules\Quality\QualityViews.cs" />
+    <Compile Include="Records\DateTimeExtensions.cs" />
     <Compile Include="Records\FieldValue.cs" />
     <Compile Include="Records\Filters\FieldFilterMatcher.cs" />
     <Compile Include="Records\Filters\FilterMatcher.cs" />

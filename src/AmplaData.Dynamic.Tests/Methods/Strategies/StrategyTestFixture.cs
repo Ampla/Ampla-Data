@@ -1,5 +1,6 @@
 ﻿using System.Dynamic;
 using AmplaData.AmplaData2008;
+using AmplaData.AmplaSecurity2007;
 using AmplaData.Dynamic.Methods.Binders;
 using AmplaData.Modules.Production;
 using NUnit.Framework;
@@ -18,7 +19,8 @@ namespace AmplaData.Dynamic.Methods.Strategies
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            SimpleDataWebServiceClient client = new SimpleDataWebServiceClient(Module, Location)
+            SimpleSecurityWebServiceClient securityWebService = new SimpleSecurityWebServiceClient("User");
+            SimpleDataWebServiceClient client = new SimpleDataWebServiceClient(Module, Location, securityWebService)
             {
                 GetViewFunc = ProductionViews.StandardView
             };

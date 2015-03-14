@@ -124,26 +124,16 @@
     <Compile Include="Binding\ModelData\ModelPropertyTimeSpanUnitTests.cs" />
     <Compile Include="Binding\ModelData\DowntimeModelPropertiesUnitTests.cs" />
     <Compile Include="Modules\Energy\EnergyAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Modules\Energy\EnergyRecords.cs" />
-    <Compile Include="Modules\Energy\EnergyViews.cs" />
     <Compile Include="Modules\Energy\IdentifierEnergyModel.cs" />
     <Compile Include="Modules\Energy\ResolveIdentifiersAmplaRepositoryUnitTests.cs" />
     <Compile Include="Modules\Energy\SimpleEnergyModel.cs" />
     <Compile Include="Modules\Maintenance\MaintenanceAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Modules\Maintenance\MaintenanceRecords.cs" />
-    <Compile Include="Modules\Maintenance\MaintenanceViews.cs" />
     <Compile Include="Modules\Maintenance\SimpleMaintenanceModel.cs" />
     <Compile Include="Modules\Metrics\MetricsAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Modules\Metrics\MetricsRecords.cs" />
-    <Compile Include="Modules\Metrics\MetricsViews.cs" />
     <Compile Include="Modules\Metrics\SimpleMetricsModel.cs" />
     <Compile Include="Modules\Planning\PlanningAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Modules\Planning\PlanningRecords.cs" />
-    <Compile Include="Modules\Planning\PlanningViews.cs" />
     <Compile Include="Modules\Planning\SimplePlanningModel.cs" />
-    <Compile Include="Modules\Quality\QualityViews.cs" />
     <Compile Include="Modules\Quality\QualityAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Modules\Quality\QualityRecords.cs" />
     <Compile Include="Modules\Quality\SimpleQualityModel.cs" />
     <Compile Include="Modules\Downtime\IdentifierDowntimeModel.cs" />
     <Compile Include="Modules\Downtime\ResolveIdentifiersAmplaRepositoryUnitTests.cs" />
@@ -157,9 +147,7 @@
     <Compile Include="Modules\Downtime\SimpleDowntimeModel.cs" />
     <Compile Include="FilterValueUnitTests.cs" />
     <Compile Include="Modules\Knowledge\KnowledgeAmplaRepositoryUnitTests.cs" />
-    <Compile Include="Modules\Knowledge\KnowledgeRecords.cs" />
     <Compile Include="Modules\Knowledge\SimpleKnowledgeModel.cs" />
-    <Compile Include="Modules\Downtime\DowntimeRecords.cs" />
     <Compile Include="Records\AmplaRecordUnitTests.cs" />
     <Compile Include="Records\FieldValueUnitTests.cs" />
     <Compile Include="AmplaRepository\AmplaReadOnlyRepositoryUnitTests.cs" />
@@ -182,20 +170,11 @@
     <Compile Include="Binding\ViewData\ViewPermissionsUnitTests.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\ListLogger.cs" />
-    <Compile Include="Records\DateTimeExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Modules\Production\ProductionRecords.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Modules\Production\ProductionRecordsUnitTests.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Modules\Knowledge\KnowledgeViews.cs" />
-    <Compile Include="Modules\Downtime\DowntimeViews.cs" />
     <Compile Include="AmplaSecurity2007\SimpleSecurityWebServiceClientUnitTests.cs" />
     <Compile Include="TestFixture.cs" />
-    <Compile Include="Modules\Production\ProductionViews.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dynamic\" />

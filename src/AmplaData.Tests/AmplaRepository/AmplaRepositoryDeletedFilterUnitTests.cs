@@ -53,6 +53,55 @@ namespace AmplaData.AmplaRepository
             Assert.That(models[0].Deleted, Is.False);
             Assert.That(models[1].Deleted, Is.True);
         }
+        
+        [Test]
+        public void FindByIdWithDeletedRecords()
+        {
+            DeletedModel model = new DeletedModel();
 
+            Repository.Add(model);
+
+            int id = model.Id;
+            Assert.That(model.Id, Is.GreaterThan(0));
+
+            DeletedModel find1 = Repository.FindById(id);
+            Assert.That(find1, Is.Not.Null);
+            Assert.That(find1.Deleted, Is.False);
+
+            Repository.Delete(model);
+
+            DeletedModel deleted = Repository.FindById(id);
+            Assert.That(deleted, Is.Not.Null);
+            Assert.That(deleted.Deleted, Is.True);
+        }
+
+
+        [Test]
+        [Ignore("Audit entries don't work for deleted records yet")]
+        public void GetVersions()
+        {
+            DeletedModel model = new DeletedModel();
+            Repository.Add(model);
+
+            int id = model.Id;
+
+            DeletedModel model1 = Repository.FindById(id);
+            Assert.That(model1, Is.Not.Null);
+
+            ModelVersions versions1 = Repository.GetVersions(id);
+            Assert.That(versions1.Versions.Count, Is.EqualTo(1)); // current value
+
+            AssertModelVersionProperty(versions1, 0, m => m.Deleted, Is.False);
+
+            Repository.Delete(model1);
+            DeletedModel model2 = Repository.FindById(id);
+            Assert.That(model2, Is.Not.Null);
+            Assert.That(model2.Deleted, Is.True);
+
+            ModelVersions versions2 = Repository.GetVersions(id);
+            Assert.That(versions2.Versions.Count, Is.EqualTo(2)); // current value and old value
+            AssertModelVersionProperty(versions2, 0, m => m.Deleted, Is.EqualTo(false));
+            AssertModelVersionProperty(versions2, 1, m => m.Deleted, Is.EqualTo(true));
+        }
     }
 }

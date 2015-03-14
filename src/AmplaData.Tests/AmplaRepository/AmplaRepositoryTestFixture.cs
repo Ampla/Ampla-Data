@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using AmplaData.AmplaData2008;
+using AmplaData.AmplaSecurity2007;
 using AmplaData.Logging;
 using AmplaData.Records;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 
 namespace AmplaData.AmplaRepository
 {
@@ -35,7 +37,7 @@ namespace AmplaData.AmplaRepository
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            webServiceClient = new SimpleDataWebServiceClient(module, locations) {GetViewFunc = getViewFunc};
+            webServiceClient = new SimpleDataWebServiceClient(module, locations, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = getViewFunc};
             listLogger = new ListLogger();
             repository = new AmplaRepository<TModel>(new LoggingDataWebServiceClient(webServiceClient, listLogger), 
                 CredentialsProvider.ForUsernameAndPassword(userName, password));
@@ -72,7 +74,7 @@ namespace AmplaData.AmplaRepository
         {
             SubmitDataRequest request = new SubmitDataRequest
                 {
-                    Credentials = webServiceClient.CreateCredentials(),
+                    Credentials = new Credentials { Username = "User", Password = "password"},
                     SubmitDataRecords = new[] {record.ConvertToSubmitDataRecord()}
                 };
 
@@ -85,6 +87,18 @@ namespace AmplaData.AmplaRepository
         protected IList<string> Messages
         {
             get { return listLogger.Messages; }
+        }
+
+
+        protected void AssertModelVersionProperty(ModelVersions modelVersions,
+                                                               int index,
+                                                               Func<TModel, object> modelFunc,
+                                                               IResolveConstraint expectedConstraint)
+        {
+            Assert.That(modelVersions.Versions.Count, Is.GreaterThan(index), "Unable to find Version {0}", index);
+            ModelVersion modelVersion = modelVersions.Versions[index];
+            ModelVersion<TModel> typedModel = (ModelVersion<TModel>)modelVersion;
+            Assert.That(modelFunc(typedModel.Model), expectedConstraint);
         }
     }
 }

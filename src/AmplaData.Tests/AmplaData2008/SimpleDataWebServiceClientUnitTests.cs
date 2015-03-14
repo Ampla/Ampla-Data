@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.ServiceModel;
+using AmplaData.AmplaSecurity2007;
 using AmplaData.Modules.Downtime;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
@@ -18,10 +19,15 @@ namespace AmplaData.AmplaData2008
         private const string location = "Enterprise.Site.Area.Production";
         private const string module = "Production";
 
+        private SimpleDataWebServiceClient Create()
+        {
+            return new SimpleDataWebServiceClient(module, location, new SimpleSecurityWebServiceClient("User"));
+        }
+
         [Test]
         public void Insert()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            SimpleDataWebServiceClient webServiceClient = Create();
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
 
@@ -45,7 +51,7 @@ namespace AmplaData.AmplaData2008
         [Test]
         public void CreatedByDefault()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            SimpleDataWebServiceClient webServiceClient = Create();
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
 
@@ -74,7 +80,7 @@ namespace AmplaData.AmplaData2008
         [Test]
         public void CreatedBySetInRequest()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            SimpleDataWebServiceClient webServiceClient = Create();
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
             record.SetFieldValue("CreatedBy", "UnitTests");
@@ -100,10 +106,43 @@ namespace AmplaData.AmplaData2008
         }
 
         [Test]
+        public void GetDataInvalidUser()
+        {
+            SimpleDataWebServiceClient webServiceClient = Create();
+
+            GetDataRequest invalidRequest = new GetDataRequest
+            {
+                Credentials = new Credentials {Username = "Invalid.User", Password = "password"},
+                Filter = new DataFilter {Location = location},
+                View = new GetDataView { Module = AmplaModules.Production, Context = NavigationContext.Plant}
+            };
+
+            Assert.Throws<FaultException>(() => webServiceClient.GetData(invalidRequest));
+        }
+
+        [Test]
+        public void GetDataWithNoData()
+        {
+            SimpleDataWebServiceClient webServiceClient = Create();
+
+            GetDataRequest request = new GetDataRequest
+            {
+                Credentials = CreateCredentials(),
+                Filter = new DataFilter { Location = location },
+                Metadata = true,
+               // OutputOptions = new GetDataOutputOptions(),
+                View = new GetDataView { Module = AmplaModules.Production, Context = NavigationContext.Plant }
+            };
+
+            var response = webServiceClient.GetData(request);
+            Assert.That(response.RowSets, Is.Not.Empty);
+        }
+
+
+        [Test]
         public void InsertInvalidLocation()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
-
+            SimpleDataWebServiceClient webServiceClient = Create();
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
             record.Location = record.Location + ".Invalid";
 
@@ -122,7 +161,7 @@ namespace AmplaData.AmplaData2008
         [Test]
         public void Update()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            SimpleDataWebServiceClient webServiceClient = Create();
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
             InMemoryRecord update = record.Clone();
@@ -175,9 +214,14 @@ namespace AmplaData.AmplaData2008
         [Test]
         public void GetNavigationHierarchy()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            SimpleDataWebServiceClient webServiceClient = Create();
 
-            GetNavigationHierarchyResponse response = webServiceClient.GetNavigationHierarchy(new GetNavigationHierarchyRequest { Module = AmplaModules.Production });
+            GetNavigationHierarchyResponse response = webServiceClient.GetNavigationHierarchy(
+                new GetNavigationHierarchyRequest
+                    {
+                        Module = AmplaModules.Production,
+                        Credentials = CreateCredentials()
+                    });
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Hierarchy, Is.Not.Null);
             CheckViewPoints(response.Hierarchy.ViewPoints, "", "Enterprise");
@@ -191,9 +235,14 @@ namespace AmplaData.AmplaData2008
         {
             string[] locations = new [] { "Plant.Area.Production", "Plant.Area.Equipment.Production"};
             SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Production",
-                                                                                         locations);
+                                                                                         locations, new SimpleSecurityWebServiceClient("User"));
 
-            GetNavigationHierarchyResponse response = webServiceClient.GetNavigationHierarchy(new GetNavigationHierarchyRequest { Module = AmplaModules.Production });
+            GetNavigationHierarchyResponse response = webServiceClient.GetNavigationHierarchy(
+                new GetNavigationHierarchyRequest
+                    {
+                       Module = AmplaModules.Production,
+                       Credentials = CreateCredentials()
+                    });
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Hierarchy, Is.Not.Null);
             CheckViewPoints(response.Hierarchy.ViewPoints, "", "Plant");
@@ -211,8 +260,8 @@ namespace AmplaData.AmplaData2008
             record.SetFieldIdValue("Cause", "Shutdown", 100);
             record.SetFieldIdValue("Classification", "Unplanned Process", 200);
 
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(record.Module,
-                                                                                         record.Location);
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Downtime", "Enterprise.Site.Area.Downtime", new SimpleSecurityWebServiceClient("User"));
+
             record.SaveTo(webServiceClient);
 
             Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
@@ -240,8 +289,8 @@ namespace AmplaData.AmplaData2008
             record.SetFieldIdValue("Cause", "Shutdown", 100);
             record.SetFieldIdValue("Classification", "Unplanned Process", 200);
 
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(record.Module, record.Location);
-                
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient("Downtime", "Enterprise.Site.Area.Downtime", new SimpleSecurityWebServiceClient("User"));
+    
             record.SaveTo(webServiceClient);
 
             Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
@@ -265,7 +314,7 @@ namespace AmplaData.AmplaData2008
         [Test]
         public void GetDataWithMetaDataReturnsColumns()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location)
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location, new SimpleSecurityWebServiceClient("User"))
                 {
                     GetViewFunc = ProductionViews.StandardView
                 };
@@ -286,9 +335,34 @@ namespace AmplaData.AmplaData2008
         }
 
         [Test]
+        public void UseSessionIdInCredentials()
+        {
+            SimpleSecurityWebServiceClient securityWebService = new SimpleSecurityWebServiceClient("User");
+
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location, securityWebService);
+            Assert.Throws<FaultException>(() =>
+                                          webServiceClient.GetNavigationHierarchy(new GetNavigationHierarchyRequest()
+                                              {
+                                                  Module = AmplaModules.Production,
+                                                  Credentials = new Credentials {Session = Guid.NewGuid().ToString()}
+                                              }));
+
+            securityWebService.AddExistingSession("User");
+
+            Assert.That(securityWebService.Sessions, Is.Not.Empty);
+            SimpleSession session = securityWebService.Sessions[0];
+
+            webServiceClient.GetNavigationHierarchy(new GetNavigationHierarchyRequest()
+                {
+                    Module = AmplaModules.Production,
+                    Credentials = new Credentials {Session = session.SessionId}
+                });
+        }
+
+        [Test]
         public void GetDataWithNoMetaDataReturnsZeroColumns()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location)
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location, new SimpleSecurityWebServiceClient("User"))
                 {
                     GetViewFunc = ProductionViews.StandardView
                 };
@@ -302,16 +376,38 @@ namespace AmplaData.AmplaData2008
                 OutputOptions = new GetDataOutputOptions { ResolveIdentifiers = false },
             };
 
-
             GetDataResponse response = webServiceClient.GetData(request);
             Assert.That(response.RowSets, Is.Not.Empty);
             Assert.That(response.RowSets[0].Columns, Is.Null);
         }
 
         [Test]
+        public void GetDataWithNullOutputOptions()
+        {
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location, new SimpleSecurityWebServiceClient("User"))
+            {
+                GetViewFunc = ProductionViews.StandardView
+            };
+
+            GetDataRequest request = new GetDataRequest
+            {
+                Credentials = CreateCredentials(),
+                Filter = new DataFilter { Location = location, Criteria = new FilterEntry[0] },
+                View = new GetDataView { Context = NavigationContext.Plant, Mode = NavigationMode.Location, Module = AmplaModules.Production },
+                Metadata = false,
+                OutputOptions = null
+            };
+
+            GetDataResponse response = webServiceClient.GetData(request);
+            Assert.That(response.RowSets, Is.Not.Empty);
+            Assert.That(response.RowSets[0].Columns, Is.Null);
+            Assert.That(response.Context.ResolveIdentifiers, Is.False);
+        }
+        
+        [Test]
         public void GetDataReturnsLocation()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location, new SimpleSecurityWebServiceClient("User"));
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
 
@@ -351,7 +447,7 @@ namespace AmplaData.AmplaData2008
         [Test]
         public void GetAuditData()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location, new SimpleSecurityWebServiceClient("User"));
 
             GetAuditDataRequest request = new GetAuditDataRequest
                 {
@@ -367,7 +463,7 @@ namespace AmplaData.AmplaData2008
         [Test]
         public void GetAuditDataWithARecordWithNoChanges()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location, new SimpleSecurityWebServiceClient("User"));
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
 
@@ -398,7 +494,7 @@ namespace AmplaData.AmplaData2008
         [Test]
         public void GetAuditDataWithARecordWithChanges()
         {
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location);
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(module, location, new SimpleSecurityWebServiceClient("User"));
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
             record.SetFieldValue("Field 1", 150);
@@ -417,7 +513,7 @@ namespace AmplaData.AmplaData2008
             Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
             int recordId = webServiceClient.DatabaseRecords[0].RecordId;
 
-            InMemoryRecord updateRecord = new InMemoryRecord
+            InMemoryRecord updateRecord = new InMemoryRecord(ProductionViews.StandardView())
                 {
                     Location = record.Location,
                     Module = record.Module,

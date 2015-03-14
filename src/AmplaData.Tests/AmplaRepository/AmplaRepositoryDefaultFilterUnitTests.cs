@@ -4,6 +4,7 @@ using AmplaData.Attributes;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 
 namespace AmplaData.AmplaRepository
 {
@@ -31,7 +32,6 @@ namespace AmplaData.AmplaRepository
         public AmplaRepositoryDefaultFilterUnitTests() : base(module, Locations, ProductionViews.AreaValueModelView)
         {
         }
-
 
         [Test]
         public void GetAll()
@@ -70,9 +70,7 @@ namespace AmplaData.AmplaRepository
             Assert.That(areaModel.Value, Is.EqualTo(100));
 
             areaModel = Repository.FindById(noMatchId);
-            Assert.That(areaModel, Is.Not.Null);
-            Assert.That(areaModel.Area, Is.EqualTo("Mining"));
-            Assert.That(areaModel.Value, Is.EqualTo(200));
+            Assert.That(areaModel, Is.Null);
         }
 
         [Test]
@@ -121,11 +119,10 @@ namespace AmplaData.AmplaRepository
             Assert.That(record, Is.Not.Null);
             Assert.That(record.GetValue("Area"), Is.EqualTo("ROM"));
 
-            // find a record that doesn't match the default filter 
+            // it should not find a record that doesn't match the default filter 
             record = Repository.FindRecord(extra.Id);
 
-            Assert.That(record, Is.Not.Null);
-            Assert.That(record.GetValue("Area"), Is.EqualTo("Mining"));
+            Assert.That(record, Is.Null);
         }
 
         [Test]
@@ -150,5 +147,31 @@ namespace AmplaData.AmplaRepository
 
             Assert.That(models[0].Value, Is.EqualTo(100));
         }
+
+        [Test]
+        public void GetVersions()
+        {
+            AreaModel model = new AreaModel {Area = "ROM", Value = 100};
+            Repository.Add(model);
+
+            int id = model.Id;
+
+            AreaModel model1 = Repository.FindById(id);
+            Assert.That(model1, Is.Not.Null);
+
+            ModelVersions versions1 = Repository.GetVersions(id);
+            Assert.That(versions1.Versions.Count, Is.EqualTo(1)); // current value
+
+            AssertModelVersionProperty(versions1, 0, m => m.Value, Is.EqualTo(100));
+
+            model1.Value = 150;
+            Repository.Update(model1);
+
+            ModelVersions versions2 = Repository.GetVersions(id);
+            Assert.That(versions2.Versions.Count, Is.EqualTo(2)); // current value and old value
+            AssertModelVersionProperty(versions2, 0, m => m.Value, Is.EqualTo(100));
+            AssertModelVersionProperty(versions2, 1, m => m.Value, Is.EqualTo(150));
+        }
+
     }
 }

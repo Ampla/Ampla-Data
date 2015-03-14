@@ -8,7 +8,7 @@ namespace AmplaData.AmplaSecurity2007
         public SimpleSecurityWebServiceClient(params string[] users)
         {
             possibleUsers = new List<string>(users ?? new string[0]).AsReadOnly();
-            ValidatePasswordFunc = (s => s == "password");
+            ValidatePasswordFunc = ((u,p) => p == "password");
 
             sessions = new List<SimpleSession>();
         }
@@ -17,7 +17,7 @@ namespace AmplaData.AmplaSecurity2007
 
         private readonly IList<string> possibleUsers;
         
-        public Func<string, bool> ValidatePasswordFunc { get; set; }
+        protected Func<string, string, bool> ValidatePasswordFunc { get; set; }
 
         /// <summary>
         /// Adds the existing session.
@@ -27,6 +27,23 @@ namespace AmplaData.AmplaSecurity2007
         {
             SimpleSession existingSession = new SimpleSession(userName);
             sessions.Add(existingSession);
+        }
+
+        public bool ValidateUserPassword(string userName, string password)
+        {
+            return possibleUsers.Contains(userName) && ValidatePasswordFunc(userName, password);
+        }
+
+        /// <summary>
+        /// Finds any current sessions by session Id.
+        /// </summary>
+        /// <param name="sessionId">The session identifier.</param>
+        /// <returns></returns>
+        public SimpleSession FindBySession(string sessionId)
+        {
+            SimpleSession session = sessions.Find(s => s.SessionId == sessionId) ;
+
+            return session;
         }
 
         public List<SimpleSession> Sessions
@@ -42,29 +59,25 @@ namespace AmplaData.AmplaSecurity2007
             string userName = request.Username;
             string password = request.Password;
 
-            if (possibleUsers.Contains(userName))
+            if (ValidateUserPassword(userName, password))
             {
-                bool isValid = ValidatePasswordFunc(password);
-                if (isValid)
+                SimpleSession session = sessions.Find(s => s.UserName == userName);
+                if (session == null)
                 {
-                    SimpleSession session = sessions.Find(s => s.UserName == userName);
-                    if (session == null)
+                    session = new SimpleSession(userName);
+                    sessions.Add(session);
+                }
+                else
+                {
+                    if (!session.IsValid())
                     {
+                        sessions.Remove(session);
                         session = new SimpleSession(userName);
                         sessions.Add(session);
                     }
-                    else
-                    {
-                       if (!session.IsValid())
-                       {
-                           sessions.Remove(session);
-                           session = new SimpleSession(userName);
-                           sessions.Add(session);
-                       }
-                    }
-                    session.Login();
-                    return new CreateSessionResponse {Session = session.GetSession()};
                 }
+                session.Login();
+                return new CreateSessionResponse {Session = session.GetSession()};
             }
             throw new InvalidOperationException("Unable to login with username and password");
         }

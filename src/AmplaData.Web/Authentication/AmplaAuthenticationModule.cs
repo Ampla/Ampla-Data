@@ -28,7 +28,10 @@ namespace AmplaData.Web.Authentication
         private void PostAcquireRequestState(object sender, EventArgs e)
         {
             AlignSessionWithFormsAuthentication ensureAlignedSession = DependencyResolver.Current.GetService<AlignSessionWithFormsAuthentication>();
-            ensureAlignedSession.Execute();
+            if (ensureAlignedSession != null)
+            {
+                ensureAlignedSession.Execute();
+            }
         }
 
         /// <summary>

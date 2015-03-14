@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using AmplaData.AmplaData2008;
+using AmplaData.AmplaSecurity2007;
 using AmplaData.Attributes;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
@@ -28,7 +29,7 @@ namespace AmplaData.AmplaRepository
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            webServiceClient = new SimpleDataWebServiceClient(module, location) {GetViewFunc = ProductionViews.AreaValueModelView};
+            webServiceClient = new SimpleDataWebServiceClient(module, location, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = ProductionViews.AreaValueModelView};
             repository = new AmplaReadOnlyRepository<AreaValueModel>(new AmplaRepository<AreaValueModel>(webServiceClient, credentialsProvider));
         }
 

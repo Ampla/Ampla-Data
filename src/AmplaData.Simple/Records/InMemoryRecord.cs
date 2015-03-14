@@ -7,8 +7,11 @@ namespace AmplaData.Records
 {
     public class InMemoryRecord
     {
-        public InMemoryRecord()
+        private readonly GetView view;
+
+        public InMemoryRecord(GetView view)
         {
+            this.view = view;
             Fields = new List<FieldValue>();
             RecordId = 0;
         }
@@ -29,13 +32,16 @@ namespace AmplaData.Records
             get;
             set;
         }
-
+        
         public IList<FieldValue> Fields { get; private set; }
-
 
         public InMemoryRecord Clone()
         {
-            InMemoryRecord record = new InMemoryRecord { Module = Module, RecordId = RecordId };
+            InMemoryRecord record = new InMemoryRecord(view)
+                {
+                    Module = Module,
+                    RecordId = RecordId
+                };
 
             foreach (FieldValue value in Fields)
             {

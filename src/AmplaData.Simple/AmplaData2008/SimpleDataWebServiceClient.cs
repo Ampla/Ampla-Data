@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Xml;
+using AmplaData.AmplaSecurity2007;
 using AmplaData.Records;
 using AmplaData.Records.Filters;
 using AmplaData.Views;
@@ -19,9 +20,7 @@ namespace AmplaData.AmplaData2008
         private readonly Dictionary<int, InMemoryRecord> database = new Dictionary<int, InMemoryRecord>();
         private readonly List<InMemoryAuditRecord> auditDatabase = new List<InMemoryAuditRecord>();
         private readonly string[] reportingPoints;
-
-        private const string userName = "User";
-        private const string password = "password";
+        private readonly SimpleSecurityWebServiceClient securityWebServiceClient;
 
         private int setId = 1000;
 
@@ -30,7 +29,9 @@ namespace AmplaData.AmplaData2008
         /// </summary>
         /// <param name="module">The module.</param>
         /// <param name="location">The location.</param>
-        public SimpleDataWebServiceClient(string module, string location) : this(module, new [] {location})
+        /// <param name="securityWebServiceClient"></param>
+        public SimpleDataWebServiceClient(string module, string location, SimpleSecurityWebServiceClient securityWebServiceClient) 
+            : this(module, new [] {location}, securityWebServiceClient)
         {
             
         }
@@ -40,8 +41,9 @@ namespace AmplaData.AmplaData2008
         /// </summary>
         /// <param name="module">The module.</param>
         /// <param name="locations">The valid locations.</param>
+        /// <param name="securityWebServiceClient"></param>
         /// <exception cref="System.ArgumentOutOfRangeException">module</exception>
-        public SimpleDataWebServiceClient(string module, string[] locations)
+        public SimpleDataWebServiceClient(string module, string[] locations, SimpleSecurityWebServiceClient securityWebServiceClient)
         {
             if (!Enum.TryParse(module, out amplaModule))
             {
@@ -51,6 +53,7 @@ namespace AmplaData.AmplaData2008
             reportingPoints = locations;
 
             GetViewFunc = StandardViews.EmptyView;
+            this.securityWebServiceClient = securityWebServiceClient;
         }
 
         /// <summary>
@@ -65,11 +68,16 @@ namespace AmplaData.AmplaData2008
                     XmlDocument xmlDoc = new XmlDocument();
 
                     CheckModule(request.View.Module);
+                    CheckCredentials(request.Credentials);
 
                     InMemoryFilterMatcher filterMatcher = new InMemoryFilterMatcher(request.Filter);
 
-                    List<InMemoryRecord> recordsToReturn = database.Values.Where(filterMatcher.Matches).ToList();
-                    bool resolveIdentifiers = request.OutputOptions.ResolveIdentifiers;
+                    List<InMemoryRecord> recordsToReturn = new List<InMemoryRecord>();
+                    if (database.Count > 0)
+                    {
+                        recordsToReturn = database.Values.Where(filterMatcher.Matches).ToList();
+                    }
+                    bool resolveIdentifiers = request.OutputOptions != null && request.OutputOptions.ResolveIdentifiers;
 
                     List<Row> rows = new List<Row>();
                     foreach (InMemoryRecord record in recordsToReturn)
@@ -95,7 +103,7 @@ namespace AmplaData.AmplaData2008
                                     Metadata = request.Metadata,
                                     Mode = request.View.Mode,
                                     Module = request.View.Module,
-                                    ResolveIdentifiers = request.OutputOptions.ResolveIdentifiers,
+                                    ResolveIdentifiers = resolveIdentifiers,
                                     ViewName = request.View.Name,
                                     Fields = request.View.Fields,
                                     ModelFields = request.View.ModelFields,
@@ -193,6 +201,7 @@ namespace AmplaData.AmplaData2008
             return TryCatchThrowFault(() =>
                 {
                     CheckModule(request.Module);
+                    CheckCredentials(request.Credentials);
 
                     SimpleNavigationHierarchy navigationHierarchy = new SimpleNavigationHierarchy(amplaModule, reportingPoints);
 
@@ -219,14 +228,14 @@ namespace AmplaData.AmplaData2008
             return TryCatchThrowFault(() =>
                 {
                     List<DataSubmissionResult> results = new List<DataSubmissionResult>();
-                    CheckCredentials(request.Credentials);
+                    string user = CheckCredentials(request.Credentials);
                     foreach (SubmitDataRecord submitDataRecord in request.SubmitDataRecords)
                     {
                         CheckModule(submitDataRecord.Module);
                         CheckReportingPoint(submitDataRecord.Location);
                         results.Add(submitDataRecord.MergeCriteria == null
-                                        ? InsertDataRecord(submitDataRecord)
-                                        : UpdateDataRecord(submitDataRecord));
+                                        ? InsertDataRecord(submitDataRecord, user)
+                                        : UpdateDataRecord(submitDataRecord, user));
                     }
 
                     return new SubmitDataResponse {DataSubmissionResults = results.ToArray()};
@@ -242,8 +251,9 @@ namespace AmplaData.AmplaData2008
         {
             return TryCatchThrowFault(() =>
                 {
+                    DateTime editTime = DateTime.Now;
                     List<DeleteRecordsResult> results = new List<DeleteRecordsResult>();
-                    CheckCredentials(request.Credentials);
+                    string user = CheckCredentials(request.Credentials);
                     foreach (DeleteRecord deleteRecord in request.DeleteRecords)
                     {
                         CheckModule(deleteRecord.Module);
@@ -256,6 +266,8 @@ namespace AmplaData.AmplaData2008
                             record.Fields.Remove(deleted);
                         }
                         record.Fields.Add(new FieldValue("Deleted", "True"));
+                        AddAuditRecord(record, editTime, "IsDeleted", false.ToString(), true.ToString(), user);
+
                         results.Add(new DeleteRecordsResult
                             {
                                 Location = deleteRecord.Location,
@@ -314,6 +326,7 @@ namespace AmplaData.AmplaData2008
             return TryCatchThrowFault(() =>
                 {
                     CheckModule(request.Module);
+                    CheckCredentials(request.Credentials);
                     CheckLocation(request.ViewPoint);
                     GetViewsResponse response = new GetViewsResponse
                         {
@@ -341,6 +354,7 @@ namespace AmplaData.AmplaData2008
             return TryCatchThrowFault(() =>
                 {
                     CheckModule(request.OriginalRecord.Module);
+                    CheckCredentials(request.Credentials);
                     CheckReportingPoint(request.OriginalRecord.Location);
 
                     InMemoryRecord record = FindRecord(request.OriginalRecord.Location, request.OriginalRecord.Module,
@@ -371,18 +385,23 @@ namespace AmplaData.AmplaData2008
                 });
         }
 
-        private DataSubmissionResult InsertDataRecord(SubmitDataRecord submitDataRecord)
+        private DataSubmissionResult InsertDataRecord(SubmitDataRecord submitDataRecord, string user)
         {
             setId++;
-
-            InMemoryRecord amplaRecord = new InMemoryRecord { Location = submitDataRecord.Location, Module = module, RecordId = setId };
+            GetView view = GetViewFunc();
+            InMemoryRecord amplaRecord = new InMemoryRecord(view)
+                {
+                    Location = submitDataRecord.Location,
+                    Module = module,
+                    RecordId = setId
+                };
 
             foreach (Field field in submitDataRecord.Fields)
             {
                 amplaRecord.Fields.Add(new FieldValue(field.Name, field.Value));
             }
 
-            AddDefaultFields(amplaRecord);
+            AddDefaultFields(amplaRecord, user);
 
             database[setId] = amplaRecord;
             return new DataSubmissionResult
@@ -392,10 +411,10 @@ namespace AmplaData.AmplaData2008
             };
         }
 
-        private void AddDefaultFields(InMemoryRecord amplaRecord)
+        private void AddDefaultFields(InMemoryRecord amplaRecord, string user)
         {
             AddDefault(amplaRecord, "CreatedDateTime", DateTime.Now);
-            AddDefault(amplaRecord, "CreatedBy", userName);
+            AddDefault(amplaRecord, "CreatedBy", user);
         }
 
         private void AddDefault<T>(InMemoryRecord amplaRecord, string field, T defaultValue)
@@ -407,7 +426,7 @@ namespace AmplaData.AmplaData2008
         }
 
 
-        private DataSubmissionResult UpdateDataRecord(SubmitDataRecord submitDataRecord)
+        private DataSubmissionResult UpdateDataRecord(SubmitDataRecord submitDataRecord, string user)
         {
             int recordId = (int)submitDataRecord.MergeCriteria.SetId;
 
@@ -427,7 +446,7 @@ namespace AmplaData.AmplaData2008
                     oldValue = fieldValue.Value;
                     fieldValue.Value = field.Value;
                 }
-                AddAuditRecord(record, editTime, field.Name, oldValue, field.Value);
+                AddAuditRecord(record, editTime, field.Name, oldValue, field.Value, user);
             }
 
             return new DataSubmissionResult
@@ -437,14 +456,14 @@ namespace AmplaData.AmplaData2008
             };
         }
 
-        private void AddAuditRecord(InMemoryRecord record, DateTime editedTime, string displayName, string oldValue, string newValue)
+        private void AddAuditRecord(InMemoryRecord record, DateTime editedTime, string displayName, string oldValue, string newValue, string user)
         {
             InMemoryAuditRecord auditRecord = new InMemoryAuditRecord
                 {
                     SetId = Convert.ToString(record.RecordId),
                     Location = record.Location,
                     RecordType = record.Module,
-                    EditedBy = "System Configuration.Users." + userName,
+                    EditedBy = "System Configuration.Users." + user,
                     EditedDateTime = PersistenceHelper.ConvertToString(editedTime),
                     Field = GetFieldNameFromDisplayName(displayName),
                     OriginalValue = oldValue,
@@ -484,16 +503,33 @@ namespace AmplaData.AmplaData2008
             return record;
         }
 
-        private static void CheckCredentials(Credentials credentials)
+        private string CheckCredentials(Credentials credentials)
         {
-            if ((credentials.Username != "User") || (credentials.Password != "password"))
+            if (credentials == null)
             {
-                string message = string.Format("Invalid Credentials (User:'{0}', Password:'{1}', Session:'{2}')",
-                                               credentials.Username, credentials.Password, credentials.Session);
-                throw new ArgumentException(message, "credentials");
+                throw new ArgumentException("No credentials specified.  Integrated security not enabled.", "credentials");
             }
+
+            string userName = credentials.Username;
+            string password = credentials.Password;
+            string session = credentials.Session;
+
+            if (securityWebServiceClient.ValidateUserPassword(userName, password))
+            {
+                return userName;
+            }
+
+            SimpleSession simpleSession = securityWebServiceClient.FindBySession(session);
+            if (simpleSession != null)
+            {
+                return simpleSession.UserName;
+            }
+
+            string message = string.Format("Invalid Credentials (User:'{0}', Password:'{1}', Session:'{2}')",
+                                           credentials.Username, credentials.Password, credentials.Session);
+            throw new ArgumentException(message, "credentials");
         }
-        
+
         private void CheckModule(AmplaModules checkModule)
         {
             if (checkModule != amplaModule)
@@ -540,11 +576,6 @@ namespace AmplaData.AmplaData2008
 
             database[setId] = clone;
             return setId;
-        }
-
-        public Credentials CreateCredentials()
-        {
-            return new Credentials { Username = userName, Password = password };
         }
 
         private TResult TryCatchThrowFault<TResult>(Func<TResult> func)

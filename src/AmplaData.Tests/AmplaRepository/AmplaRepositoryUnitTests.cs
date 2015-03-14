@@ -522,7 +522,12 @@ namespace AmplaData.AmplaRepository
 
             int recordId = Records[0].RecordId;
 
-            InMemoryRecord record = new InMemoryRecord {Module = module, Location = location, RecordId = recordId};
+            InMemoryRecord record = new InMemoryRecord(ProductionViews.AreaValueModelView())
+                {
+                    Module = module,
+                    Location = location,
+                    RecordId = recordId
+                };
             record.SetFieldValue("Sample Period", DateTime.Today);
 
             UpdateRecord(record);

@@ -142,6 +142,7 @@
     <Compile Include="BootstrapSupport\HtmlHelpers\GlyphIcons.cs" />
     <Compile Include="BootstrapSupport\HtmlHelpers\Paging.cs" />
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
+    <Compile Include="ConfigurationData.cs" />
     <Compile Include="Controllers\KnowledgeController.cs" />
     <Compile Include="Controllers\EnergyController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
@@ -171,6 +172,8 @@
     <Compile Include="Models\ShiftLogModel.cs" />
     <Compile Include="Modules\AmplaSecurityInjectionModule.cs" />
     <Compile Include="Modules\ControllerInjectionModule.cs" />
+    <Compile Include="Modules\AmplaWebServiceModule.cs" />
+    <Compile Include="Modules\SimpleWebServiceModule.cs" />
     <Compile Include="Modules\SimpleSecurityInjectionModule.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
@@ -251,6 +254,10 @@
     <Content Include="Views\shared\_ModelDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AmplaData.Simple\AmplaData.Simple.csproj">
+      <Project>{B3E658CF-5F5A-492A-87E0-9D8E200E22C0}</Project>
+      <Name>AmplaData.Simple</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AmplaData\AmplaData.csproj">
       <Project>{EA920285-DB3C-46AB-97D9-17EA716B70AF}</Project>
       <Name>AmplaData</Name>
