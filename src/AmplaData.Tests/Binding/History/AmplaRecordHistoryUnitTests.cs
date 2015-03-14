@@ -77,7 +77,9 @@ namespace AmplaData.Binding.History
             Assert.That(changes[0].Changes, Is.Empty);
             Assert.That(changes[1].Operation, Is.EqualTo("Delete Record"));
             Assert.That(changes[1].User, Is.EqualTo("User"));
-            Assert.That(changes[1].Changes, Is.Empty);
+            Assert.That(changes[1].Changes, Is.Not.Empty);
+            AmplaAuditField deleted = changes[1].Changes[0];
+            Assert.That(deleted.Name, Is.EqualTo("IsDeleted"));
         }
 
     }

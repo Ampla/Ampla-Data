@@ -77,7 +77,6 @@ namespace AmplaData.AmplaRepository
 
 
         [Test]
-        [Ignore("Audit entries don't work for deleted records yet")]
         public void GetVersions()
         {
             DeletedModel model = new DeletedModel();
@@ -85,7 +84,7 @@ namespace AmplaData.AmplaRepository
 
             int id = model.Id;
 
-            DeletedModel model1 = Repository.FindById(id);
+            DeletedModel model1 = Repository.FindById(id) ;
             Assert.That(model1, Is.Not.Null);
 
             ModelVersions versions1 = Repository.GetVersions(id);
@@ -102,6 +101,9 @@ namespace AmplaData.AmplaRepository
             Assert.That(versions2.Versions.Count, Is.EqualTo(2)); // current value and old value
             AssertModelVersionProperty(versions2, 0, m => m.Deleted, Is.EqualTo(false));
             AssertModelVersionProperty(versions2, 1, m => m.Deleted, Is.EqualTo(true));
+
+            Assert.That(versions2.Versions[0].Display, Is.EqualTo("User created record"));
+            Assert.That(versions2.Versions[1].Display, Is.EqualTo("User deleted record"));
         }
     }
 }

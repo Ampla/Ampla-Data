@@ -38,7 +38,12 @@ namespace AmplaData.Binding.History
                                 VersionDateTime = session.EditedTime,
                                 User = session.User,
                                 Operation = Operation,
-                                Changes = new AmplaAuditField[0],
+                                Changes = new [] {new AmplaAuditField()
+                                    {
+                                        Name = deletedName,
+                                        OriginalValue = "False",
+                                        EditedValue = "True"
+                                    }},
                                 Display = string.Format("{0} deleted record", session.User)
                             };
                             recordChanges.Add(changes);
