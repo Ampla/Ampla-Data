@@ -3,6 +3,7 @@ using AmplaData.AmplaData2008;
 using AmplaData.AmplaSecurity2007;
 using AmplaData.Dynamic.Methods.Binders;
 using AmplaData.Modules.Production;
+using AmplaData.Records;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
@@ -20,7 +21,8 @@ namespace AmplaData.Dynamic.Methods.Strategies
         {
             base.OnSetUp();
             SimpleSecurityWebServiceClient securityWebService = new SimpleSecurityWebServiceClient("User");
-            SimpleDataWebServiceClient client = new SimpleDataWebServiceClient(Module, Location, securityWebService)
+            SimpleAmplaDatabase amplaDatabase = new SimpleAmplaDatabase();
+            SimpleDataWebServiceClient client = new SimpleDataWebServiceClient(amplaDatabase, Module, new []{Location}, securityWebService)
             {
                 GetViewFunc = ProductionViews.StandardView
             };

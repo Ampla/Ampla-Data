@@ -73,9 +73,11 @@
     <Compile Include="Records\Filters\LocationFilterMatcher.cs" />
     <Compile Include="Records\Filters\LocationWithRecurseFilterMatcher.cs" />
     <Compile Include="Records\Filters\SamplePeriodFilterMatcher.cs" />
+    <Compile Include="Records\IAmplaDatabase.cs" />
     <Compile Include="Records\InMemoryAuditRecord.cs" />
     <Compile Include="Records\InMemoryRecord.cs" />
     <Compile Include="Records\InMemoryRecordExtensions.cs" />
+    <Compile Include="Records\SimpleAmplaDatabase.cs" />
     <Compile Include="Views\StandardViews.cs" />
     <Compile Include="Views\ViewExtensions.cs" />
   </ItemGroup>

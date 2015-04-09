@@ -14,6 +14,7 @@ namespace AmplaData.Dynamic
         private readonly string module;
         private SimpleDataWebServiceClient webServiceClient;
         private DynamicViewPoint dynamicViewPoint;
+        private SimpleAmplaDatabase database;
 
         protected DynamicViewPointTestFixture(string location, string module)
         {
@@ -24,8 +25,11 @@ namespace AmplaData.Dynamic
         protected override void OnSetUp()
         {
             base.OnSetUp();
+
+            database = new SimpleAmplaDatabase();
+            database.EnableModule(module);
             SimpleSecurityWebServiceClient securityWebService = new SimpleSecurityWebServiceClient("User");
-            webServiceClient = new SimpleDataWebServiceClient(module, location, securityWebService)
+            webServiceClient = new SimpleDataWebServiceClient(database, module, new [] {location}, securityWebService)
             {
                 GetViewFunc = ProductionViews.StandardView
             };
@@ -58,7 +62,7 @@ namespace AmplaData.Dynamic
 
         protected List<InMemoryRecord> Records
         {
-            get { return webServiceClient.DatabaseRecords; }
+            get { return new List<InMemoryRecord>(database.GetModuleRecords(module).Values); }
         }
         
     }

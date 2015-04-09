@@ -21,6 +21,7 @@ namespace AmplaData.AmplaRepository
         private AmplaRepository<TModel> repository;
         private SimpleDataWebServiceClient webServiceClient;
         private ListLogger listLogger;
+        private SimpleAmplaDatabase database;
 
         protected AmplaRepositoryTestFixture(string module, string[] locations, Func<GetView> getViewFunc)
         {
@@ -37,7 +38,9 @@ namespace AmplaData.AmplaRepository
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            webServiceClient = new SimpleDataWebServiceClient(module, locations, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = getViewFunc};
+            database = new SimpleAmplaDatabase();
+            database.EnableModule(module);
+            webServiceClient = new SimpleDataWebServiceClient(database, module, locations, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = getViewFunc};
             listLogger = new ListLogger();
             repository = new AmplaRepository<TModel>(new LoggingDataWebServiceClient(webServiceClient, listLogger), 
                 CredentialsProvider.ForUsernameAndPassword(userName, password));
@@ -62,7 +65,7 @@ namespace AmplaData.AmplaRepository
 
         protected List<InMemoryRecord> Records
         {
-            get { return webServiceClient.DatabaseRecords; }
+            get { return new List<InMemoryRecord>(database.GetModuleRecords(module).Values); }
         }
 
         protected int SaveRecord(InMemoryRecord record)

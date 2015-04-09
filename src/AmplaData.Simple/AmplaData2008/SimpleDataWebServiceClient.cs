@@ -16,40 +16,27 @@ namespace AmplaData.AmplaData2008
     public class SimpleDataWebServiceClient : IDataWebServiceClient
     {
         private readonly AmplaModules amplaModule;
-        private readonly string module;
-        private readonly Dictionary<int, InMemoryRecord> database = new Dictionary<int, InMemoryRecord>();
-        private readonly List<InMemoryAuditRecord> auditDatabase = new List<InMemoryAuditRecord>();
+        private readonly string defaultModule;
         private readonly string[] reportingPoints;
         private readonly SimpleSecurityWebServiceClient securityWebServiceClient;
-
-        private int setId = 1000;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleDataWebServiceClient"/> class.
-        /// </summary>
-        /// <param name="module">The module.</param>
-        /// <param name="location">The location.</param>
-        /// <param name="securityWebServiceClient"></param>
-        public SimpleDataWebServiceClient(string module, string location, SimpleSecurityWebServiceClient securityWebServiceClient) 
-            : this(module, new [] {location}, securityWebServiceClient)
-        {
-            
-        }
+        private readonly IAmplaDatabase amplaDatabase;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleDataWebServiceClient"/> class.
         /// </summary>
+        /// <param name="amplaDatabase"></param>
         /// <param name="module">The module.</param>
         /// <param name="locations">The valid locations.</param>
         /// <param name="securityWebServiceClient"></param>
         /// <exception cref="System.ArgumentOutOfRangeException">module</exception>
-        public SimpleDataWebServiceClient(string module, string[] locations, SimpleSecurityWebServiceClient securityWebServiceClient)
+        public SimpleDataWebServiceClient(IAmplaDatabase amplaDatabase, string module, string[] locations, SimpleSecurityWebServiceClient securityWebServiceClient)
         {
+            this.amplaDatabase = amplaDatabase;
             if (!Enum.TryParse(module, out amplaModule))
             {
                 throw new ArgumentOutOfRangeException("module");
             }
-            this.module = Convert.ToString(amplaModule);
+            defaultModule = Convert.ToString(amplaModule);
             reportingPoints = locations;
 
             GetViewFunc = StandardViews.EmptyView;
@@ -73,6 +60,9 @@ namespace AmplaData.AmplaData2008
                     InMemoryFilterMatcher filterMatcher = new InMemoryFilterMatcher(request.Filter);
 
                     List<InMemoryRecord> recordsToReturn = new List<InMemoryRecord>();
+
+                    Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(request.View.Module.ToString());
+
                     if (database.Count > 0)
                     {
                         recordsToReturn = database.Values.Where(filterMatcher.Matches).ToList();
@@ -129,7 +119,8 @@ namespace AmplaData.AmplaData2008
             
             InMemoryFilterMatcher filterMatcher = new InMemoryFilterMatcher(request.Filter);
 
-            List<InMemoryAuditRecord> auditRecords = auditDatabase.Where(filterMatcher.Matches).ToList();
+            string module = request.Filter.Module.ToString();
+            List<InMemoryAuditRecord> auditRecords = amplaDatabase.GetAuditRecords(module).Where(filterMatcher.Matches).ToList();
 
             List<GetAuditDataRow> rows = new List<GetAuditDataRow>();
             
@@ -210,7 +201,7 @@ namespace AmplaData.AmplaData2008
                             Hierarchy = navigationHierarchy.GetHierarchy(),
                             Context = new GetNavigationHierarchyResponseContext
                                 {
-                                    Module = (AmplaModules) Enum.Parse(typeof (AmplaModules), module),
+                                    Module = (AmplaModules) Enum.Parse(typeof (AmplaModules), defaultModule),
                                     Context = NavigationContext.Plant,
                                     Mode = NavigationMode.Location,
                                 }
@@ -256,10 +247,12 @@ namespace AmplaData.AmplaData2008
                     string user = CheckCredentials(request.Credentials);
                     foreach (DeleteRecord deleteRecord in request.DeleteRecords)
                     {
+                        Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(deleteRecord.Module.ToString());
+
                         CheckModule(deleteRecord.Module);
                         CheckReportingPoint(deleteRecord.Location);
                         int recordId = (int) deleteRecord.MergeCriteria.SetId;
-                        InMemoryRecord record = FindRecord(deleteRecord.Location, deleteRecord.Module, recordId);
+                        InMemoryRecord record = FindRecord(database, deleteRecord.Location, deleteRecord.Module, recordId);
                         FieldValue deleted = record.Find("Deleted");
                         if (deleted != null)
                         {
@@ -293,10 +286,11 @@ namespace AmplaData.AmplaData2008
                     CheckCredentials(request.Credentials);
                     foreach (UpdateRecordStatus recordStatus in request.UpdateRecords)
                     {
+                        Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(recordStatus.Module.ToString());
                         CheckModule(recordStatus.Module);
                         CheckReportingPoint(recordStatus.Location);
                         int recordId = (int) recordStatus.MergeCriteria.SetId;
-                        InMemoryRecord record = FindRecord(recordStatus.Location, recordStatus.Module, recordId);
+                        InMemoryRecord record = FindRecord(database, recordStatus.Location, recordStatus.Module, recordId);
                         FieldValue confirmed = record.Find("Confirmed");
                         if (confirmed != null)
                         {
@@ -357,11 +351,17 @@ namespace AmplaData.AmplaData2008
                     CheckCredentials(request.Credentials);
                     CheckReportingPoint(request.OriginalRecord.Location);
 
-                    InMemoryRecord record = FindRecord(request.OriginalRecord.Location, request.OriginalRecord.Module,
+                    string module = request.OriginalRecord.Module.ToString();
+
+                    Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(module);
+
+                    InMemoryRecord record = FindRecord(database, request.OriginalRecord.Location, request.OriginalRecord.Module,
                                                        (int) request.OriginalRecord.SetId);
                     InMemoryRecord[] splitRecords = record.SplitRecord(request.SplitRecords[0].SplitDateTimeUtc);
 
-                    splitRecords[1].RecordId = ++setId;
+                    int newSetId = amplaDatabase.GetNewSetId(module);
+
+                    splitRecords[1].RecordId = newSetId;
 
                     database[splitRecords[0].RecordId] = splitRecords[0];
                     database[splitRecords[1].RecordId] = splitRecords[1];
@@ -387,12 +387,15 @@ namespace AmplaData.AmplaData2008
 
         private DataSubmissionResult InsertDataRecord(SubmitDataRecord submitDataRecord, string user)
         {
+            Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(submitDataRecord.Module.ToString());
+            int setId = amplaDatabase.GetNewSetId(submitDataRecord.Module.ToString());
+
             setId++;
             GetView view = GetViewFunc();
             InMemoryRecord amplaRecord = new InMemoryRecord(view)
                 {
                     Location = submitDataRecord.Location,
-                    Module = module,
+                    Module = defaultModule,
                     RecordId = setId
                 };
 
@@ -430,7 +433,9 @@ namespace AmplaData.AmplaData2008
         {
             int recordId = (int)submitDataRecord.MergeCriteria.SetId;
 
-            InMemoryRecord record = FindRecord(submitDataRecord.Location, submitDataRecord.Module, recordId);
+            Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(submitDataRecord.Module.ToString());
+
+            InMemoryRecord record = FindRecord(database, submitDataRecord.Location, submitDataRecord.Module, recordId);
             DateTime editTime = DateTime.UtcNow;
             foreach (Field field in submitDataRecord.Fields)
             {
@@ -458,6 +463,8 @@ namespace AmplaData.AmplaData2008
 
         private void AddAuditRecord(InMemoryRecord record, DateTime editedTime, string displayName, string oldValue, string newValue, string user)
         {
+            List<InMemoryAuditRecord> auditDatabase = amplaDatabase.GetAuditRecords(record.Module);
+
             InMemoryAuditRecord auditRecord = new InMemoryAuditRecord
                 {
                     SetId = Convert.ToString(record.RecordId),
@@ -486,7 +493,7 @@ namespace AmplaData.AmplaData2008
             return displayName;
         }
 
-        private InMemoryRecord FindRecord(string searchLocation, AmplaModules searchModule, int searchRecordId)
+        private InMemoryRecord FindRecord(Dictionary<int, InMemoryRecord> database, string searchLocation, AmplaModules searchModule, int searchRecordId)
         {
             InMemoryRecord record;
             if (!database.TryGetValue(searchRecordId, out record))
@@ -563,19 +570,22 @@ namespace AmplaData.AmplaData2008
         {
             get
             {
+                Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(defaultModule);
                 return new List<InMemoryRecord>(database.Values);
             }
         }
 
         public int AddExistingRecord(InMemoryRecord record)
         {
-            setId++;
+            string module = record.Module;
+            int newSetId = amplaDatabase.GetNewSetId(module);
+            Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(module);
 
             InMemoryRecord clone = record.Clone();
-            clone.RecordId = setId;
+            clone.RecordId = newSetId;
 
-            database[setId] = clone;
-            return setId;
+            database[newSetId] = clone;
+            return newSetId;
         }
 
         private TResult TryCatchThrowFault<TResult>(Func<TResult> func)

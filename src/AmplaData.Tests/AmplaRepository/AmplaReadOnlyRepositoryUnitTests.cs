@@ -25,11 +25,14 @@ namespace AmplaData.AmplaRepository
         private SimpleDataWebServiceClient webServiceClient;
         private const string module = "Production";
         private const string location = "Plant.Area.Values";
+        private SimpleAmplaDatabase database;
 
         protected override void OnSetUp()
         {
             base.OnSetUp();
-            webServiceClient = new SimpleDataWebServiceClient(module, location, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = ProductionViews.AreaValueModelView};
+            database = new SimpleAmplaDatabase();
+            database.EnableModule(module);
+            webServiceClient = new SimpleDataWebServiceClient(database, module, new[] {location}, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = ProductionViews.AreaValueModelView};
             repository = new AmplaReadOnlyRepository<AreaValueModel>(new AmplaRepository<AreaValueModel>(webServiceClient, credentialsProvider));
         }
 
@@ -37,6 +40,7 @@ namespace AmplaData.AmplaRepository
         {
             repository = null;
             webServiceClient = null;
+            database = null;
             base.OnTearDown();
         }
 
