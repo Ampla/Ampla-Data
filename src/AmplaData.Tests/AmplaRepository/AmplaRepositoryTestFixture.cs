@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using AmplaData.AmplaData2008;
 using AmplaData.AmplaSecurity2007;
+using AmplaData.Database;
 using AmplaData.Logging;
 using AmplaData.Records;
 using NUnit.Framework;
@@ -22,6 +23,7 @@ namespace AmplaData.AmplaRepository
         private SimpleDataWebServiceClient webServiceClient;
         private ListLogger listLogger;
         private SimpleAmplaDatabase database;
+        private SimpleAmplaConfiguration configuration;
 
         protected AmplaRepositoryTestFixture(string module, string[] locations, Func<GetView> getViewFunc)
         {
@@ -40,7 +42,14 @@ namespace AmplaData.AmplaRepository
             base.OnSetUp();
             database = new SimpleAmplaDatabase();
             database.EnableModule(module);
-            webServiceClient = new SimpleDataWebServiceClient(database, module, locations, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = getViewFunc};
+            configuration = new SimpleAmplaConfiguration();
+            configuration.EnableModule(module);
+            foreach (string location in locations)
+            {
+                configuration.AddLocation(module, location);
+            }
+
+            webServiceClient = new SimpleDataWebServiceClient(database, configuration, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = getViewFunc};
             listLogger = new ListLogger();
             repository = new AmplaRepository<TModel>(new LoggingDataWebServiceClient(webServiceClient, listLogger), 
                 CredentialsProvider.ForUsernameAndPassword(userName, password));

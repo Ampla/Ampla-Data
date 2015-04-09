@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Xml;
 using AmplaData.AmplaSecurity2007;
+using AmplaData.Database;
 using AmplaData.Records;
 using AmplaData.Records.Filters;
 using AmplaData.Views;
@@ -15,29 +16,22 @@ namespace AmplaData.AmplaData2008
     /// </summary>
     public class SimpleDataWebServiceClient : IDataWebServiceClient
     {
-        private readonly AmplaModules amplaModule;
-        private readonly string defaultModule;
-        private readonly string[] reportingPoints;
+        //private readonly string[] reportingPoints;
         private readonly SimpleSecurityWebServiceClient securityWebServiceClient;
         private readonly IAmplaDatabase amplaDatabase;
+        private readonly IAmplaConfiguration amplaConfiguration;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SimpleDataWebServiceClient"/> class.
+        /// Initializes a new instance of the <see cref="SimpleDataWebServiceClient" /> class.
         /// </summary>
-        /// <param name="amplaDatabase"></param>
-        /// <param name="module">The module.</param>
-        /// <param name="locations">The valid locations.</param>
-        /// <param name="securityWebServiceClient"></param>
+        /// <param name="amplaDatabase">The ampla database.</param>
+        /// <param name="amplaConfiguration">The ampla configuration.</param>
+        /// <param name="securityWebServiceClient">The security web service client.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">module</exception>
-        public SimpleDataWebServiceClient(IAmplaDatabase amplaDatabase, string module, string[] locations, SimpleSecurityWebServiceClient securityWebServiceClient)
+        public SimpleDataWebServiceClient(IAmplaDatabase amplaDatabase, IAmplaConfiguration amplaConfiguration, SimpleSecurityWebServiceClient securityWebServiceClient)
         {
             this.amplaDatabase = amplaDatabase;
-            if (!Enum.TryParse(module, out amplaModule))
-            {
-                throw new ArgumentOutOfRangeException("module");
-            }
-            defaultModule = Convert.ToString(amplaModule);
-            reportingPoints = locations;
+            this.amplaConfiguration = amplaConfiguration;
 
             GetViewFunc = StandardViews.EmptyView;
             this.securityWebServiceClient = securityWebServiceClient;
@@ -54,7 +48,6 @@ namespace AmplaData.AmplaData2008
                 {
                     XmlDocument xmlDoc = new XmlDocument();
 
-                    CheckModule(request.View.Module);
                     CheckCredentials(request.Credentials);
 
                     InMemoryFilterMatcher filterMatcher = new InMemoryFilterMatcher(request.Filter);
@@ -115,7 +108,6 @@ namespace AmplaData.AmplaData2008
         public GetAuditDataResponse GetAuditData(GetAuditDataRequest request)
         {
             CheckCredentials(request.Credentials);
-            CheckModule(request.Filter.Module);
             
             InMemoryFilterMatcher filterMatcher = new InMemoryFilterMatcher(request.Filter);
 
@@ -191,17 +183,20 @@ namespace AmplaData.AmplaData2008
         {
             return TryCatchThrowFault(() =>
                 {
-                    CheckModule(request.Module);
                     CheckCredentials(request.Credentials);
 
-                    SimpleNavigationHierarchy navigationHierarchy = new SimpleNavigationHierarchy(amplaModule, reportingPoints);
+                    string module = request.Module.ToString();
+
+                    string[] reportingPoints = amplaConfiguration.GetLocations(module);
+
+                    SimpleNavigationHierarchy navigationHierarchy = new SimpleNavigationHierarchy(request.Module, reportingPoints);
 
                     return new GetNavigationHierarchyResponse
                         {
                             Hierarchy = navigationHierarchy.GetHierarchy(),
                             Context = new GetNavigationHierarchyResponseContext
                                 {
-                                    Module = (AmplaModules) Enum.Parse(typeof (AmplaModules), defaultModule),
+                                    Module = (AmplaModules) Enum.Parse(typeof (AmplaModules), module),
                                     Context = NavigationContext.Plant,
                                     Mode = NavigationMode.Location,
                                 }
@@ -222,8 +217,7 @@ namespace AmplaData.AmplaData2008
                     string user = CheckCredentials(request.Credentials);
                     foreach (SubmitDataRecord submitDataRecord in request.SubmitDataRecords)
                     {
-                        CheckModule(submitDataRecord.Module);
-                        CheckReportingPoint(submitDataRecord.Location);
+                        CheckReportingPoint(submitDataRecord.Module.ToString(), submitDataRecord.Location);
                         results.Add(submitDataRecord.MergeCriteria == null
                                         ? InsertDataRecord(submitDataRecord, user)
                                         : UpdateDataRecord(submitDataRecord, user));
@@ -249,8 +243,7 @@ namespace AmplaData.AmplaData2008
                     {
                         Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(deleteRecord.Module.ToString());
 
-                        CheckModule(deleteRecord.Module);
-                        CheckReportingPoint(deleteRecord.Location);
+                        CheckReportingPoint(deleteRecord.Module.ToString(), deleteRecord.Location);
                         int recordId = (int) deleteRecord.MergeCriteria.SetId;
                         InMemoryRecord record = FindRecord(database, deleteRecord.Location, deleteRecord.Module, recordId);
                         FieldValue deleted = record.Find("Deleted");
@@ -286,9 +279,9 @@ namespace AmplaData.AmplaData2008
                     CheckCredentials(request.Credentials);
                     foreach (UpdateRecordStatus recordStatus in request.UpdateRecords)
                     {
-                        Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(recordStatus.Module.ToString());
-                        CheckModule(recordStatus.Module);
-                        CheckReportingPoint(recordStatus.Location);
+                        string module = recordStatus.Module.ToString();
+                        Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(module);
+                        CheckReportingPoint(module, recordStatus.Location);
                         int recordId = (int) recordStatus.MergeCriteria.SetId;
                         InMemoryRecord record = FindRecord(database, recordStatus.Location, recordStatus.Module, recordId);
                         FieldValue confirmed = record.Find("Confirmed");
@@ -319,9 +312,9 @@ namespace AmplaData.AmplaData2008
         {
             return TryCatchThrowFault(() =>
                 {
-                    CheckModule(request.Module);
                     CheckCredentials(request.Credentials);
-                    CheckLocation(request.ViewPoint);
+                    string module = request.Module.ToString();
+                    CheckLocation(module, request.ViewPoint);
                     GetViewsResponse response = new GetViewsResponse
                         {
                             Views = new[]
@@ -347,12 +340,11 @@ namespace AmplaData.AmplaData2008
         {
             return TryCatchThrowFault(() =>
                 {
-                    CheckModule(request.OriginalRecord.Module);
                     CheckCredentials(request.Credentials);
-                    CheckReportingPoint(request.OriginalRecord.Location);
-
                     string module = request.OriginalRecord.Module.ToString();
 
+                    CheckReportingPoint(module, request.OriginalRecord.Location);
+                    
                     Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(module);
 
                     InMemoryRecord record = FindRecord(database, request.OriginalRecord.Location, request.OriginalRecord.Module,
@@ -387,15 +379,16 @@ namespace AmplaData.AmplaData2008
 
         private DataSubmissionResult InsertDataRecord(SubmitDataRecord submitDataRecord, string user)
         {
-            Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(submitDataRecord.Module.ToString());
-            int setId = amplaDatabase.GetNewSetId(submitDataRecord.Module.ToString());
+            string module = submitDataRecord.Module.ToString();
+            Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(module);
+            int setId = amplaDatabase.GetNewSetId(module);
 
             setId++;
             GetView view = GetViewFunc();
             InMemoryRecord amplaRecord = new InMemoryRecord(view)
                 {
                     Location = submitDataRecord.Location,
-                    Module = defaultModule,
+                    Module = module,
                     RecordId = setId
                 };
 
@@ -537,18 +530,11 @@ namespace AmplaData.AmplaData2008
             throw new ArgumentException(message, "credentials");
         }
 
-        private void CheckModule(AmplaModules checkModule)
+        private void CheckLocation(string module, string location)
         {
-            if (checkModule != amplaModule)
-            {
-                throw new ArgumentException("Invalid module: " + checkModule);
-            }
-        }
-
-        private void CheckLocation(string location)
-        {
-            bool isValid = reportingPoints.Any(point => point == location)
-                || reportingPoints.Any(point => point.StartsWith(location)); 
+            string[] locations = amplaConfiguration.GetLocations(module);
+            bool isValid = locations.Any(point => point == location)
+                || locations.Any(point => point.StartsWith(location)); 
 
             if (!isValid)
             {
@@ -556,22 +542,14 @@ namespace AmplaData.AmplaData2008
             }
         }
 
-        private void CheckReportingPoint(string location)
+        private void CheckReportingPoint(string module, string location)
         {
-            bool isValid = reportingPoints.Any(point => point == location);
+            string[] locations = amplaConfiguration.GetLocations(module);
+            bool isValid = locations.Any(point => point == location);
 
             if (!isValid)
             {
                 throw new ArgumentException("Invalid location: '" + location + "'.");
-            }
-        }
-
-        public List<InMemoryRecord> DatabaseRecords
-        {
-            get
-            {
-                Dictionary<int, InMemoryRecord> database = amplaDatabase.GetModuleRecords(defaultModule);
-                return new List<InMemoryRecord>(database.Values);
             }
         }
 

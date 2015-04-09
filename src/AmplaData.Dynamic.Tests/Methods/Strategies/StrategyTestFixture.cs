@@ -1,6 +1,7 @@
 ﻿using System.Dynamic;
 using AmplaData.AmplaData2008;
 using AmplaData.AmplaSecurity2007;
+using AmplaData.Database;
 using AmplaData.Dynamic.Methods.Binders;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
@@ -22,7 +23,8 @@ namespace AmplaData.Dynamic.Methods.Strategies
             base.OnSetUp();
             SimpleSecurityWebServiceClient securityWebService = new SimpleSecurityWebServiceClient("User");
             SimpleAmplaDatabase amplaDatabase = new SimpleAmplaDatabase();
-            SimpleDataWebServiceClient client = new SimpleDataWebServiceClient(amplaDatabase, Module, new []{Location}, securityWebService)
+            SimpleAmplaConfiguration configuration = new SimpleAmplaConfiguration();
+            SimpleDataWebServiceClient client = new SimpleDataWebServiceClient(amplaDatabase, configuration, securityWebService)
             {
                 GetViewFunc = ProductionViews.StandardView
             };

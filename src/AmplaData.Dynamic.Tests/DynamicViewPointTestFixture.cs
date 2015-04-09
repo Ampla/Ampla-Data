@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AmplaData.AmplaData2008;
 using AmplaData.AmplaSecurity2007;
+using AmplaData.Database;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
 using NUnit.Framework;
@@ -15,6 +16,7 @@ namespace AmplaData.Dynamic
         private SimpleDataWebServiceClient webServiceClient;
         private DynamicViewPoint dynamicViewPoint;
         private SimpleAmplaDatabase database;
+        private SimpleAmplaConfiguration configuration;
 
         protected DynamicViewPointTestFixture(string location, string module)
         {
@@ -28,8 +30,12 @@ namespace AmplaData.Dynamic
 
             database = new SimpleAmplaDatabase();
             database.EnableModule(module);
+            configuration = new SimpleAmplaConfiguration();
+            configuration.EnableModule(module);
+            configuration.AddLocation(module, location);
+
             SimpleSecurityWebServiceClient securityWebService = new SimpleSecurityWebServiceClient("User");
-            webServiceClient = new SimpleDataWebServiceClient(database, module, new [] {location}, securityWebService)
+            webServiceClient = new SimpleDataWebServiceClient(database, configuration, securityWebService)
             {
                 GetViewFunc = ProductionViews.StandardView
             };

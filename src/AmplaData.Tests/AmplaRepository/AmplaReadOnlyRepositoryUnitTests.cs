@@ -2,6 +2,7 @@
 using AmplaData.AmplaData2008;
 using AmplaData.AmplaSecurity2007;
 using AmplaData.Attributes;
+using AmplaData.Database;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
 using NUnit.Framework;
@@ -26,13 +27,19 @@ namespace AmplaData.AmplaRepository
         private const string module = "Production";
         private const string location = "Plant.Area.Values";
         private SimpleAmplaDatabase database;
+        private SimpleAmplaConfiguration configuration;
 
         protected override void OnSetUp()
         {
             base.OnSetUp();
             database = new SimpleAmplaDatabase();
             database.EnableModule(module);
-            webServiceClient = new SimpleDataWebServiceClient(database, module, new[] {location}, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = ProductionViews.AreaValueModelView};
+
+            configuration = new SimpleAmplaConfiguration();
+            configuration.EnableModule(module);
+            configuration.AddLocation(module, location);
+
+            webServiceClient = new SimpleDataWebServiceClient(database, configuration, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = ProductionViews.AreaValueModelView};
             repository = new AmplaReadOnlyRepository<AreaValueModel>(new AmplaRepository<AreaValueModel>(webServiceClient, credentialsProvider));
         }
 
@@ -42,6 +49,14 @@ namespace AmplaData.AmplaRepository
             webServiceClient = null;
             database = null;
             base.OnTearDown();
+        }
+
+        protected List<InMemoryRecord> DatabaseRecords
+        {
+            get
+            {
+                return new List<InMemoryRecord>(database.GetModuleRecords(module).Values);
+            }
         }
 
         [Test]
@@ -62,7 +77,7 @@ namespace AmplaData.AmplaRepository
             int recordId = record.SaveTo(webServiceClient);
             Assert.That(recordId, Is.GreaterThan(0));
 
-            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+            Assert.That(DatabaseRecords, Is.Not.Empty);
             
             IList<AreaValueModel> models = repository.GetAll();
 
@@ -82,7 +97,7 @@ namespace AmplaData.AmplaRepository
             int recordId = record.SaveTo(webServiceClient);
             Assert.That(recordId, Is.GreaterThan(0));
 
-            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+            Assert.That(DatabaseRecords, Is.Not.Empty);
 
             AreaValueModel model = repository.FindById(recordId);
 
@@ -106,7 +121,7 @@ namespace AmplaData.AmplaRepository
             int recordId = record.SaveTo(webServiceClient);
             Assert.That(recordId, Is.GreaterThan(0));
 
-            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+            Assert.That(DatabaseRecords, Is.Not.Empty);
             AreaValueModel model = repository.FindById(recordId);
 
             Assert.That(model.Id, Is.EqualTo(recordId));

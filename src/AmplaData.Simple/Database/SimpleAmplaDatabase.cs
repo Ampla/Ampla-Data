@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using AmplaData.Records;
 
-namespace AmplaData.Records
+namespace AmplaData.Database
 {
     public class SimpleAmplaDatabase : IAmplaDatabase
     {

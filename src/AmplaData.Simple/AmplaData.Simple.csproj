@@ -48,6 +48,8 @@
     <Compile Include="AmplaData2008\SimpleNavigationHierarchy.cs" />
     <Compile Include="AmplaSecurity2007\SimpleSecurityWebServiceClient.cs" />
     <Compile Include="AmplaSecurity2007\SimpleSession.cs" />
+    <Compile Include="Database\IAmplaConfiguration.cs" />
+    <Compile Include="Database\SimpleAmplaConfiguration.cs" />
     <Compile Include="Modules\Downtime\DowntimeRecords.cs" />
     <Compile Include="Modules\Downtime\DowntimeViews.cs" />
     <Compile Include="Modules\Energy\EnergyRecords.cs" />
@@ -73,11 +75,11 @@
     <Compile Include="Records\Filters\LocationFilterMatcher.cs" />
     <Compile Include="Records\Filters\LocationWithRecurseFilterMatcher.cs" />
     <Compile Include="Records\Filters\SamplePeriodFilterMatcher.cs" />
-    <Compile Include="Records\IAmplaDatabase.cs" />
+    <Compile Include="Database\IAmplaDatabase.cs" />
     <Compile Include="Records\InMemoryAuditRecord.cs" />
     <Compile Include="Records\InMemoryRecord.cs" />
     <Compile Include="Records\InMemoryRecordExtensions.cs" />
-    <Compile Include="Records\SimpleAmplaDatabase.cs" />
+    <Compile Include="Database\SimpleAmplaDatabase.cs" />
     <Compile Include="Views\StandardViews.cs" />
     <Compile Include="Views\ViewExtensions.cs" />
   </ItemGroup>

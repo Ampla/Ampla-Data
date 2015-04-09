@@ -1,7 +1,9 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using AmplaData.AmplaSecurity2007;
+using AmplaData.Database;
 using AmplaData.Modules.Downtime;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
@@ -19,10 +21,11 @@ namespace AmplaData.AmplaData2008
         private const string location = "Enterprise.Site.Area.Production";
         private const string module = "Production";
         private SimpleAmplaDatabase database;
+        private SimpleAmplaConfiguration configuration;
 
         private SimpleDataWebServiceClient Create()
         {
-            return new SimpleDataWebServiceClient(database, module, new []{location}, new SimpleSecurityWebServiceClient("User"));
+            return new SimpleDataWebServiceClient(database, configuration, new SimpleSecurityWebServiceClient("User"));
         }
 
         protected override void OnSetUp()
@@ -30,6 +33,18 @@ namespace AmplaData.AmplaData2008
             base.OnSetUp();
             database = new SimpleAmplaDatabase();
             database.EnableModule(module);
+
+            configuration = new SimpleAmplaConfiguration();
+            configuration.EnableModule(module);
+            configuration.AddLocation(module, location);
+        }
+
+        protected List<InMemoryRecord> DatabaseRecords
+        {
+            get
+            {
+                return new List<InMemoryRecord>(database.GetModuleRecords(module).Values);
+            }
         }
         
         [Test]
@@ -53,7 +68,7 @@ namespace AmplaData.AmplaData2008
             Assert.That(response.DataSubmissionResults[0].RecordAction, Is.EqualTo(RecordAction.Insert));
             Assert.That(response.DataSubmissionResults[0].SetId, Is.GreaterThan(100));
 
-            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+            Assert.That(DatabaseRecords.Count, Is.EqualTo(1));
         }
 
         [Test]
@@ -78,8 +93,8 @@ namespace AmplaData.AmplaData2008
             SubmitDataResponse response = webServiceClient.SubmitData(request);
             Assert.That(response, Is.Not.Null);
 
-            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
-            InMemoryRecord inserted = webServiceClient.DatabaseRecords[0];
+            Assert.That(DatabaseRecords.Count, Is.EqualTo(1));
+            InMemoryRecord inserted = DatabaseRecords[0];
 
             Assert.That(inserted.GetFieldValue("CreatedBy", "null"), Is.EqualTo("User"));
             Assert.That(inserted.GetFieldValue("CreatedDateTime", DateTime.MinValue), Is.InRange(before, after));
@@ -106,8 +121,8 @@ namespace AmplaData.AmplaData2008
             SubmitDataResponse response = webServiceClient.SubmitData(request);
             Assert.That(response, Is.Not.Null);
 
-            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
-            InMemoryRecord inserted = webServiceClient.DatabaseRecords[0];
+            Assert.That(DatabaseRecords.Count, Is.EqualTo(1));
+            InMemoryRecord inserted = DatabaseRecords[0];
 
             Assert.That(inserted.GetFieldValue("CreatedBy", "null"), Is.EqualTo("UnitTests"));
             Assert.That(inserted.GetFieldValue("CreatedDateTime", DateTime.MinValue), Is.EqualTo(DateTime.Today.ToUniversalTime()));
@@ -193,8 +208,8 @@ namespace AmplaData.AmplaData2008
             Assert.That(response.DataSubmissionResults[0].RecordAction, Is.EqualTo(RecordAction.Insert));
             Assert.That(response.DataSubmissionResults[0].SetId, Is.GreaterThan(100));
 
-            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
-            Assert.That(webServiceClient.DatabaseRecords[0].Find("New Field"), Is.Null);
+            Assert.That(DatabaseRecords.Count, Is.EqualTo(1));
+            Assert.That(DatabaseRecords[0].Find("New Field"), Is.Null);
 
             update.RecordId = (int) response.DataSubmissionResults[0].SetId;
 
@@ -214,9 +229,9 @@ namespace AmplaData.AmplaData2008
             Assert.That(response.DataSubmissionResults[0].RecordAction, Is.EqualTo(RecordAction.Update));
             Assert.That(response.DataSubmissionResults[0].SetId, Is.EqualTo(update.RecordId));
 
-            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
-            Assert.That(webServiceClient.DatabaseRecords[0].Find("New Field"), Is.Not.Null);
-            Assert.That(webServiceClient.DatabaseRecords[0].Find("New Field").Value, Is.EqualTo("100"));
+            Assert.That(DatabaseRecords.Count, Is.EqualTo(1));
+            Assert.That(DatabaseRecords[0].Find("New Field"), Is.Not.Null);
+            Assert.That(DatabaseRecords[0].Find("New Field").Value, Is.EqualTo("100"));
         }
 
         [Test]
@@ -241,11 +256,14 @@ namespace AmplaData.AmplaData2008
         [Test]
         public void GetNavigationHierarchyTwoLocations()
         {
-            string[] locations = new [] { "Plant.Area.Production", "Plant.Area.Equipment.Production"};
+            configuration = new SimpleAmplaConfiguration();
+            configuration.EnableModule(module);
+            configuration.AddLocation(module, "Plant.Area.Production");
+            configuration.AddLocation(module, "Plant.Area.Equipment.Production");
+
             SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(
                 database, 
-                "Production",
-                locations, 
+                configuration, 
                 new SimpleSecurityWebServiceClient("User"));
 
             GetNavigationHierarchyResponse response = webServiceClient.GetNavigationHierarchy(
@@ -272,14 +290,17 @@ namespace AmplaData.AmplaData2008
             record.SetFieldIdValue("Classification", "Unplanned Process", 200);
 
             database.EnableModule("Downtime");
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(database,
-                "Downtime", new []{"Enterprise.Site.Area.Downtime"}, new SimpleSecurityWebServiceClient("User"));
+
+            configuration.EnableModule("Downtime");
+            configuration.AddLocation("Downtime", "Enterprise.Site.Area.Downtime");
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(database, configuration, new SimpleSecurityWebServiceClient("User"));
 
             record.SaveTo(webServiceClient);
 
-            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
+            List<InMemoryRecord> records = new List<InMemoryRecord>(database.GetModuleRecords("Downtime").Values);
+            Assert.That(records, Is.Not.Empty);
 
-            string recordId = Convert.ToString(webServiceClient.DatabaseRecords[0].RecordId);
+            string recordId = Convert.ToString(records[0].RecordId);
 
             GetDataRequest request = new GetDataRequest
                 {
@@ -303,15 +324,16 @@ namespace AmplaData.AmplaData2008
             record.SetFieldIdValue("Classification", "Unplanned Process", 200);
 
             database.EnableModule("Downtime");
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(database,
-                "Downtime", new[] { "Enterprise.Site.Area.Downtime" }, new SimpleSecurityWebServiceClient("User"));
+            configuration.EnableModule("Downtime");
+            configuration.AddLocation("Downtime", "Enterprise.Site.Area.Downtime");
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(database, configuration, new SimpleSecurityWebServiceClient("User"));
    
             record.SaveTo(webServiceClient);
 
-            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
-
-          
-            string recordId = Convert.ToString(webServiceClient.DatabaseRecords[0].RecordId);
+            List<InMemoryRecord> records = new List<InMemoryRecord>(database.GetModuleRecords("Downtime").Values);
+            Assert.That(records, Is.Not.Empty);
+            
+            string recordId = Convert.ToString(records[0].RecordId);
 
             GetDataRequest request = new GetDataRequest
             {
@@ -352,7 +374,7 @@ namespace AmplaData.AmplaData2008
         {
             SimpleSecurityWebServiceClient securityWebService = new SimpleSecurityWebServiceClient("User");
 
-            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(database, module, new []{location}, securityWebService );
+            SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(database, configuration, securityWebService );
             Assert.Throws<FaultException>(() =>
                                           webServiceClient.GetNavigationHierarchy(new GetNavigationHierarchyRequest()
                                               {
@@ -417,7 +439,7 @@ namespace AmplaData.AmplaData2008
         public void GetDataReturnsLocation()
         {
             SimpleDataWebServiceClient webServiceClient = new SimpleDataWebServiceClient(
-                database, module, new [] {location}, new SimpleSecurityWebServiceClient("User"));
+                database, configuration, new SimpleSecurityWebServiceClient("User"));
 
             InMemoryRecord record = ProductionRecords.NewRecord().MarkAsNew();
 
@@ -436,9 +458,9 @@ namespace AmplaData.AmplaData2008
             Assert.That(submitResponse.DataSubmissionResults[0].SetId, Is.GreaterThan(100));
 
             string recordId = Convert.ToString(submitResponse.DataSubmissionResults[0].SetId);
-            Assert.That(webServiceClient.DatabaseRecords.Count, Is.EqualTo(1));
+            Assert.That(DatabaseRecords.Count, Is.EqualTo(1));
 
-            Assert.That(webServiceClient.DatabaseRecords[0].Location, Is.EqualTo(location));
+            Assert.That(DatabaseRecords[0].Location, Is.EqualTo(location));
 
             GetDataRequest request = new GetDataRequest
             {
@@ -487,8 +509,8 @@ namespace AmplaData.AmplaData2008
             };
 
             webServiceClient.SubmitData(submitRequest);
-            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
-            int recordId = webServiceClient.DatabaseRecords[0].RecordId;
+            Assert.That(DatabaseRecords, Is.Not.Empty);
+            int recordId = DatabaseRecords[0].RecordId;
 
             GetAuditDataRequest request = new GetAuditDataRequest
             {
@@ -520,8 +542,8 @@ namespace AmplaData.AmplaData2008
 
             webServiceClient.SubmitData(submitRequest);
 
-            Assert.That(webServiceClient.DatabaseRecords, Is.Not.Empty);
-            int recordId = webServiceClient.DatabaseRecords[0].RecordId;
+            Assert.That(DatabaseRecords, Is.Not.Empty);
+            int recordId = DatabaseRecords[0].RecordId;
 
             InMemoryRecord updateRecord = new InMemoryRecord(ProductionViews.StandardView())
                 {
