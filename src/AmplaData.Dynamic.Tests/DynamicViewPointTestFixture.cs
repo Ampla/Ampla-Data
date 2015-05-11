@@ -33,12 +33,10 @@ namespace AmplaData.Dynamic
             configuration = new SimpleAmplaConfiguration();
             configuration.EnableModule(module);
             configuration.AddLocation(module, location);
+            configuration.SetDefaultView(module, ProductionViews.StandardView());
 
             SimpleSecurityWebServiceClient securityWebService = new SimpleSecurityWebServiceClient("User");
-            webServiceClient = new SimpleDataWebServiceClient(database, configuration, securityWebService)
-            {
-                GetViewFunc = ProductionViews.StandardView
-            };
+            webServiceClient = new SimpleDataWebServiceClient(database, configuration, securityWebService);
 
             DataWebServiceFactory.Factory = () => webServiceClient;
 

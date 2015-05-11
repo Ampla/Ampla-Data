@@ -7,6 +7,17 @@ namespace AmplaData.Modules.Quality
 {
     public class QualityViews : StandardViews
     {
+        public static GetView StandardViewPlus(params GetViewsField[] extraFields)
+        {
+            GetView view = new GetView
+            {
+                name = "Quality.StandardView",
+                DisplayName = "Quality",
+                Fields = StandardFieldsPlus(extraFields),
+                AllowedOperations = AllowAll(),
+            };
+            return view;
+        }
 
         public static GetView StandardView()
         {
@@ -20,7 +31,7 @@ namespace AmplaData.Modules.Quality
             return view;
         }
 
-        private static GetViewsField[] StandardFieldsPlus(params GetViewsField[] extraFields)
+        protected static GetViewsField[] StandardFieldsPlus(params GetViewsField[] extraFields)
         {
             List<GetViewsField> fields = new List<GetViewsField>
                 {

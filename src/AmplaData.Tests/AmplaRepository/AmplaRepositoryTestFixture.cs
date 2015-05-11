@@ -49,7 +49,9 @@ namespace AmplaData.AmplaRepository
                 configuration.AddLocation(module, location);
             }
 
-            webServiceClient = new SimpleDataWebServiceClient(database, configuration, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = getViewFunc};
+            configuration.SetDefaultView(module, getViewFunc());
+
+            webServiceClient = new SimpleDataWebServiceClient(database, configuration, new SimpleSecurityWebServiceClient("User"));
             listLogger = new ListLogger();
             repository = new AmplaRepository<TModel>(new LoggingDataWebServiceClient(webServiceClient, listLogger), 
                 CredentialsProvider.ForUsernameAndPassword(userName, password));

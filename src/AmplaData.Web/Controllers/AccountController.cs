@@ -47,6 +47,11 @@ namespace AmplaData.Web.Controllers
 
             AmplaUser user = amplaUserService.RenewSession(session);
 
+            if (user == null)
+            {
+                return RedirectToAction("Login");
+            }
+
             UserModel model = new UserModel
                 {
                     UserName = user.UserName,

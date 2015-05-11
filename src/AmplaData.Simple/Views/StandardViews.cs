@@ -21,27 +21,27 @@ namespace AmplaData.Views
             return new GetViewsAllowedOperation[0].AllowAll();
         }
 
-        protected static GetViewsField Field<T>(string name)
+        public static GetViewsField Field<T>(string name)
         {
             return Field<T>(name, name, false, false);
         }
 
-        protected static GetViewsField Field<T>(string name, string displayName)
+        public static GetViewsField Field<T>(string name, string displayName)
         {
             return Field<T>(name, displayName, false, false);
         }
 
-        protected static GetViewsField Field<T>(string name, string displayName, bool isReadOnly)
+        public static GetViewsField Field<T>(string name, string displayName, bool isReadOnly)
         {
             return Field<T>(name, displayName, isReadOnly, false);
         }
 
-        protected static GetViewsField Field<T>(string name, string displayName, bool isReadOnly, bool required)
+        public static GetViewsField Field<T>(string name, string displayName, bool isReadOnly, bool required)
         {
             return Field<T>(name, displayName, isReadOnly, required, false);
         }
 
-        protected static GetViewsField Field<T>(string name, string displayName, bool isReadOnly, bool required, bool hasValues)
+        public static GetViewsField Field<T>(string name, string displayName, bool isReadOnly, bool required, bool hasValues)
         {
             GetViewsField field = new GetViewsField
             {

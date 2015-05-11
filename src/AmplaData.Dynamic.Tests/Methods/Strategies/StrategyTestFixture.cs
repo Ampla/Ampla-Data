@@ -24,11 +24,8 @@ namespace AmplaData.Dynamic.Methods.Strategies
             SimpleSecurityWebServiceClient securityWebService = new SimpleSecurityWebServiceClient("User");
             SimpleAmplaDatabase amplaDatabase = new SimpleAmplaDatabase();
             SimpleAmplaConfiguration configuration = new SimpleAmplaConfiguration();
-            SimpleDataWebServiceClient client = new SimpleDataWebServiceClient(amplaDatabase, configuration, securityWebService)
-            {
-                GetViewFunc = ProductionViews.StandardView
-            };
-
+            SimpleDataWebServiceClient client = new SimpleDataWebServiceClient(amplaDatabase, configuration, securityWebService);
+            
             DataWebServiceFactory.Factory = () => client;
             Strategy = new T();
         }

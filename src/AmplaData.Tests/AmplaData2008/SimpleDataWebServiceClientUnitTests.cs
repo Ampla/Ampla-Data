@@ -37,6 +37,7 @@ namespace AmplaData.AmplaData2008
             configuration = new SimpleAmplaConfiguration();
             configuration.EnableModule(module);
             configuration.AddLocation(module, location);
+            configuration.SetDefaultView("Production", ProductionViews.StandardView());
         }
 
         protected List<InMemoryRecord> DatabaseRecords
@@ -352,7 +353,6 @@ namespace AmplaData.AmplaData2008
         public void GetDataWithMetaDataReturnsColumns()
         {
             SimpleDataWebServiceClient webServiceClient = Create();
-            webServiceClient.GetViewFunc = ProductionViews.StandardView;
         
             GetDataRequest request = new GetDataRequest
             {
@@ -398,7 +398,6 @@ namespace AmplaData.AmplaData2008
         public void GetDataWithNoMetaDataReturnsZeroColumns()
         {
             SimpleDataWebServiceClient webServiceClient = Create();
-            webServiceClient.GetViewFunc = ProductionViews.StandardView;
 
             GetDataRequest request = new GetDataRequest
             {
@@ -418,7 +417,6 @@ namespace AmplaData.AmplaData2008
         public void GetDataWithNullOutputOptions()
         {
             SimpleDataWebServiceClient webServiceClient = Create();
-            webServiceClient.GetViewFunc = ProductionViews.StandardView;
 
             GetDataRequest request = new GetDataRequest
             {

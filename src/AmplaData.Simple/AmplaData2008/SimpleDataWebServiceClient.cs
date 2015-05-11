@@ -33,7 +33,6 @@ namespace AmplaData.AmplaData2008
             this.amplaDatabase = amplaDatabase;
             this.amplaConfiguration = amplaConfiguration;
 
-            GetViewFunc = StandardViews.EmptyView;
             this.securityWebServiceClient = securityWebServiceClient;
         }
 
@@ -78,6 +77,8 @@ namespace AmplaData.AmplaData2008
                         rows.Add(row);
                     }
 
+                    string module = request.View.Module.ToString();
+                    string location = request.Filter.Location;
                     GetDataResponse response = new GetDataResponse
                         {
                             Context = new GetDataResponseContext
@@ -96,7 +97,7 @@ namespace AmplaData.AmplaData2008
                                     new RowSet
                                         {
                                             Rows = rows.ToArray(),
-                                            Columns = request.Metadata ? GetColumns() : null
+                                            Columns = request.Metadata ? GetColumns(module, location) : null
                                         }
                                 }
                         };
@@ -158,10 +159,11 @@ namespace AmplaData.AmplaData2008
             return response;
         }
 
-        private FieldDefinition[] GetColumns()
+        private FieldDefinition[] GetColumns(string module, string location)
         {
             List<FieldDefinition> columns = new List<FieldDefinition>();
-            GetView view = GetViewFunc();
+
+            GetView view = amplaConfiguration.GetViewForLocation(module, location);
             foreach (GetViewsField field in view.Fields)
             {
                 columns.Add(new FieldDefinition
@@ -319,18 +321,13 @@ namespace AmplaData.AmplaData2008
                         {
                             Views = new[]
                                 {
-                                    GetViewFunc()
+                                    amplaConfiguration.GetViewForLocation(module, request.ViewPoint)
                                 }
                         };
                     return response;
                 });
         }
         
-        public Func<GetView> GetViewFunc
-        {
-            get; set;
-        }
-
         /// <summary>
         /// Splits the records.
         /// </summary>
@@ -384,7 +381,7 @@ namespace AmplaData.AmplaData2008
             int setId = amplaDatabase.GetNewSetId(module);
 
             setId++;
-            GetView view = GetViewFunc();
+            GetView view = amplaConfiguration.GetViewForLocation(module, submitDataRecord.Location);
             InMemoryRecord amplaRecord = new InMemoryRecord(view)
                 {
                     Location = submitDataRecord.Location,
@@ -458,6 +455,8 @@ namespace AmplaData.AmplaData2008
         {
             List<InMemoryAuditRecord> auditDatabase = amplaDatabase.GetAuditRecords(record.Module);
 
+            GetView view = amplaConfiguration.GetViewForLocation(record.Module, record.Location);
+
             InMemoryAuditRecord auditRecord = new InMemoryAuditRecord
                 {
                     SetId = Convert.ToString(record.RecordId),
@@ -465,7 +464,7 @@ namespace AmplaData.AmplaData2008
                     RecordType = record.Module,
                     EditedBy = "System Configuration.Users." + user,
                     EditedDateTime = PersistenceHelper.ConvertToString(editedTime),
-                    Field = GetFieldNameFromDisplayName(displayName),
+                    Field = GetFieldNameFromDisplayName(view, displayName),
                     OriginalValue = oldValue,
                     EditedValue = newValue
                 };
@@ -473,9 +472,8 @@ namespace AmplaData.AmplaData2008
             auditDatabase.Add(auditRecord);
         }
 
-        private string GetFieldNameFromDisplayName(string displayName)
+        private string GetFieldNameFromDisplayName(GetView view, string displayName)
         {
-            GetView view = GetViewFunc();
             foreach (GetViewsField field in view.Fields)
             {
                 if (field.displayName == displayName)

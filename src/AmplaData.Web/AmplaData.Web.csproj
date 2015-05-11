@@ -94,8 +94,6 @@
     <Compile Include="Controllers\IRepositoryController.cs" />
     <Compile Include="Controllers\ReadOnlyRespositoryController.cs" />
     <Compile Include="Controllers\RespositoryController.cs" />
-    <Compile Include="InMemory\InMemoryRepository.cs" />
-    <Compile Include="InMemory\InMemoryRepositorySet.cs" />
     <Compile Include="MetaData\AmplaModelMetadataProvider.cs" />
     <Compile Include="Models\IntegratedLoginModel.cs" />
     <Compile Include="Models\SimpleLoginModel.cs" />

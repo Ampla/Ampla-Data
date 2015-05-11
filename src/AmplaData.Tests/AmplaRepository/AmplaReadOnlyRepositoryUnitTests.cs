@@ -38,8 +38,9 @@ namespace AmplaData.AmplaRepository
             configuration = new SimpleAmplaConfiguration();
             configuration.EnableModule(module);
             configuration.AddLocation(module, location);
+            configuration.SetDefaultView(module, ProductionViews.AreaValueModelView());
 
-            webServiceClient = new SimpleDataWebServiceClient(database, configuration, new SimpleSecurityWebServiceClient("User")) {GetViewFunc = ProductionViews.AreaValueModelView};
+            webServiceClient = new SimpleDataWebServiceClient(database, configuration, new SimpleSecurityWebServiceClient("User"));
             repository = new AmplaReadOnlyRepository<AreaValueModel>(new AmplaRepository<AreaValueModel>(webServiceClient, credentialsProvider));
         }
 
