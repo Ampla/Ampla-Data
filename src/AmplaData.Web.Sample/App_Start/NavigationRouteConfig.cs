@@ -17,15 +17,7 @@ namespace AmplaData.Web.Sample.App_Start
                   .AddChildRoute<KnowledgeController>("Knowledge", c => c.Index())
                   .AddChildRoute<MaintenanceController>("Maintenance", c => c.Index())
                   .AddChildRoute<EnergyController>("Energy", c => c.Index());
-                  
-            routes.MapNavigationRoute<ShiftLogController>("Shift Log", c => c.Index());
-
-            routes.MapNavigationRoute<IngotCastController>("Ingot Casts", c => c.Default())
-                  .AddChildRoute<IngotCastController>("Select", c => c.Select())
-                  .AddChildRoute<IngotCastController>("List", c => c.Index())
-                  ;
-
-            routes.MapNavigationRoute<IngotBundleController>("Ingot Bundles", c => c.Index());
+            
         }
     }
 }

@@ -4,9 +4,10 @@ using System.Web.Routing;
 using AmplaData.AmplaData2008;
 using AmplaData.AmplaRepository;
 using AmplaData.AmplaSecurity2007;
+using AmplaData.Simple.Web.Modules;
 using AmplaData.Web.Authentication;
 using AmplaData.Web.MetaData;
-using AmplaData.Web.Sample.Models;
+using AmplaData.Web.Modules;
 using AmplaData.Web.Sample.Modules;
 using AmplaData.Web.Sample.App_Start;
 using Autofac;
@@ -30,7 +31,7 @@ namespace AmplaData.Web.Sample
             var builder = new ContainerBuilder();
 
             ModelMetadataProviders.Current = new AmplaModelMetadataProvider();
-            ConfigurationData configData = ConfigurationData.InMemory;
+            ConfigurationData configData = ConfigurationData.Default;
 
             if (configData.ConnectToAmpla)
             {
@@ -43,31 +44,17 @@ namespace AmplaData.Web.Sample
                 builder.RegisterModule<SimpleWebServiceModule>();
             }
 
-            builder.RegisterGeneric(typeof(AmplaRepository<>)).As(typeof(IRepository<>));
-            builder.RegisterGeneric(typeof(AmplaRepository<>)).Named("repository", typeof(IRepository<>));
-            builder.RegisterGeneric(typeof(AmplaReadOnlyRepository<>)).As(typeof(IReadOnlyRepository<>));
+            builder.RegisterModule<AmplaDataAccessModule>();
 
-            builder.RegisterModule<ControllerInjectionModule>();
+
+            builder.RegisterModule(new ControllerInjectionModule(typeof(ControllerInjectionModule).Assembly));
+            builder.RegisterModule(new ControllerInjectionModule(typeof(MvcApplication).Assembly));
             
             builder.RegisterModule<AmplaSecurityInjectionModule>();
             //builder.RegisterModule(new SimpleSecurityInjectionModule("User", "password"));
 
             var container = builder.Build();
 
-            /*
-            if (configData.AddSampleData) // add sample data
-            {
-                IRepository<IngotCastModel> castRepository = container.Resolve<IRepository<IngotCastModel>>();
-                castRepository.Add(new IngotCastModel {CastNo = "Cast 123"});
-                castRepository.Add(new IngotCastModel {CastNo = "Cast 234"});
-
-                IRepository<IngotBundleModel> bundleRepository = container.Resolve<IRepository<IngotBundleModel>>();
-                bundleRepository.Add(new IngotBundleModel {CastNo = "Cast 123"});
-                bundleRepository.Add(new IngotBundleModel {CastNo = "Cast 123"});
-                bundleRepository.Add(new IngotBundleModel {CastNo = "Cast 123"});
-                bundleRepository.Add(new IngotBundleModel {CastNo = "Cast 234"});
-            }
-            */
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
             AreaRegistration.RegisterAllAreas();

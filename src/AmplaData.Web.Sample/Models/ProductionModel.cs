@@ -3,7 +3,7 @@ using AmplaData.Attributes;
 
 namespace AmplaData.Web.Sample.Models
 {
-    [AmplaLocation(Location="Enterprise", WithRecurse = true)]
+    [AmplaLocation(Location="Vedanta", WithRecurse = true)]
     [AmplaModule(Module = "Production")]
     [AmplaDefaultFilters("Deleted={}")]
     public class ProductionModel
@@ -22,5 +22,9 @@ namespace AmplaData.Web.Sample.Models
 
         [AmplaField(Field = "Deleted")]
         public bool Deleted { get; set; }
+
+        public string Train { get; set; }
+
+        public string Shift { get; set; }
     }
 }

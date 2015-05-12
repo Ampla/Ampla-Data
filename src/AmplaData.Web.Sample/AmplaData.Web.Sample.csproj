@@ -45,10 +45,9 @@
       <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.1.1\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.1.0\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.Mvc">
+    <Reference Include="Autofac.Integration.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc4.3.1.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -150,11 +149,8 @@
     <Compile Include="Controllers\PlanningController.cs" />
     <Compile Include="Controllers\QualityController.cs" />
     <Compile Include="Controllers\DowntimeController.cs" />
-    <Compile Include="Controllers\IngotBundleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IngotCastController.cs" />
     <Compile Include="Controllers\ProductionController.cs" />
-    <Compile Include="Controllers\ShiftLogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -166,15 +162,7 @@
     <Compile Include="Models\QualityModel.cs" />
     <Compile Include="Models\DowntimeModel.cs" />
     <Compile Include="Models\HomeInputModel.cs" />
-    <Compile Include="Models\IngotBundleModel.cs" />
-    <Compile Include="Models\IngotCastModel.cs" />
     <Compile Include="Models\ProductionModel.cs" />
-    <Compile Include="Models\ShiftLogModel.cs" />
-    <Compile Include="Modules\AmplaSecurityInjectionModule.cs" />
-    <Compile Include="Modules\ControllerInjectionModule.cs" />
-    <Compile Include="Modules\AmplaWebServiceModule.cs" />
-    <Compile Include="Modules\SimpleWebServiceModule.cs" />
-    <Compile Include="Modules\SimpleSecurityInjectionModule.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
     <Compile Include="NavigationRoutes\NavigationExtensions.cs" />
@@ -240,7 +228,6 @@
     <Content Include="Views\shared\_BootstrapLayout.basic.cshtml" />
     <Content Include="Views\shared\_alerts.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\IngotCast\Select.cshtml" />
     <Content Include="Views\shared\Delete.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\shared\_LoginPartial.cshtml" />
@@ -254,6 +241,10 @@
     <Content Include="Views\shared\_ModelDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AmplaData.Simple.Web\AmplaData.Simple.Web.csproj">
+      <Project>{41F5E763-07D3-4CB1-8120-FB9B3E5BDC7C}</Project>
+      <Name>AmplaData.Simple.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AmplaData.Simple\AmplaData.Simple.csproj">
       <Project>{B3E658CF-5F5A-492A-87E0-9D8E200E22C0}</Project>
       <Name>AmplaData.Simple</Name>
