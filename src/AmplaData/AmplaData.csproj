@@ -55,6 +55,7 @@
     <Compile Include="AmplaData2008\CredentialsProvider.cs" />
     <Compile Include="AmplaData2008\DataWebServiceClient.cs" />
     <Compile Include="AmplaData2008\DataWebServiceFactory.cs" />
+    <Compile Include="AmplaData2008\IDataWebServiceCalendarClient.cs" />
     <Compile Include="AmplaSecurity2007\ISecurityWebServiceClient.cs" />
     <Compile Include="AmplaSecurity2007\SecurityWebServiceClient.cs" />
     <Compile Include="AmplaSecurity2007\SecurityWebServiceFactory.cs" />
