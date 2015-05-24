@@ -23,7 +23,13 @@ namespace AmplaData.Attributes
         /// <param name="location">The location.</param>
         public AmplaLocationAttribute(string location)
         {
-            Location = location;
+            LocationFilter filter;
+            if (LocationFilter.TryParse(location, out filter))
+            {
+                Location = filter.Location;
+                WithRecurse = filter.WithRecurse;
+            }
+            
         }
 
         /// <summary>

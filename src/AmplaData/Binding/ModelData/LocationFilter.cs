@@ -1,4 +1,6 @@
-﻿namespace AmplaData.Binding.ModelData
+﻿using System;
+
+namespace AmplaData.Binding.ModelData
 {
     /// <summary>
     ///     Location Filter 
@@ -26,6 +28,29 @@
         public bool WithRecurse
         {
             get; private set;
+        }
+
+        public static bool TryParse(string locationFilter, out LocationFilter filter)
+        {
+            if (!string.IsNullOrEmpty(locationFilter))
+            {
+                string location = locationFilter;
+                bool withRecurse = false;
+                if (locationFilter.EndsWith(" with recurse", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    int withRecurseLenth = " with recurse".Length;
+                    if (locationFilter.Length > withRecurseLenth)
+                    {
+                        location = locationFilter.Substring(0, locationFilter.Length - withRecurseLenth);
+                        withRecurse = true;
+                    }
+                }
+                filter = new LocationFilter(location, withRecurse);
+                return true;
+            }
+            
+            filter = null;
+            return false;
         }
     }
 }

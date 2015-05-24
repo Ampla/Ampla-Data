@@ -39,6 +39,27 @@ namespace AmplaData.Attributes
         {
         }
 
+        [AmplaLocation("Enterprise.Site with recurse")]
+        public class ModelLocationWithRecurseViaConstructor
+        {
+        }
+
+        [AmplaLocation("Enterprise.Site", WithRecurse = true)]
+        public class ModelLocationViaConstructorWithRecurseProperty
+        {
+        }
+
+        [AmplaLocation("Enterprise.Site", WithRecurse = false)]
+        public class ModelLocationViaConstructorWithRecurseFalseProperty
+        {
+        }
+
+        [AmplaLocation("Enterprise.Site with recurse", WithRecurse = false)]
+        public class ModelLocationWithRecurseViaConstructorOverrideProperty
+        {
+        }
+
+
         [Test]
         public void TryGetWithLocation()
         {
@@ -46,6 +67,10 @@ namespace AmplaData.Attributes
             bool result = AmplaLocationAttribute.TryGetLocation<ModelWithLocation>(out location);
         
             Assert.That(location.Filter, Is.EqualTo("Enterprise.Site.Area.Point"));
+
+            Assert.That(location.Location, Is.EqualTo("Enterprise.Site.Area.Point"));
+            Assert.That(location.WithRecurse, Is.EqualTo(false));
+
             Assert.That(result, Is.True);
         }
 
@@ -56,6 +81,10 @@ namespace AmplaData.Attributes
             bool result = AmplaLocationAttribute.TryGetLocation<InheritedModelWithLocation>(out location);
 
             Assert.That(location.Filter, Is.EqualTo("Enterprise.Site.Area.Point"));
+
+            Assert.That(location.Location, Is.EqualTo("Enterprise.Site.Area.Point"));
+            Assert.That(location.WithRecurse, Is.EqualTo(false));
+
             Assert.That(result, Is.True);
         }
 
@@ -66,6 +95,9 @@ namespace AmplaData.Attributes
             bool result = AmplaLocationAttribute.TryGetLocation<ModelWithOverriddenLocation>(out location);
 
             Assert.That(location.Filter, Is.EqualTo("Enterprise.Site.Area.Overridden"));
+            Assert.That(location.Location, Is.EqualTo("Enterprise.Site.Area.Overridden"));
+            Assert.That(location.WithRecurse, Is.EqualTo(false));
+
             Assert.That(result, Is.True);
         }
 
@@ -106,7 +138,58 @@ namespace AmplaData.Attributes
             bool result = AmplaLocationAttribute.TryGetLocation<ModelLocationViaConstructor>(out location);
 
             Assert.That(location.Filter, Is.EqualTo("Enterprise.Site.Area.Point"));
+            Assert.That(location.Location, Is.EqualTo("Enterprise.Site.Area.Point"));
+            Assert.That(location.WithRecurse, Is.EqualTo(false));
             Assert.That(result, Is.True);
         }
+
+        [Test]
+        public void TryGetWithConstructorLocationWithRecurse()
+        {
+            LocationFilter location;
+            bool result = AmplaLocationAttribute.TryGetLocation<ModelLocationWithRecurseViaConstructor>(out location);
+
+            Assert.That(location.Filter, Is.EqualTo("Enterprise.Site with recurse"));
+            Assert.That(result, Is.True);
+            Assert.That(location.Location, Is.EqualTo("Enterprise.Site"));
+            Assert.That(location.WithRecurse, Is.EqualTo(true));
+        }
+
+        [Test]
+        public void TryGetWithConstructorLocationWithRecurseProperty()
+        {
+            LocationFilter location;
+            bool result = AmplaLocationAttribute.TryGetLocation<ModelLocationViaConstructorWithRecurseProperty>(out location);
+
+            Assert.That(location.Filter, Is.EqualTo("Enterprise.Site with recurse"));
+            Assert.That(result, Is.True);
+            Assert.That(location.Location, Is.EqualTo("Enterprise.Site"));
+            Assert.That(location.WithRecurse, Is.EqualTo(true));
+        }
+
+        [Test]
+        public void TryGetWithConstructorLocationWithRecurseFalseProperty()
+        {
+            LocationFilter location;
+            bool result = AmplaLocationAttribute.TryGetLocation<ModelLocationViaConstructorWithRecurseFalseProperty>(out location);
+
+            Assert.That(location.Filter, Is.EqualTo("Enterprise.Site"));
+            Assert.That(result, Is.True);
+            Assert.That(location.Location, Is.EqualTo("Enterprise.Site"));
+            Assert.That(location.WithRecurse, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void TryGetWithConstructorLocationWithOverriddenRecurseProperty()
+        {
+            LocationFilter location;
+            bool result = AmplaLocationAttribute.TryGetLocation<ModelLocationWithRecurseViaConstructorOverrideProperty>(out location);
+
+            Assert.That(location.Filter, Is.EqualTo("Enterprise.Site"));
+            Assert.That(result, Is.True);
+            Assert.That(location.Location, Is.EqualTo("Enterprise.Site"));
+            Assert.That(location.WithRecurse, Is.EqualTo(false));
+        }
+
     }
 }
