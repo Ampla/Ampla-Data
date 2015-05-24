@@ -3,7 +3,7 @@ using AmplaData.AmplaRepository;
 using AmplaData.AmplaSecurity2007;
 using Autofac;
 
-namespace AmplaData.Web.Sample.Modules
+namespace AmplaData.Web.Modules
 {
     public class AmplaWebServiceModule : Module
     {

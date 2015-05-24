@@ -1,7 +1,7 @@
 ﻿using AmplaData.AmplaData2008;
 using Autofac;
 
-namespace AmplaData.Web.Sample.Modules
+namespace AmplaData.Web.Modules
 {
     public class SimpleSecurityInjectionModule : Module
     {
