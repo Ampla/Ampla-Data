@@ -52,20 +52,5 @@ namespace AmplaData.Web.Controllers
             }
             return View("Record", model);
         }
-
-        /// <summary>
-        ///     GET /{Model}/History/{id}
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ActionResult History(int id = 0)
-        {
-            AmplaAuditRecord record = Repository.GetHistory(id);
-            if (record == null)
-            {
-                return HttpNotFound();
-            }
-            return View("History", record);
-        }
     }
 }

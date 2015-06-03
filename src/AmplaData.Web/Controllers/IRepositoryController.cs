@@ -70,5 +70,19 @@ namespace AmplaData.Web.Controllers
         /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         ActionResult DeleteConfirmed(int id);
+        
+        /// <summary>
+        ///     GET /{Model}/History/id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ActionResult History(int id = 0);
+
+        /// <summary>
+        ///     GET /{Model}/Versions/id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ActionResult Versions(int id = 0);
     }
 }

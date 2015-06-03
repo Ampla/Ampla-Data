@@ -124,7 +124,6 @@
     <Compile Include="Binding\ViewData\ViewFilter.cs" />
     <Compile Include="Binding\ViewData\ViewPeriod.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="IRepositorySet.cs" />
     <Compile Include="Attributes\AmplaLocationAttribute.cs" />
     <Compile Include="AmplaRepository\AmplaReadOnlyRepository.cs" />
     <Compile Include="IReadOnlyRepository.cs" />

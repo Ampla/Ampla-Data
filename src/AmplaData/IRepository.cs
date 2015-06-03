@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using AmplaData.Records;
 
 namespace AmplaData
 {
@@ -45,5 +46,19 @@ namespace AmplaData
         /// <param name="property">The property.</param>
         /// <returns></returns>
         List<string> GetAllowedValues(string property);
+
+        /// <summary>
+        /// Gets the history for the record
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        AmplaAuditRecord GetHistory(int id);
+
+        /// <summary>
+        /// Gets the versions of the model from the audit log
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ModelVersions GetVersions(int id);
     }
 }
