@@ -31,6 +31,27 @@ namespace AmplaData.Modules.Quality
             return view;
         }
 
+        public static GetView CustomView()
+        {
+            GetView view = new GetView
+                {
+                    name = "Quality.StandardView",
+                    DisplayName = "Standard View",
+                    Fields = new []
+                        {
+                            Field<DateTime>("Sample Period", "Sample Period", false, true),
+                            Field<DateTime>("Sample Period End Time", "Sample Period End Time", false, true),
+                            Field<int>("Sample Period Duration", "Sample Period Duration", false, true),
+                            Field<string>("Sample Period Period", "Sample Period Period", false, true),
+                            Field<double>("Sum"),
+                            Field<double>("Average"),
+                            Field<int>("RecordCount")
+                        },
+                    AllowedOperations = AllowAll()
+                };
+            return view;
+        }
+
         protected static GetViewsField[] StandardFieldsPlus(params GetViewsField[] extraFields)
         {
             List<GetViewsField> fields = new List<GetViewsField>
@@ -55,5 +76,7 @@ namespace AmplaData.Modules.Quality
             fields.AddRange(extraFields);
             return fields.ToArray();
         }
+
+        
     }
 }

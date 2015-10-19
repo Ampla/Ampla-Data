@@ -105,5 +105,13 @@ namespace AmplaData.AmplaRepository
             Assert.That(versions2.Versions[0].Display, Is.EqualTo("User created record"));
             Assert.That(versions2.Versions[1].Display, Is.EqualTo("User deleted record"));
         }
+
+        [Test]
+        public void ValidateMappings()
+        {
+            IList<string> messages = Repository.ValidateMapping(new DeletedModel());
+            Assert.That(messages, Is.Empty);
+        }
+
     }
 }

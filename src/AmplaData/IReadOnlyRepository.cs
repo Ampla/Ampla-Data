@@ -37,6 +37,11 @@ namespace AmplaData
         /// <returns></returns>
         IList<TModel> FindByFilter(params FilterValue[] filters);
 
-
+        /// <summary>
+        /// Validates the interface to check for expected Ampla mapping.
+        /// </summary>
+        /// <param name="example">The example model</param>
+        /// <returns></returns>
+        IList<string> ValidateMapping(TModel example);
     }
 }

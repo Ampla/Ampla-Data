@@ -100,11 +100,23 @@
     </Compile>
     <Compile Include="AmplaData2008\LoggingDataWebServiceClient.cs" />
     <Compile Include="AmplaRepository\AmplaRepositoryDeletedFilterUnitTests.cs" />
+    <Compile Include="AmplaRepository\ValidateMappingUnitTests.cs" />
+    <Compile Include="AmplaRepository\CustomViewRepositoryUnitTests.cs" />
+    <Compile Include="Attributes\Calendar\AmplaCalendarValueAttributeUnitTests.cs" />
+    <Compile Include="Attributes\Calendar\AmplaCalendarAttributeUnitTests.cs" />
     <Compile Include="Binding\AmplaGetDataVersionsBindingUnitTests.cs" />
     <Compile Include="Binding\History\AmplaRecordHistoryUnitTests.cs" />
     <Compile Include="Binding\History\ModifyRecordEventDectectionUnitTests.cs" />
     <Compile Include="Binding\History\CreateRecordEventDectectionUnitTests.cs" />
     <Compile Include="Binding\History\RecordEventDetectionTestFixture.cs" />
+    <Compile Include="Binding\Mapping\RequiredValueFieldMappingUnitTests.cs" />
+    <Compile Include="Binding\MetaData\AllowEmptyStringConverterUnitTests.cs" />
+    <Compile Include="Binding\MetaData\Iso8601DateTimeConverterUnitTests.cs" />
+    <Compile Include="Binding\MetaData\TimeSpanIntConverterUnitTests.cs" />
+    <Compile Include="Binding\ModelData\CalendarPropertiesUnitTests.cs" />
+    <Compile Include="Binding\ViewData\EnsureViewPermissionsAdapterUnitTests.cs" />
+    <Compile Include="Binding\ViewData\ValidateViewPermissionsUnitTests.cs" />
+    <Compile Include="Binding\ViewData\ViewPermissionsBaseUnitTests.cs" />
     <Compile Include="Display\DisplayStringExtensionsUnitTests.cs" />
     <Compile Include="Display\DateTimeDisplayExtensionsUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -176,9 +188,7 @@
     <Compile Include="AmplaSecurity2007\SimpleSecurityWebServiceClientUnitTests.cs" />
     <Compile Include="TestFixture.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dynamic\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -29,12 +29,12 @@ namespace AmplaData.Binding.MetaData
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, System.Type sourceType)
         {
-            return typeConverter.CanConvertFrom(context, sourceType);
+            return sourceType.IsAssignableFrom(typeof(T)) || typeConverter.CanConvertFrom(context, sourceType);
         }
 
         public override bool CanConvertTo(ITypeDescriptorContext context, System.Type destinationType)
         {
-            return typeConverter.CanConvertTo(context, destinationType);
+            return destinationType.IsAssignableFrom(typeof(T)) || typeConverter.CanConvertTo(context, destinationType);
         }
 
         public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues)

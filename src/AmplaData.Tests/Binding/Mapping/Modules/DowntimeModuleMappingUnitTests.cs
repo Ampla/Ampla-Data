@@ -1,4 +1,5 @@
-﻿using AmplaData.AmplaData2008;
+﻿using System;
+using AmplaData.AmplaData2008;
 using AmplaData.Modules.Downtime;
 using NUnit.Framework;
 
@@ -26,7 +27,8 @@ namespace AmplaData.Binding.Mapping.Modules
         [Test]
         public void StartDateTime()
         {
-            CheckField<DefaultValueFieldMapping>("StartDateTime", "Start Time", true, true);
+            CheckSpecialField<DefaultValueFieldMapping<DateTime>>("StartDateTime", "Start Time");
+            CheckRequiredField<RequiredFieldMapping<DateTime>>("StartDateTime", "Start Time");
         }
 
         [Test]

@@ -1,4 +1,5 @@
-﻿using AmplaData.Binding.ModelData;
+﻿using System;
+using AmplaData.Binding.ModelData;
 
 namespace AmplaData.Binding.Mapping
 {
@@ -11,9 +12,14 @@ namespace AmplaData.Binding.Mapping
         /// Initializes a new instance of the <see cref="FieldMapping"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        protected FieldMapping(string name)
+        protected FieldMapping(string name) : this(name, typeof(string))
+        {
+        }
+
+        protected FieldMapping(string name, Type fieldType)
         {
             Name = name;
+            FieldType = fieldType;
         }
 
         /// <summary>
@@ -36,6 +42,14 @@ namespace AmplaData.Binding.Mapping
         }
 
         /// <summary>
+        /// Gets the type of the Ampla field
+        /// </summary>
+        /// <value>
+        /// The type of the field.
+        /// </value>
+        public Type FieldType { get; private set; }
+
+        /// <summary>
         /// Try to resolve the value from the model
         /// </summary>
         /// <typeparam name="TModel">The type of the model.</typeparam>
@@ -44,5 +58,14 @@ namespace AmplaData.Binding.Mapping
         /// <param name="value">The value.</param>
         /// <returns></returns>
         public abstract bool TryResolveValue<TModel>(IModelProperties<TModel> modelProperties, TModel model, out string value) where TModel : new();
+
+        /// <summary>
+        /// Determines whether this instance [can map field] the specified model properties.
+        /// </summary>
+        /// <param name="modelProperties">The model properties.</param>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public abstract bool CanMapField<TModel>(IModelProperties<TModel> modelProperties, out string message) where TModel : new();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AmplaData.AmplaData2008;
+using AmplaData.Binding.Mapping;
 using AmplaData.Binding.ModelData;
 using AmplaData.Binding.ModelData.Validation;
 
@@ -59,6 +60,31 @@ namespace AmplaData.Dynamic.Binding.ModelData
         public IList<string> GetProperties()
         {
             return new List<string>();
+        }
+
+        public bool CanConvertTo(Type propertyType, string propertyName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanConvertFrom(Type propertyType, string propertyName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Type GetPropertyType(string propertyName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanMapField(FieldMapping fieldMapping, out string message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanRoundTrip(Type fieldType, string propertyName)
+        {
+            throw new NotImplementedException();
         }
 
         public bool TryGetPropertyValue(object model, string propertyName, out string value)

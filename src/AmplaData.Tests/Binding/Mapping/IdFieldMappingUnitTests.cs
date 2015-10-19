@@ -42,5 +42,11 @@ namespace AmplaData.Binding.Mapping
             Assert.That(value, Is.EqualTo(null));
         }
 
+        [Test]
+        public void CanWrite()
+        {
+            IdFieldMapping fieldMapping = new IdFieldMapping("Id");
+            Assert.That(fieldMapping.CanWrite, Is.False);
+        }
     }
 }

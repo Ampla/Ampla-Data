@@ -12,6 +12,16 @@ namespace AmplaData.Binding.MetaData
     {
         private static readonly Iso8601DateTimeConverter Converter = new Iso8601DateTimeConverter();
 
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            return destinationType == typeof (DateTime) || base.CanConvertTo(context, destinationType);
+        }
+
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            return sourceType == typeof (DateTime) || base.CanConvertFrom(context, sourceType);
+        }
+
         /// <summary>
         /// Converts the given value object to a <see cref="T:System.DateTime" /> using the arguments.
         /// </summary>
@@ -29,6 +39,10 @@ namespace AmplaData.Binding.MetaData
             {
                 DateTime localTime = (DateTime) value;
                 return localTime.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ");
+            }
+            if (context == null && destinationType == typeof (DateTime))
+            {
+                return Convert.ToDateTime(value);
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }

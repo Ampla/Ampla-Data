@@ -31,6 +31,28 @@ namespace AmplaData.Binding.Mapping.Modules
             ViewFields.Initialise(view);
         }
 
+        protected void CheckSpecialField<T>(string name, string displayName)
+        {
+            ViewField field = ViewFields.FindByName(name);
+            Assert.That(field, Is.Not.Null, "Unabled to find field: {0}", name);
+
+            FieldMapping specialFieldMapping = ModuleMapping.GetFieldMapping(field, true);
+            Assert.That(specialFieldMapping, Is.Not.Null);
+            Assert.That(specialFieldMapping, Is.TypeOf<T>());
+            Assert.That(specialFieldMapping.Name, Is.EqualTo(displayName));
+        }
+
+        protected void CheckRequiredField<T>(string name, string displayName)
+        {
+            ViewField field = ViewFields.FindByName(name);
+            Assert.That(field, Is.Not.Null, "Unabled to find field: {0}", name);
+
+            FieldMapping requiredFieldMapping = ModuleMapping.GetFieldMapping(field, false);
+            Assert.That(requiredFieldMapping, Is.Not.Null);
+            Assert.That(requiredFieldMapping, Is.TypeOf<T>());
+            Assert.That(requiredFieldMapping.Name, Is.EqualTo(displayName));
+        }
+
         protected void CheckField<T>(string name, string displayName, bool specialField, bool requiredField)
         {
             ViewField field = ViewFields.FindByName(name);

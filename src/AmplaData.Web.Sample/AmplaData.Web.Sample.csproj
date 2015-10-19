@@ -142,6 +142,7 @@
     <Compile Include="BootstrapSupport\HtmlHelpers\Paging.cs" />
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
     <Compile Include="ConfigurationData.cs" />
+    <Compile Include="Controllers\CustomViewController.cs" />
     <Compile Include="Controllers\KnowledgeController.cs" />
     <Compile Include="Controllers\EnergyController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomViewModel.cs" />
     <Compile Include="Models\KnowledgeModel.cs" />
     <Compile Include="Models\EnergyModel.cs" />
     <Compile Include="Models\MaintenanceModel.cs" />

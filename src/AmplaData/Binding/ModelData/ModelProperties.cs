@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using AmplaData.AmplaData2008;
 using AmplaData.Attributes;
+using AmplaData.Binding.Mapping;
 using AmplaData.Binding.MetaData;
 using AmplaData.Binding.ModelData.Validation;
 using AmplaData.Display;
@@ -60,6 +61,7 @@ namespace AmplaData.Binding.ModelData
 
                 AddModelValidators(property, modelValidators);
             }
+
             modelValidators.Add(new NullModelValidator<TModel>());
             propertyNames = properties.ToArray();
 
@@ -214,6 +216,71 @@ namespace AmplaData.Binding.ModelData
         public IList<string> GetProperties()
         {
             return propertyNames;
+        }
+
+        /// <summary>
+        /// Determines whether the property the specified property type.
+        /// </summary>
+        /// <param name="propertyType">Type of the property.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns></returns>
+        public bool CanConvertTo(Type propertyType, string propertyName)
+        {
+            TypeConverter converter;
+            if (typeConverterDictionary.TryGetValue(propertyName, out converter))
+            {
+                return converter.CanConvertTo(propertyType);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether this instance can write the specified field mapping.
+        /// </summary>
+        /// <param name="fieldMapping">The field mapping.</param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public bool CanMapField(FieldMapping fieldMapping, out string message)
+        {
+            return fieldMapping.CanMapField(this, out message);
+        }
+
+        public bool CanRoundTrip(Type fieldType, string propertyName)
+        {
+            TypeConverter converter;
+            if (typeConverterDictionary.TryGetValue(propertyName, out converter))
+            {
+
+
+                return true;
+            }
+            return false;
+        }
+
+        public bool CanConvertFrom(Type propertyType, string propertyName)
+        {
+            TypeConverter converter;
+            if (typeConverterDictionary.TryGetValue(propertyName, out converter))
+            {
+                return converter.CanConvertFrom(propertyType);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the data type of the specified model property.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns></returns>
+        public Type GetPropertyType(string propertyName)
+        {
+            PropertyInfo property;
+
+            if (propertyInfoDictionary.TryGetValue(propertyName, out property))
+            {
+                return property.PropertyType;
+            }
+            return null;
         }
 
         /// <summary>

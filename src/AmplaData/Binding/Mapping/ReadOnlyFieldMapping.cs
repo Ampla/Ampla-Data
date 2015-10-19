@@ -1,4 +1,5 @@
-﻿using AmplaData.Binding.ModelData;
+﻿using System;
+using AmplaData.Binding.ModelData;
 
 namespace AmplaData.Binding.Mapping
 {
@@ -7,11 +8,12 @@ namespace AmplaData.Binding.Mapping
     /// </summary>
     public class ReadOnlyFieldMapping : FieldMapping
     {
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ReadOnlyFieldMapping"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
-        public ReadOnlyFieldMapping(string name) : base(name)
+        public ReadOnlyFieldMapping(string name) : base(name) 
         {
             CanWrite = false;
         }
@@ -28,6 +30,27 @@ namespace AmplaData.Binding.Mapping
         {
             value = null;
             return false;
+        }
+
+        /// <summary>
+        /// Determines whether this instance [can map field] the specified model properties.
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <param name="modelProperties">The model properties.</param>
+        /// <param name="message">The message.</param>
+        /// <returns></returns>
+        public override bool CanMapField<TModel>(IModelProperties<TModel> modelProperties, out string message)
+        {
+            bool canRead = modelProperties.CanConvertTo(FieldType, Name);
+            if (!canRead)
+            {
+                Type propertyType = modelProperties.GetPropertyType(Name);
+                message = string.Format("{0}.{1} is not able to be read ({2}) Ampla field type is {3}.", typeof(TModel), Name, FieldType, propertyType);
+           
+                return false;
+            }
+            message = null;
+            return true;
         }
     }
 }

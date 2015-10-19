@@ -131,5 +131,13 @@ namespace AmplaData.AmplaRepository
 
             Assert.That(repository.FindById(recordId + 1), Is.Null);
         }
+
+        [Test]
+        public void ValidateMappings()
+        {
+            IList<string> messages = repository.ValidateMapping(new AreaValueModel());
+            Assert.That(messages, Is.Empty);
+        }
+
     }
 }

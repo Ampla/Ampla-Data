@@ -7,7 +7,6 @@ namespace AmplaData.Modules.Production
 {
     public class ProductionViews : StandardViews
     {
-
         public static GetView StandardView()
         {
             GetView view = new GetView

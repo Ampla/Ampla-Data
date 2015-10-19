@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AmplaData.Attributes;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
@@ -183,6 +184,13 @@ namespace AmplaData.AmplaRepository
 
             Assert.That(history.Changes, Is.Not.Empty);
             Assert.That(history.Changes[0].Fields[0].Name, Is.EqualTo("SampleDateTime"));
+        }
+
+        [Test]
+        public void ValidateMappings()
+        {
+            IList<string> messages = Repository.ValidateMapping(new AreaValueModel());
+            Assert.That(messages, Is.Empty);
         }
 
     }

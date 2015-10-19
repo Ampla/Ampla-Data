@@ -36,5 +36,14 @@ namespace AmplaData.Binding.ViewData
         /// <param name="value">The value.</param>
         /// <param name="useDisplayName">if set to <c>true</c> [use display name].</param>
         void UpdateModel(TModel model, string name, string value, bool useDisplayName);
+
+        /// <summary>
+        /// Validates the permissions for the view.
+        /// </summary>
+        /// <returns></returns>
+        IList<string> ValidateViewPermissions();
+
+
+
     }
 }

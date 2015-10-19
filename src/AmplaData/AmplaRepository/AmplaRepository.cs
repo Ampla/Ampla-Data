@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AmplaData.AmplaData2008;
 using AmplaData.Binding;
+using AmplaData.Binding.Mapping;
 using AmplaData.Binding.ModelData;
 using AmplaData.Binding.ViewData;
 using AmplaData.Records;
@@ -15,7 +16,6 @@ namespace AmplaData.AmplaRepository
     /// <typeparam name="TModel">The type of the model.</typeparam>
     public class AmplaRepository<TModel> : IRepository<TModel> where TModel : class, new()
     {
-
         private readonly Dictionary<string, IAmplaViewProperties<TModel>> amplaViewDictionary;
         private IDataWebServiceClient webServiceClient;
         private readonly ICredentialsProvider credentialsProvider;
@@ -232,6 +232,45 @@ namespace AmplaData.AmplaRepository
 
             return null;
         }
+
+        /// <summary>
+        /// Validates the Ampla Field Mapping.
+        /// </summary>
+        /// <returns></returns>
+        public IList<string> ValidateMapping(TModel model)
+        {
+            List<string> messages = new List<string>();
+
+            IAmplaViewProperties<TModel> viewProperties = GetViewProperties(model);
+            messages.AddRange(viewProperties.ValidateViewPermissions());
+
+            IEnumerable<FieldMapping> fieldMappings = viewProperties.GetFieldMappings();
+            List<string> missingFields = new List<string>(modelProperties.GetProperties());
+            
+            foreach (FieldMapping fieldMapping in fieldMappings)
+            {
+                string field = fieldMapping.Name;
+                string message;
+                
+                if (!ModelProperties.CanMapField(fieldMapping, out message))
+                {
+                    messages.Add(message ?? "Error message");
+                }
+
+                if (missingFields.Contains(field))
+                {
+                    missingFields.Remove(field);
+                }
+            }
+
+            if (missingFields.Count > 0)
+            {
+                messages.AddRange(missingFields.Select(modelField => string.Format("The property '{0}' is not mapped to an Ampla Field.", modelField)));
+            }
+
+            return messages;
+        }
+
         /// <summary>
         /// Adds the specified model.
         /// </summary>

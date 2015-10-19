@@ -69,7 +69,7 @@ namespace AmplaData.Binding.Mapping.Modules
                 }
                 else
                 {
-                    fieldMapping = new ModelFieldMapping(field.DisplayName);
+                    fieldMapping = new ModelFieldMapping(field.DisplayName, field.DataType);
                 }
             }
             else

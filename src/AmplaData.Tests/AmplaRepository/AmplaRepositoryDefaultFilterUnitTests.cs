@@ -4,7 +4,6 @@ using AmplaData.Attributes;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 
 namespace AmplaData.AmplaRepository
 {
@@ -23,7 +22,7 @@ namespace AmplaData.AmplaRepository
             public DateTime Sample { get; set; }
 
             public string Area { get; set; }
-            public int Value { get; set; }
+            public double Value { get; set; }
         }
 
         private const string module = "Production";
@@ -171,6 +170,13 @@ namespace AmplaData.AmplaRepository
             Assert.That(versions2.Versions.Count, Is.EqualTo(2)); // current value and old value
             AssertModelVersionProperty(versions2, 0, m => m.Value, Is.EqualTo(100));
             AssertModelVersionProperty(versions2, 1, m => m.Value, Is.EqualTo(150));
+        }
+
+        [Test]
+        public void ValidateMappings()
+        {
+            IList<string> messages = Repository.ValidateMapping(new AreaModel());
+            Assert.That(messages, Is.Empty);
         }
 
     }

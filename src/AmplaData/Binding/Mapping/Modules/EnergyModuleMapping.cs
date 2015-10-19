@@ -1,4 +1,5 @@
-﻿using AmplaData.AmplaData2008;
+﻿using System;
+using AmplaData.AmplaData2008;
 
 namespace AmplaData.Binding.Mapping.Modules
 {
@@ -7,13 +8,13 @@ namespace AmplaData.Binding.Mapping.Modules
         public EnergyModuleMapping()
         {
             // Add Special Field Mappings for Energy fields
-            AddSpecialMapping("StartDateTime", () => new DefaultValueFieldMapping("Start Time", Iso8601UtcNow));
+            AddSpecialMapping("StartDateTime", () => new DefaultValueFieldMapping<DateTime>("Start Time", Iso8601UtcNow));
             AddSpecialMapping("Cause Location", () => new ValidatedModelFieldMapping("Cause Location", StringIsNotNullOrEmpty));
             AddSpecialMapping("Cause", () => new ValidatedModelFieldMapping("Cause", IsValidIdValue)); 
             AddSpecialMapping("Classification", () => new ValidatedModelFieldMapping("Classification", IsValidIdValue));
 
             // Add a required field mapping for Energy fields
-            AddRequiredMapping("StartDateTime", () => new DefaultValueFieldMapping("Start Time", Iso8601UtcNow));
+            AddRequiredMapping("StartDateTime", () => new RequiredFieldMapping<DateTime>("Start Time", Iso8601UtcNow));
 
             AddSupportedOperation(ViewAllowedOperations.AddRecord);
             AddSupportedOperation(ViewAllowedOperations.DeleteRecord);

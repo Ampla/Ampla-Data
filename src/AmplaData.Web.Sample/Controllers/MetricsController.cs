@@ -5,7 +5,7 @@ namespace AmplaData.Web.Sample.Controllers
 {
     public class MetricsController : ReadOnlyRepositoryController<MetricsModel>
     {
-        public MetricsController(IRepository<MetricsModel> repository)
+        public MetricsController(IReadOnlyRepository<MetricsModel> repository)
             : base(repository)
         {
         }

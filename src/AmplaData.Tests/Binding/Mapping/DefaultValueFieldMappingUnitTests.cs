@@ -22,7 +22,7 @@ namespace AmplaData.Binding.Mapping
         [Test]
         public void ResolveValueWithInvalidValue()
         {
-            DefaultValueFieldMapping fieldMapping = new DefaultValueFieldMapping("Field", () => "Default");
+            DefaultValueFieldMapping<string> fieldMapping = new DefaultValueFieldMapping<string>("Field", () => "Default");
 
             Model model = new Model();
 
@@ -37,7 +37,7 @@ namespace AmplaData.Binding.Mapping
         public void ResolveValueWithDefaultValue()
         {
             string defaultValue = new Iso8601DateTimeConverter().ConvertToInvariantString(DateTime.UtcNow);
-            DefaultValueFieldMapping fieldMapping = new DefaultValueFieldMapping("Sample", () => defaultValue);
+            DefaultValueFieldMapping<DateTime> fieldMapping = new DefaultValueFieldMapping<DateTime>("Sample", () => defaultValue);
 
             Model model = new Model {Id = 0};
 
@@ -55,7 +55,7 @@ namespace AmplaData.Binding.Mapping
             DateTime localTime = new DateTime(2001, 01, 26);
             string utcTime = new Iso8601DateTimeConverter().ConvertToInvariantString(localTime);
 
-            DefaultValueFieldMapping fieldMapping = new DefaultValueFieldMapping("Sample", () => "blah");
+            DefaultValueFieldMapping<DateTime> fieldMapping = new DefaultValueFieldMapping<DateTime>("Sample", () => "blah");
            
             Model model = new Model {Id = 0, Sample = localTime};
 

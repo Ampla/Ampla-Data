@@ -43,6 +43,12 @@ namespace AmplaData.Adapters
             return repository.FindByFilter(filters);
         }
 
+        public IList<string> ValidateMapping(TModel example)
+        {
+            Adapt();
+            return repository.ValidateMapping(example);
+        }
+
         public AmplaAuditRecord GetHistory(int id)
         {
             Adapt();

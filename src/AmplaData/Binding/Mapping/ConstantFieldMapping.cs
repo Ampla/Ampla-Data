@@ -1,4 +1,5 @@
-﻿using AmplaData.Binding.ModelData;
+﻿using System;
+using AmplaData.Binding.ModelData;
 
 namespace AmplaData.Binding.Mapping
 {
@@ -38,6 +39,18 @@ namespace AmplaData.Binding.Mapping
         public override bool TryResolveValue<TModel>(IModelProperties<TModel> modelProperties, TModel model, out string value)
         {
             value = Value;
+            return true;
+        }
+
+        public override bool CanMapField<TModel>(IModelProperties<TModel> modelProperties, out string message)
+        {
+            Type propertyType = modelProperties.GetPropertyType(Name);
+            if (Value.GetType() != propertyType)
+            {
+                message = string.Format("Unable to map constant value");
+                return false;
+            }
+            message = null;
             return true;
         }
     }

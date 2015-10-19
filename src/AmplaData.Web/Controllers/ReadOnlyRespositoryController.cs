@@ -5,7 +5,7 @@ using AmplaData.Records;
 namespace AmplaData.Web.Controllers
 {
     [Authorize]
-    public abstract class ReadOnlyRepositoryController<TModel> : BootstrapBaseController where TModel : class, new()
+    public abstract class ReadOnlyRepositoryController<TModel> : BootstrapBaseController, IReadOnlyRepositoryController<TModel> where TModel : class, new()
     {
         protected ReadOnlyRepositoryController(IReadOnlyRepository<TModel> repository)
         {

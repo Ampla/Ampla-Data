@@ -1,4 +1,5 @@
-﻿using AmplaData.Binding.ModelData;
+﻿using System;
+using AmplaData.Binding.ModelData;
 
 namespace AmplaData.Binding.Mapping
 {
@@ -12,7 +13,7 @@ namespace AmplaData.Binding.Mapping
         /// </summary>
         /// <param name="name">The name.</param>
         public IdFieldMapping(string name) : base(name)
-        {  
+        {
         }
 
         /// <summary>
@@ -32,6 +33,18 @@ namespace AmplaData.Binding.Mapping
                 return false;
             }
             return resolved;
+        }
+
+        public override bool CanMapField<TModel>(IModelProperties<TModel> modelProperties, out string message)
+        {
+            Type propertyType = modelProperties.GetPropertyType(Name);
+            if (!typeof (int).IsAssignableFrom(propertyType))
+            {            
+                message = string.Format("{0}.{1} is not a compatible data type ({2}) Ampla field type is {3}.", typeof (TModel), Name, FieldType, typeof(int));
+                return false;
+            }
+            message = null;
+            return true;
         }
     }
 }

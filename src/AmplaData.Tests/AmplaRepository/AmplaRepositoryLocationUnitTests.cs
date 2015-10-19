@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AmplaData.Attributes;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
@@ -129,6 +130,13 @@ namespace AmplaData.AmplaRepository
             LocationModel getModel = Repository.FindById(recordId);
             Assert.That(getModel.Sample, Is.InRange(before, after));
             Assert.That(getModel.Location, Is.EqualTo(Locations[0]));
+        }
+
+        [Test]
+        public void ValidateMappings()
+        {
+            IList<string> messages = Repository.ValidateMapping(new LocationModel { Location = "Enterprise.Site.Area.Point1" });
+            Assert.That(messages, Is.Empty);
         }
 
     }

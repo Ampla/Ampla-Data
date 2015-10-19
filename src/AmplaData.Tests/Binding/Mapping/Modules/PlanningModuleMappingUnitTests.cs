@@ -1,4 +1,5 @@
-﻿using AmplaData.AmplaData2008;
+﻿using System;
+using AmplaData.AmplaData2008;
 using AmplaData.Modules.Planning;
 using NUnit.Framework;
 
@@ -26,13 +27,15 @@ namespace AmplaData.Binding.Mapping.Modules
         [Test]
         public void PlannedStartDateTime()
         {
-            CheckField<DefaultValueFieldMapping>("PlannedStartDateTime", "Planned Start Time", true, true);
+            CheckSpecialField<DefaultValueFieldMapping<DateTime>>("PlannedStartDateTime", "Planned Start Time");
+            CheckRequiredField<RequiredFieldMapping<DateTime>>("PlannedStartDateTime", "Planned Start Time");
         }
 
         [Test]
         public void PlannedEndDateTime()
         {
-            CheckField<DefaultValueFieldMapping>("PlannedEndDateTime", "Planned End Time", true, true);
+            CheckSpecialField<DefaultValueFieldMapping<DateTime>>("PlannedEndDateTime", "Planned End Time");
+            CheckRequiredField<RequiredFieldMapping<DateTime>>("PlannedEndDateTime", "Planned End Time");
         }
 
         [Test]

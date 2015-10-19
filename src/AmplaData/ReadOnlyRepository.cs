@@ -37,14 +37,9 @@ namespace AmplaData
             return repository.FindByFilter(filters);
         }
 
-        public AmplaAuditRecord GetHistory(int id)
+        public IList<string> ValidateMapping(TModel example)
         {
-            return repository.GetHistory(id);
-        }
-
-        public ModelVersions GetVersions(int id)
-        {
-            return repository.GetVersions(id);
+            return repository.ValidateMapping(example);
         }
     }
 }

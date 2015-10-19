@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AmplaData.AmplaData2008;
+using AmplaData.Binding.Mapping;
 using AmplaData.Binding.ModelData.Validation;
 
 namespace AmplaData.Binding.ModelData
@@ -59,6 +61,45 @@ namespace AmplaData.Binding.ModelData
         IList<string> GetProperties();
 
         /// <summary>
+        /// Determines whether the property can write to specified type.
+        /// </summary>
+        /// <param name="propertyType">Type of the property.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns></returns>
+        bool CanConvertTo(Type propertyType, string propertyName);
+
+        /// <summary>
+        /// Determines whether the property can convert from the specified type.
+        /// </summary>
+        /// <param name="propertyType">Type of the property.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns></returns>
+        bool CanConvertFrom(Type propertyType, string propertyName);
+
+        /// <summary>
+        /// Gets the type of the property.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns></returns>
+        Type GetPropertyType(string propertyName);
+
+        /// <summary>
+        /// Determines whether this instance can write the specified field mapping.
+        /// </summary>
+        /// <param name="fieldMapping">The field mapping.</param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        bool CanMapField(FieldMapping fieldMapping, out string message);
+        
+        /// <summary>
+        /// Determines whether the specified field can round trip to and from the specified type
+        /// </summary>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <param name="propertyName">The name.</param>
+        /// <returns></returns>
+        bool CanRoundTrip(Type fieldType, string propertyName);
+
+        /// <summary>
         /// Try to get the value of the property from the model as a string
         /// </summary>
         /// <param name="model">The model.</param>
@@ -95,5 +136,7 @@ namespace AmplaData.Binding.ModelData
         /// </summary>
         /// <returns></returns>
         string GetModelName();
+
+
     }
 }

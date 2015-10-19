@@ -565,6 +565,13 @@ namespace AmplaData.AmplaRepository
             Assert.That(versions, Is.Null);
         }
 
+        [Test]
+        public void ValidateMappings()
+        {
+            IList<string> messages = Repository.ValidateMapping(new AreaValueModel());
+            Assert.That(messages, Is.Empty);
+        }
+
         private void AssertAuditField(AmplaAuditSession session, string field, string oldValue, string newValue)
         {
             AmplaAuditField value = new List<AmplaAuditField>(session.Fields).Find(f => f.Name == field);

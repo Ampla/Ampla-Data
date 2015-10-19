@@ -3,11 +3,11 @@ using AmplaData.Binding.ModelData;
 
 namespace AmplaData.Binding.Mapping
 {
-    public class DefaultValueFieldMapping : ModelFieldMapping
+    public class DefaultValueFieldMapping<T> : ModelFieldMapping
     {
         private readonly Func<string> defaultValue;
 
-        public DefaultValueFieldMapping(string name, Func<string> defaultValue) : base(name)
+        public DefaultValueFieldMapping(string name, Func<string> defaultValue) : base(name, typeof(T))
         {
             this.defaultValue = defaultValue;
         }

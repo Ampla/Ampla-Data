@@ -98,6 +98,7 @@
     <Compile Include="BootstrapSupport\Alerts.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BootstrapBaseController.cs" />
+    <Compile Include="Controllers\IReadOnlyRepositoryController.cs" />
     <Compile Include="Controllers\IRepositoryController.cs" />
     <Compile Include="Controllers\ReadOnlyRespositoryController.cs" />
     <Compile Include="Controllers\RespositoryController.cs" />

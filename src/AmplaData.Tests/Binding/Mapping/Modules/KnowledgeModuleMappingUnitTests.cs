@@ -1,4 +1,5 @@
-﻿using AmplaData.AmplaData2008;
+﻿using System;
+using AmplaData.AmplaData2008;
 using AmplaData.Modules.Knowledge;
 using NUnit.Framework;
 
@@ -26,7 +27,8 @@ namespace AmplaData.Binding.Mapping.Modules
         [Test]
         public void SamplePeriod()
         {
-            CheckField<DefaultValueFieldMapping>("SampleDateTime", "Sample Period", true, true);
+            CheckSpecialField<DefaultValueFieldMapping<DateTime>>("SampleDateTime", "Sample Period");
+            CheckRequiredField<RequiredFieldMapping<DateTime>>("SampleDateTime", "Sample Period");
         }
 
         [Test]

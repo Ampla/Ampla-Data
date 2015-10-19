@@ -7,7 +7,7 @@ namespace AmplaData.Binding.Mapping
     {
         private readonly Func<string, bool> validateFunc;
 
-        public ValidatedModelFieldMapping(string name, Func<string, bool> validateFunc) : base(name)
+        public ValidatedModelFieldMapping(string name, Func<string, bool> validateFunc) : base(name, typeof(string))
         {
             this.validateFunc = validateFunc;
         }

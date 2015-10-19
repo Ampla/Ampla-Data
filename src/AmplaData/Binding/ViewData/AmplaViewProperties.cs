@@ -16,6 +16,7 @@ namespace AmplaData.Binding.ViewData
         private readonly ViewPeriodsCollection viewPeriodsCollection = new ViewPeriodsCollection();
         private List<FieldMapping> fieldResolvers = new List<FieldMapping>();
         private readonly IViewPermissions enforcePermissions;
+        
 
         public AmplaViewProperties(IModelProperties<TModel> modelProperties)
         {
@@ -68,6 +69,22 @@ namespace AmplaData.Binding.ViewData
                 modelProperties.TrySetValueFromString(model, field.DisplayName, value);
             }
         }
+
+        /// <summary>
+        /// Validates the permissions for the view
+        /// </summary>
+        /// <returns></returns>
+        public IList<string> ValidateViewPermissions()
+        {
+            IViewPermissions modulePermissions = ModuleMapping.GetModuleMapping(modelProperties.Module).GetSupportedOperations();
+            ValidateViewPermissions validatePermissions = new ValidateViewPermissions(modelProperties.Module.ToString(), permissions,
+                                                                   modulePermissions);
+            validatePermissions.ValidatePermissions();
+
+            return validatePermissions.Messages;
+        }
+
+
 
         /// <summary>
         /// Gets the display name of the field.

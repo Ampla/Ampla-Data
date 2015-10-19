@@ -100,5 +100,25 @@ namespace AmplaData.Dynamic.Binding.ViewData
             }
             return fieldMappings;
         }
+
+        /// <summary>
+        /// Validates the permissions for the view
+        /// </summary>
+        /// <returns></returns>
+        public IList<string> ValidateViewPermissions()
+        {
+            IViewPermissions modulePermissions = ModuleMapping.GetModuleMapping(modelProperties.Module).GetSupportedOperations();
+            ValidateViewPermissions validatePermissions = new ValidateViewPermissions(modelProperties.Module.ToString(), permissions,
+                                                                   modulePermissions);
+            validatePermissions.ValidatePermissions();
+
+            return validatePermissions.Messages;
+        }
+
+
+        public bool ValidateRead(FieldMapping fieldMapping)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

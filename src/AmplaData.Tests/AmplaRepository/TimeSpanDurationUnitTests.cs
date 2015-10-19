@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AmplaData.Attributes;
 using AmplaData.Modules.Production;
 using AmplaData.Records;
@@ -121,5 +122,13 @@ namespace AmplaData.AmplaRepository
             Assert.That(retrieved.Sample, Is.InRange(before, after));
             Assert.That(retrieved.Duration, Is.EqualTo(TimeSpan.FromMinutes(1)));
         }
+
+        [Test]
+        public void ValidateMappings()
+        {
+            IList<string> messages = Repository.ValidateMapping(new TimeSpanModel());
+            Assert.That(messages, Is.Empty);
+        }
+
     }
 }
